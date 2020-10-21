@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BookingTypeController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\RoleController;
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function() {
         Route::resources([
             'document-types' => DocumentTypeController::class,
             'booking-types' => BookingTypeController::class,
+            'customers' => CustomerController::class,
         ]);
     });
 });

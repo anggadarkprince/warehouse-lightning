@@ -15,7 +15,7 @@
                         <div class="flex flex-wrap mb-3 sm:mb-4">
                             <label for="booking_name" class="form-label">{{ __('Booking Name') }}</label>
                             <input id="booking_name" name="booking_name" type="text" class="form-input @error('booking_name') border-red-500 @enderror"
-                                   placeholder="Document type name" value="{{ old('booking_name', $bookingType->booking_name) }}">
+                                   placeholder="Booking type name" value="{{ old('booking_name', $bookingType->booking_name) }}">
                             @error('booking_name') <p class="form-text-error">{{ $message }}</p> @enderror
                         </div>
                     </div>

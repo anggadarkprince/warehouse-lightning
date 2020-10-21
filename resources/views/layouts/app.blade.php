@@ -102,8 +102,16 @@
                             @can('view-any', \App\Models\BookingType::class)
                                 <li>
                                     <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/booking-types*') ? ' text-green-500' : '' }}" href="{{ route('booking-types.index') }}">
-                                        <i class="mdi mdi-file-document-outline mr-2"></i>
+                                        <i class="mdi mdi-clipboard-outline mr-2"></i>
                                         {{ __('Booking Types') }}
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view-any', \App\Models\Customer::class)
+                                <li>
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/customers*') ? ' text-green-500' : '' }}" href="{{ route('customers.index') }}">
+                                        <i class="mdi mdi-account-multiple-outline mr-2"></i>
+                                        {{ __('Customers') }}
                                     </a>
                                 </li>
                             @endcan

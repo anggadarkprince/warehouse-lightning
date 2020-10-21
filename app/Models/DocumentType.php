@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Models\Search\BasicFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DocumentType extends Model
 {
-    use HasFactory, BasicFilter;
+    use HasFactory, BasicFilter, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
