@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +20,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth'])->group(function() {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::middleware('password.confirm')->group(function() {
+        Route::get('account', [AccountController::class, 'index'])->name('account');
+        Route::get('settings', [SettingController::class, 'index'])->name('settings');
+        Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+    });
+
+    Route::resources([
+        'roles' => RoleController::class,
+        'users' => UserController::class,
+    ]);
 });

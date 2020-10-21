@@ -1,0 +1,15 @@
+.alert-green {
+    @apply text-sm text-green-700 bg-green-100 px-5 py-4;
+}
+.alert-orange {
+    @apply text-sm text-orange-500 bg-orange-100 px-5 py-4;
+}
+
+@screen sm {
+    .alert-green {
+        @apply border rounded border-green-400 mb-6;
+    }
+    .alert-orange {
+        @apply border rounded border-orange-400 mb-6;
+    }
+}

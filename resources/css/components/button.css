@@ -1,0 +1,62 @@
+.button-primary {
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-green-100 bg-green-500;
+    @apply text-center;
+    @apply inline-block;
+}
+
+.button-primary:hover {
+    @apply bg-green-600;
+}
+
+.button-blue {
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-blue-100 bg-blue-500;
+    @apply text-center;
+    @apply inline-block;
+}
+
+.button-blue:hover {
+    @apply bg-blue-600;
+}
+
+.button-red {
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-red-100 bg-red-500;
+    @apply text-center;
+    @apply inline-block;
+}
+
+.button-red:hover {
+    @apply bg-red-600;
+}
+
+.button-orange {
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-orange-100 bg-orange-500;
+    @apply text-center;
+    @apply inline-block;
+}
+
+.button-orange:hover {
+    @apply bg-orange-600;
+}
+
+.button-light {
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-gray-700 bg-gray-200;
+    @apply text-center;
+    @apply inline-block;
+}
+
+.button-light:hover {
+    @apply bg-gray-300;
+}
+
+@screen sm {
+    .button-lg {
+        @apply py-3;
+        @apply text-lg;
+    }
+}
+
+.button-sm {
+    @apply py-2 px-3;
+    @apply text-sm;
+    @apply rounded;
+}

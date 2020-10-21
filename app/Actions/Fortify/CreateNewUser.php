@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -20,6 +21,10 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        if (!app_setting(Setting::MANAGEMENT_REGISTRATION, true)) {
+            abort('403');
+        }
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => [
