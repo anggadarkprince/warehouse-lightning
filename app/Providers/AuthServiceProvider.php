@@ -2,9 +2,19 @@
 
 namespace App\Providers;
 
+use App\Models\BookingType;
+use App\Models\Container;
+use App\Models\Customer;
+use App\Models\DocumentType;
+use App\Models\Goods;
 use App\Models\Role;
 use App\Models\Setting;
 use App\Models\User;
+use App\Policies\BookingTypePolicy;
+use App\Policies\ContainerPolicy;
+use App\Policies\CustomerPolicy;
+use App\Policies\DocumentTypePolicy;
+use App\Policies\GoodsPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SettingPolicy;
 use App\Policies\UserPolicy;
@@ -23,6 +33,11 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         User::class => UserPolicy::class,
         Setting::class => SettingPolicy::class,
+        DocumentType::class => DocumentTypePolicy::class,
+        BookingType::class => BookingTypePolicy::class,
+        Customer::class => CustomerPolicy::class,
+        Container::class => ContainerPolicy::class,
+        Goods::class => GoodsPolicy::class,
     ];
 
     /**

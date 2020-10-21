@@ -115,6 +115,22 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('view-any', \App\Models\Container::class)
+                                <li>
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/containers*') ? ' text-green-500' : '' }}" href="{{ route('containers.index') }}">
+                                        <i class="mdi mdi-truck-outline mr-2"></i>
+                                        {{ __('Containers') }}
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view-any', \App\Models\Goods::class)
+                                <li>
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/goods*') ? ' text-green-500' : '' }}" href="{{ route('goods.index') }}">
+                                        <i class="mdi mdi-package-variant mr-2"></i>
+                                        {{ __('Goods') }}
+                                    </a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
@@ -171,9 +187,9 @@
     </div>
     <div id="content-wrapper" class="flex flex-col w-full min-h-screen h-full">
         <div class="flex items-center px-4 py-2 bg-green-500 text-white sm:h-16">
-            <i class="mdi mdi-menu text-xl sm:text-2xl py-1 cursor-pointer sidebar-toggle"></i>
-            <div class="ml-4 opacity-50 select-none" id="search-placeholder">
-                <i class="mdi mdi-magnify text-md mr-1"></i>
+            <i class="mdi mdi-menu text-2xl py-1 cursor-pointer sidebar-toggle"></i>
+            <div class="ml-4 opacity-50 flex items-center select-none" id="search-placeholder">
+                <i class="mdi mdi-magnify text-xl mr-1"></i>
                 <span class="hidden sm:inline-block">Search over the app...</span>
             </div>
             <form action="search" class="flex flex-grow w-auto">
@@ -206,7 +222,7 @@
                 </li>
             </ul>
         </div>
-        <div class="p-4 flex-grow">
+        <div class="sm:p-4 flex-grow">
 
             @if (session('status'))
                 <div class="mb-3 {{ session('status') == 'success' ? 'alert-green' : 'alert-orange' }}" role="alert">

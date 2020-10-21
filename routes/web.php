@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BookingTypeController;
+use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentTypeController;
+use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -46,6 +48,8 @@ Route::middleware(['auth'])->group(function() {
             'document-types' => DocumentTypeController::class,
             'booking-types' => BookingTypeController::class,
             'customers' => CustomerController::class,
+            'containers' => ContainerController::class,
         ]);
+        Route::resource('goods', GoodsController::class, ['parameters' => ['goods' => 'goods']]);
     });
 });

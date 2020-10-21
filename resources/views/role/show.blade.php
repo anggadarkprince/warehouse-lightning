@@ -6,7 +6,7 @@
             <h1 class="text-xl text-green-500">Role</h1>
             <span class="text-gray-400">Account role permission</span>
         </div>
-        <div class="grid sm:grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Role Name</p>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveCustomerRequest;
 use App\Models\Customer;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -105,8 +106,8 @@ class CustomerController extends Controller
      * Remove the specified customer from storage.
      *
      * @param  Customer $customer
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Customer $customer)
     {

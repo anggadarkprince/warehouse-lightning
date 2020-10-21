@@ -31,7 +31,7 @@ class GoodsPolicy
      */
     public function view(User $user, Goods $goods)
     {
-        $this->viewAny($user);
+        return $this->viewAny($user);
     }
 
     /**
