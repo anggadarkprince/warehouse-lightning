@@ -50,16 +50,16 @@
             </li>
             @if(request()->user()->can('view-any', \App\Models\Role::class) || request()->user()->can('view-any', \App\Models\User::class))
                 <li>
-                    <a href="#submenu-user-access" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('groups*') || request()->is('users*') ? ' bg-green-100' : ' collapsed' }}">
+                    <a href="#submenu-user-access" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('user-access*') ? ' bg-green-100' : ' collapsed' }}">
                         <i class="mdi mdi-lock-outline mr-2 pointer-events-none"></i>
                         {{ __('User Access') }}
                         <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
                     </a>
-                    <div id="submenu-user-access" class="sidebar-submenu{{ request()->is('roles*') || request()->is('users*') ? '' : ' submenu-hide' }}">
+                    <div id="submenu-user-access" class="sidebar-submenu{{ request()->is('user-access*') ? '' : ' submenu-hide' }}">
                         <ul class="overflow-hidden flex flex-col pb-2">
                             @can('view-any', \App\Models\Role::class)
                                 <li>
-                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('roles*') ? ' text-green-500' : '' }}" href="{{ route('roles.index') }}">
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('user-access/roles*') ? ' text-green-500' : '' }}" href="{{ route('roles.index') }}">
                                         <i class="mdi mdi-shield-account-outline mr-2"></i>
                                         {{ __('Roles') }}
                                     </a>
@@ -67,7 +67,7 @@
                             @endcan
                             @can('view-any', \App\Models\User::class)
                                 <li>
-                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('users*') ? ' text-green-500' : '' }}" href="{{ route('users.index') }}">
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('user-access/users*') ? ' text-green-500' : '' }}" href="{{ route('users.index') }}">
                                         <i class="mdi mdi-account-multiple-outline mr-2"></i>
                                         {{ __('Users') }}
                                     </a>
@@ -84,18 +84,26 @@
                 || request()->user()->can('view-any', \App\Models\Container::class)
                 || request()->user()->can('view-any', \App\Models\Goods::class))
                 <li>
-                    <a href="#submenu-master" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('document-types*') ? ' bg-green-100' : ' collapsed' }}">
+                    <a href="#submenu-master" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('master*') ? ' bg-green-100' : ' collapsed' }}">
                         <i class="mdi mdi-cube-outline mr-2 pointer-events-none"></i>
                         {{ __('Master') }}
                         <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
                     </a>
-                    <div id="submenu-master" class="sidebar-submenu{{ request()->is('document-types*') ? '' : ' submenu-hide' }}">
+                    <div id="submenu-master" class="sidebar-submenu{{ request()->is('master*') ? '' : ' submenu-hide' }}">
                         <ul class="overflow-hidden flex flex-col pb-2">
                             @can('view-any', \App\Models\DocumentType::class)
                                 <li>
-                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('document-types*') ? ' text-green-500' : '' }}" href="{{ route('document-types.index') }}">
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/document-types*') ? ' text-green-500' : '' }}" href="{{ route('document-types.index') }}">
                                         <i class="mdi mdi-file-document-outline mr-2"></i>
                                         {{ __('Document Types') }}
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view-any', \App\Models\BookingType::class)
+                                <li>
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/booking-types*') ? ' text-green-500' : '' }}" href="{{ route('booking-types.index') }}">
+                                        <i class="mdi mdi-file-document-outline mr-2"></i>
+                                        {{ __('Booking Types') }}
                                     </a>
                                 </li>
                             @endcan

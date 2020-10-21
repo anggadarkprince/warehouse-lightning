@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BookingTypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\RoleController;
@@ -32,9 +33,17 @@ Route::middleware(['auth'])->group(function() {
         Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
     });
 
-    Route::resources([
-        'roles' => RoleController::class,
-        'users' => UserController::class,
-        'document-types' => DocumentTypeController::class,
-    ]);
+    Route::prefix('user-access')->group(function() {
+        Route::resources([
+            'roles' => RoleController::class,
+            'users' => UserController::class,
+        ]);
+    });
+
+    Route::prefix('master')->group(function() {
+        Route::resources([
+            'document-types' => DocumentTypeController::class,
+            'booking-types' => BookingTypeController::class,
+        ]);
+    });
 });
