@@ -31,6 +31,26 @@ class Permission extends Model
     const DOCUMENT_TYPE_EDIT = 'document-type-edit';
     const DOCUMENT_TYPE_DELETE = 'document-type-delete';
 
+    const BOOKING_TYPE_VIEW = 'booking-view';
+    const BOOKING_TYPE_CREATE = 'booking-create';
+    const BOOKING_TYPE_EDIT = 'booking-edit';
+    const BOOKING_TYPE_DELETE = 'booking-delete';
+
+    const CUSTOMER_VIEW = 'customer-view';
+    const CUSTOMER_CREATE = 'customer-create';
+    const CUSTOMER_EDIT = 'customer-edit';
+    const CUSTOMER_DELETE = 'customer-delete';
+
+    const CONTAINER_VIEW = 'container-view';
+    const CONTAINER_CREATE = 'container-create';
+    const CONTAINER_EDIT = 'container-edit';
+    const CONTAINER_DELETE = 'container-delete';
+
+    const GOODS_VIEW = 'goods-view';
+    const GOODS_CREATE = 'goods-create';
+    const GOODS_EDIT = 'goods-edit';
+    const GOODS_DELETE = 'goods-delete';
+
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';
 

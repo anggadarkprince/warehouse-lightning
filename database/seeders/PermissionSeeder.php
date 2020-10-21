@@ -49,6 +49,91 @@ class PermissionSeeder extends Seeder
         );
 
         Permission::firstOrCreate(
+            ['permission' => Permission::DOCUMENT_TYPE_VIEW],
+            ['description' => 'View document type data', 'module' => 'master', 'feature' => 'document-type']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::DOCUMENT_TYPE_CREATE],
+            ['description' => 'Create document type data', 'module' => 'master', 'feature' => 'document-type']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::DOCUMENT_TYPE_EDIT],
+            ['description' => 'Edit document type data', 'module' => 'master', 'feature' => 'document-type']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::DOCUMENT_TYPE_DELETE],
+            ['description' => 'Delete document type data', 'module' => 'master', 'feature' => 'document-type']
+        );
+
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_TYPE_VIEW],
+            ['description' => 'View booking type data', 'module' => 'master', 'feature' => 'booking-type']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_TYPE_CREATE],
+            ['description' => 'Create booking type data', 'module' => 'master', 'feature' => 'booking-type']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_TYPE_EDIT],
+            ['description' => 'Edit booking type data', 'module' => 'master', 'feature' => 'booking-type']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_TYPE_DELETE],
+            ['description' => 'Delete booking type data', 'module' => 'master', 'feature' => 'booking-type']
+        );
+
+        Permission::firstOrCreate(
+            ['permission' => Permission::CUSTOMER_VIEW],
+            ['description' => 'View customer data', 'module' => 'master', 'feature' => 'customer']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::CUSTOMER_CREATE],
+            ['description' => 'Create customer data', 'module' => 'master', 'feature' => 'customer']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::CUSTOMER_EDIT],
+            ['description' => 'Edit customer data', 'module' => 'master', 'feature' => 'customer']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::CUSTOMER_DELETE],
+            ['description' => 'Delete customer data', 'module' => 'master', 'feature' => 'customer']
+        );
+
+        Permission::firstOrCreate(
+            ['permission' => Permission::CONTAINER_VIEW],
+            ['description' => 'View container data', 'module' => 'master', 'feature' => 'container']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::CONTAINER_CREATE],
+            ['description' => 'Create container data', 'module' => 'master', 'feature' => 'container']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::CONTAINER_EDIT],
+            ['description' => 'Edit container data', 'module' => 'master', 'feature' => 'container']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::CONTAINER_DELETE],
+            ['description' => 'Delete container data', 'module' => 'master', 'feature' => 'container']
+        );
+
+        Permission::firstOrCreate(
+            ['permission' => Permission::GOODS_VIEW],
+            ['description' => 'View goods data', 'module' => 'master', 'feature' => 'goods']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::GOODS_CREATE],
+            ['description' => 'Create goods data', 'module' => 'master', 'feature' => 'goods']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::GOODS_EDIT],
+            ['description' => 'Edit goods data', 'module' => 'master', 'feature' => 'goods']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::GOODS_DELETE],
+            ['description' => 'Delete goods data', 'module' => 'master', 'feature' => 'goods']
+        );
+
+        Permission::firstOrCreate(
             ['permission' => Permission::ACCOUNT_EDIT],
             ['description' => 'Edit account data', 'module' => 'preferences', 'feature' => 'account']
         );
