@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -34,5 +35,6 @@ Route::middleware(['auth'])->group(function() {
     Route::resources([
         'roles' => RoleController::class,
         'users' => UserController::class,
+        'document-types' => DocumentTypeController::class,
     ]);
 });

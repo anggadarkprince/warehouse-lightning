@@ -26,6 +26,11 @@ class Permission extends Model
     const USER_EDIT = 'user-edit';
     const USER_DELETE = 'user-delete';
 
+    const DOCUMENT_TYPE_VIEW = 'document-type-view';
+    const DOCUMENT_TYPE_CREATE = 'document-type-create';
+    const DOCUMENT_TYPE_EDIT = 'document-type-edit';
+    const DOCUMENT_TYPE_DELETE = 'document-type-delete';
+
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';
 

@@ -78,6 +78,32 @@
                 </li>
             @endif
 
+            @if(request()->user()->can('view-any', \App\Models\DocumentType::class)
+                || request()->user()->can('view-any', \App\Models\BookingType::class)
+                || request()->user()->can('view-any', \App\Models\Customer::class)
+                || request()->user()->can('view-any', \App\Models\Container::class)
+                || request()->user()->can('view-any', \App\Models\Goods::class))
+                <li>
+                    <a href="#submenu-master" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('document-types*') ? ' bg-green-100' : ' collapsed' }}">
+                        <i class="mdi mdi-cube-outline mr-2 pointer-events-none"></i>
+                        {{ __('Master') }}
+                        <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
+                    </a>
+                    <div id="submenu-master" class="sidebar-submenu{{ request()->is('document-types*') ? '' : ' submenu-hide' }}">
+                        <ul class="overflow-hidden flex flex-col pb-2">
+                            @can('view-any', \App\Models\DocumentType::class)
+                                <li>
+                                    <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('document-types*') ? ' text-green-500' : '' }}" href="{{ route('document-types.index') }}">
+                                        <i class="mdi mdi-file-document-outline mr-2"></i>
+                                        {{ __('Document Types') }}
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+            @endif
+
             <li class="flex items-center py-2 px-5 text-xs text-gray-400">
                 {{ __('PREFERENCES') }} <i class="mdi mdi-arrow-right ml-auto"></i>
             </li>

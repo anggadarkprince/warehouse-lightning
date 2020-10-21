@@ -85,6 +85,6 @@
         {{ $users->withQueryString()->links() }}
     </div>
 
-    @include('user.modal-filter')
+    @include('user.partials.modal-filter')
     @include('partials.modal-delete')
 @endsection
