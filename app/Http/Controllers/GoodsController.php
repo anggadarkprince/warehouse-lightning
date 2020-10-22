@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveGoodsRequest;
+use App\Models\Export\CollectionExporter;
 use App\Models\Goods;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class GoodsController extends Controller
 {
@@ -23,17 +26,24 @@ class GoodsController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return View
+     * @return View|BinaryFileResponse
      */
     public function index(Request $request)
     {
         $goods = Goods::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
-            ->dateTo($request->get('date_to'))
-            ->paginate();
+            ->dateTo($request->get('date_to'));
 
-        return view('goods.index', compact('goods'));
+        if ($request->get('export')) {
+            $exportPath = CollectionExporter::simpleExportToExcel($goods->get(), 'Goods');
+            return response()
+                ->download(Storage::disk('local')->path($exportPath))
+                ->deleteFileAfterSend(true);
+        } else {
+            $goods = $goods->paginate();
+            return view('goods.index', compact('goods'));
+        }
     }
 
     /**
@@ -49,7 +59,7 @@ class GoodsController extends Controller
     /**
      * Store a newly created goods in storage.
      *
-     * @param  SaveGoodsRequest $request
+     * @param SaveGoodsRequest $request
      * @return RedirectResponse
      */
     public function store(SaveGoodsRequest $request)
@@ -65,7 +75,7 @@ class GoodsController extends Controller
     /**
      * Display the specified goods.
      *
-     * @param  Goods $goods
+     * @param Goods $goods
      * @return View
      */
     public function show(Goods $goods)
@@ -76,7 +86,7 @@ class GoodsController extends Controller
     /**
      * Show the form for editing the specified goods.
      *
-     * @param  Goods $goods
+     * @param Goods $goods
      * @return View
      */
     public function edit(Goods $goods)
@@ -87,8 +97,8 @@ class GoodsController extends Controller
     /**
      * Update the specified goods in storage.
      *
-     * @param  SaveGoodsRequest $request
-     * @param  Goods $goods
+     * @param SaveGoodsRequest $request
+     * @param Goods $goods
      * @return RedirectResponse
      */
     public function update(SaveGoodsRequest $request, Goods $goods)
@@ -105,7 +115,7 @@ class GoodsController extends Controller
     /**
      * Remove the specified goods from storage.
      *
-     * @param  Goods $goods
+     * @param Goods $goods
      * @return RedirectResponse
      * @throws Exception
      */

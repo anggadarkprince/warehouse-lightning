@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveContainerRequest;
 use App\Models\Container;
+use App\Models\Export\CollectionExporter;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ContainerController extends Controller
 {
@@ -23,17 +26,24 @@ class ContainerController extends Controller
      * Display a listing of the container.
      *
      * @param Request $request
-     * @return View
+     * @return View|BinaryFileResponse
      */
     public function index(Request $request)
     {
         $containers = Container::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
-            ->dateTo($request->get('date_to'))
-            ->paginate();
+            ->dateTo($request->get('date_to'));
 
-        return view('container.index', compact('containers'));
+        if ($request->get('export')) {
+            $exportPath = CollectionExporter::simpleExportToExcel($containers->get(), 'Containers');
+            return response()
+                ->download(Storage::disk('local')->path($exportPath))
+                ->deleteFileAfterSend(true);
+        } else {
+            $containers = $containers->paginate();
+            return view('container.index', compact('containers'));
+        }
     }
 
     /**

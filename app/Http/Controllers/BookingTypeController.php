@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveBookingTypeRequest;
 use App\Models\BookingType;
+use App\Models\Export\CollectionExporter;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class BookingTypeController extends Controller
 {
@@ -23,17 +26,24 @@ class BookingTypeController extends Controller
      * Display a listing of the booking type.
      *
      * @param Request $request
-     * @return View
+     * @return View|BinaryFileResponse
      */
     public function index(Request $request)
     {
         $bookingTypes = BookingType::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
-            ->dateTo($request->get('date_to'))
-            ->paginate();
+            ->dateTo($request->get('date_to'));
 
-        return view('booking-type.index', compact('bookingTypes'));
+        if ($request->get('export')) {
+            $exportPath = CollectionExporter::simpleExportToExcel($bookingTypes->get(), 'Document types');
+            return response()
+                ->download(Storage::disk('local')->path($exportPath))
+                ->deleteFileAfterSend(true);
+        } else {
+            $bookingTypes = $bookingTypes->paginate();
+            return view('booking-type.index', compact('bookingTypes'));
+        }
     }
 
     /**

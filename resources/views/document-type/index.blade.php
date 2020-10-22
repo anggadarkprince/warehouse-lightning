@@ -11,7 +11,7 @@
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
                     <i class="mdi mdi-tune-vertical-variant"></i>
                 </button>
-                <a href="{{ url()->full() }}&export=1" class="button-blue button-sm text-center">
+                <a href="{{ request()->fullUrlWithQuery(['export' => 1]) }}" class="button-blue button-sm text-center">
                     <i class="mdi mdi-file-download-outline"></i>
                 </a>
                 @can('create', \App\Models\DocumentType::class)

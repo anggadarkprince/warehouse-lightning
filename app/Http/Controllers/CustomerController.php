@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveCustomerRequest;
 use App\Models\Customer;
+use App\Models\Export\CollectionExporter;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CustomerController extends Controller
 {
@@ -23,17 +26,24 @@ class CustomerController extends Controller
      * Display a listing of the customer.
      *
      * @param Request $request
-     * @return View
+     * @return View|BinaryFileResponse
      */
     public function index(Request $request)
     {
         $customers = Customer::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
-            ->dateTo($request->get('date_to'))
-            ->paginate();
+            ->dateTo($request->get('date_to'));
 
-        return view('customer.index', compact('customers'));
+        if ($request->get('export')) {
+            $exportPath = CollectionExporter::simpleExportToExcel($customers->get(), 'Customers');
+            return response()
+                ->download(Storage::disk('local')->path($exportPath))
+                ->deleteFileAfterSend(true);
+        } else {
+            $customers = $customers->paginate();
+            return view('customer.index', compact('customers'));
+        }
     }
 
     /**

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveRoleRequest;
+use App\Models\Export\CollectionExporter;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Throwable;
 
 class RoleController extends Controller
@@ -26,7 +29,7 @@ class RoleController extends Controller
      * Display a listing of the role.
      *
      * @param Request $request
-     * @return View
+     * @return View|BinaryFileResponse
      */
     public function index(Request $request)
     {
@@ -34,10 +37,17 @@ class RoleController extends Controller
             ->q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
-            ->dateTo($request->get('date_to'))
-            ->paginate();
+            ->dateTo($request->get('date_to'));
 
-        return view('role.index', compact('roles'));
+        if ($request->get('export')) {
+            $exportPath = CollectionExporter::simpleExportToExcel($roles->get(), 'Roles');
+            return response()
+                ->download(Storage::disk('local')->path($exportPath))
+                ->deleteFileAfterSend(true);
+        } else {
+            $roles = $roles->paginate();
+            return view('role.index', compact('roles'));
+        }
     }
 
     /**
