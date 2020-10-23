@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveContainerRequest;
 use App\Models\Container;
-use App\Models\Export\CollectionExporter;
+use App\Export\CollectionExporter;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ContainerController extends Controller
 {
@@ -26,9 +27,10 @@ class ContainerController extends Controller
      * Display a listing of the container.
      *
      * @param Request $request
-     * @return View|BinaryFileResponse
+     * @param CollectionExporter $exporter
+     * @return View|BinaryFileResponse|StreamedResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, CollectionExporter $exporter)
     {
         $containers = Container::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
@@ -36,10 +38,11 @@ class ContainerController extends Controller
             ->dateTo($request->get('date_to'));
 
         if ($request->get('export')) {
-            $exportPath = CollectionExporter::simpleExportToExcel($containers->get(), 'Containers');
-            return response()
-                ->download(Storage::disk('local')->path($exportPath))
-                ->deleteFileAfterSend(true);
+            return $exporter->streamDownload($containers->cursor(), [
+                'title' => 'Container Data',
+                'fileName' => 'Containers.xlsx',
+                'excludes' => ['id', 'deleted_at'],
+            ]);
         } else {
             $containers = $containers->paginate();
             return view('container.index', compact('containers'));

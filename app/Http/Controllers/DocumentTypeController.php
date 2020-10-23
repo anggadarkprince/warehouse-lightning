@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Export\Exporter;
 use App\Http\Requests\SaveDocumentTypeRequest;
 use App\Models\DocumentType;
-use App\Models\Export\CollectionExporter;
+use App\Export\CollectionExporter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,9 +27,10 @@ class DocumentTypeController extends Controller
      * Display a listing of the document type.
      *
      * @param Request $request
+     * @param CollectionExporter $exporter
      * @return View|BinaryFileResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, CollectionExporter $exporter)
     {
         $documentTypes = DocumentType::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
@@ -36,9 +38,12 @@ class DocumentTypeController extends Controller
             ->dateTo($request->get('date_to'));
 
         if ($request->get('export')) {
-            $exportPath = CollectionExporter::simpleExportToExcel($documentTypes->get(), 'Document types');
+            $exportPath = $exporter->simpleExportToExcel($documentTypes->get(), [
+                'title' => 'Document type data',
+                'excludes' => ['id', 'deleted_at']
+            ]);
             return response()
-                ->download(Storage::disk('local')->path($exportPath))
+                ->download(Storage::disk('local')->path($exportPath), 'Document Type.xlsx')
                 ->deleteFileAfterSend(true);
         } else {
             $documentTypes = $documentTypes->paginate();

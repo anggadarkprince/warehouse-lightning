@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Export\Exporter;
 use App\Http\Requests\SaveRoleRequest;
-use App\Models\Export\CollectionExporter;
+use App\Export\CollectionExporter;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Contracts\View\View;
@@ -40,9 +41,12 @@ class RoleController extends Controller
             ->dateTo($request->get('date_to'));
 
         if ($request->get('export')) {
-            $exportPath = CollectionExporter::simpleExportToExcel($roles->get(), 'Roles');
+            $exportPath = Exporter::simpleExportToExcel($roles->get(), [
+                'title' => 'Role data',
+                'excludes' => ['id', 'deleted_at']
+            ]);
             return response()
-                ->download(Storage::disk('local')->path($exportPath))
+                ->download(Storage::disk('local')->path($exportPath), 'Role.xlsx')
                 ->deleteFileAfterSend(true);
         } else {
             $roles = $roles->paginate();

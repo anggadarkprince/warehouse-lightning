@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Export\Exporter;
 use App\Http\Requests\SaveUserRequest;
-use App\Http\Requests\UpdateUser;
-use App\Models\Export\CollectionExporter;
+use App\Export\CollectionExporter;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -41,9 +41,12 @@ class UserController extends Controller
             ->dateTo($request->get('date_to'));
 
         if ($request->get('export')) {
-            $exportPath = CollectionExporter::simpleExportToExcel($users->get(), 'Users');
+            $exportPath = Exporter::simpleExportToExcel($users->get(), [
+                'title' => 'User data',
+                'excludes' => ['id', 'deleted_at']
+            ]);
             return response()
-                ->download(Storage::disk('local')->path($exportPath))
+                ->download(Storage::disk('local')->path($exportPath), 'User.xlsx')
                 ->deleteFileAfterSend(true);
         } else {
             $users = $users->paginate();

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveCustomerRequest;
 use App\Models\Customer;
-use App\Models\Export\CollectionExporter;
+use App\Export\CollectionExporter;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CustomerController extends Controller
 {
@@ -26,9 +26,10 @@ class CustomerController extends Controller
      * Display a listing of the customer.
      *
      * @param Request $request
-     * @return View|BinaryFileResponse
+     * @param CollectionExporter $exporter
+     * @return View|BinaryFileResponse|StreamedResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, CollectionExporter $exporter)
     {
         $customers = Customer::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
@@ -36,10 +37,11 @@ class CustomerController extends Controller
             ->dateTo($request->get('date_to'));
 
         if ($request->get('export')) {
-            $exportPath = CollectionExporter::simpleExportToExcel($customers->get(), 'Customers');
-            return response()
-                ->download(Storage::disk('local')->path($exportPath))
-                ->deleteFileAfterSend(true);
+            return $exporter->streamDownload($customers->cursor(), [
+                'title' => 'Customer Data',
+                'fileName' => 'Customers.xlsx',
+                'excludes' => ['id', 'deleted_at'],
+            ]);
         } else {
             $customers = $customers->paginate();
             return view('customer.index', compact('customers'));

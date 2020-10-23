@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveGoodsRequest;
-use App\Models\Export\CollectionExporter;
+use App\Export\CollectionExporter;
 use App\Models\Goods;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\LazyCollection;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class GoodsController extends Controller
 {
@@ -26,9 +29,10 @@ class GoodsController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return View|BinaryFileResponse
+     * @param CollectionExporter $exporter
+     * @return View|BinaryFileResponse|StreamedResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, CollectionExporter $exporter)
     {
         $goods = Goods::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
@@ -36,10 +40,11 @@ class GoodsController extends Controller
             ->dateTo($request->get('date_to'));
 
         if ($request->get('export')) {
-            $exportPath = CollectionExporter::simpleExportToExcel($goods->get(), 'Goods');
-            return response()
-                ->download(Storage::disk('local')->path($exportPath))
-                ->deleteFileAfterSend(true);
+            return $exporter->streamDownload($goods->cursor(), [
+                'title' => 'Goods Data',
+                'fileName' => 'Goods.xlsx',
+                'excludes' => ['id', 'deleted_at'],
+            ]);
         } else {
             $goods = $goods->paginate();
             return view('goods.index', compact('goods'));

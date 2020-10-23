@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Export\CollectionExporter;
 use App\Http\Requests\SaveBookingTypeRequest;
 use App\Models\BookingType;
-use App\Models\Export\CollectionExporter;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -26,9 +26,10 @@ class BookingTypeController extends Controller
      * Display a listing of the booking type.
      *
      * @param Request $request
+     * @param CollectionExporter $exporter
      * @return View|BinaryFileResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, CollectionExporter $exporter)
     {
         $bookingTypes = BookingType::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
@@ -36,9 +37,12 @@ class BookingTypeController extends Controller
             ->dateTo($request->get('date_to'));
 
         if ($request->get('export')) {
-            $exportPath = CollectionExporter::simpleExportToExcel($bookingTypes->get(), 'Document types');
+            $exportPath = $exporter->simpleExportToExcel($bookingTypes->get(), [
+                'title' => 'Booking type data',
+                'excludes' => ['id', 'deleted_at']
+            ]);
             return response()
-                ->download(Storage::disk('local')->path($exportPath))
+                ->download(Storage::disk('local')->path($exportPath), 'Booking Type.xlsx')
                 ->deleteFileAfterSend(true);
         } else {
             $bookingTypes = $bookingTypes->paginate();
