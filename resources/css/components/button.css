@@ -8,6 +8,10 @@
     @apply bg-green-600;
 }
 
+.button-primary:disabled {
+    @apply bg-green-400;
+}
+
 .button-blue {
     @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-blue-100 bg-blue-500;
     @apply text-center;
@@ -16,6 +20,10 @@
 
 .button-blue:hover {
     @apply bg-blue-600;
+}
+
+.button-blue:disabled {
+    @apply bg-blue-400;
 }
 
 .button-red {
@@ -28,6 +36,10 @@
     @apply bg-red-600;
 }
 
+.button-red:disabled {
+    @apply bg-red-400;
+}
+
 .button-orange {
     @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-orange-100 bg-orange-500;
     @apply text-center;
@@ -38,6 +50,10 @@
     @apply bg-orange-600;
 }
 
+.button-orange:disabled {
+    @apply bg-orange-400;
+}
+
 .button-light {
     @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-gray-700 bg-gray-200;
     @apply text-center;
@@ -46,6 +62,10 @@
 
 .button-light:hover {
     @apply bg-gray-300;
+}
+
+.button-light:disabled {
+    @apply bg-gray-100;
 }
 
 @screen sm {

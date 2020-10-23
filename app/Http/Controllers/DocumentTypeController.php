@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Export\Exporter;
+use App\Exports\Exporter;
 use App\Http\Requests\SaveDocumentTypeRequest;
 use App\Models\DocumentType;
-use App\Export\CollectionExporter;
+use App\Exports\CollectionExporter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

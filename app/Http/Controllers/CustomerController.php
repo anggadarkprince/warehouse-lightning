@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveCustomerRequest;
 use App\Models\Customer;
-use App\Export\CollectionExporter;
+use App\Exports\CollectionExporter;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

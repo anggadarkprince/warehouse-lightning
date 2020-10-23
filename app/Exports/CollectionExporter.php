@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Export;
+namespace App\Exports;
 
 use Exception;
 use Illuminate\Support\Collection;

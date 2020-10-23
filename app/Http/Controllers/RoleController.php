@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Export\Exporter;
+use App\Exports\Exporter;
 use App\Http\Requests\SaveRoleRequest;
-use App\Export\CollectionExporter;
+use App\Exports\CollectionExporter;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Contracts\View\View;

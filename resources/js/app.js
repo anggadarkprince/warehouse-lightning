@@ -7,5 +7,6 @@ require('./widgets/input-file');
 require('./widgets/input-numeric');
 
 require('./modules/delete');
+require('./modules/form');
 
 require('./pages/setting');

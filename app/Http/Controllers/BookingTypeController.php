@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Export\CollectionExporter;
+use App\Exports\CollectionExporter;
 use App\Http\Requests\SaveBookingTypeRequest;
 use App\Models\BookingType;
 use Exception;

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white rounded shadow px-6 py-4">
-        <div class="flex justify-between items-center mb-3">
+    <div class="bg-white rounded shadow py-4">
+        <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">User Role</h1>
                 <span class="text-gray-400">Account role permission</span>
@@ -73,7 +73,9 @@
             @endforelse
             </tbody>
         </table>
-        {{ $roles->withQueryString()->links() }}
+        <div class="px-6">
+            {{ $roles->withQueryString()->links() }}
+        </div>
     </div>
 
     @include('role.partials.modal-filter')

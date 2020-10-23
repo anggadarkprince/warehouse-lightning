@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white rounded shadow px-6 py-4">
-        <div class="flex justify-between items-center mb-3">
+    <div class="bg-white rounded shadow py-4">
+        <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Container</h1>
                 <span class="text-gray-400">Manage all container</span>
@@ -73,7 +73,9 @@
             @endforelse
             </tbody>
         </table>
-        {{ $containers->withQueryString()->links() }}
+        <div class="px-6">
+            {{ $containers->withQueryString()->links() }}
+        </div>
     </div>
 
     @include('container.partials.modal-filter')

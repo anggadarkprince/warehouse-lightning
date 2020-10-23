@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Export\CollectionExporter;
+use App\Exports\CollectionExporter;
 use Illuminate\Support\ServiceProvider;
 
 class ExporterServiceProvider extends ServiceProvider
