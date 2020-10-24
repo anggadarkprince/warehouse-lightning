@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\CollectionExporter;
+use App\Models\BookingType;
+use App\Models\Customer;
 use App\Models\Upload;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -51,11 +53,14 @@ class UploadController extends Controller
     /**
      * Show the form for creating a new document.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $bookingTypes = BookingType::all();
+
+        return view('uploads.create', compact('customers', 'bookingTypes'));
     }
 
     /**
