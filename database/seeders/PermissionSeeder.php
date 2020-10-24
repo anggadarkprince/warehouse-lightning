@@ -134,6 +134,23 @@ class PermissionSeeder extends Seeder
         );
 
         Permission::firstOrCreate(
+            ['permission' => Permission::UPLOAD_VIEW],
+            ['description' => 'View upload data', 'module' => 'document', 'feature' => 'upload']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::UPLOAD_CREATE],
+            ['description' => 'Create upload data', 'module' => 'document', 'feature' => 'upload']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::UPLOAD_EDIT],
+            ['description' => 'Edit upload data', 'module' => 'document', 'feature' => 'upload']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::UPLOAD_DELETE],
+            ['description' => 'Delete upload data', 'module' => 'document', 'feature' => 'upload']
+        );
+
+        Permission::firstOrCreate(
             ['permission' => Permission::ACCOUNT_EDIT],
             ['description' => 'Edit account data', 'module' => 'preferences', 'feature' => 'account']
         );

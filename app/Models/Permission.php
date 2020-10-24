@@ -51,6 +51,11 @@ class Permission extends Model
     const GOODS_EDIT = 'goods-edit';
     const GOODS_DELETE = 'goods-delete';
 
+    const UPLOAD_VIEW = 'upload-view';
+    const UPLOAD_CREATE = 'upload-create';
+    const UPLOAD_EDIT = 'upload-edit';
+    const UPLOAD_DELETE = 'upload-delete';
+
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';
 

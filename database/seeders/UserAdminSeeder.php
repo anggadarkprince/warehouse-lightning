@@ -16,11 +16,14 @@ class UserAdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Admin',
-            'email' => 'admin@warehouse.app',
-            'password' => Hash::make('admin'),
-            'created_at' => Carbon::now()->toDateTimeString()
-        ]);
+        $admin = DB::table('users')->where('email', 'admin@warehouse.app')->get();
+        if ($admin->isEmpty()) {
+            DB::table('users')->insert([
+                'name' => 'Admin',
+                'email' => 'admin@warehouse.app',
+                'password' => Hash::make('admin'),
+                'created_at' => Carbon::now()->toDateTimeString()
+            ]);
+        }
     }
 }

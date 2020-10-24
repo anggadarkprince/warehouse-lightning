@@ -4,6 +4,9 @@
 .alert-orange {
     @apply text-sm text-orange-500 bg-orange-100 px-5 py-4;
 }
+.alert-red {
+    @apply text-sm text-red-500 bg-red-100 px-5 py-4;
+}
 
 @screen sm {
     .alert-green {
@@ -11,5 +14,8 @@
     }
     .alert-orange {
         @apply border rounded border-orange-400 mb-6;
+    }
+    .alert-red {
+        @apply border rounded border-red-400 mb-6;
     }
 }

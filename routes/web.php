@@ -9,6 +9,9 @@ use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\UploadDocumentController;
+use App\Http\Controllers\UploadDocumentFileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +55,10 @@ Route::middleware(['auth'])->group(function() {
         ]);
         Route::resource('goods', GoodsController::class, ['parameters' => ['goods' => 'goods']]);
     });
+
+    Route::resource('uploads', UploadController::class);
+    Route::get('uploads/{upload}/documents/{document}/download', [UploadDocumentController::class, 'download'])->name('uploads.documents.download');
+    Route::resource('uploads.documents', UploadDocumentController::class)->except(['index', 'edit', 'update']);
+    Route::get('uploads/{upload}/documents/{document}/files/{file}/download', [UploadDocumentFileController::class, 'download'])->name('uploads.documents.files.download');
+
 });
