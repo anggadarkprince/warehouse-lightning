@@ -1,0 +1,22 @@
+.litepicker .container__months {
+    @apply shadow;
+}
+
+.litepicker .container__days {
+    padding-bottom: 1rem;
+}
+
+.litepicker .container__days .day-item.is-today {
+    @apply text-green-500;
+}
+
+.litepicker .container__days .day-item:hover {
+    @apply border-green-500;
+    @apply text-green-500;
+    box-shadow: inset 0 0 0 1px rgb(72, 187, 120);
+}
+
+.litepicker .container__days .day-item.is-start-date,
+.litepicker .container__days .day-item.is-end-date {
+    @apply bg-green-500;
+}

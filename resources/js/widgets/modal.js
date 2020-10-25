@@ -30,3 +30,32 @@ window.addEventListener('click', function (event) {
         }
     }
 });
+
+window.initModal = function(modal) {
+    modal.open = function() {
+        modal.style.display = "block";
+        document.body.classList.add('overflow-hidden');
+    };
+
+    modal.close = function() {
+        modal.style.display = "none";
+        document.body.classList.remove('overflow-hidden');
+    };
+
+    return modal;
+};
+
+window.initModalInfo = function(modal, modalMessage = '', modalSubMessage = '', modalTitle = 'Info') {
+    initModal(modal);
+
+    modal.open = function(message = modalMessage, subMessage = modalSubMessage, title = modalTitle) {
+        modal.querySelector('.modal-info-title').innerHTML = title;
+        modal.querySelector('.modal-info-message').innerHTML = message;
+        modal.querySelector('.modal-info-sub-message').innerHTML = subMessage;
+
+        modal.style.display = "block";
+        document.body.classList.add('overflow-hidden');
+    };
+
+    return modal;
+};

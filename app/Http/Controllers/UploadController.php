@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\CollectionExporter;
 use App\Models\BookingType;
 use App\Models\Customer;
+use App\Models\DocumentType;
 use App\Models\Upload;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -59,8 +60,9 @@ class UploadController extends Controller
     {
         $customers = Customer::all();
         $bookingTypes = BookingType::all();
+        $documentTypes = DocumentType::all();
 
-        return view('uploads.create', compact('customers', 'bookingTypes'));
+        return view('uploads.create', compact('customers', 'bookingTypes', 'documentTypes'));
     }
 
     /**

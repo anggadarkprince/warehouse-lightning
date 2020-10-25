@@ -1,4 +1,4 @@
-const forms = document.querySelectorAll('form');
+const forms = document.querySelectorAll('form:not(.static-form)');
 forms.forEach(form => {
     form.addEventListener('submit', function () {
         if ((form.valid && form.valid()) || !form.valid) {

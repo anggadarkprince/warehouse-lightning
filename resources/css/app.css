@@ -6,6 +6,8 @@
 @import "components/alert.css";
 @import "components/modal.css";
 
+@import "vendors/litepicker.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
