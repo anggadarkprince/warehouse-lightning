@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\CollectionExporter;
+use App\Http\Requests\SaveUploadRequest;
+use App\Http\Requests\UploadFileRequest;
 use App\Models\BookingType;
 use App\Models\Customer;
 use App\Models\DocumentType;
@@ -13,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -73,15 +76,15 @@ class UploadController extends Controller
     /**
      * Store a newly created document in storage.
      *
-     * @param Request $request
-     * @return RedirectResponse
+     * @param SaveUploadRequest $request
+     * @return Response|RedirectResponse
      */
-    public function store(Request $request)
+    public function store(SaveUploadRequest $request)
     {
         return DB::transaction(function () use ($request) {
             $upload = Upload::create($request->input());
 
-            foreach ($request->input('documents') as &$document) {
+            foreach ($request->input('documents') as $document) {
                 $document['document_date'] = Carbon::parse($document['document_date'])->format('Y-m-d');
                 $uploadDocument = $upload->uploadDocuments()->create($document);
 
@@ -127,11 +130,11 @@ class UploadController extends Controller
     /**
      * Update the specified document in storage.
      *
-     * @param Request $request
+     * @param SaveUploadRequest $request
      * @param Upload $upload
-     * @return \Illuminate\Http\Response
+     * @return Response|RedirectResponse
      */
-    public function update(Request $request, Upload $upload)
+    public function update(SaveUploadRequest $request, Upload $upload)
     {
         return DB::transaction(function () use ($request, $upload) {
             $upload->fill($request->input());
@@ -168,6 +171,12 @@ class UploadController extends Controller
         });
     }
 
+    /**
+     * Move uploaded temp file into proper folder and return destination src and file name.
+     *
+     * @param $file
+     * @return array
+     */
     private function moveUploadedFile($file)
     {
         $moveFileTo = 'documents/' . date('Y/m/') . basename($file['src']);
@@ -180,7 +189,7 @@ class UploadController extends Controller
                 $file['file_name'] = basename($file['src']);
             }
         } else {
-            abort(500, 'Move uploaded file failed');
+            abort(500, __('Move uploaded file failed'));
         }
 
         return [
@@ -209,16 +218,12 @@ class UploadController extends Controller
     /**
      * Upload file into temporary.
      *
-     * @param Request $request
+     * @param UploadFileRequest $request
      * @return JsonResponse|RedirectResponse
      * @throws ValidationException
      */
-    public function upload(Request $request)
+    public function upload(UploadFileRequest $request)
     {
-        $this->validate($request, [
-            'file' => ['required', 'file', 'max:2000', 'mimes:jpeg,jpg,bmp,png,gif,pdf,zip,rar,doc,docx,ppt,txt,xls,xlsx'],
-        ]);
-
         $file = $request->file('file');
         $path = $file->store('temp');
         if ($path === false) {
@@ -249,7 +254,7 @@ class UploadController extends Controller
         } else {
             return redirect()->back()->with([
                 'status' => 'success',
-                'message' => 'File successfully uploaded'
+                'message' => __('File successfully uploaded')
             ]);
         }
     }
