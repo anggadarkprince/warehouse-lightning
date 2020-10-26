@@ -18,7 +18,7 @@
         </div>
         <div class="ml-auto">
             <div class="relative inline-block">
-                <input class="input-file absolute hidden top-0" type="file" multiple name="input_file_{!! $documentTypeId !!}" id="input_file_{!! $documentTypeId !!}">
+                <input class="input-file absolute hidden top-0" type="file" multiple id="input_file_{!! $documentTypeId !!}">
                 <label for="input_file_{!! $documentTypeId !!}" class="button-primary button-sm cursor-pointer">
                     <i class="mdi mdi-plus"></i><span class="hidden sm:inline-block">ADD FILE</span>
                 </label>
@@ -32,11 +32,8 @@
         </div>
     </div>
     <ul class="list-inside pt-2 space-y-1 file-wrapper">
-        <li class="flex items-center file-placeholder">
+        <li class="flex items-center px-2 py-1 rounded border border-2 border-dashed file-placeholder">
             <p class="text-gray-500">Click add file to add document file</p>
-            <button type="button" class="ml-auto button-light px-2 py-1 text-sm text-gray-500" disabled>
-                <i class="mdi mdi-trash-can-outline"></i>
-            </button>
         </li>
     </ul>
     <div class="document-inputs">

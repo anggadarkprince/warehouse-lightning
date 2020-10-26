@@ -7,11 +7,14 @@ use App\Models\BookingType;
 use App\Models\Customer;
 use App\Models\DocumentType;
 use App\Models\Upload;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -70,12 +73,44 @@ class UploadController extends Controller
     /**
      * Store a newly created document in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        return DB::transaction(function () use ($request) {
+            $upload = Upload::create($request->input());
+
+            foreach ($request->input('documents') as &$document) {
+                $document['document_date'] = Carbon::parse($document['document_date'])->format('Y-m-d');
+                $uploadDocument = $upload->uploadDocuments()->create($document);
+
+                $files = data_get($request->input('documents'), $uploadDocument->document_type_id . '.files', []);
+                foreach ($files as $file) {
+                    $moveFileTo = 'documents/' . date('Y/m/') . basename($file['src']);
+                    if (Storage::exists($moveFileTo)) {
+                        Storage::delete($moveFileTo);
+                    }
+                    if (Storage::copy($file['src'], $moveFileTo)) {
+                        $file['src'] = $moveFileTo;
+                        if (empty($file['file_name'])) {
+                            $file['file_name'] = basename($file['src']);
+                        }
+                        $uploadDocument->uploadDocumentFiles()->create([
+                            'src' => $file['src'],
+                            'file_name' => $file['file_name'],
+                        ]);
+                    } else {
+                        abort(500, 'Move uploaded file failed');
+                    }
+                }
+            }
+
+            return redirect()->route('uploads.index')->with([
+                "status" => "success",
+                "message" => "Upload document {$upload->upload_number} successfully created"
+            ]);
+        });
     }
 
     /**
@@ -103,7 +138,7 @@ class UploadController extends Controller
     /**
      * Update the specified document in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Upload $upload
      * @return \Illuminate\Http\Response
      */

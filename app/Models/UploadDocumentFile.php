@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class UploadDocumentFile extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = ['src', 'file_name'];
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool

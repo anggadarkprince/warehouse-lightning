@@ -4,12 +4,14 @@
     </p>
     <div class="flex flex-no-wrap items-center">
         <div class="w-16 sm:w-32 h-3 bg-gray-200 rounded-sm mr-2">
-            <div class="h-3 bg-green-500 rounded-sm upload-progress" style="width: {!! $uploadPercentage ?? '100%' !!};"></div>
+            <div class="h-3 bg-green-500 rounded-sm upload-progress" style="width: {!! $uploadPercentage ?? '100%' !!};" role="progressbar"></div>
         </div>
-        <span class="text-sm text-gray-500 upload-percentage">{!! $uploadPercentage ?? '100%' !!}</span>
+        <span class="text-sm text-gray-500 truncate upload-percentage">
+            {!! $uploadPercentage ?? '100%' !!}
+        </span>
     </div>
-    <button type="button" class="ml-auto button-orange px-2 py-1 text-sm btn-delete-file" disabled>
-        <i class="mdi mdi-trash-can-outline"></i>
+    <button type="button" class="ml-auto button-light px-2 py-1 text-sm btn-delete-file">
+        <i class="mdi mdi-close"></i>
     </button>
     <input type="hidden" name="documents[{!! $documentTypeId !!}][files][{!! $index ?? '' !!}][id]" value="{!! $id ?? '' !!}" class="input-file-id">
     <input type="hidden" name="documents[{!! $documentTypeId !!}][files][{!! $index ?? '' !!}][file_name]" value="{!! $fileName ?? '' !!}" class="input-file-name">

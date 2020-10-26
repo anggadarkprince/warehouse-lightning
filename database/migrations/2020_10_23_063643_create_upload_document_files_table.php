@@ -17,6 +17,7 @@ class CreateUploadDocumentFilesTable extends Migration
             $table->id();
             $table->foreignId('upload_document_id');
             $table->string('src');
+            $table->string('file_name')->nullable();
             $table->timestamp('created_at')->useCurrent();
 
             $table->foreign('upload_document_id')->references('id')->on('upload_documents')->cascadeOnUpdate()->cascadeOnDelete();

@@ -80,6 +80,9 @@
 
         <div id="document-wrapper">
             <!-- document item added here -->
+            <div class="border-dashed border rounded px-6 py-4 mb-4 border-2 document-placeholder" style="border-width: 2px;">
+                <p class="text-gray-500">Click add document to add group document</p>
+            </div>
         </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
