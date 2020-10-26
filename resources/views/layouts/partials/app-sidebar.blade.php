@@ -116,7 +116,7 @@
 
         @can('view-any', \App\Models\Upload::class)
             <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('uploads') ? ' text-green-500' : '' }}" href="{{ route('uploads.index') }}">
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('uploads*') ? ' text-green-500' : '' }}" href="{{ route('uploads.index') }}">
                     <i class="mdi mdi-folder-search-outline mr-2"></i>
                     {{ __('Documents') }}
                 </a>

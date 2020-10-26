@@ -7,11 +7,11 @@
             <div class="h-3 bg-green-500 rounded-sm upload-progress" style="width: {!! $uploadPercentage ?? '100%' !!};" role="progressbar"></div>
         </div>
         <span class="text-sm text-gray-500 truncate upload-percentage">
-            {!! $uploadPercentage ?? '100%' !!}
+            {!! $uploadPercentage ?? 'UPLOADED' !!}
         </span>
     </div>
-    <button type="button" class="ml-auto button-light px-2 py-1 text-sm btn-delete-file">
-        <i class="mdi mdi-close"></i>
+    <button type="button" class="ml-auto {{ isset($id) && !empty($id) ? 'button-orange' : 'button-light' }} px-2 py-1 text-sm btn-delete-file">
+        <i class="mdi {{ isset($id) && !empty($id) ? 'mdi-trash-can-outline' : 'mdi-close' }}"></i>
     </button>
     <input type="hidden" name="documents[{!! $documentTypeId !!}][files][{!! $index ?? '' !!}][id]" value="{!! $id ?? '' !!}" class="input-file-id">
     <input type="hidden" name="documents[{!! $documentTypeId !!}][files][{!! $index ?? '' !!}][file_name]" value="{!! $fileName ?? '' !!}" class="input-file-name">

@@ -87,22 +87,7 @@ class UploadController extends Controller
 
                 $files = data_get($request->input('documents'), $uploadDocument->document_type_id . '.files', []);
                 foreach ($files as $file) {
-                    $moveFileTo = 'documents/' . date('Y/m/') . basename($file['src']);
-                    if (Storage::exists($moveFileTo)) {
-                        Storage::delete($moveFileTo);
-                    }
-                    if (Storage::copy($file['src'], $moveFileTo)) {
-                        $file['src'] = $moveFileTo;
-                        if (empty($file['file_name'])) {
-                            $file['file_name'] = basename($file['src']);
-                        }
-                        $uploadDocument->uploadDocumentFiles()->create([
-                            'src' => $file['src'],
-                            'file_name' => $file['file_name'],
-                        ]);
-                    } else {
-                        abort(500, 'Move uploaded file failed');
-                    }
+                    $uploadDocument->uploadDocumentFiles()->create($this->moveUploadedFile($file));
                 }
             }
 
@@ -128,11 +113,15 @@ class UploadController extends Controller
      * Show the form for editing the specified document.
      *
      * @param Upload $upload
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit(Upload $upload)
     {
-        //
+        $customers = Customer::all();
+        $bookingTypes = BookingType::all();
+        $documentTypes = DocumentType::all();
+
+        return view('uploads.edit', compact('upload', 'customers', 'bookingTypes', 'documentTypes'));
     }
 
     /**
@@ -144,7 +133,60 @@ class UploadController extends Controller
      */
     public function update(Request $request, Upload $upload)
     {
-        //
+        return DB::transaction(function () use ($request, $upload) {
+            $upload->fill($request->input());
+            $upload->save();
+
+            foreach ($request->input('documents') as &$document) {
+                $document['document_date'] = Carbon::parse($document['document_date'])->format('Y-m-d');
+                $uploadDocument = $upload->uploadDocuments()->where('document_type_id', $document['document_type_id'])->first();
+                if (empty($uploadDocument)) {
+                    $uploadDocument = $upload->uploadDocuments()->create($document);
+                } else {
+                    $uploadDocument->fill($document);
+                    $uploadDocument->save();
+                }
+
+                $uploadDocument->uploadDocumentFiles()->delete();
+                $files = data_get($request->input('documents'), $uploadDocument->document_type_id . '.files', []);
+                foreach ($files as $file) {
+                    $newFile = [
+                        'src' => $file['src'],
+                        'file_name' => $file['file_name']
+                    ];
+                    if (empty($file['id'])) {
+                        $newFile = $this->moveUploadedFile($file);
+                    }
+                    $uploadDocument->uploadDocumentFiles()->create($newFile);
+                }
+            }
+
+            return redirect()->route('uploads.index')->with([
+                "status" => "success",
+                "message" => "Upload document {$upload->upload_number} successfully updated"
+            ]);
+        });
+    }
+
+    private function moveUploadedFile($file)
+    {
+        $moveFileTo = 'documents/' . date('Y/m/') . basename($file['src']);
+        if (Storage::exists($moveFileTo)) {
+            Storage::delete($moveFileTo);
+        }
+        if (Storage::move($file['src'], $moveFileTo)) {
+            $file['src'] = $moveFileTo;
+            if (empty($file['file_name'])) {
+                $file['file_name'] = basename($file['src']);
+            }
+        } else {
+            abort(500, 'Move uploaded file failed');
+        }
+
+        return [
+            'src' => $file['src'],
+            'file_name' => $file['file_name'],
+        ];
     }
 
     /**

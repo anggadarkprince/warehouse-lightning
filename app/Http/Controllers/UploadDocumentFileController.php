@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class UploadDocumentFileController extends Controller
 {
     /**
-     * Display the specified resource.
+     * Download the specified resource.
      *
      * @param Upload $upload
      * @param UploadDocument $document
@@ -21,5 +21,18 @@ class UploadDocumentFileController extends Controller
     public function download(Upload $upload, UploadDocument $document, UploadDocumentFile $file)
     {
         return Storage::download($file->src);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Upload $upload
+     * @param UploadDocument $document
+     * @param UploadDocumentFile $file
+     * @return BinaryFileResponse
+     */
+    public function preview(Upload $upload, UploadDocument $document, UploadDocumentFile $file)
+    {
+        return response()->file(storage_path('app/' . $file->src));
     }
 }

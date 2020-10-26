@@ -19,7 +19,7 @@ class CreateUploadDocumentsTable extends Migration
             $table->foreignId('document_type_id');
             $table->string('document_number');
             $table->date('document_date');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->foreign('upload_id')->references('id')->on('uploads')->cascadeOnUpdate()->cascadeOnDelete();

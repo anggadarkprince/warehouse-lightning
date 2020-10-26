@@ -284,6 +284,16 @@ if (formDocument) {
     }
 
     /**
+     * Add listener existing button when initial load such as when Edit or Retry submission
+     */
+    documentWrapper.querySelectorAll('.btn-delete-file').forEach(existingBtnDelete => {
+        existingBtnDelete.addEventListener('click', function () {
+            const fileItem = existingBtnDelete.closest('.file-item');
+            deleteFile(fileItem);
+        });
+    });
+
+    /**
      * Delete individual item of document.
      *
      * @param fileItem

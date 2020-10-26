@@ -14,6 +14,15 @@ class UploadDocument extends Model
     protected $fillable = ['id_upload', 'document_type_id', 'document_number', 'document_date', 'description'];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'document_date' => 'date',
+    ];
+
+    /**
      * Get the upload of the document.
      */
     public function upload()
