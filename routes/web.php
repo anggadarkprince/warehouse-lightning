@@ -61,4 +61,6 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('uploads.documents', UploadDocumentController::class)->except(['index', 'edit', 'update']);
     Route::get('uploads/{upload}/documents/{document}/files/{file}/download', [UploadDocumentFileController::class, 'download'])->name('uploads.documents.files.download');
 
+    Route::post('uploads/file', [UploadController::class, 'upload'])->name('uploads.file');
+
 });

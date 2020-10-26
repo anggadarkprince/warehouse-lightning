@@ -1,3 +1,7 @@
+button:disabled {
+    @apply cursor-default;
+}
+
 .button-primary {
     @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-green-100 bg-green-500;
     @apply text-center;

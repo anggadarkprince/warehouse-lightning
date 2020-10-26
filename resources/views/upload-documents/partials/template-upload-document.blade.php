@@ -18,7 +18,7 @@
         </div>
         <div class="ml-auto">
             <div class="relative inline-block">
-                <input class="input-file absolute hidden top-0" type="file" name="input_file_{!! $documentTypeId !!}" id="input_file_{!! $documentTypeId !!}">
+                <input class="input-file absolute hidden top-0" type="file" multiple name="input_file_{!! $documentTypeId !!}" id="input_file_{!! $documentTypeId !!}">
                 <label for="input_file_{!! $documentTypeId !!}" class="button-primary button-sm cursor-pointer">
                     <i class="mdi mdi-plus"></i><span class="hidden sm:inline-block">ADD FILE</span>
                 </label>

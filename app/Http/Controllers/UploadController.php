@@ -9,8 +9,10 @@ use App\Models\DocumentType;
 use App\Models\Upload;
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -68,7 +70,7 @@ class UploadController extends Controller
     /**
      * Store a newly created document in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -101,7 +103,7 @@ class UploadController extends Controller
     /**
      * Update the specified document in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param Upload $upload
      * @return \Illuminate\Http\Response
      */
@@ -125,5 +127,53 @@ class UploadController extends Controller
             "status" => "warning",
             "message" => "Upload {$upload->upload_number} successfully deleted"
         ]);
+    }
+
+    /**
+     * Upload file into temporary.
+     *
+     * @param Request $request
+     * @return JsonResponse|RedirectResponse
+     * @throws ValidationException
+     */
+    public function upload(Request $request)
+    {
+        $this->validate($request, [
+            'file' => ['required', 'file', 'max:2000', 'mimes:jpeg,jpg,bmp,png,gif,pdf,zip,rar,doc,docx,ppt,txt,xls,xlsx'],
+        ]);
+
+        $file = $request->file('file');
+        $path = $file->store('temp');
+        if ($path === false) {
+            $messages = [
+                'status' => 'failed',
+                'message' => __('Upload file failed, try again later')
+            ];
+            if ($request->acceptsJson()) {
+                return response()->json($messages);
+            } else {
+                return redirect()->back()->with($messages);
+            }
+        }
+
+        $originalName = $file->getClientOriginalName();
+        $extension = $file->extension();
+
+        if ($request->acceptsJson()) {
+            return response()->json([
+                'status' => 'success',
+                'data' => [
+                    'path' => $path,
+                    'uploaded_name' => basename($path),
+                    'original_name' => $originalName,
+                    'extension' => $extension,
+                ]
+            ]);
+        } else {
+            return redirect()->back()->with([
+                'status' => 'success',
+                'message' => 'File successfully uploaded'
+            ]);
+        }
     }
 }

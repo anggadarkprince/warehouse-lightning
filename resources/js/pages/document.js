@@ -1,3 +1,5 @@
+import variables from "../modules/variables";
+
 const formDocument = document.getElementById('form-document');
 
 if (formDocument) {
@@ -124,7 +126,7 @@ if (formDocument) {
             modalFormDocument.querySelector('button[type="submit"]').innerHTML = 'Update Document';
             modalFormDocument.open();
         }
-    }, false);
+    });
 
     /**
      * Delete group of document files, this action will remove
@@ -135,5 +137,132 @@ if (formDocument) {
         if (target.classList.contains('btn-delete-document') || target.parentElement.classList.contains('btn-delete-document')) {
             target.closest('.document-item').remove();
         }
-    }, true);
+    });
+
+    const fileUploadTemplate = document.getElementById('file-upload-template').innerHTML;
+    documentWrapper.addEventListener('change', function (e) {
+        const target = e.target;
+        if (target.classList.contains('input-file')) {
+            const files = e.target.files;
+            const documentItem = target.closest('.document-item');
+            const fileWrapper = documentItem.querySelector('.file-wrapper');
+            if (files && files.length > 0) {
+                fileWrapper.querySelector('.file-placeholder').classList.add('hidden');
+
+                // Loop through all selected files and add template file item into document
+                Array.from(files).forEach((file, fileIndex) => {
+                    const documentTypeId = documentItem.querySelector('.input-document-type-id').value;
+                    const rendered = Mustache.render(fileUploadTemplate, {
+                        file_name: file.name,
+                        upload_percentage: '0%',
+                        index: fileIndex,
+                        document_type_id: documentTypeId,
+                    });
+                    fileWrapper.insertAdjacentHTML('beforeend', rendered);
+
+                    // Build form data
+                    let data = new FormData();
+                    data.append('file', file);
+                    data.append('_token', variables.csrfToken);
+
+                    // Build request and set header
+                    let request = new XMLHttpRequest();
+                    request.open('POST', `${variables.baseUrl}/uploads/file`);
+                    request.setRequestHeader('Accept', 'application/json');
+
+                    // Despite "infamous loop problem" resolved by anonymous function and passing last item to track
+                    // the current uploaded progress
+                    (function (fileItem) {
+                        const uploadPercentageLabel = fileItem.querySelector('.upload-percentage');
+                        const uploadProgressLabel = fileItem.querySelector('.upload-progress');
+
+                        request.upload.onprogress = function (e) {
+                            // upload progress as percentage
+                            let percentCompleted = Math.ceil((e.loaded / e.total) * 100);
+                            uploadPercentageLabel.innerHTML = percentCompleted + '%';
+                            uploadProgressLabel.style.width = percentCompleted + '%';
+                        };
+
+                        // Request finished event
+                        request.addEventListener('load', function (e) {
+                            // HTTP status message (200, 422 etc)
+                            const status = request.status;
+
+                            // request.response holds response from the server
+                            const response = JSON.parse(request.response);
+
+                            if (status === 200) {
+                                uploadPercentageLabel.innerHTML = 'UPLOADED';
+                                fileItem.querySelector('.input-file-src').value = response.data.path;
+                                fileItem.querySelector('.input-file-name').value = response.data.original_name;
+                            } else {
+                                if (request.status === 422) {
+                                    uploadPercentageLabel.innerHTML = response.errors.file.shift() || response.message || 'Upload failed';
+                                } else if (request.status === 404) {
+                                    uploadPercentageLabel.innerHTML = 'Not found';
+                                } else {
+                                    uploadPercentageLabel.innerHTML = 'Upload failed';
+                                }
+                                uploadPercentageLabel.classList.add('text-red-500');
+                            }
+                            fileItem.querySelector('.btn-delete-file').removeAttribute('disabled');
+                        });
+
+                        // Request error event
+                        request.addEventListener('error', function (e) {
+                            uploadPercentageLabel.innerHTML = 'Upload failed';
+                        });
+
+                        // Request abort by user event
+                        request.addEventListener('abort', function (e) {
+                            deleteFile(fileItem);
+                        });
+
+                    }(fileWrapper.lastElementChild));
+
+                    // Send POST request to server
+                    request.send(data);
+                });
+
+                // Reorder input index
+                orderInputFiles(documentItem);
+            }
+        }
+    });
+
+    /**
+     * Delete individual item of document.
+     */
+    documentWrapper.addEventListener('click', function (e) {
+        const target = e.target;
+        if (target.classList.contains('btn-delete-file') || target.parentElement.classList.contains('btn-delete-file')) {
+            deleteFile(target.closest('.file-item'));
+        }
+    });
+
+    function deleteFile(fileItem) {
+        const documentItem = fileItem.closest('.document-item');
+        const fileWrapper = fileItem.closest('.file-wrapper');
+        fileItem.remove();
+        if (fileWrapper.querySelectorAll('.file-item').length === 0) {
+            fileWrapper.querySelector('.file-placeholder').classList.remove('hidden');
+        } else {
+            orderInputFiles(documentItem);
+        }
+    }
+
+    /**
+     * Reorder input files by document.
+     *
+     * @param documentItem
+     */
+    function orderInputFiles(documentItem) {
+        documentItem.querySelectorAll('.file-item').forEach(function (fileItem, index) {
+            fileItem.querySelectorAll('input[name]').forEach(function (input) {
+                const pattern = new RegExp("\\[files\\][([0-9]*\\)?]", "i");
+                const attributeName = input.getAttribute('name').replace(pattern, '[files][' + index + ']');
+                input.setAttribute('name', attributeName);
+            });
+        });
+    }
 }

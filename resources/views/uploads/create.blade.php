@@ -79,70 +79,7 @@
         </div>
 
         <div id="document-wrapper">
-            <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 document-item">
-                <div class="flex items-start justify-between sm:items-center sm:justify-start border-b pb-2">
-                    <div class="flex flex-col flex-grow sm:flex-row sm:items-center">
-                        <div class="lg:w-64 sm:w-1/3 sm:mr-3">
-                            <h3 class="text-xl text-blue-500 document-name">Invoice</h3>
-                            <p class="text-gray-400 text-sm document-description">No description</p>
-                        </div>
-                        <div class="flex flex-row sm:w-1/2">
-                            <div class="text-gray-600 text-sm sm:text-base sm:w-1/2 mr-2 leading-tight">
-                                <p class="text-xs text-gray-400 hidden sm:block">DOCUMENT NUMBER</p>
-                                <p class="document-number">SD342342</p>
-                            </div>
-                            <div class="text-gray-500 text-sm sm:text-gray-600 sm:text-base sm:w-1/2 leading-tight">
-                                <p class="text-xs text-gray-400 hidden sm:block">DOCUMENT DATE</p>
-                                <p class="document-date">28 OCT 2020</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ml-auto">
-                        <div class="relative inline-block">
-                            <input class="input-file absolute hidden top-0" type="file" name="input_file_1" id="input_file_1">
-                            <label for="input_file_1" class="button-primary button-sm cursor-pointer">
-                                <i class="mdi mdi-plus"></i><span class="hidden sm:inline-block">ADD FILE</span>
-                            </label>
-                        </div>
-                        <button type="button" class="button-blue button-sm" id="btn-add-document">
-                            <i class="mdi mdi-square-edit-outline"></i>
-                        </button>
-                        <button type="button" class="button-red button-sm" id="btn-add-document">
-                            <i class="mdi mdi-trash-can-outline"></i>
-                        </button>
-                    </div>
-                </div>
-                <ul class="list-inside pt-2 space-y-1">
-                    <li class="flex items-center">
-                        <p class="file-name w-1/2 text-sm mr-3 truncate lg:w-64 sm:w-1/3 sm:text-base">
-                            1. Roles-20201022045201.xlsx
-                        </p>
-                        <div class="flex flex-no-wrap items-center">
-                            <div class="w-16 sm:w-32 h-3 bg-gray-200 rounded-sm mr-2">
-                                <div class="h-3 bg-green-500 rounded-sm upload-progress" style="width: 50%;"></div>
-                            </div>
-                            <span class="upload-percentage">50%</span>
-                        </div>
-                        <button type="button" class="ml-auto button-orange px-2 py-1 text-sm btn-delete-file">
-                            <i class="mdi mdi-trash-can-outline"></i>
-                        </button>
-                    </li>
-                    <li class="flex items-center">
-                        <p class="file-name w-1/2 text-sm mr-3 truncate lg:w-64 sm:w-1/3 sm:text-base">
-                            2. Goods-20201023013834.xlsx
-                        </p>
-                        <div class="flex flex-no-wrap items-center">
-                            <div class="w-16 sm:w-32 h-3 bg-gray-200 rounded-sm mr-2">
-                                <div class="h-3 bg-green-500 rounded-sm upload-progress" style="width: 50%;"></div>
-                            </div>
-                            <span class="upload-percentage">50%</span>
-                        </div>
-                        <button type="button" class="ml-auto button-orange px-2 py-1 text-sm btn-delete-file">
-                            <i class="mdi mdi-trash-can-outline"></i>
-                        </button>
-                    </li>
-                </ul>
-            </div>
+            <!-- document item added here -->
         </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
