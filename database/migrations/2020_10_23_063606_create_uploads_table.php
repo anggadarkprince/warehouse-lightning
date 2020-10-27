@@ -17,7 +17,7 @@ class CreateUploadsTable extends Migration
             $table->id();
             $table->foreignId('customer_id');
             $table->foreignId('booking_type_id');
-            $table->string('upload_number');
+            $table->string('upload_number')->unique();
             $table->string('upload_title');
             $table->string('status')->default('DRAFT');
             $table->text('description')->nullable();
