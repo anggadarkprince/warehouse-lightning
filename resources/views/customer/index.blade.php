@@ -71,7 +71,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6">No data available</td>
+                    <td class="px-4 py-2" colspan="6">No data available</td>
                 </tr>
             @endforelse
             </tbody>

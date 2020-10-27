@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app_setting('app-language', app()->getLocale())) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +10,9 @@
     <!-- Base Url -->
     <meta name="base-url" content="{{ url('/') }}">
     <meta name="theme-color" content="#48bb78">
+    <meta name="description" content="{{ app_setting('app-description') }}">
+    <meta name="keywords" content="{{ app_setting('app-keywords') }}">
+    <meta name="author" content="{{ app_setting('app-title') }}">
 
     <title>{{ config('app.name', app_setting('app-title')) }}</title>
 
