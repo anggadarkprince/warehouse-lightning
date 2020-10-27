@@ -18,6 +18,9 @@
                     <a href="{{ route('dashboard') }}" class="dropdown-item">
                         <i class="mdi mdi-speedometer mr-2"></i>Dashboard
                     </a>
+                    <a href="{{ route('welcome') }}" class="dropdown-item">
+                        <i class="mdi mdi-home-outline mr-2"></i>Back Home
+                    </a>
                     @can('edit-account', \App\Models\User::class)
                         <a href="{{ route('account') }}" class="dropdown-item">
                             <i class="mdi mdi-account-outline mr-2"></i>Account

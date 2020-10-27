@@ -18,30 +18,34 @@ window.addEventListener('resize', function (event) {
     lastWidth = window.innerWidth;
 });
 
-sidebarToggle.addEventListener('click', function () {
-    sidebarWrapper.classList.toggle('toggled');
-});
+if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', function () {
+        sidebarWrapper.classList.toggle('toggled');
+    });
+}
 
-sidebarWrapper.addEventListener('click', event => {
-    const currentMenu = event.target;
-    if (currentMenu.classList.contains('menu-toggle')) {
-        event.stopPropagation();
-        event.preventDefault();
-        const hrefTarget = currentMenu.getAttribute('href');
-        const submenuTarget = document.querySelector(hrefTarget);
+if (sidebarWrapper) {
+    sidebarWrapper.addEventListener('click', event => {
+        const currentMenu = event.target;
+        if (currentMenu.classList.contains('menu-toggle')) {
+            event.stopPropagation();
+            event.preventDefault();
+            const hrefTarget = currentMenu.getAttribute('href');
+            const submenuTarget = document.querySelector(hrefTarget);
 
-        // toggle height
-        if (submenuTarget.clientHeight > 0) {
-            submenuTarget.style.height = '0';
-        } else {
-            const wrapper = submenuTarget.querySelector('ul');
-            submenuTarget.style.height = wrapper.clientHeight + "px";
+            // toggle height
+            if (submenuTarget.clientHeight > 0) {
+                submenuTarget.style.height = '0';
+            } else {
+                const wrapper = submenuTarget.querySelector('ul');
+                submenuTarget.style.height = wrapper.clientHeight + "px";
+            }
+
+            // toggle menu state
+            currentMenu.classList.toggle('collapsed');
         }
-
-        // toggle menu state
-        currentMenu.classList.toggle('collapsed');
-    }
-});
+    });
+}
 
 // calculate element height that currently open (css transition can read initial height)
 const openSubmenus = document.querySelectorAll('.sidebar-submenu:not(.submenu-hide)');
@@ -54,19 +58,23 @@ if (openSubmenus) {
 
 const searchPlaceholder = document.getElementById('search-placeholder');
 const inputNavbarSearch = document.getElementById('input-navbar-search');
-searchPlaceholder.addEventListener('click', function () {
-    this.classList.add('hidden');
-    inputNavbarSearch.classList.remove('hidden');
-    setTimeout(function() {
-        inputNavbarSearch.classList.add('max-w-md');
-        inputNavbarSearch.classList.add('opacity-100');
+if (searchPlaceholder) {
+    searchPlaceholder.addEventListener('click', function () {
+        this.classList.add('hidden');
+        inputNavbarSearch.classList.remove('hidden');
+        setTimeout(function () {
+            inputNavbarSearch.classList.add('max-w-md');
+            inputNavbarSearch.classList.add('opacity-100');
+        });
+        inputNavbarSearch.focus();
     });
-    inputNavbarSearch.focus();
-});
+}
 
-inputNavbarSearch.addEventListener('focusout', function () {
-    this.classList.add('hidden');
-    this.classList.remove('max-w-md');
-    this.classList.remove('opacity-100');
-    searchPlaceholder.classList.remove('hidden');
-});
+if (inputNavbarSearch) {
+    inputNavbarSearch.addEventListener('focusout', function () {
+        this.classList.add('hidden');
+        this.classList.remove('max-w-md');
+        this.classList.remove('opacity-100');
+        searchPlaceholder.classList.remove('hidden');
+    });
+}

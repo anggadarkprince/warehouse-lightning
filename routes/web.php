@@ -28,7 +28,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::get('/legals', function () {
+    return view('legals.index');
+})->name('legals.index');
+
+Route::get('/privacy', function () {
+    return view('legals.privacy');
+})->name('legals.privacy');
+
+Route::get('/agreement', function () {
+    return view('legals.agreement');
+})->name('legals.agreement');
+
+Route::get('/cookie', function () {
+    return view('legals.cookie');
+})->name('legals.cookie');
+
+Route::get('/sla', function () {
+    return view('legals.sla');
+})->name('legals.sla');
+
 
 Route::middleware(['auth'])->group(function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
