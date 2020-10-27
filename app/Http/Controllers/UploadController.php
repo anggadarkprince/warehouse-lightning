@@ -217,6 +217,23 @@ class UploadController extends Controller
     }
 
     /**
+     * Validate upload.
+     *
+     * @param Upload $upload
+     * @return RedirectResponse
+     */
+    public function validateUpload(Upload $upload)
+    {
+        $upload->status = Upload::STATUS_VALIDATED;
+        $upload->save();
+
+        return redirect()->back()->with([
+            "status" => "success",
+            "message" => "Upload {$upload->upload_number} successfully validated and ready to booked"
+        ]);
+    }
+
+    /**
      * Download documents.
      *
      * @param Upload $upload
@@ -246,7 +263,6 @@ class UploadController extends Controller
      *
      * @param UploadFileRequest $request
      * @return JsonResponse|RedirectResponse
-     * @throws ValidationException
      */
     public function upload(UploadFileRequest $request)
     {

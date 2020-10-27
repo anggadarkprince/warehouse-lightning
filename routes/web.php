@@ -57,11 +57,12 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::post('uploads/file', [UploadController::class, 'upload'])->name('uploads.file');
+    Route::post('uploads/{upload}/validate', [UploadController::class, 'validateUpload'])->name('uploads.validate');
     Route::get('uploads/{upload}/download', [UploadController::class, 'download'])->name('uploads.download');
     Route::resource('uploads', UploadController::class);
 
     Route::get('uploads/{upload}/documents/{document}/download', [UploadDocumentController::class, 'download'])->name('uploads.documents.download');
-    Route::resource('uploads.documents', UploadDocumentController::class)->except(['index', 'edit', 'update']);
+    Route::resource('uploads.documents', UploadDocumentController::class)->only(['show', 'destroy']);
 
     Route::get('uploads/{upload}/documents/{document}/files/{file}/download', [UploadDocumentFileController::class, 'download'])->name('uploads.documents.files.download');
     Route::get('uploads/{upload}/documents/{document}/files/{file}/preview', [UploadDocumentFileController::class, 'preview'])->name('uploads.documents.files.preview');

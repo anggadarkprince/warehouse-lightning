@@ -71,6 +71,9 @@
                                 @endcan
                                 @can('delete', $upload)
                                     <hr class="border-gray-200 my-1">
+                                    <button type="button" data-href="{{ route('uploads.validate', ['upload' => $upload->id]) }}" data-label="{{ $upload->upload_number }}" data-action="validate" class="dropdown-item confirm-submission">
+                                        <i class="mdi mdi-check-all mr-2"></i>Validate
+                                    </button>
                                     <button type="button" data-href="{{ route('uploads.destroy', ['upload' => $upload->id]) }}" data-label="{{ $upload->upload_number }}" class="dropdown-item confirm-delete">
                                         <i class="mdi mdi-trash-can-outline mr-2"></i>Delete
                                     </button>
@@ -93,4 +96,5 @@
 
     @include('uploads.partials.modal-filter')
     @include('partials.modal-delete')
+    @include('partials.modal-confirm')
 @endsection

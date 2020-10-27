@@ -7,43 +7,11 @@ use App\Models\UploadDocument;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UploadDocumentController extends Controller
 {
-    /**
-     * Display a listing of the document.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new document.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created document in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified document.
      *
@@ -54,29 +22,6 @@ class UploadDocumentController extends Controller
     public function show(Upload $upload, UploadDocument $document)
     {
         return view('upload-documents.show', compact('upload', 'document'));
-    }
-
-    /**
-     * Show the form for editing the specified document.
-     *
-     * @param UploadDocument $uploadDocument
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UploadDocument $uploadDocument)
-    {
-        //
-    }
-
-    /**
-     * Update the specified document in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param UploadDocument $uploadDocument
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UploadDocument $uploadDocument)
-    {
-        //
     }
 
     /**

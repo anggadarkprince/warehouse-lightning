@@ -16,6 +16,9 @@ class Upload extends Model
      */
     protected $fillable = ['customer_id', 'booking_type_id', 'upload_title', 'status', 'description'];
 
+    const STATUS_DRAFT = 'DRAFT';
+    const STATUS_VALIDATED = 'VALIDATED';
+
     /**
      * Bootstrap the model and its traits.
      *

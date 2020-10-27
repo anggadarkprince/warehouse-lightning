@@ -5,8 +5,6 @@
             <h3 class="text-xl modal-info-title">Info</h3>
         </div>
         <div class="pt-3">
-            @csrf
-            @method('delete')
             <p class="text-xl modal-info-message"></p>
             <p class="mb-4 text-gray-400 text-sm modal-info-sub-message"></p>
             <div class="border-t border-gray-200 text-right pt-4">
