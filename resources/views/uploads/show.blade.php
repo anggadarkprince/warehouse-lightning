@@ -47,9 +47,14 @@
     </div>
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2">
-            <h1 class="text-xl text-green-500">Documents</h1>
-            <span class="text-gray-400">List of upload documents</span>
+        <div class="mb-2 flex items-center justify-between">
+            <div>
+                <h1 class="text-xl text-green-500">Documents</h1>
+                <span class="text-gray-400">List of upload documents</span>
+            </div>
+            <a href="{{ route('uploads.download', ['upload' => $upload->id]) }}" class="button-primary button-sm">
+                Download All
+            </a>
         </div>
         <table class="table-auto w-full mb-4">
             <thead>

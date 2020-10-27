@@ -7,7 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Base Url -->
+    <meta name="base-url" content="{{ url('/') }}">
+    <meta name="theme-color" content="#48bb78">
+
+    <title>{{ config('app.name', app_setting('app-title')) }}</title>
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -16,8 +20,12 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <!-- Icon -->
+    <link rel="icon" href="<?= url('img/favicon.png') ?>" type="image/x-icon">
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/icon.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app">

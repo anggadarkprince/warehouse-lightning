@@ -9,12 +9,16 @@
 
     <!-- Base Url -->
     <meta name="base-url" content="{{ url('/') }}">
+    <meta name="theme-color" content="#48bb78">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', app_setting('app-title')) }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Icon -->
+    <link rel="icon" href="<?= url('img/favicon.png') ?>" type="image/x-icon">
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">

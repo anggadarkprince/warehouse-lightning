@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use ZipArchive;
 
 class UploadController extends Controller
 {
@@ -213,6 +214,31 @@ class UploadController extends Controller
             "status" => "warning",
             "message" => "Upload {$upload->upload_number} successfully deleted"
         ]);
+    }
+
+    /**
+     * Download documents.
+     *
+     * @param Upload $upload
+     * @return BinaryFileResponse
+     */
+    public function download(Upload $upload)
+    {
+        $zipFile = storage_path("app/exports/temp/{$upload->upload_number}.zip");
+
+        $zip = new ZipArchive();
+        $zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        foreach ($upload->uploadDocuments as $uploadDocument) {
+            foreach ($uploadDocument->uploadDocumentFiles as $file) {
+                $localName = $uploadDocument->documentType->document_name . '/' . ($file->file_name ?: basename($file->src));
+                $zip->addFile(storage_path('app/' . $file->src), $localName);
+            }
+        }
+
+        $zip->close();
+
+        return response()->download($zipFile)->deleteFileAfterSend(true);
     }
 
     /**
