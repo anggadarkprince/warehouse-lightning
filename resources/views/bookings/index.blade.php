@@ -76,9 +76,11 @@
                                 @endcan
                                 @can('delete', $booking)
                                     <hr class="border-gray-200 my-1">
-                                    <button type="button" data-href="{{ route('bookings.validate', ['booking' => $booking->id]) }}" data-label="{{ $booking->booking_number }}" data-action="validate" class="dropdown-item confirm-submission">
-                                        <i class="mdi mdi-check-all mr-2"></i>Validate
-                                    </button>
+                                    @if($booking->status == \App\Models\Booking::STATUS_DRAFT)
+                                        <button type="button" data-href="{{ route('bookings.validate', ['booking' => $booking->id]) }}" data-label="{{ $booking->booking_number }}" data-action="validate" class="dropdown-item confirm-submission">
+                                            <i class="mdi mdi-check-all mr-2"></i>Validate
+                                        </button>
+                                    @endif
                                     <button type="button" data-href="{{ route('bookings.destroy', ['booking' => $booking->id]) }}" data-label="{{ $booking->booking_number }}" class="dropdown-item confirm-delete">
                                         <i class="mdi mdi-trash-can-outline mr-2"></i>Delete
                                     </button>

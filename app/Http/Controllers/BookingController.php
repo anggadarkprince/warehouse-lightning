@@ -95,7 +95,7 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        return view('bookings.view', compact('booking'));
+        return view('bookings.show', compact('booking'));
     }
 
     /**
@@ -106,7 +106,11 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        return view('bookings.edit', compact('booking'));
+        $customers = Customer::all();
+        $uploads = Upload::validated($booking->upload_id)->get();
+        $bookingTypes = BookingType::all();
+
+        return view('bookings.edit', compact('booking', 'customers', 'uploads', 'bookingTypes'));
     }
 
     /**
@@ -122,7 +126,7 @@ class BookingController extends Controller
             $booking->fill($request->input());
             $booking->save();
 
-            return redirect()->route('uploads.index')->with([
+            return redirect()->route('bookings.index')->with([
                 "status" => "success",
                 "message" => "Booking {$booking->booking_number} successfully updated"
             ]);

@@ -17,7 +17,7 @@
                     <p class="text-gray-600">{{ $upload->customer->customer_name }}</p>
                 </div>
                 <div class="flex mb-2">
-                    <p class="w-1/3">Customer</p>
+                    <p class="w-1/3">Booking Type</p>
                     <p class="text-gray-600">{{ $upload->bookingType->booking_name }}</p>
                 </div>
                 <div class="flex mb-2">

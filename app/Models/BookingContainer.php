@@ -17,8 +17,8 @@ class BookingContainer extends Model
     /**
      * Get the container of the booking containers.
      */
-    public function containers()
+    public function container()
     {
-        return $this->hasMany(Container::class);
+        return $this->belongsTo(Container::class);
     }
 }

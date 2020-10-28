@@ -78,11 +78,18 @@ class Upload extends Model
      * Scope a query to filter by validated upload.
      *
      * @param Builder $query
+     * @param null $exceptId
      * @return Builder
      */
-    public function scopeValidated(Builder $query)
+    public function scopeValidated(Builder $query, $exceptId = null)
     {
-        return $query->where('status', self::STATUS_VALIDATED);
+        $baseQuery = $query->where('status', self::STATUS_VALIDATED);
+
+        if (!empty($exceptId)) {
+            $baseQuery->orWhere('id', $exceptId);
+        }
+
+        return $baseQuery;
     }
 
     /**

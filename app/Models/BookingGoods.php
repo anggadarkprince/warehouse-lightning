@@ -16,10 +16,10 @@ class BookingGoods extends Model
     }
 
     /**
-     * Get the container of the booking goods.
+     * Get the goods of the booking goods.
      */
     public function goods()
     {
-        return $this->hasMany(Goods::class);
+        return $this->belongsTo(Goods::class);
     }
 }
