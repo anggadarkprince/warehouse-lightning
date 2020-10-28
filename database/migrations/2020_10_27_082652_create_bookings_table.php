@@ -19,7 +19,7 @@ class CreateBookingsTable extends Migration
             $table->foreignId('customer_id');
             $table->foreignId('booking_type_id');
             $table->string('booking_number', 30)->unique();
-            $table->string('no_reference', 50);
+            $table->string('reference_number', 50);
             $table->string('supplier_name')->nullable();
             $table->string('owner_name')->nullable();
             $table->string('shipper_name')->nullable();

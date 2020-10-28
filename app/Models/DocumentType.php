@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Search\BasicFilter;
+use App\Traits\Search\BasicFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

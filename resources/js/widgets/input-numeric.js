@@ -11,6 +11,11 @@ function setNumericValue(value, prefix = '', ths = '.', dec = ',', thsTarget = '
         currency += separator + thousands.join(thsTarget);
     }
     currency = splitDecimal[1] !== undefined ? currency + decTarget + splitDecimal[1] : currency;
+
+    if (currency === '0') {
+        return '';
+    }
+
     return prefix + (signed ? '-' : '') + currency;
 }
 

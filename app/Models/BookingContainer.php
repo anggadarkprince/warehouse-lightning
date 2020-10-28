@@ -2,10 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BookingContainer extends Model
 {
-    use HasFactory;
+    /**
+     * Get the booking of the container.
+     */
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+    /**
+     * Get the container of the booking containers.
+     */
+    public function containers()
+    {
+        return $this->hasMany(Container::class);
+    }
 }

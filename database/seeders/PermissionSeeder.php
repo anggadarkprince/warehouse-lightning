@@ -151,6 +151,23 @@ class PermissionSeeder extends Seeder
         );
 
         Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_VIEW],
+            ['description' => 'View booking data', 'module' => 'booking', 'feature' => 'booking']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_CREATE],
+            ['description' => 'Create booking data', 'module' => 'booking', 'feature' => 'booking']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_EDIT],
+            ['description' => 'Edit booking data', 'module' => 'booking', 'feature' => 'booking']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_DELETE],
+            ['description' => 'Delete booking data', 'module' => 'booking', 'feature' => 'booking']
+        );
+
+        Permission::firstOrCreate(
             ['permission' => Permission::ACCOUNT_EDIT],
             ['description' => 'Edit account data', 'module' => 'preferences', 'feature' => 'account']
         );

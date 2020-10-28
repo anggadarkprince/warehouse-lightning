@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Models\Search;
+namespace App\Traits\Search;
 
 
 use Carbon\Carbon;

@@ -7,5 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookingGoods extends Model
 {
-    use HasFactory;
+    /**
+     * Get the booking of the goods.
+     */
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+    /**
+     * Get the container of the booking goods.
+     */
+    public function goods()
+    {
+        return $this->hasMany(Goods::class);
+    }
 }

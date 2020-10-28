@@ -123,6 +123,15 @@
             </li>
         @endcan
 
+        @can('view-any', \App\Models\Booking::class)
+            <li>
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('bookings*') ? ' text-green-500' : '' }}" href="{{ route('bookings.index') }}">
+                    <i class="mdi mdi-clipboard-file-outline mr-2"></i>
+                    {{ __('Bookings') }}
+                </a>
+            </li>
+        @endcan
+
         <li class="flex items-center py-2 px-5 text-xs text-gray-400">
             {{ __('PREFERENCES') }} <i class="mdi mdi-arrow-right ml-auto"></i>
         </li>

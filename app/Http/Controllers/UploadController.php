@@ -137,6 +137,13 @@ class UploadController extends Controller
     public function update(SaveUploadRequest $request, Upload $upload)
     {
         return DB::transaction(function () use ($request, $upload) {
+            if ($upload->booking->isNotEmpty()) {
+                $upload->booking()->update([
+                    'booking_type_id' => $request->input('booking_type_id'),
+                    'customer_id' => $request->input('customer_id'),
+                ]);
+            }
+
             $upload->fill($request->input());
             $upload->save();
 

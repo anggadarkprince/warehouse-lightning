@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Search\BasicFilter;
+use App\Traits\Search\BasicFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Upload extends Model
@@ -50,6 +51,14 @@ class Upload extends Model
     }
 
     /**
+     * Get the booking of the upload.
+     */
+    public function booking()
+    {
+        return $this->hasOne(Booking::class);
+    }
+
+    /**
      * Get the documents of the upload.
      */
     public function uploadDocuments()
@@ -63,6 +72,17 @@ class Upload extends Model
     public function uploadDocumentFiles()
     {
         return $this->hasManyThrough(UploadDocumentFile::class, UploadDocument::class);
+    }
+
+    /**
+     * Scope a query to filter by validated upload.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeValidated(Builder $query)
+    {
+        return $query->where('status', self::STATUS_VALIDATED);
     }
 
     /**

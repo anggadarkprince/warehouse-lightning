@@ -56,6 +56,11 @@ class Permission extends Model
     const UPLOAD_EDIT = 'upload-edit';
     const UPLOAD_DELETE = 'upload-delete';
 
+    const BOOKING_VIEW = 'booking-view';
+    const BOOKING_CREATE = 'booking-create';
+    const BOOKING_EDIT = 'booking-edit';
+    const BOOKING_DELETE = 'booking-delete';
+
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';
 

@@ -4,8 +4,8 @@
     <div class="bg-white rounded shadow py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
-                <h1 class="text-xl text-green-500">Uploads</h1>
-                <span class="text-gray-400">Manage upload documents</span>
+                <h1 class="text-xl text-green-500">Bookings</h1>
+                <span class="text-gray-400">Manage booking data</span>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -14,8 +14,8 @@
                 <a href="{{ request()->fullUrlWithQuery(['export' => 1]) }}" class="button-blue button-sm text-center">
                     <i class="mdi mdi-file-download-outline"></i>
                 </a>
-                @can('create', \App\Models\Upload::class)
-                    <a href="{{ route('uploads.create') }}" class="button-blue button-sm">
+                @can('create', \App\Models\Booking::class)
+                    <a href="{{ route('bookings.create') }}" class="button-blue button-sm">
                         Create <i class="mdi mdi-plus-box-outline"></i>
                     </a>
                 @endcan
@@ -25,41 +25,37 @@
             <thead>
             <tr>
                 <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Upload Number</th>
+                <th class="border-b border-t px-4 py-2 text-left">Reference Number</th>
+                <th class="border-b border-t px-4 py-2 text-left">Type</th>
                 <th class="border-b border-t px-4 py-2 text-left">Customer Name</th>
                 <th class="border-b border-t px-4 py-2 text-left">Booking Type</th>
-                <th class="border-b border-t px-4 py-2 text-left">Upload Title</th>
                 <th class="border-b border-t px-4 py-2 text-left">Status</th>
                 <th class="border-b border-t px-4 py-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
             <?php
-                $uploadStatuses = [
+                $bookingStatuses = [
                     'DRAFT' => 'bg-gray-200',
-                    'SUBMITTED' => 'bg-orange-400',
                     'VALIDATED' => 'bg-green-500',
                 ];
             ?>
-            @forelse ($uploads as $index => $upload)
+            @forelse ($bookings as $index => $booking)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
                     <td class="px-4 py-1">
-                        @if(empty($upload->booking))
-                            {{ $upload->upload_number }}
-                        @else
-                            <p class="leading-none mt-1">{{ $upload->upload_number }}</p>
-                            <span class="text-gray-500 text-xs leading-none">
-                                {{ optional($upload->booking)->booking_number }}
-                            </span>
-                        @endif
+                        <p class="leading-none mt-1">{{ $booking->booking_number }}</p>
+                        <span class="text-gray-500 text-xs leading-none">{{ $booking->reference_number }}</span>
                     </td>
-                    <td class="px-4 py-1">{{ $upload->customer->customer_name }}</td>
-                    <td class="px-4 py-1">{{ $upload->bookingType->booking_name ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ $upload->upload_title ?: '-' }}</td>
                     <td class="px-4 py-1">
-                        <span class="px-2 py-1 rounded text-xs {{ $upload->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($uploadStatuses, $upload->status, 'bg-gray-200') }}">
-                            {{ $upload->status }}
+                        <p class="leading-none mt-1">{{ $booking->bookingType->type ?: '-' }}</p>
+                        <span class="text-gray-500 text-xs leading-none">{{ optional($booking->upload)->upload_number ?: 'No upload' }}</span>
+                    </td>
+                    <td class="px-4 py-1">{{ $booking->customer->customer_name ?: '-' }}</td>
+                    <td class="px-4 py-1">{{ $booking->bookingType->booking_name ?: '-' }}</td>
+                    <td class="px-4 py-1">
+                        <span class="px-2 py-1 rounded text-xs {{ $booking->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($bookingStatuses, $booking->status, 'bg-gray-200') }}">
+                            {{ $booking->status }}
                         </span>
                     </td>
                     <td class="px-4 py-1 text-right">
@@ -68,22 +64,22 @@
                                 Action <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                @can('view', $upload)
-                                    <a href="{{ route('uploads.show', ['upload' => $upload->id]) }}" class="dropdown-item">
+                                @can('view', $booking)
+                                    <a href="{{ route('bookings.show', ['booking' => $booking->id]) }}" class="dropdown-item">
                                         <i class="mdi mdi-eye-outline mr-2"></i>View
                                     </a>
                                 @endcan
-                                @can('update', $upload)
-                                    <a href="{{ route('uploads.edit', ['upload' => $upload->id]) }}" class="dropdown-item">
+                                @can('update', $booking)
+                                    <a href="{{ route('bookings.edit', ['booking' => $booking->id]) }}" class="dropdown-item">
                                         <i class="mdi mdi-square-edit-outline mr-2"></i>Edit
                                     </a>
                                 @endcan
-                                @can('delete', $upload)
+                                @can('delete', $booking)
                                     <hr class="border-gray-200 my-1">
-                                    <button type="button" data-href="{{ route('uploads.validate', ['upload' => $upload->id]) }}" data-label="{{ $upload->upload_number }}" data-action="validate" class="dropdown-item confirm-submission">
+                                    <button type="button" data-href="{{ route('bookings.validate', ['booking' => $booking->id]) }}" data-label="{{ $booking->booking_number }}" data-action="validate" class="dropdown-item confirm-submission">
                                         <i class="mdi mdi-check-all mr-2"></i>Validate
                                     </button>
-                                    <button type="button" data-href="{{ route('uploads.destroy', ['upload' => $upload->id]) }}" data-label="{{ $upload->upload_number }}" class="dropdown-item confirm-delete">
+                                    <button type="button" data-href="{{ route('bookings.destroy', ['booking' => $booking->id]) }}" data-label="{{ $booking->booking_number }}" class="dropdown-item confirm-delete">
                                         <i class="mdi mdi-trash-can-outline mr-2"></i>Delete
                                     </button>
                                 @endcan
@@ -93,17 +89,17 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="7">No data available</td>
+                    <td class="px-4 py-2" colspan="6">No data available</td>
                 </tr>
             @endforelse
             </tbody>
         </table>
         <div class="px-6">
-            {{ $uploads->withQueryString()->links() }}
+            {{ $bookings->withQueryString()->links() }}
         </div>
     </div>
 
-    @include('uploads.partials.modal-filter')
+    @include('bookings.partials.modal-filter')
     @include('partials.modal-delete')
     @include('partials.modal-confirm')
 @endsection

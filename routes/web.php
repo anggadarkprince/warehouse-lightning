@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingTypeController;
 use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\CustomerController;
@@ -88,4 +89,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('uploads/{upload}/documents/{document}/files/{file}/download', [UploadDocumentFileController::class, 'download'])->name('uploads.documents.files.download');
     Route::get('uploads/{upload}/documents/{document}/files/{file}/preview', [UploadDocumentFileController::class, 'preview'])->name('uploads.documents.files.preview');
 
+    Route::get('bookings/import', [BookingController::class, 'import'])->name('bookings.import');
+    Route::post('bookings/{booking}/validate', [BookingController::class, 'validateBooking'])->name('bookings.validate');
+    Route::resource('bookings', BookingController::class);
 });
