@@ -6,14 +6,19 @@ use App\Exports\CollectionExporter;
 use App\Http\Requests\SaveBookingRequest;
 use App\Models\Booking;
 use App\Models\BookingType;
+use App\Models\Container;
 use App\Models\Customer;
+use App\Models\Goods;
 use App\Models\Upload;
+use App\Utilities\XmlBookingParser;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -63,10 +68,145 @@ class BookingController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        $uploads = Upload::validated()->get();
+        $uploads = Upload::doesnthave('booking')->validated()->get();
         $bookingTypes = BookingType::all();
 
         return view('bookings.create', compact('customers', 'bookingTypes', 'uploads'));
+    }
+
+    /**
+     * Show form import booking from formatted XML
+     */
+    public function import()
+    {
+        $customers = Customer::all();
+        $uploads = Upload::doesnthave('booking')->validated()->get();
+
+        return view('bookings.import', compact('customers', 'uploads'));
+    }
+
+    /**
+     * Upload and show preview xml file content
+     * @param Request $request
+     * @param XmlBookingParser $bookingParser
+     * @return RedirectResponse|View
+     * @throws ValidationException
+     */
+    public function importPreview(Request $request, XmlBookingParser $bookingParser)
+    {
+        if ($request->isMethod('post')) {
+            $this->validate($request, ['xml' => ['required', 'file', 'max:2000', 'mimes:xml']]);
+
+            $file = $request->file('xml');
+            $path = $file->store('temp');
+            if ($path === false) {
+                return redirect()->back()->with([
+                    'status' => 'failed',
+                    'message' => __('Upload file failed, try again later')
+                ]);
+            }
+            return redirect()->route('bookings.xml-preview', ['file' => base64_encode($path)]);
+        } else {
+            $uploads = Upload::doesnthave('booking')->validated()->get();
+
+            $path = base64_decode($request->get('file'));
+            $booking = $bookingParser->parse(storage_path('app/' . $path));
+
+            if (!empty($booking)) {
+                if (Booking::where('reference_number', $booking['reference_number'])->count()) {
+                    return redirect()->route('bookings.import')->with([
+                        'status' => 'failed',
+                        'message' => __('Booking with reference ' . $booking['reference_number'] . ' already exist')
+                    ]);
+                }
+
+                return view('bookings.preview', compact('booking', 'uploads'));
+            } else {
+                return redirect()->route('bookings.import')->with([
+                    'status' => 'failed',
+                    'message' => __('Invalid xml file')
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Save imported xml.
+     *
+     * @param Request $request
+     * @return Response|RedirectResponse
+     */
+    public function storeImport(Request $request)
+    {
+        $xml = base64_decode($request->input('xml'));
+        $moveXmlTo = 'xml/' . date('Y/m/') . basename($xml);
+        if (Storage::exists($moveXmlTo)) {
+            Storage::delete($moveXmlTo);
+        }
+        if (Storage::copy($xml, $moveXmlTo)) {
+            $request->merge(['xml_file' => $moveXmlTo]);
+        } else {
+            abort(500, __('Move xml file failed'));
+        }
+
+        return DB::transaction(function () use ($request) {
+            $upload = Upload::find($request->input('upload_id'));
+            $request->merge([
+                'customer_id' => $upload->customer_id,
+                'booking_type_id' => $upload->booking_type_id,
+            ]);
+            $booking = Booking::create($request->input());
+
+            if ($request->filled('containers')) {
+                $containers = collect($request->input('containers'))->map(function ($data) {
+                    $container = Container::firstOrCreate(
+                        ['container_number' => $data['container_number']],
+                        ['container_type' => $data['container_type'], 'container_size' => $data['container_size']]
+                    );
+                    return [
+                        'container_id' => $container->id,
+                        'is_empty' => 0,
+                    ];
+                });
+                $booking->bookingContainers()->createMany($containers->toArray());
+            }
+
+            if ($request->filled('goods')) {
+                $goods = collect($request->input('goods'))->map(function ($data) {
+                    $item = Goods::firstOrCreate(
+                        ['item_number' => $data['item_number']],
+                        [
+                            'item_name' => $data['item_name'],
+                            'unit_name' => $data['unit_name'],
+                            'package_name' => $data['package_name'],
+                        ]
+                    );
+                    return [
+                        'goods_id' => $item->id,
+                        'unit_quantity' => $data['unit_quantity'],
+                        'package_quantity' => $data['package_quantity'],
+                        'weight' => $data['weight'],
+                    ];
+                });
+                $booking->bookingGoods()->createMany($goods->toArray());
+            }
+
+            return redirect()->route('bookings.index')->with([
+                "status" => "success",
+                "message" => "Booking {$booking->booking_number} successfully created"
+            ]);
+        });
+    }
+
+    /**
+     * Return uploaded xml file.
+     *
+     * @param Booking $booking
+     * @return BinaryFileResponse
+     */
+    public function xml(Booking $booking)
+    {
+        return response()->file(storage_path('app/' . $booking->xml_file));
     }
 
     /**

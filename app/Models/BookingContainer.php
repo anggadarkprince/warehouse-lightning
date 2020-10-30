@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class BookingContainer extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = ['container_id', 'is_empty', 'seal', 'description'];
+
+    /**
      * Get the booking of the container.
      */
     public function booking()

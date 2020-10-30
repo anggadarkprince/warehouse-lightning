@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class BookingGoods extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = ['goods_id', 'unit_quantity', 'package_quantity', 'weight', 'description'];
+
+    /**
      * Get the booking of the goods.
      */
     public function booking()

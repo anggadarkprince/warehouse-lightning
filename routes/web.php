@@ -90,6 +90,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('uploads/{upload}/documents/{document}/files/{file}/preview', [UploadDocumentFileController::class, 'preview'])->name('uploads.documents.files.preview');
 
     Route::get('bookings/import', [BookingController::class, 'import'])->name('bookings.import');
+    Route::get('bookings/{booking}/xml', [BookingController::class, 'xml'])->name('bookings.xml');
+    Route::match(['get', 'post'], 'bookings/import-preview', [BookingController::class, 'importPreview'])->name('bookings.xml-preview');
+    Route::post('bookings/import', [BookingController::class, 'storeImport'])->name('bookings.store-import');
     Route::post('bookings/{booking}/validate', [BookingController::class, 'validateBooking'])->name('bookings.validate');
     Route::resource('bookings', BookingController::class);
 });

@@ -17,6 +17,9 @@
 .form-input:disabled {
     @apply bg-gray-200 text-gray-500;
 }
+.form-input[readonly] {
+    @apply text-gray-600;
+}
 
 .form-text-error {
     @apply text-sm text-red-500 mt-2;

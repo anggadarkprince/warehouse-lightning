@@ -60,3 +60,16 @@ if (!function_exists('app_setting')) {
         return \App\Models\Setting::item($key, $default);
     }
 }
+
+if (!function_exists('mid_ellipsis')) {
+    /**
+     * Helper get trimmed value.
+     * @param $value
+     * @param int $length
+     * @return array|string
+     */
+    function mid_ellipsis($value, $length = 4)
+    {
+        return substr_replace($value, '...', 4, strlen($value) - ($length * 2));
+    }
+}

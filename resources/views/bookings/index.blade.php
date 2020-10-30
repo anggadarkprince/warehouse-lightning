@@ -15,6 +15,9 @@
                     <i class="mdi mdi-file-download-outline"></i>
                 </a>
                 @can('create', \App\Models\Booking::class)
+                    <a href="{{ route('bookings.import') }}" class="button-red button-sm">
+                        Import <i class="mdi mdi-import"></i>
+                    </a>
                     <a href="{{ route('bookings.create') }}" class="button-blue button-sm">
                         Create <i class="mdi mdi-plus-box-outline"></i>
                     </a>
