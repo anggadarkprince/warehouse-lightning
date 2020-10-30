@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('bookings.store') }}" method="post">
+    <form action="{{ route('bookings.store') }}" method="post" id="form-booking">
         @csrf
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2">
@@ -202,6 +202,38 @@
                     ADD CONTAINER
                 </button>
             </div>
+            <table class="table-auto w-full mb-4">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left"></th>
+                </tr>
+                </thead>
+                <tbody id="container-wrapper">
+                    <tr class="container-placeholder{{ empty(old('containers', [])) ? '' : 'hidden' }}">
+                        <td colspan="8" class="px-4 py-2">{{ __('No data available') }}</td>
+                    </tr>
+                    @foreach(old('containers', []) as $index => $container)
+                        @include('bookings.partials.template-container-row', [
+                            'containerNumber' => $container['container_number'],
+                            'containerSize' => $container['container_size'],
+                            'containerType' => $container['container_type'],
+                            'isEmptyLabel' => $container['is_empty'] ? 'Yes' : 'No',
+                            'isEmpty' => $container['is_empty'],
+                            'seal' => $container['seal'],
+                            'description' => $container['description'],
+                            'containerId' => $container['container_id'],
+                            'index' => $index,
+                        ])
+                    @endforeach
+                </tbody>
+            </table>
         </div>
 
         <div id="container-wrapper">
@@ -233,4 +265,25 @@
             <button type="submit" class="button-primary button-sm">Save Booking</button>
         </div>
     </form>
+
+    <script id="container-row-template" type="x-tmpl-mustache">
+        @include('bookings.partials.template-container-row', [
+            'containerNumber' => '@{{ container_number }}',
+            'containerSize' => '@{{ container_size }}',
+            'containerType' => '@{{ container_type }}',
+            'isEmptyLabel' => '@{{ is_empty_label }}',
+            'isEmpty' => '@{{ is_empty }}',
+            'seal' => '@{{ seal }}',
+            'description' => '@{{ description }}',
+            'containerId' => '@{{ container_id }}',
+        ])
+    </script>
+
+    @include('bookings.partials.modal-form-container')
+    @include('partials.modal-info')
 @endsection
+
+@section('libraries')
+    <script src="https://unpkg.com/mustache@latest"></script>
+@endsection
+

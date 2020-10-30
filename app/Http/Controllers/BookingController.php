@@ -70,8 +70,10 @@ class BookingController extends Controller
         $customers = Customer::all();
         $uploads = Upload::doesnthave('booking')->validated()->get();
         $bookingTypes = BookingType::all();
+        $containers = Container::all();
+        $goods = Goods::all();
 
-        return view('bookings.create', compact('customers', 'bookingTypes', 'uploads'));
+        return view('bookings.create', compact('customers', 'bookingTypes', 'uploads', 'containers', 'goods'));
     }
 
     /**
@@ -219,6 +221,8 @@ class BookingController extends Controller
     {
         return DB::transaction(function () use ($request) {
             $booking = Booking::create($request->input());
+
+            $booking->bookingContainers()->createMany($request->input('containers'));
 
             return redirect()->route('bookings.index')->with([
                 "status" => "success",

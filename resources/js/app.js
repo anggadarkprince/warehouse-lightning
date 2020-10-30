@@ -12,4 +12,5 @@ require('./modules/confirm');
 require('./modules/form');
 
 require('./pages/document');
+require('./pages/booking');
 require('./pages/setting');
