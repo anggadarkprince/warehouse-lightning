@@ -155,34 +155,6 @@
                            placeholder="Total CIF of goods" value="{{ old('total_cif') }}" required maxlength="50">
                     @error('total_cif') <p class="form-text-error">{{ $message }}</p> @enderror
                 </div>
-                <div class="sm:flex -mx-2">
-                    <div class="px-2 sm:w-1/2">
-                        <div class="flex flex-wrap mb-3 sm:mb-4">
-                            <label for="total_gross_weight" class="form-label">{{ __('Total Gross Weight') }}</label>
-                            <div class="flex w-full">
-                                <input id="total_gross_weight" name="total_gross_weight" type="text" class="form-input input-numeric rounded-tr-none rounded-br-none @error('total_gross_weight') border-red-500 @enderror"
-                                       placeholder="Total gross weight of goods" value="{{ old('total_gross_weight') }}" required maxlength="25">
-                                <span class="relative button-light py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent">
-                                    KG
-                                </span>
-                            </div>
-                            @error('total_gross_weight') <p class="form-text-error">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-                    <div class="px-2 sm:w-1/2">
-                        <div class="flex flex-wrap mb-3 sm:mb-4">
-                            <label for="total_weight" class="form-label">{{ __('Total Net Weight') }}</label>
-                            <div class="flex w-full">
-                                <input id="total_weight" name="total_weight" type="text" class="form-input input-numeric rounded-tr-none rounded-br-none @error('total_weight') border-red-500 @enderror"
-                                       placeholder="Total net weight of goods" value="{{ old('total_weight') }}" required maxlength="25">
-                                <span class="relative button-light py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent">
-                                    KG
-                                </span>
-                            </div>
-                            @error('total_weight') <p class="form-text-error">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-                </div>
                 <div class="flex flex-wrap mb-3 sm:mb-4">
                     <label for="description" class="form-label">{{ __('Description') }}</label>
                     <textarea id="description" type="text" class="form-input @error('description') border-red-500 @enderror"
@@ -236,12 +208,6 @@
             </table>
         </div>
 
-        <div id="container-wrapper">
-            <div class="border-dashed border rounded px-6 py-4 mb-4 border-2 container-placeholder">
-                <p class="text-gray-500">Click add container</p>
-            </div>
-        </div>
-
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2 flex justify-between items-center">
                 <div>
@@ -252,12 +218,43 @@
                     ADD GOODS
                 </button>
             </div>
-        </div>
-
-        <div id="goods-wrapper">
-            <div class="border-dashed border rounded px-6 py-4 mb-4 border-2 goods-placeholder">
-                <p class="text-gray-500">Click add goods</p>
-            </div>
+            <table class="table-auto w-full mb-4">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Item Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Quantity') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Quantity') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left"></th>
+                </tr>
+                </thead>
+                <tbody id="goods-wrapper">
+                <tr class="goods-placeholder{{ empty(old('goods', [])) ? '' : 'hidden' }}">
+                    <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
+                </tr>
+                @foreach(old('goods', []) as $index => $item)
+                    @include('bookings.partials.template-goods-row', [
+                        'unitQuantityLabel' => numeric($item['unit_quantity']),
+                        'packageQuantityLabel' => numeric($item['package_quantity']),
+                        'weightLabel' => numeric($item['weight']),
+                        'goodsId' => $item['goods_id'],
+                        'itemName' => $item['item_name'],
+                        'itemNumber' => $item['item_number'],
+                        'unitName' => $item['unit_name'],
+                        'unitQuantity' => $item['unit_quantity'],
+                        'packageName' => $item['package_name'],
+                        'packageQuantity' => $item['package_quantity'],
+                        'weight' => $item['weight'],
+                        'description' => $item['description'],
+                        'index' => $index,
+                    ])
+                @endforeach
+                </tbody>
+            </table>
         </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
@@ -266,24 +263,8 @@
         </div>
     </form>
 
-    <script id="container-row-template" type="x-tmpl-mustache">
-        @include('bookings.partials.template-container-row', [
-            'containerNumber' => '@{{ container_number }}',
-            'containerSize' => '@{{ container_size }}',
-            'containerType' => '@{{ container_type }}',
-            'isEmptyLabel' => '@{{ is_empty_label }}',
-            'isEmpty' => '@{{ is_empty }}',
-            'seal' => '@{{ seal }}',
-            'description' => '@{{ description }}',
-            'containerId' => '@{{ container_id }}',
-        ])
-    </script>
-
     @include('bookings.partials.modal-form-container')
+    @include('bookings.partials.modal-form-goods')
     @include('partials.modal-info')
-@endsection
-
-@section('libraries')
-    <script src="https://unpkg.com/mustache@latest"></script>
 @endsection
 

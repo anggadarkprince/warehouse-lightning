@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\CollectionExporter;
 use App\Http\Requests\SaveBookingRequest;
 use App\Models\Booking;
+use App\Models\BookingContainer;
 use App\Models\BookingType;
 use App\Models\Container;
 use App\Models\Customer;
@@ -220,9 +221,15 @@ class BookingController extends Controller
     public function store(SaveBookingRequest $request)
     {
         return DB::transaction(function () use ($request) {
+            $request->merge([
+                'total_cif' => extract_number($request->total_cif),
+                'total_gross_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
+                'total_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
+            ]);
             $booking = Booking::create($request->input());
 
             $booking->bookingContainers()->createMany($request->input('containers'));
+            $booking->bookingGoods()->createMany($request->input('goods'));
 
             return redirect()->route('bookings.index')->with([
                 "status" => "success",
@@ -253,8 +260,10 @@ class BookingController extends Controller
         $customers = Customer::all();
         $uploads = Upload::validated($booking->upload_id)->get();
         $bookingTypes = BookingType::all();
+        $containers = Container::all();
+        $goods = Goods::all();
 
-        return view('bookings.edit', compact('booking', 'customers', 'uploads', 'bookingTypes'));
+        return view('bookings.edit', compact('booking', 'customers', 'uploads', 'bookingTypes', 'containers', 'goods'));
     }
 
     /**
@@ -267,8 +276,37 @@ class BookingController extends Controller
     public function update(SaveBookingRequest $request, Booking $booking)
     {
         return DB::transaction(function () use ($request, $booking) {
+            $request->merge([
+                'total_cif' => extract_number($request->total_cif),
+                'total_gross_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
+                'total_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
+            ]);
             $booking->fill($request->input());
             $booking->save();
+
+            // sync booking containers
+            $excluded = collect($request->input('containers', []))->filter(function ($container) {
+                return !empty($container['id']);
+            });
+            $booking->bookingContainers()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('containers', []) as $container) {
+                $booking->bookingContainers()->updateOrCreate(
+                    ['id' => data_get($container, 'id')],
+                    $container
+                );
+            }
+
+            // sync booking goods
+            $excluded = collect($request->input('goods', []))->filter(function ($item) {
+                return !empty($item['id']);
+            });
+            $booking->bookingGoods()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('goods', []) as $item) {
+                $booking->bookingGoods()->updateOrCreate(
+                    ['id' => data_get($item, 'id')],
+                    $item
+                );
+            }
 
             return redirect()->route('bookings.index')->with([
                 "status" => "success",

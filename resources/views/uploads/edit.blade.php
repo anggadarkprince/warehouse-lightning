@@ -126,7 +126,3 @@
     @include('upload-documents.partials.modal-form-document')
     @include('partials.modal-info')
 @endsection
-
-@section('libraries')
-    <script src="https://unpkg.com/mustache@latest"></script>
-@endsection

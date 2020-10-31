@@ -20,6 +20,7 @@ class CreateBookingGoodsTable extends Migration
             $table->decimal('unit_quantity', 20, 4)->default(0);
             $table->decimal('package_quantity', 20, 4)->default(0);
             $table->decimal('weight', 20, 4)->default(0);
+            $table->decimal('gross_weight', 20, 4)->default(0);
             $table->text('description')->nullable();
             $table->timestamps();
 

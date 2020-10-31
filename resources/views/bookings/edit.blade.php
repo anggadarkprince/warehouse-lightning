@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('bookings.update', ['booking' => $booking->id]) }}" method="post">
+    <form action="{{ route('bookings.update', ['booking' => $booking->id]) }}" method="post" id="form-booking">
         @csrf
         @method('put')
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
@@ -156,34 +156,6 @@
                            placeholder="Total CIF of goods" value="{{ old('total_cif', numeric($booking->total_cif)) }}" required maxlength="50">
                     @error('total_cif') <p class="form-text-error">{{ $message }}</p> @enderror
                 </div>
-                <div class="sm:flex -mx-2">
-                    <div class="px-2 sm:w-1/2">
-                        <div class="flex flex-wrap mb-3 sm:mb-4">
-                            <label for="total_gross_weight" class="form-label">{{ __('Total Gross Weight') }}</label>
-                            <div class="flex w-full">
-                                <input id="total_gross_weight" name="total_gross_weight" type="text" class="form-input input-numeric rounded-tr-none rounded-br-none @error('total_gross_weight') border-red-500 @enderror"
-                                       placeholder="Total gross weight of goods" value="{{ old('total_gross_weight', numeric($booking->total_gross_weight)) }}" required maxlength="25">
-                                <span class="relative button-light py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent">
-                                    KG
-                                </span>
-                            </div>
-                            @error('total_gross_weight') <p class="form-text-error">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-                    <div class="px-2 sm:w-1/2">
-                        <div class="flex flex-wrap mb-3 sm:mb-4">
-                            <label for="total_weight" class="form-label">{{ __('Total Net Weight') }}</label>
-                            <div class="flex w-full">
-                                <input id="total_weight" name="total_weight" type="text" class="form-input input-numeric rounded-tr-none rounded-br-none @error('total_weight') border-red-500 @enderror"
-                                       placeholder="Total net weight of goods" value="{{ old('total_weight', numeric($booking->total_weight)) }}" required maxlength="25">
-                                <span class="relative button-light py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent">
-                                    KG
-                                </span>
-                            </div>
-                            @error('total_weight') <p class="form-text-error">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-                </div>
                 <div class="flex flex-wrap mb-3 sm:mb-4">
                     <label for="description" class="form-label">{{ __('Description') }}</label>
                     <textarea id="description" type="text" class="form-input @error('description') border-red-500 @enderror"
@@ -203,12 +175,40 @@
                     ADD CONTAINER
                 </button>
             </div>
-        </div>
-
-        <div id="container-wrapper">
-            <div class="border-dashed border rounded px-6 py-4 mb-4 border-2 container-placeholder">
-                <p class="text-gray-500">Click add container</p>
-            </div>
+            <table class="table-auto w-full mb-4">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left"></th>
+                </tr>
+                </thead>
+                <tbody id="container-wrapper">
+                <tr class="container-placeholder{{ empty(old('containers', $booking->bookingContainers->toArray())) ? '' : ' hidden' }}">
+                    <td colspan="8" class="px-4 py-2">{{ __('No data available') }}</td>
+                </tr>
+                @foreach(old('containers', $booking->bookingContainers()->with('container')->get()->toArray()) as $index => $container)
+                    @include('bookings.partials.template-container-row', [
+                        'containerOrder' => $index + 1,
+                        'id' => data_get($container, 'id', ''),
+                        'containerNumber' => data_get($container, 'container_number', data_get($container, 'container.container_number')),
+                        'containerSize' => data_get($container, 'container_size', data_get($container, 'container.container_size')),
+                        'containerType' => data_get($container, 'container_type', data_get($container, 'container.container_type')),
+                        'isEmptyLabel' => data_get($container, 'is_empty') ? 'Yes' : 'No',
+                        'isEmpty' => data_get($container, 'is_empty'),
+                        'seal' => data_get($container, 'seal'),
+                        'description' => data_get($container, 'description'),
+                        'containerId' => data_get($container, 'container_id'),
+                        'index' => $index,
+                    ])
+                @endforeach
+                </tbody>
+            </table>
         </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
@@ -221,12 +221,45 @@
                     ADD GOODS
                 </button>
             </div>
-        </div>
-
-        <div id="goods-wrapper">
-            <div class="border-dashed border rounded px-6 py-4 mb-4 border-2 goods-placeholder">
-                <p class="text-gray-500">Click add goods</p>
-            </div>
+            <table class="table-auto w-full mb-4">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Item Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Quantity') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Quantity') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left"></th>
+                </tr>
+                </thead>
+                <tbody id="goods-wrapper">
+                <tr class="goods-placeholder{{ empty(old('goods', $booking->bookingContainers->toArray())) ? '' : ' hidden' }}">
+                    <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
+                </tr>
+                @foreach(old('goods', $booking->bookingGoods()->with('goods')->get()->toArray()) as $index => $item)
+                    @include('bookings.partials.template-goods-row', [
+                        'goodsOrder' => $index + 1,
+                        'id' => data_get($item, 'id', ''),
+                        'unitQuantityLabel' => numeric(data_get($item, 'unit_quantity')),
+                        'packageQuantityLabel' => numeric(data_get($item, 'package_quantity')),
+                        'weightLabel' => numeric(data_get($item, 'weight')),
+                        'goodsId' => data_get($item, 'goods_id'),
+                        'itemName' => data_get($item, 'item_name', data_get($item, 'goods.item_name')),
+                        'itemNumber' => data_get($item, 'item_number', data_get($item, 'goods.item_number')),
+                        'unitName' => data_get($item, 'unit_name', data_get($item, 'goods.unit_name')),
+                        'unitQuantity' => data_get($item, 'unit_quantity'),
+                        'packageName' => data_get($item, 'package_name', data_get($item, 'goods.package_name')),
+                        'packageQuantity' => data_get($item, 'package_quantity'),
+                        'weight' => data_get($item, 'weight'),
+                        'description' => data_get($item, 'description'),
+                        'index' => $index,
+                    ])
+                @endforeach
+                </tbody>
+            </table>
         </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
@@ -234,4 +267,8 @@
             <button type="submit" class="button-orange button-sm">Update Booking</button>
         </div>
     </form>
+
+    @include('bookings.partials.modal-form-container')
+    @include('bookings.partials.modal-form-goods')
+    @include('partials.modal-info')
 @endsection

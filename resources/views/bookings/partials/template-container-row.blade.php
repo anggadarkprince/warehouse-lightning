@@ -1,5 +1,5 @@
 <tr class="container-item">
-    <td class="px-4 py-1 text-center container-order"></td>
+    <td class="px-4 py-1 text-center container-order">{!! $containerOrder ?? '' !!}</td>
     <td class="px-4 py-1 container-number">{!! $containerNumber ?? '-' !!}</td>
     <td class="px-4 py-1 container-size">{!! $containerSize ?? '-' !!}</td>
     <td class="px-4 py-1 container-type">{!! $containerType ?? '-' !!}</td>
@@ -13,6 +13,7 @@
         <button type="button" class="button-red px-2 py-1 text-sm btn-delete">
             <i class="mdi mdi-trash-can-outline"></i>
         </button>
+        <input type="hidden" name="containers[{!! $index ?? '' !!}][id]" value="{!! $id ?? '' !!}" class="input-id">
         <input type="hidden" name="containers[{!! $index ?? '' !!}][container_id]" value="{!! $containerId !!}" class="input-container-id">
         <input type="hidden" name="containers[{!! $index ?? '' !!}][container_number]" value="{!! $containerNumber !!}" class="input-container-number">
         <input type="hidden" name="containers[{!! $index ?? '' !!}][container_type]" value="{!! $containerType !!}" class="input-container-type">

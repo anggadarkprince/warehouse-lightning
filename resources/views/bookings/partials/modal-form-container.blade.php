@@ -59,3 +59,16 @@
         </form>
     </div>
 </div>
+
+<script id="container-row-template" type="x-tmpl-mustache">
+    @include('bookings.partials.template-container-row', [
+        'containerNumber' => '@{{ container_number }}',
+        'containerSize' => '@{{ container_size }}',
+        'containerType' => '@{{ container_type }}',
+        'isEmptyLabel' => '@{{ is_empty_label }}',
+        'isEmpty' => '@{{ is_empty }}',
+        'seal' => '@{{ seal }}',
+        'description' => '@{{ description }}',
+        'containerId' => '@{{ container_id }}',
+    ])
+</script>

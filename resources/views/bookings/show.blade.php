@@ -91,15 +91,15 @@
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Total CIF') }}</p>
-                    <p class="text-gray-600">{{ $booking->total_cif }}</p>
+                    <p class="text-gray-600">{{ numeric($booking->total_cif) }}</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Total Gross Weight') }}</p>
-                    <p class="text-gray-600">{{ $booking->total_gross_weight }} KG</p>
+                    <p class="text-gray-600">{{ numeric($booking->total_gross_weight) }} KG</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Total Net Weight') }}</p>
-                    <p class="text-gray-600">{{ $booking->total_weight }} KG</p>
+                    <p class="text-gray-600">{{ numeric($booking->total_weight) }} KG</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('XML File') }}</p>
