@@ -258,7 +258,7 @@ class BookingController extends Controller
     public function edit(Booking $booking)
     {
         $customers = Customer::all();
-        $uploads = Upload::validated($booking->upload_id)->get();
+        $uploads = Upload::doesnthave('booking')->validated()->orWhere('id', $booking->upload_id)->get();
         $bookingTypes = BookingType::all();
         $containers = Container::all();
         $goods = Goods::all();
