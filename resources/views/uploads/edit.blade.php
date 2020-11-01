@@ -79,22 +79,24 @@
                     ADD DOCUMENT
                 </button>
             </div>
+            @error('documents.*.document_date') <p class="form-text-error">{{ $message }}</p> @enderror
         </div>
 
         <div id="document-wrapper">
             <!-- document item added here -->
-            <div class="border-dashed border rounded px-6 py-4 mb-4 border-2 document-placeholder{{ $upload->uploadDocuments()->count() ? ' hidden' : '' }}">
+            <div class="border-dashed border rounded px-6 py-4 mb-4 border-2 document-placeholder{{ !empty(old('documents', $upload->uploadDocuments->toArray())) ? ' hidden' : '' }}">
                 <p class="text-gray-500">Click add document to add group document</p>
             </div>
 
-            @foreach($upload->uploadDocuments as $uploadDocument)
+            @foreach(old('documents', $upload->uploadDocuments()->with('uploadDocumentFiles')->with('documentType')->get()->toArray()) as $uploadDocument)
                 @include('upload-documents.partials.template-upload-document', [
-                    'documentTypeId' => $uploadDocument->document_type_id,
-                    'documentName' => $uploadDocument->documentType->document_name,
-                    'documentDescription' => $uploadDocument->description,
-                    'documentNumber' => $uploadDocument->document_number,
-                    'documentDate' => $uploadDocument->document_date->format('d F Y'),
-                    'documentFiles' => $uploadDocument->uploadDocumentFiles->toArray() // convert to array for form submission fallback
+                    'id' => data_get($uploadDocument, 'id'),
+                    'documentTypeId' => data_get($uploadDocument, 'document_type_id'),
+                    'documentName' => data_get($uploadDocument, 'document_name', data_get($uploadDocument, 'document_type.document_name')),
+                    'documentDescription' => data_get($uploadDocument, 'description'),
+                    'documentNumber' => data_get($uploadDocument, 'document_number'),
+                    'documentDate' => \Carbon\Carbon::parse(data_get($uploadDocument, 'document_date'))->format('d F Y'),
+                    'documentFiles' => data_get($uploadDocument, 'files', data_get($uploadDocument, 'upload_document_files'))
                 ])
             @endforeach
         </div>

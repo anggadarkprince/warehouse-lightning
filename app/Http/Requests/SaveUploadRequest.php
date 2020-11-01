@@ -50,6 +50,9 @@ class SaveUploadRequest extends FormRequest
         return [
             'customer_id' => 'Customer name',
             'booking_type_id' => 'Booking type name',
+            'documents.*.files' => 'Document file',
+            'documents.*.files.*.file_name' => 'Source file',
+            'documents.*.files.*.src' => 'Source file',
         ];
     }
 }

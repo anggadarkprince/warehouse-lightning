@@ -9,6 +9,7 @@ use App\Models\BookingType;
 use App\Models\Customer;
 use App\Models\DocumentType;
 use App\Models\Upload;
+use App\Models\UploadDocumentFile;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -25,7 +26,7 @@ use ZipArchive;
 class UploadController extends Controller
 {
     /**
-     * RoleController constructor.
+     * UploadController constructor.
      */
     public function __construct()
     {
@@ -136,8 +137,10 @@ class UploadController extends Controller
      */
     public function update(SaveUploadRequest $request, Upload $upload)
     {
-        return DB::transaction(function () use ($request, $upload) {
-            if ($upload->booking->isNotEmpty()) {
+        $deletedFiles = [];
+
+        DB::transaction(function () use ($request, $upload) {
+            if ($upload->booking->exists()) {
                 $upload->booking()->update([
                     'booking_type_id' => $request->input('booking_type_id'),
                     'customer_id' => $request->input('customer_id'),
@@ -149,33 +152,44 @@ class UploadController extends Controller
 
             foreach ($request->input('documents') as &$document) {
                 $document['document_date'] = Carbon::parse($document['document_date'])->format('Y-m-d');
-                $uploadDocument = $upload->uploadDocuments()->where('document_type_id', $document['document_type_id'])->first();
-                if (empty($uploadDocument)) {
-                    $uploadDocument = $upload->uploadDocuments()->create($document);
-                } else {
-                    $uploadDocument->fill($document);
-                    $uploadDocument->save();
-                }
+                $uploadDocument = $upload->uploadDocuments()->updateOrCreate(
+                    ['document_type_id' => $document['document_type_id']],
+                    $document
+                );
 
-                $uploadDocument->uploadDocumentFiles()->delete();
-                $files = data_get($request->input('documents'), $uploadDocument->document_type_id . '.files', []);
-                foreach ($files as $file) {
-                    $newFile = [
+                // get and delete excluded files
+                $excluded = collect($document['files'])->filter(function ($file) {
+                    return !empty($file['id']);
+                });
+                $deletedFiles = $uploadDocument->uploadDocumentFiles()->whereNotIn('id', $excluded->pluck('id'))->get();
+                UploadDocumentFile::destroy($deletedFiles->pluck('id'));
+
+                foreach ($document['files'] as $file) {
+                    $existingFile = [
                         'src' => $file['src'],
                         'file_name' => $file['file_name']
                     ];
                     if (empty($file['id'])) {
-                        $newFile = $this->moveUploadedFile($file);
+                        $existingFile = $this->moveUploadedFile($file);
                     }
-                    $uploadDocument->uploadDocumentFiles()->create($newFile);
+                    $uploadDocument->uploadDocumentFiles()->updateOrCreate(
+                        ['id' => data_get($file, 'id')],
+                        $existingFile
+                    );
                 }
             }
-
-            return redirect()->route('uploads.index')->with([
-                "status" => "success",
-                "message" => "Upload document {$upload->upload_number} successfully updated"
-            ]);
         });
+
+        foreach ($deletedFiles as $deletedFile) {
+            if (!empty($deletedFile->src)) {
+                Storage::disk('public')->delete($deletedFile->src);
+            }
+        }
+
+        return redirect()->route('uploads.index')->with([
+            "status" => "success",
+            "message" => "Upload document {$upload->upload_number} successfully updated"
+        ]);
     }
 
     /**

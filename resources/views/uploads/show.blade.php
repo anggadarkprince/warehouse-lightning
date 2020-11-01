@@ -73,7 +73,7 @@
                     <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
                     <td class="px-4 py-1">{{ $document->documentType->document_name }}</td>
                     <td class="px-4 py-1">{{ $document->document_number ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ $document->document_date ?: '-' }}</td>
+                    <td class="px-4 py-1">{{ $document->document_date->format('d F Y') ?: '-' }}</td>
                     <td class="px-4 py-1">{{ $document->description ?: '-' }}</td>
                     <td class="px-4 py-1 text-right">
                         <div class="dropdown">

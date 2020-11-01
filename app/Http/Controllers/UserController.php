@@ -159,8 +159,8 @@ class UserController extends Controller
                     $userInput['avatar'] = $path;
 
                     // delete old file
-                    if (!empty($user['avatar'])) {
-                        Storage::disk('public')->delete($user['avatar']);
+                    if (!empty($user->avatar)) {
+                        Storage::disk('public')->delete($user->avatar);
                     }
                 }
 

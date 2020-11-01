@@ -55,4 +55,5 @@
         <input type="hidden" name="documents[{!! $documentTypeId !!}][document_number]" value="{!! $documentNumber !!}" class="input-document-number">
         <input type="hidden" name="documents[{!! $documentTypeId !!}][document_date]" value="{!! $documentDate !!}" class="input-document-date">
     </div>
+    @error('documents.' . $documentTypeId . '.files') <p class="form-text-error">{{ $message }}</p> @enderror
 </div>

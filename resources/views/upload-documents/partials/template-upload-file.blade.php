@@ -10,8 +10,8 @@
             {!! $uploadPercentage ?? 'UPLOADED' !!}
         </span>
     </div>
-    <button type="button" class="ml-auto {{ isset($id) && !empty($id) ? 'button-orange' : 'button-light' }} px-2 py-1 text-sm btn-delete-file">
-        <i class="mdi {{ isset($id) && !empty($id) ? 'mdi-trash-can-outline' : 'mdi-close' }}"></i>
+    <button type="button" class="ml-auto {{ isset($id) && !empty($id) || $uploadPercentage ? 'button-orange' : 'button-light' }} px-2 py-1 text-sm btn-delete-file">
+        <i class="mdi {{ isset($id) && !empty($id) || $uploadPercentage ? 'mdi-trash-can-outline' : 'mdi-close' }}"></i>
     </button>
     <input type="hidden" name="documents[{!! $documentTypeId !!}][files][{!! $index ?? '' !!}][id]" value="{!! $id ?? '' !!}" class="input-file-id">
     <input type="hidden" name="documents[{!! $documentTypeId !!}][files][{!! $index ?? '' !!}][file_name]" value="{!! $fileName ?? '' !!}" class="input-file-name">
