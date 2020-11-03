@@ -141,6 +141,63 @@
             </li>
         @endcan
 
+        <li>
+            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('gate*') ? ' text-green-500' : '' }}" href="{{ route('gate.index') }}">
+                <i class="mdi mdi-boom-gate-down-outline mr-2"></i>
+                {{ __('Gate') }}
+            </a>
+        </li>
+
+        <li>
+            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('tally*') ? ' text-green-500' : '' }}" href="/">
+                <i class="mdi mdi-forklift mr-2"></i>
+                {{ __('Tally') }}
+            </a>
+        </li>
+
+        <li>
+            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('take-stock*') ? ' text-green-500' : '' }}" href="/">
+                <i class="mdi mdi-clipboard-pulse-outline mr-2"></i>
+                {{ __('Take Stock') }}
+            </a>
+        </li>
+
+        <li>
+            <a href="#submenu-report" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('reports*') ? ' bg-green-100' : ' collapsed' }}">
+                <i class="mdi mdi-ballot-outline mr-2 pointer-events-none"></i>
+                {{ __('Report') }}
+                <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
+            </a>
+            <div id="submenu-report" class="sidebar-submenu{{ request()->is('reports*') ? '' : ' submenu-hide' }}">
+                <ul class="overflow-hidden flex flex-col pb-2">
+                    <li>
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/inbound*') ? ' text-green-500' : '' }}" href="/">
+                            <i class="mdi mdi-sort-bool-ascending mr-2"></i>
+                            {{ __('Inbound') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/outbound*') ? ' text-green-500' : '' }}" href="/">
+                            <i class="mdi mdi-sort-bool-descending mr-2"></i>
+                            {{ __('Outbound') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-summary*') ? ' text-green-500' : '' }}" href="/">
+                            <i class="mdi mdi-clipboard-check-outline mr-2"></i>
+                            {{ __('Stock Summary') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-movement*') ? ' text-green-500' : '' }}" href="/">
+                            <i class="mdi mdi-clipboard-text-play-outline mr-2"></i>
+                            {{ __('Stock Movement') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
         <li class="flex items-center py-2 px-5 text-xs text-gray-400">
             {{ __('PREFERENCES') }} <i class="mdi mdi-arrow-right ml-auto"></i>
         </li>

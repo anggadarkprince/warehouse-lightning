@@ -61,6 +61,9 @@
                                     <a href="{{ route('delivery-orders.show', ['delivery_order' => $deliveryOrder->id]) }}" class="dropdown-item">
                                         <i class="mdi mdi-eye-outline mr-2"></i>View
                                     </a>
+                                    <a href="{{ route('delivery-orders.print', ['delivery_order' => $deliveryOrder->id]) }}" class="dropdown-item">
+                                        <i class="mdi mdi-printer mr-2"></i>Print
+                                    </a>
                                 @endcan
                                 @can('update', $deliveryOrder)
                                     <a href="{{ route('delivery-orders.edit', ['delivery_order' => $deliveryOrder->id]) }}" class="dropdown-item">

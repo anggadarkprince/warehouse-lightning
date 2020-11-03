@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\DocumentTypeController;
+use App\Http\Controllers\GateController;
 use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -97,5 +98,8 @@ Route::middleware(['auth'])->group(function() {
     Route::post('bookings/{booking}/validate', [BookingController::class, 'validateBooking'])->name('bookings.validate');
     Route::resource('bookings', BookingController::class);
 
+    Route::get('delivery-orders/{delivery_order}/print', [DeliveryOrderController::class, 'printDeliveryOrder'])->name('delivery-orders.print');
     Route::resource('delivery-orders', DeliveryOrderController::class);
+
+    Route::get('gate', [GateController::class, 'index'])->name('gate.index');
 });

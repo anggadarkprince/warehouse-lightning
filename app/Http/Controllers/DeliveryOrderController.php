@@ -7,6 +7,7 @@ use App\Http\Requests\SaveDeliveryOrderRequest;
 use App\Models\Booking;
 use App\Models\DeliveryOrder;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -90,6 +91,17 @@ class DeliveryOrderController extends Controller
     public function show(DeliveryOrder $deliveryOrder)
     {
         return view('delivery-orders.show', compact('deliveryOrder'));
+    }
+
+    /**
+     * Print delivery order.
+     *
+     * @param DeliveryOrder $deliveryOrder
+     * @throws AuthorizationException
+     */
+    public function printDeliveryOrder(DeliveryOrder $deliveryOrder)
+    {
+        $this->authorize('view', $deliveryOrder);
     }
 
     /**
