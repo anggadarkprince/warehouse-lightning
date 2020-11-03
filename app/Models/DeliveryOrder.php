@@ -154,4 +154,21 @@ class DeliveryOrder extends Model implements HasOrderNumber
 
         return $query->orderBy($sortBy, $sortMethod);
     }
+
+    /**
+     * Get pdf from current data.
+     *
+     * @param bool $stream
+     * @return
+     */
+    public function getPdf($stream = true)
+    {
+        $pdf = app('dompdf.wrapper')->loadView('delivery-orders.print', ['deliveryOrder' => $this]);
+
+        if ($stream) {
+            return $pdf->stream('invoice.pdf');
+        }
+
+        return $pdf->download('invoice.pdf');
+    }
 }

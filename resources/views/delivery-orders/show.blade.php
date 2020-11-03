@@ -36,12 +36,12 @@
                     <p class="w-1/3 flex-shrink-0">{{ __('Driver') }}</p>
                     <p class="text-gray-600">{{ $deliveryOrder->driver_name }}</p>
                 </div>
-            </div>
-            <div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Destination') }}</p>
                     <p class="text-gray-600">{{ $deliveryOrder->destination }}</p>
                 </div>
+            </div>
+            <div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Address') }}</p>
                     <p class="text-gray-600">{{ $deliveryOrder->destination_address }}</p>
@@ -53,6 +53,10 @@
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Vehicle Type') }}</p>
                     <p class="text-gray-600">{{ $deliveryOrder->vehicle_type }}</p>
+                </div>
+                <div class="flex mb-2">
+                    <p class="w-1/3 flex-shrink-0">{{ __('Vehicle Plat') }}</p>
+                    <p class="text-gray-600">{{ $deliveryOrder->vehicle_plat_number }}</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Description') }}</p>

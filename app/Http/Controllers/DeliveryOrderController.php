@@ -97,11 +97,14 @@ class DeliveryOrderController extends Controller
      * Print delivery order.
      *
      * @param DeliveryOrder $deliveryOrder
+     * @return
      * @throws AuthorizationException
      */
     public function printDeliveryOrder(DeliveryOrder $deliveryOrder)
     {
         $this->authorize('view', $deliveryOrder);
+
+        return $deliveryOrder->getPdf();
     }
 
     /**
