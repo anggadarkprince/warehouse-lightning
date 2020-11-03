@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
+use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -214,7 +215,7 @@ class CollectionExporter
         $headers = key_exists('headers', $options) ? $options['headers'] : [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ];
-        $fileName = key_exists('fileName', $options) ? $options['fileName'] : 'File.xlsx';
+        $fileName = data_get($options, 'fileName', Str::slug(data_get($options, 'title', 'File')) . '.xlsx');
 
         return response()->streamDownload(function () use ($data, $fileName, $options) {
             $this->lazyExportToExcel($data, $options);

@@ -168,6 +168,23 @@ class PermissionSeeder extends Seeder
         );
 
         Permission::firstOrCreate(
+            ['permission' => Permission::DELIVERY_ORDER_VIEW],
+            ['description' => 'View delivery order data', 'module' => 'delivery-order', 'feature' => 'delivery-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::DELIVERY_ORDER_CREATE],
+            ['description' => 'Create delivery order data', 'module' => 'delivery-order', 'feature' => 'delivery-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::DELIVERY_ORDER_EDIT],
+            ['description' => 'Edit delivery order data', 'module' => 'delivery-order', 'feature' => 'delivery-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::DELIVERY_ORDER_DELETE],
+            ['description' => 'Delete delivery order data', 'module' => 'delivery-order', 'feature' => 'delivery-order']
+        );
+
+        Permission::firstOrCreate(
             ['permission' => Permission::ACCOUNT_EDIT],
             ['description' => 'Edit account data', 'module' => 'preferences', 'feature' => 'account']
         );

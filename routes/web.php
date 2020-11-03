@@ -6,6 +6,7 @@ use App\Http\Controllers\BookingTypeController;
 use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\RoleController;
@@ -95,4 +96,6 @@ Route::middleware(['auth'])->group(function() {
     Route::post('bookings/import', [BookingController::class, 'storeImport'])->name('bookings.store-import');
     Route::post('bookings/{booking}/validate', [BookingController::class, 'validateBooking'])->name('bookings.validate');
     Route::resource('bookings', BookingController::class);
+
+    Route::resource('delivery-orders', DeliveryOrderController::class);
 });

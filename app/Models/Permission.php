@@ -61,6 +61,11 @@ class Permission extends Model
     const BOOKING_EDIT = 'booking-edit';
     const BOOKING_DELETE = 'booking-delete';
 
+    const DELIVERY_ORDER_VIEW = 'delivery-order-view';
+    const DELIVERY_ORDER_CREATE = 'delivery-order-create';
+    const DELIVERY_ORDER_EDIT = 'delivery-order-edit';
+    const DELIVERY_ORDER_DELETE = 'delivery-order-delete';
+
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';
 

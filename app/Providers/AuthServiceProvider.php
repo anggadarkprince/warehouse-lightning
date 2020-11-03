@@ -2,21 +2,27 @@
 
 namespace App\Providers;
 
+use App\Models\Booking;
 use App\Models\BookingType;
 use App\Models\Container;
 use App\Models\Customer;
+use App\Models\DeliveryOrder;
 use App\Models\DocumentType;
 use App\Models\Goods;
 use App\Models\Role;
 use App\Models\Setting;
+use App\Models\Upload;
 use App\Models\User;
+use App\Policies\BookingPolicy;
 use App\Policies\BookingTypePolicy;
 use App\Policies\ContainerPolicy;
 use App\Policies\CustomerPolicy;
+use App\Policies\DeliveryOrderPolicy;
 use App\Policies\DocumentTypePolicy;
 use App\Policies\GoodsPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SettingPolicy;
+use App\Policies\UploadPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -38,6 +44,9 @@ class AuthServiceProvider extends ServiceProvider
         Customer::class => CustomerPolicy::class,
         Container::class => ContainerPolicy::class,
         Goods::class => GoodsPolicy::class,
+        Upload::class => UploadPolicy::class,
+        Booking::class => BookingPolicy::class,
+        DeliveryOrder::class => DeliveryOrderPolicy::class,
     ];
 
     /**

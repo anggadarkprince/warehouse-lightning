@@ -48,7 +48,7 @@
                     <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
                     <td class="px-4 py-1">
                         <p class="leading-none mt-1">{{ $booking->booking_number }}</p>
-                        <span class="text-gray-500 text-xs leading-none">{{ $booking->reference_number }}</span>
+                        <p class="text-gray-500 text-xs leading-none">{{ $booking->reference_number }}</p>
                     </td>
                     <td class="px-4 py-1">
                         <p class="leading-none mt-1">{{ $booking->bookingType->type ?: '-' }}</p>
@@ -94,7 +94,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="6">No data available</td>
+                    <td class="px-4 py-2" colspan="7">No data available</td>
                 </tr>
             @endforelse
             </tbody>

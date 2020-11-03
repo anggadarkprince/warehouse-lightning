@@ -132,6 +132,15 @@
             </li>
         @endcan
 
+        @can('view-any', \App\Models\DeliveryOrder::class)
+            <li>
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('delivery-orders*') ? ' text-green-500' : '' }}" href="{{ route('delivery-orders.index') }}">
+                    <i class="mdi mdi-truck-fast-outline mr-2"></i>
+                    {{ __('Delivery Orders') }}
+                </a>
+            </li>
+        @endcan
+
         <li class="flex items-center py-2 px-5 text-xs text-gray-400">
             {{ __('PREFERENCES') }} <i class="mdi mdi-arrow-right ml-auto"></i>
         </li>
