@@ -95,13 +95,14 @@ class Booking extends Model implements HasOrderNumber
     }
 
     /**
-     * Set arrival date.
+     * Scope a query to filter by validated upload.
      *
-     * @param $arrivalDate
+     * @param Builder $query
+     * @return Builder
      */
-    public function setArrivalDateAttribute($arrivalDate)
+    public function scopeValidated(Builder $query)
     {
-        $this->attributes['arrival_date'] = Carbon::make($arrivalDate)->format('Y-m-d');
+        return $query->where('status', self::STATUS_VALIDATED);
     }
 
     /**

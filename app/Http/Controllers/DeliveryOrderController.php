@@ -58,7 +58,7 @@ class DeliveryOrderController extends Controller
      */
     public function create()
     {
-        $bookings = Booking::all();
+        $bookings = Booking::validated()->get();
 
         return view('delivery-orders.create', compact('bookings'));
     }
@@ -100,7 +100,7 @@ class DeliveryOrderController extends Controller
      */
     public function edit(DeliveryOrder $deliveryOrder)
     {
-        $bookings = Booking::all();
+        $bookings = Booking::validated()->orWhere('id', $deliveryOrder->booking_id)->get();
 
         return view('delivery-orders.edit', compact('deliveryOrder', 'bookings'));
     }

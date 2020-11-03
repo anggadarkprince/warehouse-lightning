@@ -24,11 +24,19 @@
                     <p class="w-1/3">Package Name</p>
                     <p class="text-gray-600">{{ $goods->package_name }}</p>
                 </div>
-            </div>
-            <div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Description</p>
                     <p class="text-gray-600">{{ $goods->description }}</p>
+                </div>
+            </div>
+            <div>
+                <div class="flex mb-2">
+                    <p class="w-1/3">Weight</p>
+                    <p class="text-gray-600">{{ numeric($goods->weight) }} KG</p>
+                </div>
+                <div class="flex mb-2">
+                    <p class="w-1/3">Gross Weight</p>
+                    <p class="text-gray-600">{{ numeric($goods->gross_weight) }} KG</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Created At</p>

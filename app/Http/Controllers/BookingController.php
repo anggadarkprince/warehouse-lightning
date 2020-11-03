@@ -182,6 +182,8 @@ class BookingController extends Controller
                             'item_name' => $data['item_name'],
                             'unit_name' => $data['unit_name'],
                             'package_name' => $data['package_name'],
+                            'unit_weight' => $data['weight'] / $data['unit_quantity'],
+                            'unit_gross_weight' => $data['weight'] / $data['unit_quantity'],
                         ]
                     );
                     return [
@@ -189,6 +191,7 @@ class BookingController extends Controller
                         'unit_quantity' => $data['unit_quantity'],
                         'package_quantity' => $data['package_quantity'],
                         'weight' => $data['weight'],
+                        'gross_weight' => $data['weight'],
                     ];
                 });
                 $booking->bookingGoods()->createMany($goods->toArray());
@@ -222,14 +225,13 @@ class BookingController extends Controller
     {
         return DB::transaction(function () use ($request) {
             $request->merge([
-                'total_cif' => extract_number($request->total_cif),
-                'total_gross_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
-                'total_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
+                'total_gross_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
+                'total_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
             ]);
             $booking = Booking::create($request->input());
 
-            $booking->bookingContainers()->createMany($request->input('containers'));
-            $booking->bookingGoods()->createMany($request->input('goods'));
+            $booking->bookingContainers()->createMany($request->input('containers', []));
+            $booking->bookingGoods()->createMany($request->input('goods', []));
 
             return redirect()->route('bookings.index')->with([
                 "status" => "success",
@@ -277,9 +279,8 @@ class BookingController extends Controller
     {
         return DB::transaction(function () use ($request, $booking) {
             $request->merge([
-                'total_cif' => extract_number($request->total_cif),
-                'total_gross_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
-                'total_weight' => array_sum(array_column($request->input('goods', []), 'weight')),
+                'total_gross_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
+                'total_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
             ]);
             $booking->fill($request->input());
             $booking->save();

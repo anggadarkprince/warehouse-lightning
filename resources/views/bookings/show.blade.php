@@ -34,7 +34,11 @@
             <div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Reference Upload') }}</p>
-                    <p class="text-gray-600">{{ $booking->upload->upload_number }}</p>
+                    <p class="text-gray-600">
+                        <a class="text-link" href="{{ route('uploads.show', ['upload' => $booking->upload_id]) }}">
+                            {{ $booking->upload->upload_number }}
+                        </a>
+                    </p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Status') }}</p>

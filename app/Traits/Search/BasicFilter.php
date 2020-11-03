@@ -27,6 +27,12 @@ trait BasicFilter
         $columns = Schema::getColumnListing($this->getTable());
         return $query->where(function (Builder $query) use ($q, $columns) {
             foreach ($columns as $column) {
+                if (in_array(DB::getSchemaBuilder()->getColumnType($this->getTable(), $column), ['date', 'datetime'])) {
+                    try {
+                        $q = Carbon::parse($q)->format('Y-m-d');
+                    } catch (InvalidFormatException $e) {
+                    }
+                }
                 $query->orWhere($column, 'LIKE', '%' . trim($q) . '%');
             }
         });

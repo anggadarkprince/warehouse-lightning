@@ -102,7 +102,7 @@
                     @error('driver_name') <p class="form-text-error">{{ $message }}</p> @enderror
                 </div>
                 <div class="sm:flex -mx-2">
-                    <div class="px-2 sm:w-1/2">
+                    <div class="px-2 sm:w-1/3">
                         <div class="flex flex-wrap mb-3 sm:mb-4">
                             <label for="vehicle_name" class="form-label">{{ __('Vehicle Name') }}</label>
                             <input id="vehicle_name" name="vehicle_name" type="text" class="form-input @error('vehicle_name') border-red-500 @enderror"
@@ -110,7 +110,7 @@
                             @error('vehicle_name') <p class="form-text-error">{{ $message }}</p> @enderror
                         </div>
                     </div>
-                    <div class="px-2 sm:w-1/2">
+                    <div class="px-2 sm:w-1/3">
                         <div class="flex flex-wrap mb-3 sm:mb-4">
                             <label for="vehicle_type" class="form-label">{{ __('Vehicle Type') }}</label>
                             <input id="vehicle_type" name="vehicle_type" type="text" class="form-input @error('vehicle_type') border-red-500 @enderror"
@@ -118,12 +118,14 @@
                             @error('vehicle_type') <p class="form-text-error">{{ $message }}</p> @enderror
                         </div>
                     </div>
-                </div>
-                <div class="flex flex-wrap mb-3 sm:mb-4">
-                    <label for="vehicle_plat_number" class="form-label">{{ __('Vehicle Plat Number') }}</label>
-                    <input id="vehicle_plat_number" name="vehicle_plat_number" type="text" class="form-input @error('vehicle_plat_number') border-red-500 @enderror"
-                           placeholder="Vehicle police plat number" value="{{ old('vehicle_plat_number') }}" required maxlength="20">
-                    @error('vehicle_plat_number') <p class="form-text-error">{{ $message }}</p> @enderror
+                    <div class="px-2 sm:w-1/3">
+                        <div class="flex flex-wrap mb-3 sm:mb-4">
+                            <label for="vehicle_plat_number" class="form-label">{{ __('Vehicle Plat Number') }}</label>
+                            <input id="vehicle_plat_number" name="vehicle_plat_number" type="text" class="form-input @error('vehicle_plat_number') border-red-500 @enderror"
+                                   placeholder="Police plat number" value="{{ old('vehicle_plat_number') }}" required maxlength="20">
+                            @error('vehicle_plat_number') <p class="form-text-error">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
                 </div>
                 <div class="flex flex-wrap mb-3 sm:mb-4">
                     <label for="description" class="form-label">{{ __('Description') }}</label>

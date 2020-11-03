@@ -46,6 +46,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="sm:flex -mx-2">
+                    <div class="px-2 sm:w-1/2">
+                        <div class="flex flex-wrap mb-3 sm:mb-4">
+                            <label for="unit_weight" class="form-label">{{ __('Unit Weight') }}</label>
+                            <div class="flex w-full">
+                                <input id="unit_weight" name="unit_weight" type="text" class="form-input input-numeric rounded-tr-none rounded-br-none @error('unit_weight') border-red-500 @enderror"
+                                       placeholder="Unit weight" value="{{ old('unit_weight', numeric($goods->old_weight)) }}">
+                                <span class="relative button-light py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent">
+                                    KG
+                                </span>
+                            </div>
+                            @error('unit_weight') <p class="form-text-error">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
+                    <div class="px-2 sm:w-1/2">
+                        <div class="flex flex-wrap mb-3 sm:mb-4">
+                            <label for="unit_gross_weight" class="form-label">{{ __('Unit Gross Weight') }}</label>
+                            <div class="flex w-full">
+                                <input id="unit_gross_weight" name="unit_gross_weight" type="text" class="form-input input-numeric rounded-tr-none rounded-br-none @error('unit_gross_weight') border-red-500 @enderror"
+                                       placeholder="Unit gross weight" value="{{ old('unit_gross_weight', numeric($goods->unit_gross_weight)) }}">
+                                <span class="relative button-light py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent">
+                                    KG
+                                </span>
+                            </div>
+                            @error('unit_gross_weight') <p class="form-text-error">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
+                </div>
                 <div class="flex flex-wrap">
                     <label for="description" class="form-label">{{ __('Description') }}</label>
                     <textarea id="description" type="text" class="form-input @error('description') border-red-500 @enderror"

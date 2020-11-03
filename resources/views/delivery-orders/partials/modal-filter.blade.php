@@ -18,7 +18,7 @@
                             <?php
                             $sortFields = [
                                 'created_at' => 'Created At',
-                                'delivery_number' => 'Reference Number',
+                                'delivery_number' => 'Delivery Number',
                                 'type' => 'Type',
                                 'reference_number' => 'Reference Number',
                                 'booking_number' => 'Booking Number',

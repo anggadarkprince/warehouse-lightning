@@ -19,6 +19,7 @@ class CreateDeliveryOrderContainersTable extends Migration
             $table->foreignId('container_id');
             $table->boolean('is_empty')->default(false);
             $table->string('seal', 50)->nullable();
+            $table->integer('quantity')->default(1);
             $table->text('description')->nullable();
             $table->timestamps();
 

@@ -12,7 +12,7 @@ class BookingGoods extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['goods_id', 'unit_quantity', 'package_quantity', 'weight', 'description'];
+    protected $fillable = ['goods_id', 'unit_quantity', 'package_quantity', 'weight', 'gross_weight', 'description'];
 
     /**
      * Get the booking of the goods.

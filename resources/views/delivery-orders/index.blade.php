@@ -41,7 +41,11 @@
                     <td class="px-4 py-1">{{ $deliveryOrder->delivery_number }}</td>
                     <td class="px-4 py-1">{{ $deliveryOrder->type }}</td>
                     <td class="px-4 py-1">
-                        <p class="leading-none mt-1">{{ $deliveryOrder->booking->booking_number }}</p>
+                        <p class="leading-none mt-1">
+                            <a class="text-link" href="{{ route('bookings.show', ['booking' => $deliveryOrder->booking_id]) }}">
+                                {{ $deliveryOrder->booking->booking_number }}
+                            </a>
+                        </p>
                         <p class="text-gray-500 text-xs leading-none">{{ $deliveryOrder->booking->reference_number }}</p>
                     </td>
                     <td class="px-4 py-1">{{ $deliveryOrder->booking->customer->customer_name ?: '-' }}</td>

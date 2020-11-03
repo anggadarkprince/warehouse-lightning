@@ -261,7 +261,7 @@
                 </tr>
                 </thead>
                 <tbody id="goods-wrapper">
-                <tr class="goods-placeholder{{ empty(old('goods', $booking->bookingContainers->toArray())) ? '' : ' hidden' }}">
+                <tr class="goods-placeholder{{ empty(old('goods', $booking->bookingGoods->toArray())) ? '' : ' hidden' }}">
                     <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
                 </tr>
                 @foreach(old('goods', $booking->bookingGoods()->with('goods')->get()->toArray()) as $index => $item)

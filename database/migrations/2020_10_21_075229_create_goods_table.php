@@ -19,6 +19,8 @@ class CreateGoodsTable extends Migration
             $table->string('item_number');
             $table->string('unit_name');
             $table->string('package_name')->nullable();
+            $table->decimal('unit_weight', 20, 4)->default(0);
+            $table->decimal('unit_gross_weight', 20, 4)->default(0);
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

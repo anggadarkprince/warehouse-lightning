@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Search\BasicFilter;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -10,11 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, BasicFilter;
 
     /**
      * The attributes that are mass assignable.
@@ -116,71 +118,21 @@ class User extends Authenticatable
         if (empty($q)) {
             return $query;
         }
-        return $query->where(function (Builder $query) use ($q) {
-            $query->where('users.name', 'LIKE', '%' . $q . '%');
-            $query->orWhere('users.email', 'LIKE', '%' . $q . '%');
-            $query->orWhere('users.type', 'LIKE', '%' . $q . '%');
-            $query->orWhereHas('groups', function (Builder $query) use ($q) {
-                $query->where('group', 'LIKE', '%' . $q . '%');
+        $columns = Schema::getColumnListing($this->getTable());
+        return $query->where(function (Builder $query) use ($q, $columns) {
+            foreach ($columns as $column) {
+                if (in_array(DB::getSchemaBuilder()->getColumnType($this->getTable(), $column), ['date', 'datetime'])) {
+                    try {
+                        $q = Carbon::parse($q)->format('Y-m-d');
+                    } catch (InvalidFormatException $e) {
+                    }
+                }
+                $query->orWhere($column, 'LIKE', '%' . trim($q) . '%');
+            }
+            $query->orWhereHas('roles', function (Builder $query) use ($q) {
+                $query->where('role', 'LIKE', '%' . $q . '%');
             });
         });
-    }
-
-    /**
-     * Scope a query to sort user by specific column.
-     *
-     * @param Builder $query
-     * @param $sortBy
-     * @param string $sortMethod
-     * @return Builder
-     */
-    public function scopeSort(Builder $query, $sortBy = 'users.created_at', $sortMethod = 'desc')
-    {
-        if (empty($sortBy)) {
-            $sortBy = 'users.created_at';
-        }
-        if (empty($sortMethod)) {
-            $sortMethod = 'desc';
-        }
-        return $query->orderBy($sortBy, $sortMethod);
-    }
-
-    /**
-     * Scope a query to only include group of a greater date creation.
-     *
-     * @param Builder $query
-     * @param $dateFrom
-     * @return Builder
-     */
-    public function scopeDateFrom(Builder $query, $dateFrom)
-    {
-        if (empty($dateFrom)) return $query;
-
-        try {
-            $formattedData = Carbon::parse($dateFrom)->format('Y-m-d');
-            return $query->where(DB::raw('DATE(users.created_at)'), '>=', $formattedData);
-        } catch (InvalidFormatException $exception) {
-            return $query;
-        }
-    }
-
-    /**
-     * Scope a query to only include group of a less date creation.
-     *
-     * @param Builder $query
-     * @param $dateTo
-     * @return Builder
-     */
-    public function scopeDateTo(Builder $query, $dateTo)
-    {
-        if (empty($dateTo)) return $query;
-
-        try {
-            $formattedData = Carbon::parse($dateTo)->format('Y-m-d');
-            return $query->where(DB::raw('DATE(users.created_at)'), '<=', $formattedData);
-        } catch (InvalidFormatException $exception) {
-            return $query;
-        }
     }
 
     /**
