@@ -174,7 +174,7 @@
         </div>
         <table class="table-auto w-full mb-4">
             <thead>
-            <tr>
+            <tr class="whitespace-no-wrap">
                 <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
                 <th class="border-b border-t px-4 py-2 text-left">{{ __('Item Name') }}</th>
                 <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Qty') }}</th>

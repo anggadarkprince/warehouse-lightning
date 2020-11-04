@@ -13,7 +13,7 @@ window.addEventListener('click', function (event) {
 
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener('click', function (event) {
-    if (event.target.classList.contains('modal')) {
+    if (event.target.classList.contains('modal') && event.target.classList.contains('dismiss-outside')) {
         event.target.style.display = "none";
         document.body.classList.remove('overflow-hidden');
     }

@@ -12,10 +12,6 @@ function numericFormat(value, prefix = '', ths = '.', dec = ',', thsTarget = '.'
     }
     currency = splitDecimal[1] !== undefined ? currency + decTarget + splitDecimal[1] : currency;
 
-    if (currency === '0') {
-        return '';
-    }
-
     return prefix + (signed ? '-' : '') + currency;
 }
 

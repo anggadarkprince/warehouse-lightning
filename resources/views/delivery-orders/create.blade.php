@@ -142,21 +142,21 @@
                     <h1 class="text-xl text-green-500">Containers</h1>
                     <span class="text-gray-400">List of delivery container</span>
                 </div>
-                <button type="button" class="button-blue button-sm" id="btn-add-container" data-booking-id="1" data-source-url="{{ route('bookings.containers.index', ['booking' => 1]) }}">
+                <button type="button" class="button-blue button-sm" id="btn-add-container" data-booking-id="4" data-source-url="{{ route('bookings.containers.index', ['booking' => 4]) }}">
                     ADD CONTAINER
                 </button>
             </div>
             <table class="table-auto w-full mb-4">
                 <thead>
                 <tr>
-                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Container Number') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Size') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Type') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Is Empty') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Seal') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left"></th>
+                    <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left"></th>
                 </tr>
                 </thead>
                 <tbody id="container-wrapper">
@@ -180,6 +180,58 @@
             </table>
         </div>
 
+        <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
+            <div class="mb-2 flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl text-green-500">Goods</h1>
+                    <span class="text-gray-400">List of delivery goods</span>
+                </div>
+                <button type="button" class="button-blue button-sm" id="btn-add-goods" data-booking-id="4" data-source-url="{{ route('bookings.goods.index', ['booking' => 4]) }}">
+                    ADD GOODS
+                </button>
+            </div>
+            <table class="table-auto w-full mb-4">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Item Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Quantity') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Quantity') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Gross Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left"></th>
+                </tr>
+                </thead>
+                <tbody id="goods-wrapper">
+                <tr class="goods-placeholder{{ empty(old('goods', [])) ? '' : 'hidden' }}">
+                    <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
+                </tr>
+                @foreach(old('goods', []) as $index => $item)
+                    @include('bookings.partials.template-goods-row', [
+                        'unitQuantityLabel' => numeric($item['unit_quantity']),
+                        'packageQuantityLabel' => numeric($item['package_quantity']),
+                        'weightLabel' => numeric($item['weight']),
+                        'grossWeightLabel' => numeric($item['gross_weight']),
+                        'goodsId' => $item['goods_id'],
+                        'itemName' => $item['item_name'],
+                        'itemNumber' => $item['item_number'],
+                        'unitName' => $item['unit_name'],
+                        'unitQuantity' => $item['unit_quantity'],
+                        'packageName' => $item['package_name'],
+                        'packageQuantity' => $item['package_quantity'],
+                        'weight' => $item['weight'],
+                        'gross_weight' => $item['gross_weight'],
+                        'description' => $item['description'],
+                        'index' => $index,
+                    ])
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
             <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
             <button type="submit" class="button-primary button-sm">Save Delivery Order</button>
@@ -187,6 +239,7 @@
     </form>
 
     @include('delivery-orders.partials.modal-list-container')
+    @include('delivery-orders.partials.modal-list-goods')
     @include('partials.modal-info')
 @endsection
 

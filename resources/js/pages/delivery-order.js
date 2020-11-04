@@ -1,4 +1,5 @@
 import Container from "../modules/stocks/container";
+import Goods from "../modules/stocks/goods";
 import variables from "../modules/variables";
 
 const formDeliveryOrder = document.getElementById('form-delivery-order');
@@ -14,4 +15,5 @@ if (formDeliveryOrder) {
     });
 
     Container();
+    Goods();
 }

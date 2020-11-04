@@ -13,7 +13,7 @@ class BookingContainerController extends Controller
      *
      * @param Request $request
      * @param Booking $booking
-     * @return JsonResponse|void
+     * @return JsonResponse
      */
     public function index(Request $request, Booking $booking)
     {
