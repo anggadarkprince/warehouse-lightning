@@ -75,7 +75,7 @@
     </tr>
     <tr>
         <td>Reference Number</td>
-        <td>{{ $deliveryOrder->booking->reference_number }}</td>
+        <td>{{ $deliveryOrder->booking->reference_number }} - {{ $deliveryOrder->booking->booking_number }}</td>
     </tr>
 </table>
 
@@ -93,6 +93,9 @@
             <p style="font-weight: bold">Delivery Date</p>
             <p style="color: #444444">{{ $deliveryOrder->delivery_date->format('d F Y') }}</p>
         </th>
+        <td rowspan="2" class="text-center" style="width: 120px">
+            <img style="margin: 0;" src="data:image/png;base64, {!! base64_encode(QrCode::format('svg')->size(100)->generate($deliveryOrder->delivery_number)) !!} " alt="{{ $deliveryOrder->delivery_number }}">
+        </td>
     </tr>
     <tr>
         <td>
@@ -166,11 +169,11 @@
     <tr>
         <td>
             <p style="font-weight: bold">Description:</p>
-            <p>{{ $deliveryOrder->description ?: '-' }}</p>
+            <p style="color: #444444">{{ $deliveryOrder->description ?: '-' }}</p>
         </td>
         <td>
             <p style="font-weight: bold">Created At:</p>
-            <p>{{ $deliveryOrder->created_at->format('d F Y H:i') }}</p>
+            <p style="color: #444444">{{ $deliveryOrder->created_at->format('d F Y H:i') }}</p>
         </td>
     </tr>
 </table>
