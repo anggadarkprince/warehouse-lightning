@@ -22,3 +22,5 @@ mix.postCss('resources/css/app.css', 'public/css', [
 mix.copyDirectory('resources/img', 'public/img');
 
 mix.version();
+
+mix.disableNotifications();

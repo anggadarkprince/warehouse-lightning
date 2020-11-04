@@ -75,6 +75,8 @@ class DeliveryOrderController extends Controller
         return DB::transaction(function () use ($request) {
             $deliveryOrder = DeliveryOrder::create($request->input());
 
+            $deliveryOrder->deliveryOrderContainers()->createMany($request->input('containers', []));
+
             return redirect()->route('delivery-orders.index')->with([
                 "status" => "success",
                 "message" => "Delivery order {$deliveryOrder->delivery_number} successfully created"

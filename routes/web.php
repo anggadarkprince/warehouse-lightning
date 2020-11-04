@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BookingContainerController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\BookingGoodsController;
 use App\Http\Controllers\BookingTypeController;
 use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\CustomerController;
@@ -97,6 +99,9 @@ Route::middleware(['auth'])->group(function() {
     Route::post('bookings/import', [BookingController::class, 'storeImport'])->name('bookings.store-import');
     Route::post('bookings/{booking}/validate', [BookingController::class, 'validateBooking'])->name('bookings.validate');
     Route::resource('bookings', BookingController::class);
+
+    Route::get('bookings/{booking}/containers', [BookingContainerController::class, 'index'])->name('bookings.containers.index');
+    Route::get('bookings/{booking}/goods', [BookingGoodsController::class, 'index'])->name('bookings.goods.index');
 
     Route::get('delivery-orders/{delivery_order}/print', [DeliveryOrderController::class, 'printDeliveryOrder'])->name('delivery-orders.print');
     Route::resource('delivery-orders', DeliveryOrderController::class);

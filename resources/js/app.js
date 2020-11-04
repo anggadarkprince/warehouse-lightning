@@ -13,4 +13,5 @@ require('./modules/form');
 
 require('./pages/document');
 require('./pages/booking');
+require('./pages/delivery-order');
 require('./pages/setting');
