@@ -1,4 +1,4 @@
-<tr class="goods-list-item" data-id="{!! $id ?? '' !!}" data-goods-id="{!! $goodsId ?? '' !!}">
+<tr class="goods-list-item" data-id="{!! $id ?? '' !!}"  data-reference-id="{!! $referenceId ?? '' !!}" data-goods-id="{!! $goodsId ?? '' !!}">
     <td class="px-2 py-1 text-center goods-order">{!! $goodsOrder ?? '' !!}</td>
     <td class="px-2 py-1">
         <p class="leading-tight goods-item-name">{!! $itemName ?? '-' !!}</p>

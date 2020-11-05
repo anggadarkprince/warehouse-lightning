@@ -47,7 +47,9 @@
 
 <script id="container-row-template" type="x-tmpl-mustache">
     @include('delivery-orders.partials.template-container-row', [
+        'id' => '@{{ id }}',
         'containerOrder' => '@{{ container_order }}',
+        'containerId' => '@{{ container_id }}',
         'containerNumber' => '@{{ container_number }}',
         'containerSize' => '@{{ container_size }}',
         'containerType' => '@{{ container_type }}',
@@ -55,7 +57,5 @@
         'isEmpty' => '@{{ is_empty }}',
         'seal' => '@{{ seal }}',
         'description' => '@{{ description }}',
-        'containerId' => '@{{ container_id }}',
-        'id' => '@{{ id }}',
     ])
 </script>

@@ -142,7 +142,7 @@
                     <h1 class="text-xl text-green-500">Containers</h1>
                     <span class="text-gray-400">List of delivery container</span>
                 </div>
-                <button type="button" class="button-blue button-sm" id="btn-add-container" data-booking-id="4" data-source-url="{{ route('bookings.containers.index', ['booking' => 4]) }}">
+                <button type="button" class="button-blue button-sm" id="btn-add-container">
                     ADD CONTAINER
                 </button>
             </div>
@@ -160,11 +160,14 @@
                 </tr>
                 </thead>
                 <tbody id="container-wrapper">
-                <tr class="container-placeholder{{ empty(old('containers', [])) ? '' : 'hidden' }}">
+                <tr class="container-placeholder{{ empty(old('containers', [])) ? '' : ' hidden' }}">
                     <td colspan="8" class="px-4 py-2">{{ __('No data available') }}</td>
                 </tr>
                 @foreach(old('containers', []) as $index => $container)
-                    @include('bookings.partials.template-container-row', [
+                    @include('delivery-orders.partials.template-container-row', [
+                        'index' => $index,
+                        'containerOrder' => $index + 1,
+                        'containerId' => $container['container_id'],
                         'containerNumber' => $container['container_number'],
                         'containerSize' => $container['container_size'],
                         'containerType' => $container['container_type'],
@@ -172,8 +175,6 @@
                         'isEmpty' => $container['is_empty'],
                         'seal' => $container['seal'],
                         'description' => $container['description'],
-                        'containerId' => $container['container_id'],
-                        'index' => $index,
                     ])
                 @endforeach
                 </tbody>
@@ -186,7 +187,7 @@
                     <h1 class="text-xl text-green-500">Goods</h1>
                     <span class="text-gray-400">List of delivery goods</span>
                 </div>
-                <button type="button" class="button-blue button-sm" id="btn-add-goods" data-booking-id="4" data-source-url="{{ route('bookings.goods.index', ['booking' => 4]) }}">
+                <button type="button" class="button-blue button-sm" id="btn-add-goods">
                     ADD GOODS
                 </button>
             </div>
@@ -206,11 +207,14 @@
                 </tr>
                 </thead>
                 <tbody id="goods-wrapper">
-                <tr class="goods-placeholder{{ empty(old('goods', [])) ? '' : 'hidden' }}">
+                <tr class="goods-placeholder{{ empty(old('goods', [])) ? '' : ' hidden' }}">
                     <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
                 </tr>
                 @foreach(old('goods', []) as $index => $item)
-                    @include('bookings.partials.template-goods-row', [
+                    @include('delivery-orders.partials.template-goods-row', [
+                        'index' => $index,
+                        'goodsOrder' => $index + 1,
+                        'referenceId' => $item['reference_id'],
                         'unitQuantityLabel' => numeric($item['unit_quantity']),
                         'packageQuantityLabel' => numeric($item['package_quantity']),
                         'weightLabel' => numeric($item['weight']),
@@ -222,10 +226,12 @@
                         'unitQuantity' => $item['unit_quantity'],
                         'packageName' => $item['package_name'],
                         'packageQuantity' => $item['package_quantity'],
+                        'packageQuantityDefault' => $item['package_quantity'],
                         'weight' => $item['weight'],
-                        'gross_weight' => $item['gross_weight'],
+                        'weightDefault' => $item['weight'],
+                        'grossWeight' => $item['gross_weight'],
+                        'grossWeightDefault' => $item['gross_weight'],
                         'description' => $item['description'],
-                        'index' => $index,
                     ])
                 @endforeach
                 </tbody>

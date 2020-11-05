@@ -76,6 +76,7 @@ class DeliveryOrderController extends Controller
             $deliveryOrder = DeliveryOrder::create($request->input());
 
             $deliveryOrder->deliveryOrderContainers()->createMany($request->input('containers', []));
+            $deliveryOrder->deliveryOrderGoods()->createMany($request->input('goods', []));
 
             return redirect()->route('delivery-orders.index')->with([
                 "status" => "success",
@@ -133,6 +134,30 @@ class DeliveryOrderController extends Controller
     {
         return DB::transaction(function () use ($request, $deliveryOrder) {
             $deliveryOrder->fill($request->input())->save();
+
+            // sync delivery containers
+            $excluded = collect($request->input('containers', []))->filter(function ($container) {
+                return !empty($container['id']);
+            });
+            $deliveryOrder->deliveryOrderContainers()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('containers', []) as $container) {
+                $deliveryOrder->deliveryOrderContainers()->updateOrCreate(
+                    ['id' => data_get($container, 'id')],
+                    $container
+                );
+            }
+
+            // sync delivery goods
+            $excluded = collect($request->input('goods', []))->filter(function ($item) {
+                return !empty($item['id']);
+            });
+            $deliveryOrder->deliveryOrderContainers()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('goods', []) as $item) {
+                $deliveryOrder->deliveryOrderContainers()->updateOrCreate(
+                    ['id' => data_get($item, 'id')],
+                    $item
+                );
+            }
 
             return redirect()->route('delivery-orders.index')->with([
                 "status" => "success",

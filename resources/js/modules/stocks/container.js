@@ -66,8 +66,11 @@ export default function () {
                 }
             })
             .catch(function (error) {
-                containerListPlaceholderMessageWrapper.innerHTML = '<i class="mdi mdi-close mr-1"></i>Error get source container';
-                console.log(error);
+                let message = 'Error get source container';
+                if (error.response.status === 404) {
+                    message = 'Source not found';
+                }
+                containerListPlaceholderMessageWrapper.innerHTML = '<i class="mdi mdi-close mr-1"></i>' + message;
             })
             .then(function () {
                 // Always executed success or error

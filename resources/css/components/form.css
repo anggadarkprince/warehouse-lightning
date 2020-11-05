@@ -9,7 +9,7 @@
 }
 
 .form-input {
-    @apply bg-gray-100 border-transparent text-gray-900 appearance-none inline-block w-full border rounded py-2 px-4;
+    @apply bg-gray-100 border-transparent text-gray-900 appearance-none inline-block w-full min-w-0 border rounded py-2 px-4;
 }
 .form-input:focus {
     @apply border-blue-400 bg-gray-200 outline-none border-blue-400;

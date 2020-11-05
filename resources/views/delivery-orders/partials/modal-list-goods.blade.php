@@ -50,26 +50,8 @@
         'gross_weight' => '@{{ gross_weight }}',
         'description' => '@{{ description }}',
         'id' => '@{{ id }}',
+        'actionDeleteOnly' => $actionDeleteOnly ?? false
     ])
 </script>
 
-<script id="goods-row-template" type="x-tmpl-mustache">
-    @include('delivery-orders.partials.template-goods-row', [
-        'goodsOrder' => '@{{ goods_order }}',
-        'unitQuantityLabel' => '@{{ unit_quantity_label }}',
-        'packageQuantityLabel' => '@{{ package_quantity_label }}',
-        'weightLabel' => '@{{ weight_label }}',
-        'grossWeightLabel' => '@{{ gross_weight_label }}',
-        'goodsId' => '@{{ goods_id }}',
-        'itemName' => '@{{ item_name }}',
-        'itemNumber' => '@{{ item_number }}',
-        'unitName' => '@{{ unit_name }}',
-        'unitQuantity' => '@{{ unit_quantity }}',
-        'packageName' => '@{{ package_name }}',
-        'packageQuantity' => '@{{ package_quantity }}',
-        'weight' => '@{{ weight }}',
-        'grossWeight' => '@{{ gross_weight }}',
-        'description' => '@{{ description }}',
-        'id' => '@{{ id }}',
-    ])
-</script>
+@include('delivery-orders.partials.modal-take-goods')

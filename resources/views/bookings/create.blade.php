@@ -213,7 +213,7 @@
                 </tr>
                 </thead>
                 <tbody id="container-wrapper">
-                    <tr class="container-placeholder{{ empty(old('containers', [])) ? '' : 'hidden' }}">
+                    <tr class="container-placeholder{{ empty(old('containers', [])) ? '' : ' hidden' }}">
                         <td colspan="8" class="px-4 py-2">{{ __('No data available') }}</td>
                     </tr>
                     @foreach(old('containers', []) as $index => $container)
@@ -258,7 +258,7 @@
                 </tr>
                 </thead>
                 <tbody id="goods-wrapper">
-                <tr class="goods-placeholder{{ empty(old('goods', [])) ? '' : 'hidden' }}">
+                <tr class="goods-placeholder{{ empty(old('goods', [])) ? '' : ' hidden' }}">
                     <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
                 </tr>
                 @foreach(old('goods', []) as $index => $item)
