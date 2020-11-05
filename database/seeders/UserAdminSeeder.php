@@ -22,6 +22,7 @@ class UserAdminSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@warehouse.app',
                 'password' => Hash::make('admin'),
+                'is_admin' => true,
                 'created_at' => Carbon::now()->toDateTimeString()
             ]);
         }
