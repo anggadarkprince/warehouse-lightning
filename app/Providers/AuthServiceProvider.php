@@ -59,7 +59,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('super-admin', function ($user) {
-            return $user->email == 'admin@warehouse.app'
+            return $user->isAdministrator()
                 ? Response::allow()
                 : Response::deny('You must be a management member.');
         });

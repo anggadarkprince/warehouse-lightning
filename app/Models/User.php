@@ -144,6 +144,6 @@ class User extends Authenticatable
      */
     public function isAdministrator()
     {
-        return $this->email === 'admin@warehouse.app';
+        return $this->email === 'admin@warehouse.app' || $this->is_admin;
     }
 }

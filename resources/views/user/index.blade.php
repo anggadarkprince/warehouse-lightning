@@ -47,7 +47,13 @@
                     </td>
                     <td class="px-4 py-1">{{ $user->email }}</td>
                     <td class="px-4 py-1">{{ $user->type ?: '-' }}</td>
-                    <td class="px-4 py-1">{!! optional(optional($user->roles)->pluck('role'))->implode('<br>') ?: '-' !!}</td>
+                    <td class="px-4 py-1">
+                        @if($user->is_admin)
+                            <span class="bg-red-500 rounded-sm py-1 px-2 text-xs text-white">ADMIN</span>
+                        @else
+                            {!! optional(optional($user->roles)->pluck('role'))->implode('<br>') ?: '-' !!}
+                        @endif
+                    </td>
                     <td class="px-4 py-1">{{ optional($user->created_at)->format('d M Y H:i') }}</td>
                     <td class="px-4 py-1 text-right">
                         <div class="dropdown">

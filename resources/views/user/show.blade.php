@@ -51,15 +51,21 @@
             <h1 class="text-xl">Role Access</h1>
             <span class="text-gray-400">Choose what role user is owned</span>
         </div>
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-            @foreach($user->roles as $role)
-                <div class="mb-3">
-                    <a href="{{ route('roles.show', ['role' => $role->id]) }}" class="text-link">
-                        <i class="mdi mdi-check-box-outline mr-1"></i>{{ $role->role }}
-                    </a>
-                </div>
-            @endforeach
-        </div>
+        @if($user->is_admin)
+            <span class="bg-red-500 rounded-sm py-1 px-2 text-xs text-white">ADMIN</span>
+        @else
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                @forelse($user->roles as $role)
+                    <div class="mb-3">
+                        <a href="{{ route('roles.show', ['role' => $role->id]) }}" class="text-link">
+                            <i class="mdi mdi-check-box-outline mr-1"></i>{{ $role->role }}
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-gray-500">No role available</p>
+                @endforelse
+            </div>
+        @endif
     </div>
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
