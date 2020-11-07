@@ -9,6 +9,7 @@
     <td class="px-4 py-1 goods-package-name">{!! $packageName ?? '-' !!}</td>
     <td class="px-4 py-1 goods-package-quantity">{!! $packageQuantityLabel ?? '0' !!}</td>
     <td class="px-4 py-1 goods-weight">{!! $weightLabel ?? '0' !!}</td>
+    <td class="px-4 py-1 goods-gross-weight">{!! $grossWeightLabel ?? '0' !!}</td>
     <td class="px-4 py-1 goods-description">{!! $description ?? '-' !!}</td>
     <td class="px-4 py-1 text-right whitespace-no-wrap">
         <button type="button" class="button-blue px-2 py-1 text-sm btn-edit">
@@ -26,6 +27,7 @@
         <input type="hidden" name="goods[{!! $index ?? '' !!}][package_name]" value="{!! $packageName !!}" class="input-goods-package-name">
         <input type="hidden" name="goods[{!! $index ?? '' !!}][package_quantity]" value="{!! $packageQuantity !!}" class="input-goods-package-quantity">
         <input type="hidden" name="goods[{!! $index ?? '' !!}][weight]" value="{!! $weight !!}" class="input-goods-weight">
+        <input type="hidden" name="goods[{!! $index ?? '' !!}][gross_weight]" value="{!! $grossWeight !!}" class="input-goods-gross-weight">
         <input type="hidden" name="goods[{!! $index ?? '' !!}][description]" value="{!! $description !!}" class="input-goods-description">
     </td>
 </tr>

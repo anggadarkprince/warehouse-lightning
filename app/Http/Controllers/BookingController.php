@@ -226,7 +226,7 @@ class BookingController extends Controller
         return DB::transaction(function () use ($request) {
             $request->merge([
                 'total_gross_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
-                'total_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
+                'total_weight' => numeric(array_sum(array_column($request->input('goods', []), 'gross_weight'))),
             ]);
             $booking = Booking::create($request->input());
 
@@ -279,8 +279,8 @@ class BookingController extends Controller
     {
         return DB::transaction(function () use ($request, $booking) {
             $request->merge([
-                'total_gross_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
                 'total_weight' => numeric(array_sum(array_column($request->input('goods', []), 'weight'))),
+                'total_gross_weight' => numeric(array_sum(array_column($request->input('goods', []), 'gross_weight'))),
             ]);
             $booking->fill($request->input());
             $booking->save();

@@ -253,19 +253,21 @@
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Quantity') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Gross Weight') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left"></th>
                 </tr>
                 </thead>
                 <tbody id="goods-wrapper">
                 <tr class="goods-placeholder{{ empty(old('goods', [])) ? '' : ' hidden' }}">
-                    <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
+                    <td colspan="10" class="px-4 py-2">{{ __('No data available') }}</td>
                 </tr>
                 @foreach(old('goods', []) as $index => $item)
                     @include('bookings.partials.template-goods-row', [
                         'unitQuantityLabel' => numeric($item['unit_quantity']),
                         'packageQuantityLabel' => numeric($item['package_quantity']),
                         'weightLabel' => numeric($item['weight']),
+                        'grossWeightLabel' => numeric($item['gross_weight']),
                         'goodsId' => $item['goods_id'],
                         'itemName' => $item['item_name'],
                         'itemNumber' => $item['item_number'],
@@ -274,6 +276,7 @@
                         'packageName' => $item['package_name'],
                         'packageQuantity' => $item['package_quantity'],
                         'weight' => $item['weight'],
+                        'grossWeight' => $item['gross_weight'],
                         'description' => $item['description'],
                         'index' => $index,
                     ])

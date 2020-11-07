@@ -256,6 +256,7 @@
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Quantity') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Gross Weight') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left"></th>
                 </tr>
@@ -271,6 +272,7 @@
                         'unitQuantityLabel' => numeric(data_get($item, 'unit_quantity')),
                         'packageQuantityLabel' => numeric(data_get($item, 'package_quantity')),
                         'weightLabel' => numeric(data_get($item, 'weight')),
+                        'grossWeightLabel' => numeric(data_get($item, 'gross_weight')),
                         'goodsId' => data_get($item, 'goods_id'),
                         'itemName' => data_get($item, 'item_name', data_get($item, 'goods.item_name')),
                         'itemNumber' => data_get($item, 'item_number', data_get($item, 'goods.item_number')),
@@ -279,6 +281,7 @@
                         'packageName' => data_get($item, 'package_name', data_get($item, 'goods.package_name')),
                         'packageQuantity' => data_get($item, 'package_quantity'),
                         'weight' => data_get($item, 'weight'),
+                        'grossWeight' => data_get($item, 'gross_weight'),
                         'description' => data_get($item, 'description'),
                         'index' => $index,
                     ])

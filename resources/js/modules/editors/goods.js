@@ -9,6 +9,7 @@ export default function () {
     const inputUnitQuantity = formGoods.querySelector('#goods_unit_quantity');
     const inputPackageQuantity = formGoods.querySelector('#goods_package_quantity');
     const inputWeight = formGoods.querySelector('#goods_weight');
+    const inputGrossWeight = formGoods.querySelector('#goods_gross_weight');
     const inputDescription = formGoods.querySelector('#goods_description');
 
     const goodsWrapper = document.getElementById('goods-wrapper');
@@ -43,6 +44,7 @@ export default function () {
         const unitQuantity = inputUnitQuantity.value || 0;
         const packageQuantity = inputPackageQuantity.value || 0;
         const weight = inputWeight.value || 0;
+        const grossWeight = inputGrossWeight.value || 0;
         const description = inputDescription.value;
 
         const mode = formGoods.dataset.mode;
@@ -60,6 +62,7 @@ export default function () {
                 package_name: itemPackageName,
                 package_quantity: getNumeric(packageQuantity),
                 weight: getNumeric(weight),
+                gross_weight: getNumeric(grossWeight),
                 description: description,
             });
             goodsWrapper.insertAdjacentHTML('beforeend', rendered);
@@ -73,6 +76,7 @@ export default function () {
             goodsItem.querySelector('.goods-package-name').innerHTML = itemPackageName;
             goodsItem.querySelector('.goods-package-quantity').innerHTML = packageQuantity;
             goodsItem.querySelector('.goods-weight').innerHTML = weight;
+            goodsItem.querySelector('.goods-gross-weight').innerHTML = grossWeight;
             goodsItem.querySelector('.goods-description').innerHTML = description;
 
             goodsItem.querySelector('.input-goods-id').value = goodsId;
@@ -83,6 +87,7 @@ export default function () {
             goodsItem.querySelector('.input-goods-package-name').value = itemPackageName;
             goodsItem.querySelector('.input-goods-package-quantity').value = getNumeric(packageQuantity);
             goodsItem.querySelector('.input-goods-weight').value = getNumeric(weight);
+            goodsItem.querySelector('.input-goods-gross-weight').value = getNumeric(grossWeight);
             goodsItem.querySelector('.input-goods-description').value = description;
         }
         orderInputGoods(goodsWrapper);
@@ -101,6 +106,7 @@ export default function () {
             inputUnitQuantity.value = setNumeric(goodsItem.querySelector('.input-goods-unit-quantity').value) || '';
             inputPackageQuantity.value = setNumeric(goodsItem.querySelector('.input-goods-package-quantity').value) || '';
             inputWeight.value = setNumeric(goodsItem.querySelector('.input-goods-weight').value) || '';
+            inputGrossWeight.value = setNumeric(goodsItem.querySelector('.input-goods-gross-weight').value) || '';
             inputDescription.value = goodsItem.querySelector('.input-goods-description').value || '';
 
             formGoods.dataset.mode = MODE_EDIT;

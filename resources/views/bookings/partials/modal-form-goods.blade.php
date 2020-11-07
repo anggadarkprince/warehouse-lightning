@@ -39,10 +39,21 @@
                            placeholder="Package quantity">
                 </div>
             </div>
-            <div class="flex flex-wrap">
-                <label for="goods_weight" class="form-label">{{ __('Weight') }}</label>
-                <input id="goods_weight" name="goods_weight" type="text" class="form-input input-numeric" autocomplete="off"
-                       placeholder="Total weight">
+            <div class="md:flex -mx-2">
+                <div class="px-2 md:w-1/2">
+                    <div class="flex flex-wrap">
+                        <label for="goods_weight" class="form-label">{{ __('Weight') }}</label>
+                        <input id="goods_weight" name="goods_weight" type="text" class="form-input input-numeric" autocomplete="off"
+                               placeholder="Total weight">
+                    </div>
+                </div>
+                <div class="px-2 md:w-1/2">
+                    <div class="flex flex-wrap">
+                        <label for="goods_gross_weight" class="form-label">{{ __('Gross Weight') }}</label>
+                        <input id="goods_gross_weight" name="goods_gross_weight" type="text" class="form-input input-numeric" autocomplete="off"
+                               placeholder="Total gross weight">
+                    </div>
+                </div>
             </div>
             <div class="flex flex-wrap">
                 <label for="goods_description" class="form-label">{{ __('Description') }}</label>
@@ -62,6 +73,7 @@
         'unitQuantityLabel' => '@{{ unit_quantity_label }}',
         'packageQuantityLabel' => '@{{ package_quantity_label }}',
         'weightLabel' => '@{{ weight_label }}',
+        'grossWeightLabel' => '@{{ gross_weight_label }}',
         'goodsId' => '@{{ goods_id }}',
         'itemName' => '@{{ item_name }}',
         'itemNumber' => '@{{ item_number }}',
@@ -70,6 +82,7 @@
         'packageName' => '@{{ package_name }}',
         'packageQuantity' => '@{{ package_quantity }}',
         'weight' => '@{{ weight }}',
+        'grossWeight' => '@{{ gross_weight }}',
         'description' => '@{{ description }}',
     ])
 </script>
