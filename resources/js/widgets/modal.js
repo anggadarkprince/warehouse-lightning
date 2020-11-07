@@ -27,6 +27,9 @@ window.addEventListener('click', function (event) {
         if (modal) {
             modal.style.display = "none";
             document.body.classList.remove('overflow-hidden');
+            if (modal.onClosed) {
+                modal.onClosed()
+            }
         }
     }
 });
