@@ -25,7 +25,8 @@
             <thead>
             <tr>
                 <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Booking Type</th>
+                <th class="border-b border-t px-4 py-2 text-left">Booking Name</th>
+                <th class="border-b border-t px-4 py-2 text-left">Type</th>
                 <th class="border-b border-t px-4 py-2 text-left">Description</th>
                 <th class="border-b border-t px-4 py-2 text-left">Created At</th>
                 <th class="border-b border-t px-4 py-2 text-right">Action</th>
@@ -36,6 +37,7 @@
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
                     <td class="px-4 py-1">{{ $bookingType->booking_name }}</td>
+                    <td class="px-4 py-1">{{ $bookingType->type }}</td>
                     <td class="px-4 py-1">{{ $bookingType->description ?: '-' }}</td>
                     <td class="px-4 py-1">{{ optional($bookingType->created_at)->format('d F Y H:i') }}</td>
                     <td class="px-4 py-1 text-right">
@@ -66,7 +68,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="5">No data available</td>
+                    <td class="px-4 py-2" colspan="6">No data available</td>
                 </tr>
             @endforelse
             </tbody>

@@ -18,7 +18,7 @@
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Description</p>
-                    <p class="text-gray-600">{{ $bookingType->description }}</p>
+                    <p class="text-gray-600">{{ $bookingType->description ?: '-' }}</p>
                 </div>
             </div>
             <div>

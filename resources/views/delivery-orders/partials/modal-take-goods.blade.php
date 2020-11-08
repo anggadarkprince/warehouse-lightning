@@ -62,6 +62,7 @@
             </div>
             <div class="border-t border-gray-200 text-right pt-4">
                 <button type="button" class="button-light button-sm dismiss-modal px-5">Close</button>
+                <button type="button" class="button-light button-sm px-5" id="btn-take-all">Take All</button>
                 <button type="submit" class="button-primary button-sm px-5">Take</button>
             </div>
         </form>

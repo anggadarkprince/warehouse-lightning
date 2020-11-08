@@ -54,6 +54,7 @@ export default function () {
                 unit_quantity_label: unitQuantity,
                 package_quantity_label: packageQuantity,
                 weight_label: weight,
+                gross_weight_label: grossWeight,
                 goods_id: goodsId,
                 item_name: itemName,
                 item_number: itemNumber,

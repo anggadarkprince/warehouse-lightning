@@ -42,14 +42,14 @@
             <div class="md:flex -mx-2">
                 <div class="px-2 md:w-1/2">
                     <div class="flex flex-wrap">
-                        <label for="goods_weight" class="form-label">{{ __('Weight') }}</label>
+                        <label for="goods_weight" class="form-label">{{ __('Weight') }} (Kg)</label>
                         <input id="goods_weight" name="goods_weight" type="text" class="form-input input-numeric" autocomplete="off"
                                placeholder="Total weight">
                     </div>
                 </div>
                 <div class="px-2 md:w-1/2">
                     <div class="flex flex-wrap">
-                        <label for="goods_gross_weight" class="form-label">{{ __('Gross Weight') }}</label>
+                        <label for="goods_gross_weight" class="form-label">{{ __('Gross Weight') }} (Kg)</label>
                         <input id="goods_gross_weight" name="goods_gross_weight" type="text" class="form-input input-numeric" autocomplete="off"
                                placeholder="Total gross weight">
                     </div>

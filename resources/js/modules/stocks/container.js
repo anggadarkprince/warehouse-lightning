@@ -67,7 +67,7 @@ export default function () {
             })
             .catch(function (error) {
                 let message = 'Error get source container';
-                if (error.response.status === 404) {
+                if (error.response && error.response.status === 404) {
                     message = 'Source not found';
                 }
                 containerListPlaceholderMessageWrapper.innerHTML = '<i class="mdi mdi-close mr-1"></i>' + message;

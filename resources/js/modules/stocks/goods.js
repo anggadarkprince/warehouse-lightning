@@ -13,6 +13,7 @@ export default function () {
     const inputGrossWeight = formTakeGoods.querySelector('#goods_gross_weight');
     const labelUnitName = formTakeGoods.querySelector('#goods_label_unit_name');
     const labelUnitPackage = formTakeGoods.querySelector('#goods_label_unit_package');
+    const buttonTakeAll = formTakeGoods.querySelector('#btn-take-all');
 
     const inputTakeUnitQuantity = formTakeGoods.querySelector('#goods_take_unit_quantity');
     const inputTakePackageQuantity = formTakeGoods.querySelector('#goods_take_package_quantity');
@@ -92,7 +93,7 @@ export default function () {
             })
             .catch(function (error) {
                 let message = 'Error get source container';
-                if (error.response.status === 404) {
+                if (error.response && error.response.status === 404) {
                     message = 'Source not found';
                 }
                 goodsListPlaceholderMessageWrapper.innerHTML = '<i class="mdi mdi-close mr-1"></i>' + message;
@@ -185,6 +186,14 @@ export default function () {
                 );
             }
         }
+    });
+
+    buttonTakeAll.addEventListener('click', function() {
+        inputTakeUnitQuantity.value = inputUnitQuantity.value;
+        inputTakePackageQuantity.value = inputPackageQuantity.value;
+        inputTakeWeight.value = inputWeight.value;
+        inputTakeGrossWeight.value = inputGrossWeight.value;
+        formTakeGoods.querySelector('button[type="submit"]').click();
     });
 
     formTakeGoods.addEventListener('submit', function (e) {
