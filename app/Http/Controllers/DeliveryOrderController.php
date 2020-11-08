@@ -151,9 +151,9 @@ class DeliveryOrderController extends Controller
             $excluded = collect($request->input('goods', []))->filter(function ($item) {
                 return !empty($item['id']);
             });
-            $deliveryOrder->deliveryOrderContainers()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            $deliveryOrder->deliveryOrderGoods()->whereNotIn('id', $excluded->pluck('id'))->delete();
             foreach ($request->input('goods', []) as $item) {
-                $deliveryOrder->deliveryOrderContainers()->updateOrCreate(
+                $deliveryOrder->deliveryOrderGoods()->updateOrCreate(
                     ['id' => data_get($item, 'id')],
                     $item
                 );

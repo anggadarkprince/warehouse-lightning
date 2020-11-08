@@ -24,9 +24,9 @@ class SaveBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'upload_id' => ['bail', 'required', 'numeric'],
-            'customer_id' => ['bail', 'required', 'numeric'],
-            'booking_type_id' => ['bail', 'required', 'numeric'],
+            'upload_id' => ['bail', 'required', 'integer', 'exists:uploads,id'],
+            'customer_id' => ['bail', 'required', 'integer', 'exists:customers,id'],
+            'booking_type_id' => ['bail', 'required', 'integer', 'exists:booking_types,id'],
             'reference_number' => ['required', 'max:100'],
             'supplier_name' => ['required', 'max:100'],
             'owner_name' => ['required', 'max:100'],
@@ -38,6 +38,10 @@ class SaveBookingRequest extends FormRequest
             'total_gross_weight' => ['nullable'],
             'total_weight' => ['nullable'],
             'description' => ['max:500', 'string'],
+            'containers' => ['nullable', 'array'],
+            'containers.*.container_id' => ['required', 'integer', 'exists:containers,id'],
+            'goods' => ['nullable', 'array'],
+            'goods.*.goods_id' => ['required', 'integer', 'exists:goods,id'],
         ];
     }
 }

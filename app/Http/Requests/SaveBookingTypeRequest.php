@@ -25,7 +25,7 @@ class SaveBookingTypeRequest extends FormRequest
     {
         return [
             'booking_name' => ['bail', 'required', 'max:50'],
-            'type' => ['required', 'max:50'],
+            'type' => ['required', 'max:50', 'in:INBOUND,OUTBOUND'],
             'description' => ['nullable', 'max:500', 'string'],
         ];
     }

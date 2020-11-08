@@ -24,12 +24,12 @@ class SaveUploadRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => ['bail', 'required', 'numeric'],
-            'booking_type_id' => ['bail', 'required', 'numeric'],
+            'customer_id' => ['bail', 'required', 'integer', 'exists:customers,id'],
+            'booking_type_id' => ['bail', 'required', 'integer', 'exists:booking_types,id'],
             'upload_title' => ['required', 'max:50'],
             'description' => ['max:500', 'string'],
             'documents' => ['present', 'filled', 'array'],
-            'documents.*.document_type_id' => ['required', 'numeric'],
+            'documents.*.document_type_id' => ['required', 'integer', 'exists:document_types,id'],
             'documents.*.document_name' => ['required'],
             'documents.*.description' => ['nullable'],
             'documents.*.document_number' => ['required', 'max:50'],

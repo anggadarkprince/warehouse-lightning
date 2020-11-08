@@ -26,7 +26,7 @@ class SaveDeliveryOrderRequest extends FormRequest
     {
         return [
             'type' => ['bail', 'required', Rule::in(['INBOUND', 'OUTBOUND'])],
-            'booking_id' => ['bail', 'required', 'numeric'],
+            'booking_id' => ['bail', 'required', 'integer', 'exists:bookings,id'],
             'destination' => ['bail', 'required', 'string'],
             'delivery_date' => ['bail', 'required', 'date'],
             'destination_address' => ['nullable', 'string', 'max:500'],
@@ -35,6 +35,9 @@ class SaveDeliveryOrderRequest extends FormRequest
             'vehicle_type' => ['nullable', 'max:50'],
             'vehicle_plat_number' => ['required', 'max:20'],
             'description' => ['nullable', 'max:500'],
+            'containers.*.container_id' => ['required', 'integer', 'exists:containers,id'],
+            'goods' => ['nullable', 'array'],
+            'goods.*.goods_id' => ['required', 'integer', 'exists:goods,id'],
         ];
     }
 }

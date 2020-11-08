@@ -14,7 +14,7 @@
                     <div class="flex w-full">
                         <input type="text" name="code" id="input-code" class="form-input rounded-tr-none rounded-br-none"
                                value="<?= request()->get('code') ?>" placeholder="Input booking, delivery order or work order" aria-label="qr-code">
-                        <button type="submit" class="button-light relative py-2 px-4 rounded-none border border-transparent" id="btn-scanner" data-target-scanner="#input-code">
+                        <button type="button" class="button-light relative py-2 px-4 rounded-none border border-transparent" id="btn-scanner" data-target-scanner="#input-code">
                             <i class="mdi mdi-qrcode-scan"></i>
                         </button>
                         <button type="submit" class="button-primary relative py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent">
