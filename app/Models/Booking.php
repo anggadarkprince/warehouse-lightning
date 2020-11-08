@@ -146,6 +146,22 @@ class Booking extends Model implements HasOrderNumber
     }
 
     /**
+     * Get the delivery orders of the booking.
+     */
+    public function deliveryOrders()
+    {
+        return $this->hasMany(DeliveryOrder::class);
+    }
+
+    /**
+     * Get the work orders of the booking.
+     */
+    public function workOrders()
+    {
+        return $this->hasMany(WorkOrder::class);
+    }
+
+    /**
      * Return generated order number or model.
      *
      * @return mixed
