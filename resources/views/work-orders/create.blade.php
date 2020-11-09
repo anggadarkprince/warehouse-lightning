@@ -1,143 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('gate.partials.scanner')
-
-    <div class="bg-white rounded shadow py-4 mb-4">
-        <div class="flex justify-between items-center mb-3 px-6">
-            <div>
-                <h1 class="text-xl text-green-500">Delivery Order</h1>
-                <span class="text-gray-400">Existing delivery order</span>
-            </div>
-        </div>
-        <div class="px-6">
-            <div class="sm:flex -mx-2">
-                <div class="px-2 sm:w-1/2 md:w-1/4 text-center">
-                    <div class="inline-block mx-auto border rounded p-4">
-                        {!! QrCode::size(150)->generate($deliveryOrder->delivery_number); !!}
-                    </div>
-                </div>
-                <div class="px-2 sm:w-1/2 md:w-3/4">
-                    <div class="sm:flex -mx-2">
-                        <div class="px-2 sm:w-1/2 md:w-1/2">
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Delivery Number') }}</p>
-                                <p class="text-gray-600">
-                                    <a href="{{ route('delivery-orders.show', ['delivery_order' => $deliveryOrder->id]) }}" class="text-link">
-                                        {{ $deliveryOrder->delivery_number }}
-                                    </a>
-                                </p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Type') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->type }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Customer') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->booking->customer->customer_name }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Reference Number') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->booking->reference_number }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Delivery Date') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->delivery_date->format('d M Y') }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Created At') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->created_at->format('d M Y H:i') }}</p>
-                            </div>
-                        </div>
-                        <div class="px-2 sm:w-1/2 md:w-1/2">
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Driver') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->driver_name }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Vehicle Name') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->vehicle_name }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Vehicle Type') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->vehicle_type }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Vehicle Plat') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->vehicle_plat_number }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Destination') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->destination }}</p>
-                            </div>
-                            <div class="flex mb-2">
-                                <p class="w-1/2 flex-shrink-0">{{ __('Address') }}</p>
-                                <p class="text-gray-600">{{ $deliveryOrder->destination_address }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2 flex justify-between items-center">
-            <div>
-                <h1 class="text-xl text-green-500">Booking Work Orders</h1>
-                <span class="text-gray-400">List of existing job related the booking</span>
-            </div>
-        </div>
-        <table class="table-auto w-full mb-4">
-            <thead>
-            <tr>
-                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Job Number') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Assigned To') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Job Type') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Taken At') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Completed At') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Status') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            $workOrderStatuses = [
-                'QUEUED' => 'bg-gray-200',
-                'TAKEN' => 'bg-orange-400',
-                'COMPLETED' => 'bg-green-500',
-            ];
-            ?>
-            @forelse($deliveryOrder->booking->workOrders as $index => $workOrder)
-                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-2 py-1 text-left">{{ $workOrder->job_number }}</td>
-                    <td class="px-2 py-1 text-left">{{ $workOrder->user->name }}</td>
-                    <td class="px-2 py-1 text-left">{{ $workOrder->job_type }}</td>
-                    <td class="px-2 py-1 text-left">{{ optional($workOrder->taken_at)->format('d M Y H:i') ?: '-' }}</td>
-                    <td class="px-2 py-1 text-left">{{ optional($workOrder->completed_at)->format('d M Y H:i') ?: '-' }}</td>
-                    <td class="px-2 py-1 text-left">
-                        <span class="px-2 py-1 rounded text-xs {{ $workOrder->status == 'QUEUED' ? '' : 'text-white' }} {{ data_get($workOrderStatuses, $workOrder->status, 'bg-gray-200') }}">
-                            {{ $workOrder->status }}
-                        </span>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="7">No data job available</td>
-                </tr>
-            @endforelse
-            </tbody>
-        </table>
-    </div>
-
     <form action="{{ route('work-orders.store') }}" method="post" id="form-gate">
         @csrf
-        <input type="hidden" name="delivery_order_id" value="{{ $deliveryOrder->id }}">
+        <input type="hidden" name="delivery_order_id" value="{{ optional($deliveryOrder)->id }}">
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2">
-                <h1 class="text-xl text-green-500">Create Job Unloading</h1>
-                <span class="text-gray-400">Convert delivery order to work order</span>
+                <h1 class="text-xl text-green-500">Create Job</h1>
+                <span class="text-gray-400">Manage job data</span>
             </div>
             <div class="flex flex-wrap mb-3 sm:mb-4">
                 <label for="user_id" class="form-label">{{ __('Assigned Job User') }}</label>
@@ -231,7 +101,7 @@
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Quantity') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Quantity') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Nett Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Gross Weight') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left"></th>

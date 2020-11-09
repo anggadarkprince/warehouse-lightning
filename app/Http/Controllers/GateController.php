@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CollectionExporter;
 use App\Models\Booking;
 use App\Models\DeliveryOrder;
 use App\Models\User;
+use App\Models\WorkOrder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class GateController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Show gate search data and work orders.
+     *
+     * @param Request $request
+     * @param CollectionExporter $exporter
+     * @return View|BinaryFileResponse|StreamedResponse
+     */
+    public function index(Request $request, CollectionExporter $exporter)
     {
         $code = $request->get('code');
 
@@ -22,7 +33,6 @@ class GateController extends Controller
                     case 'DI':
                     case 'DO':
                         return $this->scanDeliveryOrder($code);
-                        break;
                     default:
                         return redirect()->route('gate.index')->with([
                             'status' => "failed",
@@ -32,7 +42,21 @@ class GateController extends Controller
             }
         }
 
-        return view('gate.index');
+        $workOrders = WorkOrder::q($request->get('q'))
+            ->sort($request->get('sort_by'), $request->get('sort_method'))
+            ->dateFrom($request->get('date_from'))
+            ->dateTo($request->get('date_to'));
+
+        if ($request->get('export')) {
+            return $exporter->streamDownload($workOrders->cursor(), [
+                'title' => 'Work Order Data',
+                'fileName' => 'Delivery orders.xlsx',
+                'excludes' => ['id', 'deleted_at'],
+            ]);
+        } else {
+            $workOrders = $workOrders->paginate();
+            return view('gate.index', compact('workOrders'));
+        }
     }
 
     /**

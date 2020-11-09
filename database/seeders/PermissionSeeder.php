@@ -185,6 +185,27 @@ class PermissionSeeder extends Seeder
         );
 
         Permission::firstOrCreate(
+            ['permission' => Permission::WORK_ORDER_VIEW],
+            ['description' => 'View work order data', 'module' => 'work-order', 'feature' => 'work-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::WORK_ORDER_CREATE],
+            ['description' => 'Create work order data', 'module' => 'work-order', 'feature' => 'work-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::WORK_ORDER_EDIT],
+            ['description' => 'Edit work order data', 'module' => 'work-order', 'feature' => 'work-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::WORK_ORDER_DELETE],
+            ['description' => 'Delete work order data', 'module' => 'work-order', 'feature' => 'work-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::WORK_ORDER_TAKE],
+            ['description' => 'Take work order data', 'module' => 'work-order', 'feature' => 'work-order']
+        );
+
+        Permission::firstOrCreate(
             ['permission' => Permission::ACCOUNT_EDIT],
             ['description' => 'Edit account data', 'module' => 'preferences', 'feature' => 'account']
         );

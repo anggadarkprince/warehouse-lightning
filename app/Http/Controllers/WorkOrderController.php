@@ -4,13 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Models\DeliveryOrder;
 use App\Models\WorkOrder;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class WorkOrderController extends Controller
 {
+    /**
+     * WorkOrderController constructor.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(WorkOrder::class);
+    }
+
+    /**
+     * Display the specified work order.
+     *
+     * @param WorkOrder $workOrder
+     * @return View
+     */
+    public function show(WorkOrder $workOrder)
+    {
+        return view('work-orders.show', compact('workOrder'));
+    }
+
+    /**
+     * Print work order.
+     *
+     * @param WorkOrder $workOrder
+     * @return BinaryFileResponse|StreamedResponse
+     * @throws AuthorizationException
+     */
+    public function printWorkOrder(WorkOrder $workOrder)
+    {
+        $this->authorize('view', $workOrder);
+
+        //return $workOrder->getPdf();
+    }
+
     /**
      * Store a newly created work order in storage.
      *
@@ -34,5 +72,22 @@ class WorkOrderController extends Controller
                 "message" => "Work order {$workOrder->job_number} successfully created"
             ]);
         });
+    }
+
+    /**
+     * Remove the specified work order from storage.
+     *
+     * @param WorkOrder $workOrder
+     * @return RedirectResponse
+     * @throws Exception
+     */
+    public function destroy(WorkOrder $workOrder)
+    {
+        $workOrder->delete();
+
+        return redirect()->back()->with([
+            "status" => "warning",
+            "message" => "Work order {$workOrder->work_number} successfully deleted"
+        ]);
     }
 }

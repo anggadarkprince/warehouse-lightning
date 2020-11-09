@@ -108,5 +108,6 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('delivery-orders', DeliveryOrderController::class);
 
     Route::get('gate', [GateController::class, 'index'])->name('gate.index');
-    Route::post('work-order', [WorkOrderController::class, 'store'])->name('work-order.store');
+    Route::get('work-orders/{work_order}/print', [WorkOrderController::class, 'printWorkOrder'])->name('work-orders.print');
+    Route::resource('work-orders', WorkOrderController::class);
 });

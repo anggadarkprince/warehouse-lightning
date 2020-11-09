@@ -66,6 +66,12 @@ class Permission extends Model
     const DELIVERY_ORDER_EDIT = 'delivery-order-edit';
     const DELIVERY_ORDER_DELETE = 'delivery-order-delete';
 
+    const WORK_ORDER_VIEW = 'work-order-view';
+    const WORK_ORDER_CREATE = 'work-order-create';
+    const WORK_ORDER_EDIT = 'work-order-edit';
+    const WORK_ORDER_DELETE = 'work-order-delete';
+    const WORK_ORDER_TAKE = 'work-order-take';
+
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';
 

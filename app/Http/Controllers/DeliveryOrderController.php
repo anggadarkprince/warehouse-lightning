@@ -100,7 +100,7 @@ class DeliveryOrderController extends Controller
      * Print delivery order.
      *
      * @param DeliveryOrder $deliveryOrder
-     * @return
+     * @return BinaryFileResponse|StreamedResponse
      * @throws AuthorizationException
      */
     public function printDeliveryOrder(DeliveryOrder $deliveryOrder)

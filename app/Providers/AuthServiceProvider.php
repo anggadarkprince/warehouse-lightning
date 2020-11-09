@@ -13,6 +13,7 @@ use App\Models\Role;
 use App\Models\Setting;
 use App\Models\Upload;
 use App\Models\User;
+use App\Models\WorkOrder;
 use App\Policies\BookingPolicy;
 use App\Policies\BookingTypePolicy;
 use App\Policies\ContainerPolicy;
@@ -24,6 +25,7 @@ use App\Policies\RolePolicy;
 use App\Policies\SettingPolicy;
 use App\Policies\UploadPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\WorkOrderPolicy;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -47,6 +49,7 @@ class AuthServiceProvider extends ServiceProvider
         Upload::class => UploadPolicy::class,
         Booking::class => BookingPolicy::class,
         DeliveryOrder::class => DeliveryOrderPolicy::class,
+        WorkOrder::class => WorkOrderPolicy::class,
     ];
 
     /**

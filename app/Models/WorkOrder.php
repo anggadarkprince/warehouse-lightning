@@ -4,11 +4,17 @@ namespace App\Models;
 
 use App\Contracts\Numerable\HasOrderNumber;
 use App\Traits\Search\BasicFilter;
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class WorkOrder extends Model implements HasOrderNumber
 {
-    use BasicFilter;
+    use SoftDeletes, BasicFilter;
 
     const TYPE_UNLOADING = "UNLOADING";
     const TYPE_STRIPPING_CONTAINER = "CONTAINER_STRIPPING";
@@ -122,5 +128,45 @@ class WorkOrder extends Model implements HasOrderNumber
         }
 
         return $prefix . '-' . date('ym') . $orderPad;
+    }
+
+
+    /**
+     * Scope a query to only include group that match the query.
+     *
+     * @param Builder $query
+     * @param string $q
+     * @return Builder
+     */
+    public function scopeQ(Builder $query, $q = '')
+    {
+        if (empty($q)) return $query;
+
+        $columns = Schema::getColumnListing($this->getTable());
+        return $query->where(function (Builder $query) use ($q, $columns) {
+            foreach ($columns as $column) {
+                if (in_array(DB::getSchemaBuilder()->getColumnType($this->getTable(), $column), ['date', 'datetime'])) {
+                    try {
+                        $q = Carbon::parse($q)->format('Y-m-d');
+                    } catch (InvalidFormatException $e) {
+                    }
+                }
+                $query->orWhere($column, 'LIKE', '%' . trim($q) . '%');
+            }
+            $query->orWhereHas('booking.bookingType', function (Builder $query) use ($q) {
+                $query->where('booking_types.type', 'LIKE', '%' . $q . '%');
+                $query->orWhere('booking_name', 'LIKE', '%' . $q . '%');
+            });
+            $query->orWhereHas('booking', function (Builder $query) use ($q) {
+                $query->where('reference_number', 'LIKE', '%' . $q . '%');
+                $query->orWhere('booking_number', 'LIKE', '%' . $q . '%');
+            });
+            $query->orWhereHas('booking.customer', function (Builder $query) use ($q) {
+                $query->where('customer_name', 'LIKE', '%' . $q . '%');
+            });
+            $query->orWhereHas('user', function (Builder $query) use ($q) {
+                $query->where('name', 'LIKE', '%' . $q . '%');
+            });
+        });
     }
 }

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DeliveryOrder extends Model implements HasOrderNumber
 {
@@ -159,7 +161,7 @@ class DeliveryOrder extends Model implements HasOrderNumber
      * Get pdf from current data.
      *
      * @param bool $stream
-     * @return
+     * @return BinaryFileResponse|StreamedResponse
      */
     public function getPdf($stream = true)
     {
