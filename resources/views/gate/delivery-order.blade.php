@@ -12,104 +12,197 @@
         </div>
         <div class="px-6">
             <div class="sm:flex -mx-2">
-                <div class="px-2 sm:w-1/2 md:w-1/3 text-center">
-                    <div class="inline-block mx-auto border rounded p-4 my-4">
-                        {!! QrCode::size(200)->generate($deliveryOrder->delivery_number); !!}
+                <div class="px-2 sm:w-1/2 md:w-1/4 text-center">
+                    <div class="inline-block mx-auto border rounded p-4">
+                        {!! QrCode::size(150)->generate($deliveryOrder->delivery_number); !!}
                     </div>
                 </div>
                 <div class="px-2 sm:w-1/2 md:w-3/4">
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Delivery Number') }}</p>
-                        <p class="text-gray-600">
-                            <a href="{{ route('delivery-orders.show', ['delivery_order' => $deliveryOrder->id]) }}" class="text-link">
-                                {{ $deliveryOrder->delivery_number }}
-                            </a>
-                        </p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Type') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->type }}</p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Customer') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->booking->customer->customer_name }}</p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Reference Number') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->booking->reference_number }}</p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Delivery Date') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->delivery_date->format('d F Y') }}</p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Driver') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->driver_name }}</p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Vehicle') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->vehicle_name }} {{ $deliveryOrder->vehicle_type }}</p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Vehicle Plat') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->vehicle_plat_number }}</p>
-                    </div>
-                    <div class="flex mb-2">
-                        <p class="w-1/3 flex-shrink-0">{{ __('Destination') }}</p>
-                        <p class="text-gray-600">{{ $deliveryOrder->destination }}</p>
+                    <div class="sm:flex -mx-2">
+                        <div class="px-2 sm:w-1/2 md:w-1/2">
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Delivery Number') }}</p>
+                                <p class="text-gray-600">
+                                    <a href="{{ route('delivery-orders.show', ['delivery_order' => $deliveryOrder->id]) }}" class="text-link">
+                                        {{ $deliveryOrder->delivery_number }}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Type') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->type }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Customer') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->booking->customer->customer_name }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Reference Number') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->booking->reference_number }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Delivery Date') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->delivery_date->format('d M Y') }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Created At') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->created_at->format('d M Y H:i') }}</p>
+                            </div>
+                        </div>
+                        <div class="px-2 sm:w-1/2 md:w-1/2">
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Driver') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->driver_name }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Vehicle Name') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->vehicle_name }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Vehicle Type') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->vehicle_type }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Vehicle Plat') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->vehicle_plat_number }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Destination') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->destination }}</p>
+                            </div>
+                            <div class="flex mb-2">
+                                <p class="w-1/2 flex-shrink-0">{{ __('Address') }}</p>
+                                <p class="text-gray-600">{{ $deliveryOrder->destination_address }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="mb-2 flex justify-between items-center">
             <div>
-                <h1 class="text-xl text-green-500">Containers</h1>
-                <span class="text-gray-400">List of delivery container</span>
+                <h1 class="text-xl text-green-500">Booking Work Orders</h1>
+                <span class="text-gray-400">List of existing job related the booking</span>
             </div>
-            <button type="button" class="button-blue button-sm" id="btn-add-container" data-booking-id="{{ $deliveryOrder->booking_id }}" data-source-url="{{ route('bookings.containers.index', ['booking' => $deliveryOrder->booking_id]) }}">
-                ADD CONTAINER
+            <button type="button" class="button-blue button-sm">
+                ADD WORK ORDER
             </button>
         </div>
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
                 <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Container Number') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Size') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Type') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Is Empty') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Seal') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left"></th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Job Number') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Assigned To') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Job Type') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Taken At') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Completed At') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Status') }}</th>
             </tr>
             </thead>
-            <tbody id="container-wrapper">
-            <tr class="container-placeholder{{ empty(old('containers', $deliveryOrder->deliveryOrderContainers->toArray())) ? '' : ' hidden' }}">
-                <td colspan="8" class="px-4 py-2">{{ __('No data available') }}</td>
-            </tr>
-            @foreach(old('containers', $deliveryOrder->deliveryOrderContainers()->with('container')->get()->toArray()) as $index => $container)
-                @include('delivery-orders.partials.template-container-row', [
-                    'index' => $index,
-                    'containerOrder' => $index + 1,
-                    'id' => data_get($container, 'id', ''),
-                    'containerId' => data_get($container, 'container_id'),
-                    'containerNumber' => data_get($container, 'container_number', data_get($container, 'container.container_number')),
-                    'containerSize' => data_get($container, 'container_size', data_get($container, 'container.container_size')),
-                    'containerType' => data_get($container, 'container_type', data_get($container, 'container.container_type')),
-                    'isEmptyLabel' => data_get($container, 'is_empty') ? 'Yes' : 'No',
-                    'isEmpty' => data_get($container, 'is_empty'),
-                    'seal' => data_get($container, 'seal'),
-                    'description' => data_get($container, 'description'),
-                ])
-            @endforeach
+            <tbody>
+            @forelse($deliveryOrder->booking->workOrders as $index => $workOrder)
+                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1 text-left">{{ $workOrder->job_number }}</td>
+                    <td class="px-2 py-1 text-left">{{ $workOrder->user->name }}</td>
+                    <td class="px-2 py-1 text-left">{{ $workOrder->job_type }}</td>
+                    <td class="px-2 py-1 text-left">{{ optional($workOrder->taken_at)->format('d M Y H:i') }}</td>
+                    <td class="px-2 py-1 text-left">{{ optional($workOrder->completed_at)->format('d M Y H:i') }}</td>
+                    <td class="px-2 py-1 text-left">{{ $workOrder->status }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7">No data job available</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>
 
-    <form action="#" method="post" id="form-gate">
+    <form action="{{ route('work-order.store') }}" method="post" id="form-gate">
         @csrf
+        <input type="hidden" name="delivery_order_id" value="{{ $deliveryOrder->id }}">
+        <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
+            <div class="mb-2">
+                <h1 class="text-xl text-green-500">Create Job Unloading</h1>
+                <span class="text-gray-400">Convert delivery order to work order</span>
+            </div>
+            <div class="flex flex-wrap mb-3 sm:mb-4">
+                <label for="user_id" class="form-label">{{ __('Assigned Job User') }}</label>
+                <div class="relative w-full">
+                    <select class="form-input pr-8" name="user_id" id="user_id" required>
+                        <option value="">-- Select user --</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}" data-type="{{ $user->name }}"{{ old('user_id') == $user->id ? ' selected' : '' }}>
+                                {{ $user->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+                @error('user_id') <p class="form-text-error">{{ $message }}</p> @enderror
+            </div>
+            <div class="flex flex-wrap mb-3 sm:mb-4">
+                <label for="description" class="form-label">{{ __('Description') }}</label>
+                <textarea id="description" type="text" class="form-input @error('description') border-red-500 @enderror"
+                          placeholder="Job description or instruction" name="description">{{ old('description') }}</textarea>
+                @error('description') <p class="form-text-error">{{ $message }}</p> @enderror
+            </div>
+        </div>
+
+        <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
+            <div class="mb-2 flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl text-green-500">Containers</h1>
+                    <span class="text-gray-400">List of delivery container</span>
+                </div>
+                <button type="button" class="button-blue button-sm" id="btn-add-container" data-booking-id="{{ $deliveryOrder->booking_id }}" data-source-url="{{ route('bookings.containers.index', ['booking' => $deliveryOrder->booking_id]) }}">
+                    ADD CONTAINER
+                </button>
+            </div>
+            <table class="table-auto w-full mb-4">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left"></th>
+                </tr>
+                </thead>
+                <tbody id="container-wrapper">
+                <tr class="container-placeholder{{ empty(old('containers', $deliveryOrder->deliveryOrderContainers->toArray())) ? '' : ' hidden' }}">
+                    <td colspan="8" class="px-4 py-2">{{ __('No data available') }}</td>
+                </tr>
+                @foreach(old('containers', $deliveryOrder->deliveryOrderContainers()->with('container')->get()->toArray()) as $index => $container)
+                    @include('delivery-orders.partials.template-container-row', [
+                        'index' => $index,
+                        'containerOrder' => $index + 1,
+                        'id' => data_get($container, 'id', ''),
+                        'containerId' => data_get($container, 'container_id'),
+                        'containerNumber' => data_get($container, 'container_number', data_get($container, 'container.container_number')),
+                        'containerSize' => data_get($container, 'container_size', data_get($container, 'container.container_size')),
+                        'containerType' => data_get($container, 'container_type', data_get($container, 'container.container_type')),
+                        'isEmptyLabel' => data_get($container, 'is_empty') ? 'Yes' : 'No',
+                        'isEmpty' => data_get($container, 'is_empty'),
+                        'seal' => data_get($container, 'seal'),
+                        'description' => data_get($container, 'description'),
+                    ])
+                @endforeach
+                </tbody>
+            </table>
+        </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2 flex justify-between items-center">

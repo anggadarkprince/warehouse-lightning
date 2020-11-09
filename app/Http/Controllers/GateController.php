@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\DeliveryOrder;
+use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class GateController extends Controller
 {
@@ -36,7 +39,7 @@ class GateController extends Controller
      * Show delivery order data.
      *
      * @param $code
-     * @return View
+     * @return View|RedirectResponse
      */
     private function scanDeliveryOrder($code)
     {
@@ -48,8 +51,8 @@ class GateController extends Controller
             ]);
         }
 
-        session()->flash("status", "success");
-        session()->flash("message", "Delivery order {$deliveryOrder->delivery_number} found");
-        return view('gate.delivery-order', compact('deliveryOrder'));
+        $users = User::all();
+
+        return view('gate.delivery-order', compact('deliveryOrder', 'users'));
     }
 }

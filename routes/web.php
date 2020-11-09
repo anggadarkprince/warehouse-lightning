@@ -18,6 +18,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UploadDocumentController;
 use App\Http\Controllers\UploadDocumentFileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -107,4 +108,5 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('delivery-orders', DeliveryOrderController::class);
 
     Route::get('gate', [GateController::class, 'index'])->name('gate.index');
+    Route::post('work-order', [WorkOrderController::class, 'store'])->name('work-order.store');
 });

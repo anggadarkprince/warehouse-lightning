@@ -17,6 +17,36 @@ class WorkOrder extends Model implements HasOrderNumber
     const TYPE_UNPACKING_GOODS = "UNPACKING_GOODS";
     const TYPE_LOADING = "LOADING";
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = ['booking_id', 'user_id', 'job_type', 'description'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'taken_at' => 'datetime',
+        'completed_at' => 'datetime',
+    ];
+
+    /**
+     * Bootstrap the model and its traits.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->job_number = $model->getOrderNumber();
+        });
+    }
 
     /**
      * Get the booking of the work order.
@@ -24,6 +54,14 @@ class WorkOrder extends Model implements HasOrderNumber
     public function booking()
     {
         return $this->belongsTo(Booking::class);
+    }
+
+    /**
+     * Get the user of the work order.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
