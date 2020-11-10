@@ -9,7 +9,7 @@
         <form action="{{ route('gate.index') }}" method="get" class="static-form">
             <div class="flex flex-wrap mb-3 sm:mb-4">
                 <div class="flex w-full">
-                    <input type="text" name="code" id="input-code" class="form-input rounded-tr-none rounded-br-none"
+                    <input type="text" name="code" id="input-code" class="form-input rounded-tr-none rounded-br-none" required
                            value="<?= request()->get('code') ?>" placeholder="Input booking, delivery order or work order" aria-label="qr-code">
                     <button type="button" class="button-light relative py-2 px-4 rounded-none border border-transparent" id="btn-scanner" data-target-scanner="#input-code">
                         <i class="mdi mdi-qrcode-scan"></i>

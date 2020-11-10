@@ -33,6 +33,9 @@ class GateController extends Controller
                     case 'DI':
                     case 'DO':
                         return $this->scanDeliveryOrder($code);
+                    case 'BI':
+                    case 'BO':
+                        return $this->scanBooking($code);
                     default:
                         return redirect()->route('gate.index')->with([
                             'status' => "failed",
@@ -78,5 +81,26 @@ class GateController extends Controller
         $users = User::all();
 
         return view('gate.delivery-order', compact('deliveryOrder', 'users'));
+    }
+
+    /**
+     * Show booking data.
+     *
+     * @param $code
+     * @return View|RedirectResponse
+     */
+    private function scanBooking($code)
+    {
+        $booking = Booking::where('booking_number', $code)->first();
+        if (empty($booking)) {
+            return redirect()->route('gate.index')->with([
+                'status' => "failed",
+                "message" => "Booking not found"
+            ]);
+        }
+
+        $users = User::all();
+
+        return view('gate.booking', compact('booking', 'users'));
     }
 }

@@ -157,7 +157,7 @@
                 <td>{{ $workOrderContainer->container->container_number }}</td>
                 <td>{{ $workOrderContainer->container->container_size }}</td>
                 <td>{{ $workOrderContainer->container->container_type ?: '-' }}</td>
-                <td>{{ $workOrderContainer->seal }}</td>
+                <td>{{ $workOrderContainer->seal ?: '-' }}</td>
                 <td>{{ $workOrderContainer->is_empty ? 'Yes' : 'No' }}</td>
                 <td>{{ $workOrderContainer->description ?: '-' }}</td>
             </tr>
@@ -171,22 +171,21 @@
         <tr>
             <th class="text-left">Item Name</th>
             <th class="text-left">Unit Qty</th>
-            <th class="text-left">Unit Name</th>
             <th class="text-left">Package Qty</th>
-            <th class="text-left">Package Name</th>
             <th class="text-left">Weight</th>
             <th class="text-left">Gross Weight</th>
             <th class="text-left">Description</th>
         </tr>
         @foreach($workOrder->workOrderGoods as $workOrderGoods)
             <tr>
-                <td>{{ $workOrderGoods->goods->item_name }}</td>
-                <td>{{ numeric($workOrderGoods->unit_quantity) }}</td>
-                <td>{{ $workOrderGoods->goods->unit_name ?: '-' }}</td>
-                <td>{{ numeric($workOrderGoods->package_quantity) }}</td>
-                <td>{{ $workOrderGoods->goods->package_name ?: '-' }}</td>
-                <td>{{ numeric($workOrderGoods->weight) }}</td>
-                <td>{{ numeric($workOrderGoods->gross_weight) }}</td>
+                <td>
+                    {{ $workOrderGoods->goods->item_name }}<br>
+                    <small style="color: #aaaaaa">{{ $workOrderGoods->goods->item_number }}</small>
+                </td>
+                <td>{{ numeric($workOrderGoods->unit_quantity) }} {{ $workOrderGoods->goods->unit_name ?: '-' }}</td>
+                <td>{{ numeric($workOrderGoods->package_quantity) }} {{ $workOrderGoods->goods->package_name ?: '-' }}</td>
+                <td>{{ numeric($workOrderGoods->weight) }} Kg</td>
+                <td>{{ numeric($workOrderGoods->gross_weight) }} Kg</td>
                 <td>{{ $workOrderGoods->description ?: '-' }}</td>
             </tr>
         @endforeach

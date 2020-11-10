@@ -12,12 +12,12 @@
         </div>
         <div class="px-6">
             <div class="sm:flex -mx-2">
-                <div class="px-2 md:w-1/3 lg:w-1/4 hidden sm:block">
-                    <div class="inline-block border rounded p-4 mb-3 sm:mb-0">
+                <div class="px-2 w-auto hidden sm:block">
+                    <div class="inline-block border rounded p-4 mb-3 sm:mb-0 sm:mr-2">
                         {!! QrCode::size(150)->generate($deliveryOrder->delivery_number); !!}
                     </div>
                 </div>
-                <div class="px-2 md:w-2/3 lg:w-3/4">
+                <div class="px-2 sm:w-2/3 md:w-full">
                     <div class="lg:flex -mx-2">
                         <div class="px-2 lg:w-1/2">
                             <div class="flex mb-2">

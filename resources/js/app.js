@@ -15,4 +15,5 @@ require('./pages/document');
 require('./pages/booking');
 require('./pages/delivery-order');
 require('./pages/gate');
+require('./pages/work-order');
 require('./pages/setting');

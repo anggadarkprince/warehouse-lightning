@@ -41,14 +41,16 @@ class WorkOrderController extends Controller
     /**
      * Show the form for creating a new delivery order.
      *
+     * @param Request $request
      * @return View
      */
-    public function create()
+    public function create(Request $request)
     {
+        $selectedBooking = Booking::find($request->get('booking_id'));
         $bookings = Booking::validated()->type('INBOUND')->get();
         $users = User::all();
 
-        return view('work-orders.create', compact('bookings', 'users'));
+        return view('work-orders.create', compact('bookings', 'users', 'selectedBooking'));
     }
 
     /**
@@ -117,6 +119,30 @@ class WorkOrderController extends Controller
     {
         return DB::transaction(function () use ($request, $workOrder) {
             $workOrder->fill($request->input())->save();
+
+            // sync work order containers
+            $excluded = collect($request->input('containers', []))->filter(function ($container) {
+                return !empty($container['id']);
+            });
+            $workOrder->workOrderContainers()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('containers', []) as $container) {
+                $workOrder->workOrderContainers()->updateOrCreate(
+                    ['id' => data_get($container, 'id')],
+                    $container
+                );
+            }
+
+            // sync work order goods
+            $excluded = collect($request->input('goods', []))->filter(function ($item) {
+                return !empty($item['id']);
+            });
+            $workOrder->workOrderGoods()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('goods', []) as $item) {
+                $workOrder->workOrderGoods()->updateOrCreate(
+                    ['id' => data_get($item, 'id')],
+                    $item
+                );
+            }
 
             return redirect()->route('gate.index')->with([
                 "status" => "success",
