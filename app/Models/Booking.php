@@ -95,7 +95,7 @@ class Booking extends Model implements HasOrderNumber
     }
 
     /**
-     * Scope a query to filter by validated upload.
+     * Scope a query to filter by validated booking.
      *
      * @param Builder $query
      * @return Builder
@@ -103,6 +103,20 @@ class Booking extends Model implements HasOrderNumber
     public function scopeValidated(Builder $query)
     {
         return $query->where('status', self::STATUS_VALIDATED);
+    }
+
+    /**
+     * Scope a query to filter by type booking.
+     *
+     * @param Builder $query
+     * @param $type
+     * @return Builder
+     */
+    public function scopeType(Builder $query, $type)
+    {
+        return $query->orWhereHas('bookingType', function (Builder $query) use ($type) {
+            $query->where('booking_types.type', $type);
+        });
     }
 
     /**

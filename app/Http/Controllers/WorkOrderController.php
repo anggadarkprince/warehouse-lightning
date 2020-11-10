@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveWorkOrderRequest;
+use App\Models\Booking;
 use App\Models\DeliveryOrder;
+use App\Models\User;
 use App\Models\WorkOrder;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -36,6 +39,19 @@ class WorkOrderController extends Controller
     }
 
     /**
+     * Show the form for creating a new delivery order.
+     *
+     * @return View
+     */
+    public function create()
+    {
+        $bookings = Booking::validated()->type('INBOUND')->get();
+        $users = User::all();
+
+        return view('work-orders.create', compact('bookings', 'users'));
+    }
+
+    /**
      * Print work order.
      *
      * @param WorkOrder $workOrder
@@ -46,23 +62,25 @@ class WorkOrderController extends Controller
     {
         $this->authorize('view', $workOrder);
 
-        //return $workOrder->getPdf();
+        return $workOrder->getPdf();
     }
 
     /**
      * Store a newly created work order in storage.
      *
-     * @param Request $request
+     * @param SaveWorkOrderRequest $request
      * @return Response|RedirectResponse
      */
-    public function store(Request $request)
+    public function store(SaveWorkOrderRequest $request)
     {
         return DB::transaction(function () use ($request) {
-            if (!$request->filled('job_type')) {
+            if (empty($request->has('delivery_order_id'))) {
+                $workOrder = WorkOrder::create($request->input());
+            } else {
                 $request->merge(['job_type' => WorkOrder::TYPE_UNLOADING]);
+                $deliveryOrder = DeliveryOrder::find($request->input('delivery_order_id'));
+                $workOrder = $deliveryOrder->booking->workOrders()->create($request->only(['user_id', 'job_type', 'description']));
             }
-            $deliveryOrder = DeliveryOrder::find($request->input('delivery_order_id'));
-            $workOrder = $deliveryOrder->booking->workOrders()->create($request->only(['user_id', 'job_type', 'description']));
 
             $workOrder->workOrderContainers()->createMany($request->input('containers', []));
             $workOrder->workOrderGoods()->createMany($request->input('goods', []));
@@ -70,6 +88,39 @@ class WorkOrderController extends Controller
             return redirect()->route('gate.index')->with([
                 "status" => "success",
                 "message" => "Work order {$workOrder->job_number} successfully created"
+            ]);
+        });
+    }
+
+    /**
+     * Show the form for editing the specified work order.
+     *
+     * @param WorkOrder $workOrder
+     * @return View
+     */
+    public function edit(WorkOrder $workOrder)
+    {
+        $bookings = Booking::validated()->orWhere('id', $workOrder->booking_id)->get();
+        $users = User::all();
+
+        return view('work-orders.edit', compact('workOrder', 'bookings', 'users'));
+    }
+
+    /**
+     * Update the specified delivery order in storage.
+     *
+     * @param Request $request
+     * @param WorkOrder $workOrder
+     * @return Response
+     */
+    public function update(Request $request, WorkOrder $workOrder)
+    {
+        return DB::transaction(function () use ($request, $workOrder) {
+            $workOrder->fill($request->input())->save();
+
+            return redirect()->route('work-orders.index')->with([
+                "status" => "success",
+                "message" => "Work order {$workOrder->work_number} successfully updated"
             ]);
         });
     }

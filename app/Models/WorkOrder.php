@@ -11,16 +11,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class WorkOrder extends Model implements HasOrderNumber
 {
     use SoftDeletes, BasicFilter;
 
     const TYPE_UNLOADING = "UNLOADING";
-    const TYPE_STRIPPING_CONTAINER = "CONTAINER_STRIPPING";
-    const TYPE_RETURN_EMPTY_CONTAINER = "RETURN_EMPTY_CONTAINER";
-    const TYPE_REPACKING_GOODS = "REPACKING_GOODS";
-    const TYPE_UNPACKING_GOODS = "UNPACKING_GOODS";
+    const TYPE_STRIPPING_CONTAINER = "CONTAINER STRIPPING";
+    const TYPE_RETURN_EMPTY_CONTAINER = "RETURN EMPTY CONTAINER";
+    const TYPE_REPACKING_GOODS = "REPACKING GOODS";
+    const TYPE_UNPACKING_GOODS = "UNPACKING GOODS";
     const TYPE_LOADING = "LOADING";
 
     /**
@@ -168,5 +170,22 @@ class WorkOrder extends Model implements HasOrderNumber
                 $query->where('name', 'LIKE', '%' . $q . '%');
             });
         });
+    }
+
+    /**
+     * Get pdf from current data.
+     *
+     * @param bool $stream
+     * @return BinaryFileResponse|StreamedResponse
+     */
+    public function getPdf($stream = true)
+    {
+        $pdf = app('dompdf.wrapper')->loadView('work-orders.print', ['workOrder' => $this]);
+
+        if ($stream) {
+            return $pdf->stream('work-order.pdf');
+        }
+
+        return $pdf->download('work-order.pdf');
     }
 }

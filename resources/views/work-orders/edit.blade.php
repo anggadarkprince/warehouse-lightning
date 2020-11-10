@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('work-orders.store') }}" method="post" id="form-work-order">
+    <form action="{{ route('work-orders.update', ['work_order' => $workOrder->id]) }}" method="post" id="form-work-order">
         @csrf
+        @method('put')
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2">
-                <h1 class="text-xl text-green-500">Create Work Order</h1>
+                <h1 class="text-xl text-green-500">Edit Work Order</h1>
                 <span class="text-gray-400">Manage job data</span>
             </div>
             <div class="flex flex-wrap mb-3 sm:mb-4">
@@ -14,7 +15,7 @@
                     <select class="form-input pr-8" name="booking_id" id="booking_id" required>
                         <option value="">-- Select booking --</option>
                         @foreach($bookings as $booking)
-                            <option value="{{ $booking->id }}" data-type="{{ $booking->bookingType->type }}"{{ old('booking_id') == $booking->id ? ' selected' : '' }}>
+                            <option value="{{ $booking->id }}" data-type="{{ $booking->bookingType->type }}"{{ old('booking_id', $workOrder->booking_id) == $booking->id ? ' selected' : '' }}>
                                 {{ $booking->booking_number }} - {{ $booking->reference_number }}
                             </option>
                         @endforeach
@@ -34,22 +35,22 @@
                         <div class="relative w-full">
                             <select class="form-input pr-8" name="job_type" id="job_type" required>
                                 <option value="">-- Select type --</option>
-                                <option value="{{ \App\Models\WorkOrder::TYPE_UNLOADING }}"{{ old('job_type') == \App\Models\WorkOrder::TYPE_UNLOADING ? ' selected' : '' }}>
+                                <option value="{{ \App\Models\WorkOrder::TYPE_UNLOADING }}"{{ old('job_type', $workOrder->job_type) == \App\Models\WorkOrder::TYPE_UNLOADING ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_UNLOADING)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
-                                <option value="{{ \App\Models\WorkOrder::TYPE_STRIPPING_CONTAINER }}"{{ old('job_type') == \App\Models\WorkOrder::TYPE_STRIPPING_CONTAINER ? ' selected' : '' }}>
+                                <option value="{{ \App\Models\WorkOrder::TYPE_STRIPPING_CONTAINER }}"{{ old('job_type', $workOrder->job_type) == \App\Models\WorkOrder::TYPE_STRIPPING_CONTAINER ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_STRIPPING_CONTAINER)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
-                                <option value="{{ \App\Models\WorkOrder::TYPE_RETURN_EMPTY_CONTAINER }}"{{ old('job_type') == \App\Models\WorkOrder::TYPE_RETURN_EMPTY_CONTAINER ? ' selected' : '' }}>
+                                <option value="{{ \App\Models\WorkOrder::TYPE_RETURN_EMPTY_CONTAINER }}"{{ old('job_type', $workOrder->job_type) == \App\Models\WorkOrder::TYPE_RETURN_EMPTY_CONTAINER ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_RETURN_EMPTY_CONTAINER)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
-                                <option value="{{ \App\Models\WorkOrder::TYPE_UNPACKING_GOODS }}"{{ old('job_type') == \App\Models\WorkOrder::TYPE_UNPACKING_GOODS ? ' selected' : '' }}>
+                                <option value="{{ \App\Models\WorkOrder::TYPE_UNPACKING_GOODS }}"{{ old('job_type', $workOrder->job_type) == \App\Models\WorkOrder::TYPE_UNPACKING_GOODS ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_UNPACKING_GOODS)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
-                                <option value="{{ \App\Models\WorkOrder::TYPE_REPACKING_GOODS }}"{{ old('job_type') == \App\Models\WorkOrder::TYPE_REPACKING_GOODS ? ' selected' : '' }}>
+                                <option value="{{ \App\Models\WorkOrder::TYPE_REPACKING_GOODS }}"{{ old('job_type', $workOrder->job_type) == \App\Models\WorkOrder::TYPE_REPACKING_GOODS ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_REPACKING_GOODS)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
-                                <option value="{{ \App\Models\WorkOrder::TYPE_LOADING }}"{{ old('job_type') == \App\Models\WorkOrder::TYPE_LOADING ? ' selected' : '' }}>
+                                <option value="{{ \App\Models\WorkOrder::TYPE_LOADING }}"{{ old('job_type', $workOrder->job_type) == \App\Models\WorkOrder::TYPE_LOADING ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_LOADING)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
                             </select>
@@ -69,7 +70,7 @@
                             <select class="form-input pr-8" name="user_id" id="user_id" required>
                                 <option value="">No specific user</option>
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}" data-type="{{ $user->name }}"{{ old('user_id') == $user->id ? ' selected' : '' }}>
+                                    <option value="{{ $user->id }}" data-type="{{ $user->name }}"{{ old('user_id', $workOrder->user_id) == $user->id ? ' selected' : '' }}>
                                         {{ $user->name }}
                                     </option>
                                 @endforeach
@@ -87,13 +88,13 @@
             <div class="flex flex-wrap mb-3 sm:mb-4">
                 <label for="description" class="form-label">{{ __('Description') }}</label>
                 <textarea id="description" type="text" class="form-input @error('description') border-red-500 @enderror"
-                          placeholder="Job description or instruction" name="description">{{ old('description') }}</textarea>
+                          placeholder="Job description or instruction" name="description">{{ old('description', $workOrder->description) }}</textarea>
                 @error('description') <p class="form-text-error">{{ $message }}</p> @enderror
             </div>
         </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
-            <button type="submit" class="button-primary button-sm ml-auto">Create Work Order</button>
+            <button type="submit" class="button-blue button-sm ml-auto">Update Work Order</button>
         </div>
     </form>
 @endsection

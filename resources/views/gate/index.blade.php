@@ -17,7 +17,7 @@
                     <i class="mdi mdi-file-download-outline"></i>
                 </a>
                 @can('create', \App\Models\WorkOrder::class)
-                    <a href="{{ route('delivery-orders.create') }}" class="button-blue button-sm">
+                    <a href="{{ route('work-orders.create') }}" class="button-blue button-sm">
                         Create <i class="mdi mdi-plus-box-outline"></i>
                     </a>
                 @endcan

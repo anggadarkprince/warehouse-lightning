@@ -168,9 +168,9 @@ class DeliveryOrder extends Model implements HasOrderNumber
         $pdf = app('dompdf.wrapper')->loadView('delivery-orders.print', ['deliveryOrder' => $this]);
 
         if ($stream) {
-            return $pdf->stream('invoice.pdf');
+            return $pdf->stream('delivery-order.pdf');
         }
 
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('delivery-order.pdf');
     }
 }
