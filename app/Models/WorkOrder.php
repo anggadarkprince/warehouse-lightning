@@ -19,11 +19,17 @@ class WorkOrder extends Model implements HasOrderNumber
     use SoftDeletes, BasicFilter;
 
     const TYPE_UNLOADING = "UNLOADING";
-    const TYPE_STRIPPING_CONTAINER = "CONTAINER STRIPPING";
+    const TYPE_STRIPPING_CONTAINER = "STRIPPING CONTAINER";
     const TYPE_RETURN_EMPTY_CONTAINER = "RETURN EMPTY CONTAINER";
     const TYPE_REPACKING_GOODS = "REPACKING GOODS";
     const TYPE_UNPACKING_GOODS = "UNPACKING GOODS";
     const TYPE_LOADING = "LOADING";
+
+    const STATUS_QUEUED = "QUEUED";
+    const STATUS_TAKEN = "TAKEN";
+    const STATUS_COMPLETED = "COMPLETED";
+    const STATUS_VALIDATED = "VALIDATED";
+    const STATUS_OUTSTANDING = "OUTSTANDING";
 
     /**
      * The attributes that are mass assignable.
@@ -132,7 +138,6 @@ class WorkOrder extends Model implements HasOrderNumber
         return $prefix . '-' . date('ym') . $orderPad;
     }
 
-
     /**
      * Scope a query to only include group that match the query.
      *
@@ -170,6 +175,21 @@ class WorkOrder extends Model implements HasOrderNumber
                 $query->where('name', 'LIKE', '%' . $q . '%');
             });
         });
+    }
+
+    /**
+     * Scope a query to only include job that match the status.
+     *
+     * @param Builder $query
+     * @param $status
+     * @return Builder
+     */
+    public function scopeStatus(Builder $query, $status)
+    {
+        if($status == self::STATUS_OUTSTANDING) {
+            return $query->where('status', '!=', self::STATUS_VALIDATED);
+        }
+        return $query->where('status', $status);
     }
 
     /**

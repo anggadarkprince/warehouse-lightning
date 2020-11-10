@@ -43,7 +43,18 @@ class WorkOrderPolicy
      */
     public function take(User $user, WorkOrder $workOrder)
     {
-        return $user->hasPermission(Permission::WORK_ORDER_TAKE) && $workOrder['user_id'] == $user['id'];
+        return $user->hasPermission(Permission::WORK_ORDER_TAKE) && $workOrder->user_id == $user->id;
+    }
+
+    /**
+     * Determine whether the user can take the model.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function viewTake(User $user)
+    {
+        return $user->hasPermission(Permission::WORK_ORDER_TAKE);
     }
 
     /**

@@ -149,7 +149,7 @@
         </li>
 
         <li>
-            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('tally*') ? ' text-green-500' : '' }}" href="/">
+            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('tally*') ? ' text-green-500' : '' }}" href="{{ route('tally.index') }}">
                 <i class="mdi mdi-forklift mr-2"></i>
                 {{ __('Tally') }}
             </a>

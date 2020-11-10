@@ -20,7 +20,7 @@ class GateController extends Controller
      *
      * @param Request $request
      * @param CollectionExporter $exporter
-     * @return View|BinaryFileResponse|StreamedResponse
+     * @return View|BinaryFileResponse|StreamedResponse|RedirectResponse
      */
     public function index(Request $request, CollectionExporter $exporter)
     {
