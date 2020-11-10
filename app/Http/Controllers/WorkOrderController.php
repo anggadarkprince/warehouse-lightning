@@ -118,7 +118,7 @@ class WorkOrderController extends Controller
         return DB::transaction(function () use ($request, $workOrder) {
             $workOrder->fill($request->input())->save();
 
-            return redirect()->route('work-orders.index')->with([
+            return redirect()->route('gate.index')->with([
                 "status" => "success",
                 "message" => "Work order {$workOrder->work_number} successfully updated"
             ]);

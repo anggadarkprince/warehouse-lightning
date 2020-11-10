@@ -66,7 +66,7 @@
                     <div class="flex flex-wrap mb-3 sm:mb-4">
                         <label for="user_id" class="form-label">{{ __('Assigned Job User') }}</label>
                         <div class="relative w-full">
-                            <select class="form-input pr-8" name="user_id" id="user_id" required>
+                            <select class="form-input pr-8" name="user_id" id="user_id">
                                 <option value="">No specific user</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}" data-type="{{ $user->name }}"{{ old('user_id') == $user->id ? ' selected' : '' }}>

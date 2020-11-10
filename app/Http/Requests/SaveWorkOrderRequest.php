@@ -25,7 +25,11 @@ class SaveWorkOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'booking_id' => ['bail', 'required', 'integer', 'exists:bookings,id'],
+            'booking_id' => [
+                Rule::requiredIf(empty($this->input('delivery_order_id'))),
+                'integer',
+                'exists:bookings,id'
+            ],
             'delivery_order_id' => ['nullable', 'integer', 'exists:delivery_orders,id'],
             'job_type' => [
                 Rule::requiredIf(empty($this->input('delivery_order_id'))),

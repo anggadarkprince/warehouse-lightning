@@ -109,5 +109,5 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('gate', [GateController::class, 'index'])->name('gate.index');
     Route::get('work-orders/{work_order}/print', [WorkOrderController::class, 'printWorkOrder'])->name('work-orders.print');
-    Route::resource('work-orders', WorkOrderController::class);
+    Route::resource('work-orders', WorkOrderController::class)->except('index');
 });

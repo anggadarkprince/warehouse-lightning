@@ -1,8 +1,8 @@
-<div class="bg-white rounded shadow py-4 mb-4">
-    <div class="flex justify-between items-center mb-3 px-6">
+<div class="bg-white rounded shadow-sm py-4 mb-4">
+    <div class="flex justify-between items-center mb-4 px-6">
         <div>
             <h1 class="text-xl text-green-500">Gate Data Scanner</h1>
-            <span class="text-gray-400">Job management & data service</span>
+            <span class="text-gray-400 leading-none block">Job management & data service</span>
         </div>
     </div>
     <div class="px-6">
