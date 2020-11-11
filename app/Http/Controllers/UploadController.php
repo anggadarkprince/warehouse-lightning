@@ -95,6 +95,7 @@ class UploadController extends Controller
                 }
             }
 
+
             return redirect()->route('uploads.index')->with([
                 "status" => "success",
                 "message" => "Upload document {$upload->upload_number} successfully created"
@@ -244,13 +245,20 @@ class UploadController extends Controller
      */
     public function validateUpload(Upload $upload)
     {
-        $upload->status = Upload::STATUS_VALIDATED;
-        $upload->save();
+        return DB::transaction(function () use ($upload) {
+            $upload->status = Upload::STATUS_VALIDATED;
+            $upload->save();
 
-        return redirect()->back()->with([
-            "status" => "success",
-            "message" => "Upload {$upload->upload_number} successfully validated and ready to booked"
-        ]);
+            $upload->statusHistories()->create([
+                'status' => Upload::STATUS_VALIDATED,
+                'description' => 'Validate upload documents'
+            ]);
+
+            return redirect()->back()->with([
+                "status" => "success",
+                "message" => "Upload {$upload->upload_number} successfully validated and ready to booked"
+            ]);
+        });
     }
 
     /**
@@ -263,19 +271,26 @@ class UploadController extends Controller
     {
         $zipFile = storage_path("app/exports/temp/{$upload->upload_number}.zip");
 
-        $zip = new ZipArchive();
-        $zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        try {
+            $zip = new ZipArchive();
+            $zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-        foreach ($upload->uploadDocuments as $uploadDocument) {
-            foreach ($uploadDocument->uploadDocumentFiles as $file) {
-                $localName = $uploadDocument->documentType->document_name . '/' . ($file->file_name ?: basename($file->src));
-                $zip->addFile(storage_path('app/' . $file->src), $localName);
+            foreach ($upload->uploadDocuments as $uploadDocument) {
+                foreach ($uploadDocument->uploadDocumentFiles as $file) {
+                    $localName = $uploadDocument->documentType->document_name . '/' . ($file->file_name ?: basename($file->src));
+                    $zip->addFile(storage_path('app/' . $file->src), $localName);
+                }
             }
+
+            $zip->close();
+
+            return response()->download($zipFile)->deleteFileAfterSend(true);
+        } catch (Exception $e) {
+            return redirect()->back()->with([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
         }
-
-        $zip->close();
-
-        return response()->download($zipFile)->deleteFileAfterSend(true);
     }
 
     /**

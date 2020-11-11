@@ -87,6 +87,11 @@ class WorkOrderController extends Controller
             $workOrder->workOrderContainers()->createMany($request->input('containers', []));
             $workOrder->workOrderGoods()->createMany($request->input('goods', []));
 
+            $workOrder->statusHistories()->create([
+                'status' => WorkOrder::STATUS_QUEUED,
+                'description' => 'Initial job creation'
+            ]);
+
             return redirect()->route('gate.index')->with([
                 "status" => "success",
                 "message" => "Work order {$workOrder->job_number} successfully created"

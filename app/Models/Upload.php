@@ -75,6 +75,14 @@ class Upload extends Model
     }
 
     /**
+     * Get all of the upload's statuses.
+     */
+    public function statusHistories()
+    {
+        return $this->morphMany(StatusHistory::class, 'statusable');
+    }
+
+    /**
      * Scope a query to filter by validated upload.
      *
      * @param Builder $query

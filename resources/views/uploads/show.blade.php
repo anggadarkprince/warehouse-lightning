@@ -77,7 +77,7 @@
                     <td class="px-4 py-1">{{ $document->description ?: '-' }}</td>
                     <td class="px-4 py-1 text-right">
                         <div class="dropdown">
-                            <button class="dropdown-toggle button-primary button-sm">
+                            <button class="dropdown-toggle button-blue button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -98,6 +98,43 @@
             @empty
                 <tr>
                     <td colspan="6">No data available</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
+        <div class="mb-3 flex items-center justify-between">
+            <div>
+                <h1 class="text-xl text-green-500">{{ __('Status Histories') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('List of upload statuses') }}</p>
+            </div>
+        </div>
+        <table class="table-auto w-full mb-4">
+            <thead>
+            <tr>
+                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Status') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Data') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created At') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created By') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse ($upload->statusHistories as $index => $statusHistory)
+                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">{{ $statusHistory->status }}</td>
+                    <td class="px-2 py-1">{{ $statusHistory->description ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ $statusHistory->data ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ optional($statusHistory->created_at)->format('d F Y H:i:s') ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ optional($statusHistory->creator)->name ?: '-' }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6" class="px-2 py-2">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>

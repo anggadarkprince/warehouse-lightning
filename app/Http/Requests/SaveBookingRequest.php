@@ -37,7 +37,7 @@ class SaveBookingRequest extends FormRequest
             'total_cif' => ['nullable'],
             'total_gross_weight' => ['nullable'],
             'total_weight' => ['nullable'],
-            'description' => ['max:500', 'string'],
+            'description' => ['nullable', 'max:500', 'string'],
             'containers' => ['nullable', 'array'],
             'containers.*.container_id' => ['required', 'integer', 'exists:containers,id'],
             'goods' => ['nullable', 'array'],

@@ -48,15 +48,22 @@ class TallyController extends Controller
     {
         $this->authorize('view-take', WorkOrder::class);
 
-        $workOrder->user_id = $request->user()->id;
-        $workOrder->status = WorkOrder::STATUS_TAKEN;
-        $workOrder->taken_at = Carbon::now();
-        $workOrder->save();
+        return DB::transaction(function () use ($request, $workOrder) {
+            $workOrder->user_id = $request->user()->id;
+            $workOrder->status = WorkOrder::STATUS_TAKEN;
+            $workOrder->taken_at = Carbon::now();
+            $workOrder->save();
 
-        return redirect()->route('tally.proceed-job', ['work_order' => $workOrder->id])->with([
-            'status' => 'success',
-            'message' => __('Job :job successfully taken, you can release anytime to another user', ['job' => $workOrder->job_number])
-        ]);
+            $workOrder->statusHistories()->create([
+                'status' => WorkOrder::STATUS_TAKEN,
+                'description' => 'Job taken by ' . $workOrder->user->name
+            ]);
+
+            return redirect()->route('tally.proceed-job', ['work_order' => $workOrder->id])->with([
+                'status' => 'success',
+                'message' => __('Job :job successfully taken, you can release anytime to another user', ['job' => $workOrder->job_number])
+            ]);
+        });
     }
 
     /**
@@ -87,15 +94,22 @@ class TallyController extends Controller
     {
         $this->authorize('take', $workOrder);
 
-        $workOrder->user_id = null;
-        $workOrder->status = WorkOrder::STATUS_QUEUED;
-        $workOrder->taken_at = null;
-        $workOrder->save();
+        return DB::transaction(function () use ($workOrder) {
+            $workOrder->user_id = null;
+            $workOrder->status = WorkOrder::STATUS_QUEUED;
+            $workOrder->taken_at = null;
+            $workOrder->save();
 
-        return redirect()->route('tally.index')->with([
-            'status' => 'warning',
-            'message' => __('Job :job successfully released', ['job' => $workOrder->job_number])
-        ]);
+            $workOrder->statusHistories()->create([
+                'status' => WorkOrder::STATUS_QUEUED,
+                'description' => 'Job released and ready to take'
+            ]);
+
+            return redirect()->route('tally.index')->with([
+                'status' => 'warning',
+                'message' => __('Job :job successfully released', ['job' => $workOrder->job_number])
+            ]);
+        });
     }
 
     /**
@@ -153,14 +167,21 @@ class TallyController extends Controller
     {
         $this->authorize('take', $workOrder);
 
-        $workOrder->status = WorkOrder::STATUS_COMPLETED;
-        $workOrder->completed_at = Carbon::now();
-        $workOrder->save();
+        return DB::transaction(function () use ($workOrder) {
+            $workOrder->status = WorkOrder::STATUS_COMPLETED;
+            $workOrder->completed_at = Carbon::now();
+            $workOrder->save();
 
-        return redirect()->route('tally.index')->with([
-            'status' => 'success',
-            'message' => __('Job :job successfully completed, waiting for validation', ['job' => $workOrder->job_number])
-        ]);
+            $workOrder->statusHistories()->create([
+                'status' => WorkOrder::STATUS_COMPLETED,
+                'description' => 'Job completed and waiting validation'
+            ]);
+
+            return redirect()->route('tally.index')->with([
+                'status' => 'success',
+                'message' => __('Job :job successfully completed, waiting for validation', ['job' => $workOrder->job_number])
+            ]);
+        });
     }
 
     /**
@@ -177,8 +198,18 @@ class TallyController extends Controller
 
         if ($request->input('refuse', 0)) {
             $workOrder->status = WorkOrder::STATUS_REJECTED;
+
+            $workOrder->statusHistories()->create([
+                'status' => WorkOrder::STATUS_REJECTED,
+                'description' => ucfirst($request->input('message')) ?: 'Job is rejected'
+            ]);
         } else {
             $workOrder->status = WorkOrder::STATUS_VALIDATED;
+
+            $workOrder->statusHistories()->create([
+                'status' => WorkOrder::STATUS_VALIDATED,
+                'description' => $request->input('message') ?: 'Job is completed'
+            ]);
         }
 
         $workOrder->save();
