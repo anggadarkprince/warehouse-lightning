@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveTallyRequest;
+use App\Models\Container;
+use App\Models\Goods;
 use App\Models\WorkOrder;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TallyController extends Controller
 {
@@ -61,10 +64,16 @@ class TallyController extends Controller
      *
      * @param WorkOrder $workOrder
      * @return View
+     * @throws AuthorizationException
      */
     public function proceedJob(WorkOrder $workOrder)
     {
-        return view('tally.proceed', compact('workOrder'));
+        $this->authorize('take', $workOrder);
+
+        $containers = Container::all();
+        $goods = Goods::all();
+
+        return view('tally.proceed', compact('workOrder', 'containers', 'goods'));
     }
 
     /**
@@ -86,6 +95,97 @@ class TallyController extends Controller
         return redirect()->route('tally.index')->with([
             'status' => 'warning',
             'message' => __('Job :job successfully released', ['job' => $workOrder->job_number])
+        ]);
+    }
+
+    /**
+     * Save and update work order data.
+     *
+     * @param SaveTallyRequest $request
+     * @param WorkOrder $workOrder
+     * @return mixed
+     * @throws AuthorizationException
+     */
+    public function saveJob(SaveTallyRequest $request, WorkOrder $workOrder)
+    {
+        $this->authorize('take', $workOrder);
+
+        return DB::transaction(function () use ($request, $workOrder) {
+            // sync work order containers
+            $excluded = collect($request->input('containers', []))->filter(function ($container) {
+                return !empty($container['id']);
+            });
+            $workOrder->workOrderContainers()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('containers', []) as $container) {
+                $workOrder->workOrderContainers()->updateOrCreate(
+                    ['id' => data_get($container, 'id')],
+                    $container
+                );
+            }
+
+            // sync work order goods
+            $excluded = collect($request->input('goods', []))->filter(function ($item) {
+                return !empty($item['id']);
+            });
+            $workOrder->workOrderGoods()->whereNotIn('id', $excluded->pluck('id'))->delete();
+            foreach ($request->input('goods', []) as $item) {
+                $workOrder->workOrderGoods()->updateOrCreate(
+                    ['id' => data_get($item, 'id')],
+                    $item
+                );
+            }
+
+            return redirect()->route('tally.index')->with([
+                "status" => "success",
+                "message" => "Work order {$workOrder->job_number} successfully updated"
+            ]);
+        });
+    }
+
+    /**
+     * Complete job data and redirect to index list.
+     *
+     * @param WorkOrder $workOrder
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function completeJob(WorkOrder $workOrder)
+    {
+        $this->authorize('take', $workOrder);
+
+        $workOrder->status = WorkOrder::STATUS_COMPLETED;
+        $workOrder->completed_at = Carbon::now();
+        $workOrder->save();
+
+        return redirect()->route('tally.index')->with([
+            'status' => 'success',
+            'message' => __('Job :job successfully completed, waiting for validation', ['job' => $workOrder->job_number])
+        ]);
+    }
+
+    /**
+     * Validate job data and redirect to index list.
+     *
+     * @param Request $request
+     * @param WorkOrder $workOrder
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function validateJob(Request $request, WorkOrder $workOrder)
+    {
+        $this->authorize('validate', $workOrder);
+
+        if ($request->input('refuse', 0)) {
+            $workOrder->status = WorkOrder::STATUS_REJECTED;
+        } else {
+            $workOrder->status = WorkOrder::STATUS_VALIDATED;
+        }
+
+        $workOrder->save();
+
+        return redirect()->route('tally.index')->with([
+            'status' => 'success',
+            'message' => __('Job :job successfully validated', ['job' => $workOrder->job_number])
         ]);
     }
 }

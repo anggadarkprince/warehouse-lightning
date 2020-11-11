@@ -149,6 +149,10 @@ class PermissionSeeder extends Seeder
             ['permission' => Permission::UPLOAD_DELETE],
             ['description' => 'Delete upload data', 'module' => 'document', 'feature' => 'upload']
         );
+        Permission::firstOrCreate(
+            ['permission' => Permission::UPLOAD_VALIDATE],
+            ['description' => 'Validate upload data', 'module' => 'document', 'feature' => 'upload']
+        );
 
         Permission::firstOrCreate(
             ['permission' => Permission::BOOKING_VIEW],
@@ -165,6 +169,10 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(
             ['permission' => Permission::BOOKING_DELETE],
             ['description' => 'Delete booking data', 'module' => 'booking', 'feature' => 'booking']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::BOOKING_VALIDATE],
+            ['description' => 'Validate booking data', 'module' => 'booking', 'feature' => 'booking']
         );
 
         Permission::firstOrCreate(
@@ -203,6 +211,10 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(
             ['permission' => Permission::WORK_ORDER_TAKE],
             ['description' => 'Take work order data', 'module' => 'work-order', 'feature' => 'work-order']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::WORK_ORDER_VALIDATE],
+            ['description' => 'Validate work order data', 'module' => 'work-order', 'feature' => 'work-order']
         );
 
         Permission::firstOrCreate(

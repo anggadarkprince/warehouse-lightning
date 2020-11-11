@@ -55,11 +55,13 @@ class Permission extends Model
     const UPLOAD_CREATE = 'upload-create';
     const UPLOAD_EDIT = 'upload-edit';
     const UPLOAD_DELETE = 'upload-delete';
+    const UPLOAD_VALIDATE = 'upload-validate';
 
     const BOOKING_VIEW = 'booking-view';
     const BOOKING_CREATE = 'booking-create';
     const BOOKING_EDIT = 'booking-edit';
     const BOOKING_DELETE = 'booking-delete';
+    const BOOKING_VALIDATE = 'booking-validate';
 
     const DELIVERY_ORDER_VIEW = 'delivery-order-view';
     const DELIVERY_ORDER_CREATE = 'delivery-order-create';
@@ -71,6 +73,7 @@ class Permission extends Model
     const WORK_ORDER_EDIT = 'work-order-edit';
     const WORK_ORDER_DELETE = 'work-order-delete';
     const WORK_ORDER_TAKE = 'work-order-take';
+    const WORK_ORDER_VALIDATE = 'work-order-validate';
 
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';

@@ -27,6 +27,7 @@ class WorkOrder extends Model implements HasOrderNumber
 
     const STATUS_QUEUED = "QUEUED";
     const STATUS_TAKEN = "TAKEN";
+    const STATUS_REJECTED = "REJECTED";
     const STATUS_COMPLETED = "COMPLETED";
     const STATUS_VALIDATED = "VALIDATED";
     const STATUS_OUTSTANDING = "OUTSTANDING";
