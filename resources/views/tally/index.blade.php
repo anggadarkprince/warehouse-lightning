@@ -100,6 +100,9 @@
                         @endif
                         @break
                     @case(\App\Models\WorkOrder::STATUS_COMPLETED)
+                        <a href="{{ route('work-orders.show', ['work_order' => $workOrder->id]) }}" class="button-blue button-sm">
+                            <i class="mdi mdi-eye-outline"></i>
+                        </a>
                         @if(Gate::allows('validate', $workOrder))
                             <button data-href="{{ route('tally.validate-job', ['work_order' => $workOrder->id]) }}"
                                     data-label="{{ $workOrder->job_number }}"

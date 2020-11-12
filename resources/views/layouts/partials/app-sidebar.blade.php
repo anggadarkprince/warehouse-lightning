@@ -156,9 +156,9 @@
         </li>
 
         <li>
-            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('take-stock*') ? ' text-green-500' : '' }}" href="/">
+            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('take-stocks*') ? ' text-green-500' : '' }}" href="{{ route('take-stocks.index') }}">
                 <i class="mdi mdi-clipboard-pulse-outline mr-2"></i>
-                {{ __('Take Stock') }}
+                {{ __('Take Stocks') }}
             </a>
         </li>
 
@@ -171,25 +171,25 @@
             <div id="submenu-report" class="sidebar-submenu{{ request()->is('reports*') ? '' : ' submenu-hide' }}">
                 <ul class="overflow-hidden flex flex-col pb-2">
                     <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/inbound*') ? ' text-green-500' : '' }}" href="/">
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/inbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.inbound') }}">
                             <i class="mdi mdi-sort-bool-ascending mr-2"></i>
                             {{ __('Inbound') }}
                         </a>
                     </li>
                     <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/outbound*') ? ' text-green-500' : '' }}" href="/">
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/outbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.outbound') }}">
                             <i class="mdi mdi-sort-bool-descending mr-2"></i>
                             {{ __('Outbound') }}
                         </a>
                     </li>
                     <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-summary*') ? ' text-green-500' : '' }}" href="/">
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-summary*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-summary') }}">
                             <i class="mdi mdi-clipboard-check-outline mr-2"></i>
                             {{ __('Stock Summary') }}
                         </a>
                     </li>
                     <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-movement*') ? ' text-green-500' : '' }}" href="/">
+                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-movement*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-movement') }}">
                             <i class="mdi mdi-clipboard-text-play-outline mr-2"></i>
                             {{ __('Stock Movement') }}
                         </a>

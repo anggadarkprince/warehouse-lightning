@@ -12,8 +12,10 @@ use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\GateController;
 use App\Http\Controllers\GoodsController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TakeStockController;
 use App\Http\Controllers\TallyController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UploadDocumentController;
@@ -119,4 +121,11 @@ Route::middleware(['auth'])->group(function() {
     Route::put('tally/{work_order}', [TallyController::class, 'saveJob'])->name('tally.save-job');
     Route::match(['post', 'put'], 'tally/{work_order}/complete', [TallyController::class, 'completeJob'])->name('tally.complete-job');
     Route::match(['post', 'put'], 'tally/{work_order}/validate', [TallyController::class, 'validateJob'])->name('tally.validate-job');
+
+    Route::get('take-stocks', [TakeStockController::class, 'index'])->name('take-stocks.index');
+
+    Route::get('reports/inbound', [ReportController::class, 'inbound'])->name('reports.inbound');
+    Route::get('reports/outbound', [ReportController::class, 'outbound'])->name('reports.outbound');
+    Route::get('reports/stock-summary', [ReportController::class, 'stockSummary'])->name('reports.stock-summary');
+    Route::get('reports/stock-movement', [ReportController::class, 'stockMovement'])->name('reports.stock-movement');
 });

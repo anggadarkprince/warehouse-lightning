@@ -28,7 +28,6 @@
             <tr>
                 <th class="border-b border-t px-2 py-2 w-12">No</th>
                 <th class="border-b border-t px-2 py-2 text-left">Job Number</th>
-                <th class="border-b border-t px-2 py-2 text-left">Type</th>
                 <th class="border-b border-t px-2 py-2 text-left">Booking</th>
                 <th class="border-b border-t px-2 py-2 text-left">Customer</th>
                 <th class="border-b border-t px-2 py-2 text-left">Assigned To</th>
@@ -41,22 +40,25 @@
             <?php
             $workOrderStatuses = [
                 'QUEUED' => 'bg-gray-200',
-                'TAKEN' => 'bg-orange-400',
-                'COMPLETED' => 'bg-green-500',
+                'TAKEN' => 'bg-orange-500',
+                'COMPLETED' => 'bg-blue-500',
+                'VALIDATED' => 'bg-green-500',
             ];
             ?>
             @forelse ($workOrders as $index => $workOrder)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-2 py-1">{{ $workOrder->job_number }}</td>
-                    <td class="px-2 py-1">{{ $workOrder->job_type }}</td>
                     <td class="px-2 py-1">
-                        <p class="leading-none mt-1">
+                        <p>{{ $workOrder->job_number }}</p>
+                        <p class="text-gray-500 text-xs leading-tight">{{ $workOrder->job_type }}</p>
+                    </td>
+                    <td class="px-2 py-1">
+                        <p>
                             <a class="text-link" href="{{ route('bookings.show', ['booking' => $workOrder->booking_id]) }}">
                                 {{ $workOrder->booking->booking_number }}
                             </a>
                         </p>
-                        <p class="text-gray-500 text-xs leading-none">{{ $workOrder->booking->reference_number }}</p>
+                        <p class="text-gray-500 text-xs leading-tight">{{ $workOrder->booking->reference_number }}</p>
                     </td>
                     <td class="px-2 py-1">{{ $workOrder->booking->customer->customer_name ?: '-' }}</td>
                     <td class="px-2 py-1">{{ optional($workOrder->user)->name ?: '-' }}</td>
@@ -97,7 +99,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="9">No data available</td>
+                    <td class="px-4 py-2" colspan="8">No data available</td>
                 </tr>
             @endforelse
             </tbody>
