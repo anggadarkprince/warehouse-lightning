@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2">
+        <div class="mb-3">
             <h1 class="text-xl text-green-500">{{ __('Booking') }}</h1>
-            <span class="text-gray-400">{{ __('Manage booking data') }}</span>
+            <p class="text-gray-400 leading-tight">{{ __('Manage booking data') }}</p>
         </div>
         <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>
@@ -61,9 +61,9 @@
     </div>
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2">
+        <div class="mb-3">
             <h1 class="text-xl text-green-500">{{ __('Booking Detail') }}</h1>
-            <span class="text-gray-400">{{ __('Information about the booking') }}</span>
+            <p class="text-gray-400 leading-tight">{{ __('Information about the booking') }}</p>
         </div>
         <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>
@@ -122,10 +122,10 @@
     </div>
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2 flex items-center justify-between">
+        <div class="mb-3 flex items-center justify-between">
             <div>
                 <h1 class="text-xl text-green-500">{{ __('Containers') }}</h1>
-                <span class="text-gray-400">{{ __('List of booking containers') }}</span>
+                <p class="text-gray-400 leading-tight">{{ __('List of booking containers') }}</p>
             </div>
         </div>
         <table class="table-auto w-full mb-4">
@@ -164,12 +164,11 @@
         </table>
     </div>
 
-
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2 flex items-center justify-between">
+        <div class="mb-3 flex items-center justify-between">
             <div>
                 <h1 class="text-xl text-green-500">{{ __('Goods') }}</h1>
-                <span class="text-gray-400">{{ __('List of booking goods') }}</span>
+                <p class="text-gray-400 leading-tight">{{ __('List of booking goods') }}</p>
             </div>
         </div>
         <table class="table-auto w-full mb-4">
@@ -207,6 +206,43 @@
             @empty
                 <tr>
                     <td colspan="9" class="px-2 py-2">{{ __('No data available') }}</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
+        <div class="mb-3 flex items-center justify-between">
+            <div>
+                <h1 class="text-xl text-green-500">{{ __('Status Histories') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('List of booking statuses') }}</p>
+            </div>
+        </div>
+        <table class="table-auto w-full mb-4">
+            <thead>
+            <tr>
+                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Status') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Data') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created At') }}</th>
+                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created By') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse ($booking->statusHistories as $index => $statusHistory)
+                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">{{ $statusHistory->status }}</td>
+                    <td class="px-2 py-1">{{ $statusHistory->description ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ $statusHistory->data ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ optional($statusHistory->created_at)->format('d F Y H:i:s') ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ optional($statusHistory->creator)->name ?: '-' }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6" class="px-2 py-2">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>

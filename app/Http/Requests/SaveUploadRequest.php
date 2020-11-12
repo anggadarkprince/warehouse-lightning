@@ -27,7 +27,7 @@ class SaveUploadRequest extends FormRequest
             'customer_id' => ['bail', 'required', 'integer', 'exists:customers,id'],
             'booking_type_id' => ['bail', 'required', 'integer', 'exists:booking_types,id'],
             'upload_title' => ['required', 'max:50'],
-            'description' => ['max:500', 'string'],
+            'description' => ['nullable', 'max:500', 'string'],
             'documents' => ['present', 'filled', 'array'],
             'documents.*.document_type_id' => ['required', 'integer', 'exists:document_types,id'],
             'documents.*.document_name' => ['required'],

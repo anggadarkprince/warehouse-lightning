@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use ZipArchive;
 
 class UploadDocumentController extends Controller
 {
@@ -60,22 +61,27 @@ class UploadDocumentController extends Controller
         }
 
         if ($document->uploadDocumentFiles()->count() > 1) {
-            // Name of our archive to download
             $zipFile = storage_path("app/exports/temp/{$document->documentType->document_name}.zip");
 
-            // Initializing PHP class
-            $zip = new \ZipArchive();
-            $zip->open($zipFile, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+            try {
+                $zip = new ZipArchive();
+                $zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-            foreach ($document->uploadDocumentFiles as $file) {
-                // Adding file: second parameter is what will the path inside of the archive
-                $zip->addFile(storage_path('app/' . $file->src), basename($file->src));
+                foreach ($document->uploadDocumentFiles as $file) {
+                    // Adding file: second parameter is what will the path inside of the archive
+                    $zip->addFile(storage_path('app/' . $file->src), $file->file_name ?: basename($file->src));
+                }
+
+                $zip->close();
+
+                return response()->download($zipFile)->deleteFileAfterSend(true);
+            } catch (Exception $e) {
+                return redirect()->back()->with([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ]);
             }
 
-            $zip->close();
-
-            // We return the file immediately after download
-            return response()->download($zipFile)->deleteFileAfterSend(true);
         } else {
             return Storage::download($document->uploadDocumentFiles->first()->src);
         }

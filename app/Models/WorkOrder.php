@@ -96,6 +96,14 @@ class WorkOrder extends Model implements HasOrderNumber
     }
 
     /**
+     * Get all of the upload's statuses.
+     */
+    public function statusHistories()
+    {
+        return $this->morphMany(StatusHistory::class, 'statusable');
+    }
+
+    /**
      * Return generated order number or model.
      *
      * @return mixed

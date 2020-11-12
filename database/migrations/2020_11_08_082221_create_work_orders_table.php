@@ -22,7 +22,7 @@ class CreateWorkOrdersTable extends Migration
             $table->dateTime('taken_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->string('status')->default('QUEUED');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

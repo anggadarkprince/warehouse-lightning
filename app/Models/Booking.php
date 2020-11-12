@@ -176,6 +176,14 @@ class Booking extends Model implements HasOrderNumber
     }
 
     /**
+     * Get all of the booking's statuses.
+     */
+    public function statusHistories()
+    {
+        return $this->morphMany(StatusHistory::class, 'statusable');
+    }
+
+    /**
      * Return generated order number or model.
      *
      * @return mixed

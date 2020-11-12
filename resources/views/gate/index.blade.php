@@ -43,6 +43,7 @@
                 'TAKEN' => 'bg-orange-500',
                 'COMPLETED' => 'bg-blue-500',
                 'VALIDATED' => 'bg-green-500',
+                'REJECTED' => 'bg-red-500',
             ];
             ?>
             @forelse ($workOrders as $index => $workOrder)

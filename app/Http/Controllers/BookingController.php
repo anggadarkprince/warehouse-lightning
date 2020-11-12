@@ -233,6 +233,11 @@ class BookingController extends Controller
             $booking->bookingContainers()->createMany($request->input('containers', []));
             $booking->bookingGoods()->createMany($request->input('goods', []));
 
+            $booking->statusHistories()->create([
+                'status' => Booking::STATUS_DRAFT,
+                'description' => 'Initial booking'
+            ]);
+
             return redirect()->route('bookings.index')->with([
                 "status" => "success",
                 "message" => "Booking {$booking->booking_number} successfully created"
@@ -324,13 +329,20 @@ class BookingController extends Controller
      */
     public function validateBooking(Booking $booking)
     {
-        $booking->status = Upload::STATUS_VALIDATED;
-        $booking->save();
+        return DB::transaction(function () use ($booking) {
+            $booking->status = Booking::STATUS_VALIDATED;
+            $booking->save();
 
-        return redirect()->back()->with([
-            "status" => "success",
-            "message" => "Booking {$booking->booking_number} successfully validated and ready to deliver"
-        ]);
+            $booking->statusHistories()->create([
+                'status' => Booking::STATUS_VALIDATED,
+                'description' => 'Validate booking'
+            ]);
+
+            return redirect()->back()->with([
+                "status" => "success",
+                "message" => "Booking {$booking->booking_number} successfully validated and ready to deliver"
+            ]);
+        });
     }
 
     /**

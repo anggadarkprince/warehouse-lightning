@@ -218,6 +218,9 @@
                     </tr>
                     @foreach(old('containers', []) as $index => $container)
                         @include('bookings.partials.template-container-row', [
+                            'index' => $index,
+                            'containerOrder' => $index + 1,
+                            'containerId' => $container['container_id'],
                             'containerNumber' => $container['container_number'],
                             'containerSize' => $container['container_size'],
                             'containerType' => $container['container_type'],
@@ -225,8 +228,6 @@
                             'isEmpty' => $container['is_empty'],
                             'seal' => $container['seal'],
                             'description' => $container['description'],
-                            'containerId' => $container['container_id'],
-                            'index' => $index,
                         ])
                     @endforeach
                 </tbody>
@@ -264,6 +265,8 @@
                 </tr>
                 @foreach(old('goods', []) as $index => $item)
                     @include('bookings.partials.template-goods-row', [
+                        'index' => $index,
+                        'goodsOrder' => $index + 1,
                         'unitQuantityLabel' => numeric($item['unit_quantity']),
                         'packageQuantityLabel' => numeric($item['package_quantity']),
                         'weightLabel' => numeric($item['weight']),
@@ -278,7 +281,6 @@
                         'weight' => $item['weight'],
                         'grossWeight' => $item['gross_weight'],
                         'description' => $item['description'],
-                        'index' => $index,
                     ])
                 @endforeach
                 </tbody>
