@@ -28,4 +28,20 @@ class WorkOrderContainer extends Model
     {
         return $this->belongsTo(Container::class);
     }
+
+    /**
+     * Get all of the container reference.
+     */
+    public function references()
+    {
+        return $this->morphMany(WorkOrderReference::class, 'reference');
+    }
+
+    /**
+     * Get all of the container source.
+     */
+    public function sources()
+    {
+        return $this->morphMany(WorkOrderReference::class, 'source');
+    }
 }

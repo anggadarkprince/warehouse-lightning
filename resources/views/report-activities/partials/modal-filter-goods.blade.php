@@ -1,11 +1,11 @@
-<div id="modal-filter-container" class="modal">
+<div id="modal-filter-goods" class="modal">
     <div class="modal-content">
         <div class="border-b border-gray-200 pb-3">
             <span class="close dismiss-modal">&times;</span>
-            <h3 class="text-xl">Filter Containers</h3>
+            <h3 class="text-xl">Filter Goods</h3>
         </div>
-        <form action="{{ url()->current() }}" method="get" class="pt-3 space-y-4">
-            <input type="hidden" name="filter" value="container">
+        <form action="{{ url()->current() }}" method="get" class="space-y-4">
+            <input type="hidden" name="filter" value="goods">
             <div class="flex flex-wrap">
                 <label for="q" class="form-label">{{ __('Search') }}</label>
                 <input id="q" type="search" class="form-input"
@@ -24,9 +24,10 @@
                                 'booking_number' => 'Booking Number',
                                 'customer_name' => 'Customer Name',
                                 'booking_name' => 'Booking Name',
-                                'container_number' => 'Container Number',
-                                'container_type' => 'Container Type',
-                                'container_size' => 'Container Size',
+                                'item_number' => 'Item Number',
+                                'item_name' => 'Item Name',
+                                'unit_quantity' => 'Unit Quantity',
+                                'package_quantity' => 'Package Quantity',
                             ]
                             ?>
                             @foreach($sortFields as $sortKey => $sortField)

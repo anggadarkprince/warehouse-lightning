@@ -28,4 +28,20 @@ class WorkOrderGoods extends Model
     {
         return $this->belongsTo(Goods::class);
     }
+
+    /**
+     * Get all of the goods reference.
+     */
+    public function references()
+    {
+        return $this->morphMany(WorkOrderReference::class, 'reference');
+    }
+
+    /**
+     * Get all of the goods source.
+     */
+    public function sources()
+    {
+        return $this->morphMany(WorkOrderReference::class, 'source');
+    }
 }

@@ -100,7 +100,9 @@
             $workOrderStatuses = [
                 'QUEUED' => 'bg-gray-200',
                 'TAKEN' => 'bg-orange-400',
-                'COMPLETED' => 'bg-green-500',
+                'COMPLETED' => 'bg-blue-500',
+                'VALIDATED' => 'bg-green-500',
+                'REJECTED' => 'bg-red-500',
             ];
             ?>
             @forelse($booking->workOrders as $index => $workOrder)

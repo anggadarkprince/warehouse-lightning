@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Carbon\Exceptions\ParseErrorException;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Report extends Model
 {

@@ -4,8 +4,8 @@
     <div class="bg-white rounded shadow-sm py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
-                <h1 class="text-xl text-green-500">{{ $reportType }} Containers</h1>
-                <p class="text-gray-400 leading-tight">Manage {{ strtolower($reportType) }} data</p>
+                <h1 class="text-xl text-green-500">Stock Containers</h1>
+                <p class="text-gray-400 leading-tight">Show container stock data</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter-container">
@@ -24,33 +24,33 @@
                     <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Customer</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Booking Name</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Job Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Assigned To</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Completed At</th>
                     <th class="border-b border-t px-3 py-2 text-left">Container Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Container Type</th>
                     <th class="border-b border-t px-3 py-2 text-left">Container Size</th>
                     <th class="border-b border-t px-3 py-2 text-left">Is Empty</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Seal</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Quantity</th>
                     <th class="border-b border-t px-3 py-2 text-left">Description</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Number</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Type</th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse ($activityContainers as $index => $activity)
+                @forelse ($stockContainers as $index => $container)
                     <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                         <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->reference_number }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->booking_number }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->customer->customer_name ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->bookingType->booking_name ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->job_number }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->user->name ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ optional($activity->workOrder->completed_at)->format('d F Y H:i:s') ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->container->container_number ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->container->container_type ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->container->container_size ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->is_empty ? 'Yes' : 'No' }}</td>
-                        <td class="px-3 py-1">{{ $activity->description ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->reference_number }}</td>
+                        <td class="px-3 py-1">{{ $container->booking_number }}</td>
+                        <td class="px-3 py-1">{{ $container->customer_name ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->container_number ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->container_type ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->container_size ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->is_empty ? 'Empty' : 'Loaded' }}</td>
+                        <td class="px-3 py-1">{{ $container->seal ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->quantity ?: '0' }}</td>
+                        <td class="px-3 py-1">{{ $container->description ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->latest_job_number ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $container->latest_job_type ?: '-' }}</td>
                     </tr>
                 @empty
                     <tr>
@@ -61,15 +61,15 @@
             </table>
         </div>
         <div class="px-6">
-            {{ $activityContainers->withQueryString()->links() }}
+            {{ $stockContainers->withQueryString()->links() }}
         </div>
     </div>
 
     <div class="bg-white rounded shadow-sm py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
-                <h1 class="text-xl text-green-500">{{ $reportType }} Goods</h1>
-                <p class="text-gray-400 leading-tight">Manage {{ strtolower($reportType) }} data</p>
+                <h1 class="text-xl text-green-500">Stock Goods</h1>
+                <p class="text-gray-400 leading-tight">Showing goods stock data</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter-goods">
@@ -88,10 +88,6 @@
                     <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Customer</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Booking Name</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Job Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Assigned To</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Completed At</th>
                     <th class="border-b border-t px-3 py-2 text-left">Item Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Item Name</th>
                     <th class="border-b border-t px-3 py-2 text-left">Quantity</th>
@@ -99,40 +95,40 @@
                     <th class="border-b border-t px-3 py-2 text-left">Weight</th>
                     <th class="border-b border-t px-3 py-2 text-left">Gross</th>
                     <th class="border-b border-t px-3 py-2 text-left">Description</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Number</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Type</th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse ($activityGoods as $index => $activity)
+                @forelse ($stockGoods as $index => $goods)
                     <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                         <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->reference_number }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->booking_number }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->customer->customer_name ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->bookingType->booking_name ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->job_number }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->user->name ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ optional($activity->workOrder->completed_at)->format('d F Y H:i:s') ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->goods->item_number ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ $activity->goods->item_name ?: '-' }}</td>
-                        <td class="px-3 py-1">{{ numeric($activity->unit_quantity) }} {{ $activity->goods->unit_name }}</td>
-                        <td class="px-3 py-1">{{ numeric($activity->package_quantity) }} {{ $activity->goods->package_name }}</td>
-                        <td class="px-3 py-1">{{ numeric($activity->weight) }} Kg</td>
-                        <td class="px-3 py-1">{{ numeric($activity->gross_weight) }} Kg</td>
-                        <td class="px-3 py-1">{{ $activity->description ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $goods->reference_number }}</td>
+                        <td class="px-3 py-1">{{ $goods->booking_number }}</td>
+                        <td class="px-3 py-1">{{ $goods->customer_name }}</td>
+                        <td class="px-3 py-1">{{ $goods->item_number ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $goods->item_name ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ numeric($goods->unit_quantity) }} {{ $goods->unit_name }}</td>
+                        <td class="px-3 py-1">{{ numeric($goods->package_quantity) }} {{ $goods->package_name }}</td>
+                        <td class="px-3 py-1">{{ numeric($goods->weight) }} Kg</td>
+                        <td class="px-3 py-1">{{ numeric($goods->gross_weight) }} Kg</td>
+                        <td class="px-3 py-1">{{ $goods->description ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $goods->latest_job_number ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $goods->latest_job_type ?: '-' }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="px-3 py-2" colspan="15">No data available</td>
+                        <td class="px-3 py-2" colspan="13">No data available</td>
                     </tr>
                 @endforelse
                 </tbody>
             </table>
         </div>
         <div class="px-6">
-            {{ $activityGoods->withQueryString()->links() }}
+            {{ $stockGoods->withQueryString()->links() }}
         </div>
     </div>
 
-    @include('reports-activity.partials.modal-filter-container')
-    @include('reports-activity.partials.modal-filter-goods')
+    @include('report-stocks.partials.modal-filter-container')
+    @include('report-stocks.partials.modal-filter-goods')
 @endsection
