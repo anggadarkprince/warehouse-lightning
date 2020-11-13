@@ -59,7 +59,7 @@ class CollectionExporter
 
                 $dataCells = $data->map(function ($item) use ($excludes) {
                     $itemCell = [];
-                    foreach ($item->toArray() as $key => $val) {
+                    foreach (collect($item)->toArray() as $key => $val) {
                         if (!in_array($key, $excludes) && !is_array($val)) {
                             $itemCell[$key] = $val;
                         }
@@ -134,7 +134,7 @@ class CollectionExporter
                 $startRow = 2;
                 $data->each(function ($row, $index) use ($activeSheet, $startRow, $excludes) {
                     $itemCell = [];
-                    foreach ($row->toArray() as $key => $val) {
+                    foreach (collect($row)->toArray() as $key => $val) {
                         if (!is_array($val) && !in_array($key, $excludes)) {
                             $itemCell[$key] = $val;
                         }
@@ -188,6 +188,14 @@ class CollectionExporter
         $spreadsheet->getActiveSheet()->setAutoFilterByColumnAndRow(1, 1, $header->count(), 1);
     }
 
+    /**
+     * Persist exported data to disk.
+     *
+     * @param $excelWriter
+     * @param $storeTo
+     * @param $disk
+     * @return false
+     */
     protected function persistToDisk($excelWriter, $storeTo, $disk)
     {
         ob_start();
