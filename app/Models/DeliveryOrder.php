@@ -85,7 +85,7 @@ class DeliveryOrder extends Model implements HasOrderNumber
             ->selectRaw("CAST(RIGHT(delivery_number, 6) AS UNSIGNED) + 1 AS order_number")
             ->whereMonth('created_at', date('m'))
             ->whereYear('created_at', date('Y'))
-            ->orderBy('delivery_number', 'desc')
+            ->orderBy('created_at', 'desc')
             ->take('1');
 
         $orderPad = '000001';

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\CollectionExporter;
+use App\Models\Booking;
+use App\Models\Container;
 use App\Models\Report;
 use App\Models\ReportStock;
+use App\Models\ReportStockMovement;
 use App\Models\WorkOrder;
+use function Couchbase\defaultDecoder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -118,5 +122,34 @@ class ReportController extends Controller
                 return view('report-stocks.index', compact('stockContainers', 'stockGoods'));
             }
         }
+    }
+
+    /**
+     * Show stock report movement.
+     *
+     * @param Request $request
+     * @param ReportStockMovement $reportStockMovement
+     * @param ReportStock $reportStock
+     * @return \Illuminate\Contracts\View\Factory|View
+     */
+    public function stockMovement(Request $request, ReportStockMovement $reportStockMovement, ReportStock $reportStock)
+    {
+        $bookings = Booking::type('INBOUND')->get();
+
+        if ($request->has('booking_id') && $request->filled('booking_id')) {
+            $stockContainers = $reportStock->getStockContainers($request->merge(['data' => 'all']));
+            $stockGoods = $reportStock->getStockGoods($request->merge(['data' => 'all']));
+
+            $stockMovementContainers = $reportStockMovement->getStockMovementContainer($request);
+            $containers = $reportStockMovement->calculateContainerBalance($stockMovementContainers, $stockContainers, $request);
+
+            $stockMovementGoods = $reportStockMovement->getStockMovementGoods($request);
+            $goods = $reportStockMovement->calculateGoodsBalance($stockMovementGoods, $stockGoods, $request);
+        } else {
+            $containers = collect([]);
+            $goods = collect([]);
+        }
+
+        return view('report-movements.index', compact('bookings', 'containers', 'goods'));
     }
 }

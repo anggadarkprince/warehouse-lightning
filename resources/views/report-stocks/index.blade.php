@@ -21,15 +21,15 @@
                 <thead>
                 <tr>
                     <th class="border-b border-t px-3 py-2 w-12">No</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Customer</th>
                     <th class="border-b border-t px-3 py-2 text-left">Container Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Container Type</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Container Size</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Type</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Size</th>
                     <th class="border-b border-t px-3 py-2 text-left">Is Empty</th>
                     <th class="border-b border-t px-3 py-2 text-left">Seal</th>
                     <th class="border-b border-t px-3 py-2 text-left">Quantity</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Customer</th>
                     <th class="border-b border-t px-3 py-2 text-left">Description</th>
                     <th class="border-b border-t px-3 py-2 text-left">Latest Job Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Latest Job Type</th>
@@ -39,15 +39,15 @@
                 @forelse ($stockContainers as $index => $container)
                     <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                         <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                        <td class="px-3 py-1">{{ $container->reference_number }}</td>
-                        <td class="px-3 py-1">{{ $container->booking_number }}</td>
-                        <td class="px-3 py-1">{{ $container->customer_name ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->container_number ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->container_type ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->container_size ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->is_empty ? 'Empty' : 'Loaded' }}</td>
                         <td class="px-3 py-1">{{ $container->seal ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->quantity ?: '0' }}</td>
+                        <td class="px-3 py-1">{{ $container->reference_number }}</td>
+                        <td class="px-3 py-1">{{ $container->booking_number }}</td>
+                        <td class="px-3 py-1">{{ $container->customer_name ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->description ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->latest_job_number ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->latest_job_type ?: '-' }}</td>
@@ -85,15 +85,15 @@
                 <thead>
                 <tr>
                     <th class="border-b border-t px-3 py-2 w-12">No</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Customer</th>
                     <th class="border-b border-t px-3 py-2 text-left">Item Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Item Name</th>
                     <th class="border-b border-t px-3 py-2 text-left">Quantity</th>
                     <th class="border-b border-t px-3 py-2 text-left">Package</th>
                     <th class="border-b border-t px-3 py-2 text-left">Weight</th>
                     <th class="border-b border-t px-3 py-2 text-left">Gross</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Customer</th>
                     <th class="border-b border-t px-3 py-2 text-left">Description</th>
                     <th class="border-b border-t px-3 py-2 text-left">Latest Job Number</th>
                     <th class="border-b border-t px-3 py-2 text-left">Latest Job Type</th>
@@ -103,15 +103,15 @@
                 @forelse ($stockGoods as $index => $goods)
                     <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                         <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                        <td class="px-3 py-1">{{ $goods->reference_number }}</td>
-                        <td class="px-3 py-1">{{ $goods->booking_number }}</td>
-                        <td class="px-3 py-1">{{ $goods->customer_name }}</td>
                         <td class="px-3 py-1">{{ $goods->item_number ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $goods->item_name ?: '-' }}</td>
                         <td class="px-3 py-1">{{ numeric($goods->unit_quantity) }} {{ $goods->unit_name }}</td>
                         <td class="px-3 py-1">{{ numeric($goods->package_quantity) }} {{ $goods->package_name }}</td>
                         <td class="px-3 py-1">{{ numeric($goods->weight) }} Kg</td>
                         <td class="px-3 py-1">{{ numeric($goods->gross_weight) }} Kg</td>
+                        <td class="px-3 py-1">{{ $goods->reference_number }}</td>
+                        <td class="px-3 py-1">{{ $goods->booking_number }}</td>
+                        <td class="px-3 py-1">{{ $goods->customer_name }}</td>
                         <td class="px-3 py-1">{{ $goods->description ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $goods->latest_job_number ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $goods->latest_job_type ?: '-' }}</td>
