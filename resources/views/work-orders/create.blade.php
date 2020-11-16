@@ -63,13 +63,14 @@
                     <div class="flex flex-wrap mb-3 sm:mb-4">
                         <label for="user_id" class="form-label">{{ __('Assigned Job User') }}</label>
                         <div class="w-full">
-                            <select class="form-input select-choice" name="user_id" id="user_id">
+                            <select class="form-input" name="user_id" id="user_id">
                                 <option value="">Select user</option>
                                 <option value="0"{{ old('user_id') == '0' ? ' selected' : '' }}>
                                     No specific user (let user take the job)
                                 </option>
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}" data-type="{{ $user->name }}"{{ old('user_id') == $user->id ? ' selected' : '' }}>
+                                    <option value="{{ $user->id }}" data-custom-properties='{"avatar": "{{ $user->avatar }}", "email": "{{ $user->email }}"}'
+                                        {{ old('user_id') == $user->id ? ' selected' : '' }}>
                                         {{ $user->name }}
                                     </option>
                                 @endforeach

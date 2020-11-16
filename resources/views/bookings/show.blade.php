@@ -121,96 +121,96 @@
         </div>
     </div>
 
-    <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-3 flex items-center justify-between">
-            <div>
-                <h1 class="text-xl text-green-500">{{ __('Containers') }}</h1>
-                <p class="text-gray-400 leading-tight">{{ __('List of booking containers') }}</p>
+    @if($booking->bookingContainers->count())
+        <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
+            <div class="mb-3 flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl text-green-500">{{ __('Containers') }}</h1>
+                    <p class="text-gray-400 leading-tight">{{ __('List of booking containers') }}</p>
+                </div>
             </div>
-        </div>
-        <table class="table-auto w-full mb-4">
-            <thead>
-            <tr>
-                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Container Number') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Size') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Type') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Is Empty') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Seal') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            @forelse ($booking->bookingContainers as $index => $bookingContainer)
-                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-2 py-1">
-                        <a href="{{ route('containers.show', ['container' => $bookingContainer->container->id]) }}" class="text-link">
-                            {{ $bookingContainer->container->container_number }}
-                        </a>
-                    </td>
-                    <td class="px-2 py-1">{{ $bookingContainer->container->container_size }}</td>
-                    <td class="px-2 py-1">{{ $bookingContainer->container->container_type }}</td>
-                    <td class="px-2 py-1">{{ $bookingContainer->is_empty ? 'Yes' : 'No' }}</td>
-                    <td class="px-2 py-1">{{ $bookingContainer->seal ?: '-' }}</td>
-                    <td class="px-2 py-1">{{ $bookingContainer->description ?: '-' }}</td>
-                </tr>
-            @empty
+            <table class="table-auto w-full mb-4">
+                <thead>
                 <tr>
-                    <td colspan="7" class="px-2 py-2">{{ __('No data available') }}</td>
+                    <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
                 </tr>
-            @endforelse
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                @forelse ($booking->bookingContainers as $index => $bookingContainer)
+                    <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
+                        <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                        <td class="px-2 py-1">
+                            <a href="{{ route('containers.show', ['container' => $bookingContainer->container->id]) }}" class="text-link">
+                                {{ $bookingContainer->container->container_number }}
+                            </a>
+                        </td>
+                        <td class="px-2 py-1">{{ $bookingContainer->container->container_size }}</td>
+                        <td class="px-2 py-1">{{ $bookingContainer->container->container_type }}</td>
+                        <td class="px-2 py-1">{{ $bookingContainer->is_empty ? 'Yes' : 'No' }}</td>
+                        <td class="px-2 py-1">{{ $bookingContainer->seal ?: '-' }}</td>
+                        <td class="px-2 py-1">{{ $bookingContainer->description ?: '-' }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="px-2 py-2">{{ __('No data available') }}</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
+    @endif
 
-    <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-3 flex items-center justify-between">
-            <div>
-                <h1 class="text-xl text-green-500">{{ __('Goods') }}</h1>
-                <p class="text-gray-400 leading-tight">{{ __('List of booking goods') }}</p>
+    @if($booking->bookingGoods->count())
+        <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
+            <div class="mb-3 flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl text-green-500">{{ __('Goods') }}</h1>
+                    <p class="text-gray-400 leading-tight">{{ __('List of booking goods') }}</p>
+                </div>
             </div>
+            <table class="table-auto w-full mb-4">
+                <thead>
+                <tr class="whitespace-no-wrap">
+                    <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Item Name') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Quantity') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Package') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Gross') }}</th>
+                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse ($booking->bookingGoods as $index => $bookingItem)
+                    <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
+                        <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                        <td class="px-2 py-1" style="min-width: 200px">
+                            <a href="{{ route('goods.show', ['goods' => $bookingItem->goods->id]) }}" class="text-link block leading-tight">
+                                {{ $bookingItem->goods->item_name }}
+                            </a>
+                            <span class="text-xs text-gray-500 leading-tight block">{{ $bookingItem->goods->item_number }}</span>
+                        </td>
+                        <td class="px-2 py-1">{{ numeric($bookingItem->unit_quantity) }} {{ $bookingItem->goods->unit_name }}</td>
+                        <td class="px-2 py-1">{{ numeric($bookingItem->package_quantity) }} {{ $bookingItem->goods->package_name }}</td>
+                        <td class="px-2 py-1">{{ numeric($bookingItem->weight) }}</td>
+                        <td class="px-2 py-1">{{ numeric($bookingItem->gross_weight) }}</td>
+                        <td class="px-2 py-1">{{ $bookingItem->description ?: '-' }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="9" class="px-2 py-2">{{ __('No data available') }}</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
         </div>
-        <table class="table-auto w-full mb-4">
-            <thead>
-            <tr class="whitespace-no-wrap">
-                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Item Name') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Unit Qty') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Unit Name') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Package Qty') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Package Name') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Weight') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Gross Weight') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            @forelse ($booking->bookingGoods as $index => $bookingItem)
-                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-2 py-1" style="min-width: 200px">
-                        <a href="{{ route('goods.show', ['goods' => $bookingItem->goods->id]) }}" class="text-link block leading-tight">
-                            {{ $bookingItem->goods->item_name }}
-                        </a>
-                        <span class="text-xs text-gray-500 leading-tight block">{{ $bookingItem->goods->item_number }}</span>
-                    </td>
-                    <td class="px-2 py-1">{{ numeric($bookingItem->unit_quantity) }}</td>
-                    <td class="px-2 py-1">{{ $bookingItem->goods->unit_name }}</td>
-                    <td class="px-2 py-1">{{ numeric($bookingItem->package_quantity) }}</td>
-                    <td class="px-2 py-1">{{ $bookingItem->goods->package_name }}</td>
-                    <td class="px-2 py-1">{{ numeric($bookingItem->weight) }}</td>
-                    <td class="px-2 py-1">{{ numeric($bookingItem->gross_weight) }}</td>
-                    <td class="px-2 py-1">{{ $bookingItem->description ?: '-' }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="9" class="px-2 py-2">{{ __('No data available') }}</td>
-                </tr>
-            @endforelse
-            </tbody>
-        </table>
-    </div>
+    @endif
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="mb-3 flex items-center justify-between">
