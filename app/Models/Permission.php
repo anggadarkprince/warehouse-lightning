@@ -75,6 +75,16 @@ class Permission extends Model
     const WORK_ORDER_TAKE = 'work-order-take';
     const WORK_ORDER_VALIDATE = 'work-order-validate';
 
+    const TAKE_STOCK_VIEW = 'take-stock-view';
+    const TAKE_STOCK_CREATE = 'take-stock-create';
+    const TAKE_STOCK_DELETE = 'take-stock-delete';
+    const TAKE_STOCK_VALIDATE = 'take-stock-validate';
+
+    const REPORT_INBOUND = 'report-inbound';
+    const REPORT_OUTBOUND = 'report-outbound';
+    const REPORT_STOCK_SUMMARY = 'report-stock-summary';
+    const REPORT_STOCK_MOVEMENT = 'report-stock-movement';
+
     const ACCOUNT_EDIT = 'account-edit';
     const SETTING_EDIT = 'setting-edit';
 

@@ -68,4 +68,16 @@ class UploadPolicy
     {
         return $user->hasPermission(Permission::UPLOAD_DELETE);
     }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  User $user
+     * @param Upload $upload
+     * @return mixed
+     */
+    public function validate(User $user, Upload $upload)
+    {
+        return $user->hasPermission(Permission::UPLOAD_VALIDATE);
+    }
 }

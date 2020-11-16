@@ -22,7 +22,7 @@ class WorkOrderGoods extends Model
     }
 
     /**
-     * Get the goods of the delivery order.
+     * Get the goods of the work order.
      */
     public function goods()
     {

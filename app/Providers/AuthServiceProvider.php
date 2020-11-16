@@ -9,8 +9,12 @@ use App\Models\Customer;
 use App\Models\DeliveryOrder;
 use App\Models\DocumentType;
 use App\Models\Goods;
+use App\Models\Report;
+use App\Models\ReportStock;
+use App\Models\ReportStockMovement;
 use App\Models\Role;
 use App\Models\Setting;
+use App\Models\TakeStock;
 use App\Models\Upload;
 use App\Models\User;
 use App\Models\WorkOrder;
@@ -21,8 +25,10 @@ use App\Policies\CustomerPolicy;
 use App\Policies\DeliveryOrderPolicy;
 use App\Policies\DocumentTypePolicy;
 use App\Policies\GoodsPolicy;
+use App\Policies\ReportPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SettingPolicy;
+use App\Policies\TakeStockPolicy;
 use App\Policies\UploadPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\WorkOrderPolicy;
@@ -50,6 +56,8 @@ class AuthServiceProvider extends ServiceProvider
         Booking::class => BookingPolicy::class,
         DeliveryOrder::class => DeliveryOrderPolicy::class,
         WorkOrder::class => WorkOrderPolicy::class,
+        TakeStock::class => TakeStockPolicy::class,
+        Report::class => ReportPolicy::class,
     ];
 
     /**

@@ -141,66 +141,86 @@
             </li>
         @endcan
 
-        <li>
-            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('gate*') ? ' text-green-500' : '' }}" href="{{ route('gate.index') }}">
-                <i class="mdi mdi-boom-gate-down-outline mr-2"></i>
-                {{ __('Gate') }}
-            </a>
-        </li>
+        @can('view-any', \App\Models\WorkOrder::class)
+            <li>
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('gate*') ? ' text-green-500' : '' }}" href="{{ route('gate.index') }}">
+                    <i class="mdi mdi-boom-gate-down-outline mr-2"></i>
+                    {{ __('Gate') }}
+                </a>
+            </li>
+        @endcan
 
-        <li>
-            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('tally*') ? ' text-green-500' : '' }}" href="{{ route('tally.index') }}">
-                <i class="mdi mdi-forklift mr-2"></i>
-                {{ __('Tally') }}
-            </a>
-        </li>
+        @can('view-take', \App\Models\WorkOrder::class)
+            <li>
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('tally*') ? ' text-green-500' : '' }}" href="{{ route('tally.index') }}">
+                    <i class="mdi mdi-forklift mr-2"></i>
+                    {{ __('Tally') }}
+                </a>
+            </li>
+        @endcan
 
-        <li>
-            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('take-stocks*') ? ' text-green-500' : '' }}" href="{{ route('take-stocks.index') }}">
-                <i class="mdi mdi-clipboard-pulse-outline mr-2"></i>
-                {{ __('Take Stocks') }}
-            </a>
-        </li>
+        @can('view-any', \App\Models\TakeStock::class)
+            <li>
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('take-stocks*') ? ' text-green-500' : '' }}" href="{{ route('take-stocks.index') }}">
+                    <i class="mdi mdi-clipboard-pulse-outline mr-2"></i>
+                    {{ __('Take Stocks') }}
+                </a>
+            </li>
+        @endcan
 
-        <li>
-            <a href="#submenu-report" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('reports*') ? ' bg-green-100' : ' collapsed' }}">
-                <i class="mdi mdi-ballot-outline mr-2 pointer-events-none"></i>
-                {{ __('Report') }}
-                <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
-            </a>
-            <div id="submenu-report" class="sidebar-submenu{{ request()->is('reports*') ? '' : ' submenu-hide' }}">
-                <ul class="overflow-hidden flex flex-col pb-2">
-                    <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/inbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.inbound') }}">
-                            <i class="mdi mdi-sort-bool-ascending mr-2"></i>
-                            {{ __('Inbound') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/outbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.outbound') }}">
-                            <i class="mdi mdi-sort-bool-descending mr-2"></i>
-                            {{ __('Outbound') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-summary*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-summary') }}">
-                            <i class="mdi mdi-clipboard-check-outline mr-2"></i>
-                            {{ __('Stock Summary') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-movement*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-movement') }}">
-                            <i class="mdi mdi-clipboard-text-play-outline mr-2"></i>
-                            {{ __('Stock Movement') }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        @if(request()->user()->can('view-inbound', \App\Models\Report::class)
+            || request()->user()->can('view-outbound', \App\Models\Report::class)
+            || request()->user()->can('view-stock-summary', \App\Models\Report::class)
+            || request()->user()->can('view-stock-movement', \App\Models\Report::class))
+            <li>
+                <a href="#submenu-report" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('reports*') ? ' bg-green-100' : ' collapsed' }}">
+                    <i class="mdi mdi-ballot-outline mr-2 pointer-events-none"></i>
+                    {{ __('Report') }}
+                    <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
+                </a>
+                <div id="submenu-report" class="sidebar-submenu{{ request()->is('reports*') ? '' : ' submenu-hide' }}">
+                    <ul class="overflow-hidden flex flex-col pb-2">
+                        @can('view-inbound', \App\Models\Report::class)
+                            <li>
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/inbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.inbound') }}">
+                                    <i class="mdi mdi-sort-bool-ascending mr-2"></i>
+                                    {{ __('Inbound') }}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view-outbound', \App\Models\Report::class)
+                            <li>
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/outbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.outbound') }}">
+                                    <i class="mdi mdi-sort-bool-descending mr-2"></i>
+                                    {{ __('Outbound') }}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view-stock-summary', \App\Models\Report::class)
+                            <li>
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-summary*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-summary') }}">
+                                    <i class="mdi mdi-clipboard-check-outline mr-2"></i>
+                                    {{ __('Stock Summary') }}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view-stock-movement', \App\Models\Report::class)
+                            <li>
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-movement*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-movement') }}">
+                                    <i class="mdi mdi-clipboard-text-play-outline mr-2"></i>
+                                    {{ __('Stock Movement') }}
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
+            </li>
+        @endif
 
         <li class="flex items-center py-2 px-5 text-xs text-gray-400">
             {{ __('PREFERENCES') }} <i class="mdi mdi-arrow-right ml-auto"></i>
         </li>
+
         @can('edit-account', \App\Models\User::class)
             <li>
                 <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('account') ? ' text-green-500' : '' }}" href="{{ route('account') }}">
@@ -209,6 +229,7 @@
                 </a>
             </li>
         @endcan
+
         @can('edit-setting', \App\Models\Setting::class)
             <li>
                 <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('settings') ? ' text-green-500' : '' }}" href="{{ route('settings') }}">
@@ -217,6 +238,7 @@
                 </a>
             </li>
         @endcan
+
         @auth
             <li>
                 <a class="flex items-center py-2 px-5 hover:bg-green-100 cursor-pointer"

@@ -68,4 +68,16 @@ class BookingPolicy
     {
         return $user->hasPermission(Permission::BOOKING_DELETE);
     }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  User $user
+     * @param Booking $booking
+     * @return mixed
+     */
+    public function validate(User $user, Booking $booking)
+    {
+        return $user->hasPermission(Permission::BOOKING_VALIDATE);
+    }
 }
