@@ -65,6 +65,7 @@ class XmlBookingParser
                         'unit_name' => $goods['kodeSatuan'],
                         'package_name' => $goods['kodeKemasan'],
                         'weight' => $goods['netto'],
+                        'gross_weight' => $goods['netto'],
                         'description' => '',
                     ]);
                 })

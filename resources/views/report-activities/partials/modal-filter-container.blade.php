@@ -14,8 +14,8 @@
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-wrap">
                     <label for="sort_by" class="form-label">{{ __('Sort By') }}</label>
-                    <div class="relative w-full">
-                        <select class="form-input pr-8" name="sort_by" id="sort_by">
+                    <div class="w-full">
+                        <select class="form-input select-choice" name="sort_by" id="sort_by">
                             <?php
                             $sortFields = [
                                 'completed_at' => 'Completed At',
@@ -35,17 +35,12 @@
                                 </option>
                             @endforeach
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                        </div>
                     </div>
                 </div>
                 <div class="flex flex-wrap">
                     <label for="sort_method" class="form-label">{{ __('Sort Method') }}</label>
-                    <div class="relative w-full">
-                        <select class="form-input pr-8" name="sort_method" id="sort_method">
+                    <div class="w-full">
+                        <select class="form-input select-choice" name="sort_method" id="sort_method" data-search-enable="false">
                             <option value="desc"{{ request()->get('sort_method') == 'desc' ? 'selected' : '' }}>
                                 Descending
                             </option>
@@ -53,11 +48,6 @@
                                 Ascending
                             </option>
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -67,7 +57,7 @@
                     <div class="relative">
                         <input id="date_from" type="search" class="form-input datepicker" data-clear-button=".clear-date-from" autocomplete="off"
                                placeholder="Date created since" name="date_from" value="{{ request()->get('date_from') }}">
-                        <span class="close absolute right-0 top-0 my-3 px-3 clear-date-from">&times;</span>
+                        <span class="close clear-date-button clear-date-from">&times;</span>
                     </div>
                 </div>
                 <div class="flex flex-wrap">
@@ -75,7 +65,7 @@
                     <div class="relative">
                         <input id="date_to" type="search" class="form-input datepicker" data-clear-button=".clear-date-to" autocomplete="off"
                                placeholder="Date created until" name="date_to" value="{{ request()->get('date_to') }}">
-                        <span class="close absolute right-0 top-0 my-3 px-3 clear-date-to">&times;</span>
+                        <span class="close clear-date-button clear-date-to">&times;</span>
                     </div>
                 </div>
             </div>

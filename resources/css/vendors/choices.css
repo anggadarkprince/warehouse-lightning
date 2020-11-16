@@ -1,0 +1,54 @@
+@import "../../../node_modules/choices.js/public/assets/styles/choices.css";
+
+.choices[data-type*='select-one'] .choices__button,
+.choices[data-type*='select-multiple'] .choices__button,
+.choices[data-type*='text'] .choices__button {
+
+}
+
+.choices[data-type*='select-one']:after {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+Cgk8cGF0aCBmaWxsPSIjNzc3Nzc3IiBkPSJNOS4yOTMgMTIuOTVsLjcwNy43MDdMMTUuNjU3IDhsLTEuNDE0LTEuNDE0TDEwIDEwLjgyOCA1Ljc1NyA2LjU4NiA0LjM0MyA4eiIvPgo8L3N2Zz4=);
+    width: 16px;
+    height: 16px;
+    display: block;
+    content: "";
+    border: none;
+    margin-top: -7px;
+}
+
+.choices[data-type*='select-one'].is-open:after {
+    transform: rotate(180deg);
+}
+
+.choices .choices__inner {
+    min-height: 42px;
+    border: none;
+    @apply bg-gray-100 rounded text-base;
+}
+
+.choices .choices__placeholder {
+    @apply text-gray-500 text-base;
+}
+
+.choices .choices__list--single {
+    padding: 2px 16px 2px 8px;
+}
+
+.choices .choices__list--dropdown {
+    @apply border-gray-200;
+}
+
+.choices .choices__list--dropdown .choices__item {
+    padding: 7px 10px;
+    @apply text-base;
+}
+
+.choices[data-type*="select-one"] .choices__input {
+    @apply border-gray-200;
+}
+
+@media (min-width: 640px) {
+    .choices__list--dropdown .choices__item--selectable {
+        padding-right: 10px;
+    }
+}

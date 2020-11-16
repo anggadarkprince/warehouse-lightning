@@ -48,11 +48,11 @@
                     <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
                     <td class="px-4 py-1">
                         <p class="leading-none mt-1">{{ $booking->booking_number }}</p>
-                        <p class="text-gray-500 text-xs leading-none">{{ $booking->reference_number }}</p>
+                        <p class="text-gray-500 text-xs leading-tight">{{ $booking->reference_number }}</p>
                     </td>
                     <td class="px-4 py-1">
                         <p class="leading-none mt-1">{{ $booking->bookingType->type ?: '-' }}</p>
-                        <span class="text-gray-500 text-xs leading-none">{{ optional($booking->upload)->upload_number ?: 'No upload' }}</span>
+                        <p class="text-gray-500 text-xs leading-tight">{{ optional($booking->upload)->upload_number ?: 'No upload' }}</p>
                     </td>
                     <td class="px-4 py-1">{{ $booking->customer->customer_name ?: '-' }}</td>
                     <td class="px-4 py-1">{{ $booking->bookingType->booking_name ?: '-' }}</td>

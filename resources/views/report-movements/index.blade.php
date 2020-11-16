@@ -58,46 +58,45 @@
         <div class="bg-white rounded shadow-sm py-4 mb-4">
             <div class="flex justify-between items-center mb-3 px-6">
                 <h1 class="text-lg text-green-500">{{ $container->container_number }}</h1>
-                <p class="text-gray-400">{{ $container->container_type }} - {{ $container->container_size }}</p>
+                <p class="text-gray-500">{{ $container->container_type }} - {{ $container->container_size }}</p>
             </div>
-            <div class="overflow-x-scroll">
-                <table class="table-auto w-full mb-4 whitespace-no-wrap">
-                    <thead>
-                    <tr>
-                        <th class="border-b border-t px-3 py-2 w-12">No</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Job Type</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Assigned To</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Completed At</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Balance</th>
-                        <th class="border-b border-t px-3 py-2 text-left">In</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Out</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Stock</th>
+            <table class="table-auto w-full mb-4 whitespace-no-wrap">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-3 py-2 w-12">No</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Job Type</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Assigned To</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Completed At</th>
+                    <th class="border-b border-t px-3 py-2 text-center">Balance</th>
+                    <th class="border-b border-t px-3 py-2 text-center">In</th>
+                    <th class="border-b border-t px-3 py-2 text-center">Out</th>
+                    <th class="border-b border-t px-3 py-2 text-center">Stock</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="bg-red-100">
+                    <td class="px-3 py-1"></td>
+                    <td class="px-3 py-1 text-red-400" colspan="2">LAST BALANCE</td>
+                    <td class="px-3 py-1">{{ request()->get('stock_date') }}</td>
+                    <td class="px-3 py-1 text-center">{{ $container->quantity }}</td>
+                    <td class="px-3 py-1 text-center"></td>
+                    <td class="px-3 py-1 text-center"></td>
+                    <td class="px-3 py-1 text-center bg-red-200 text-red-500">{{ $container->quantity }}</td>
+                </tr>
+                @foreach ($container->transactions as $index => $transaction)
+                    <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
+                        <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
+                        <td class="px-3 py-1">{{ $transaction->job_type ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $transaction->assigned_to ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $transaction->completed_at ?: '-' }}</td>
+                        <td class="px-3 py-1 text-center">{{ $transaction->balance }}</td>
+                        <td class="px-3 py-1 text-center">{{ $transaction->quantity > 0 ? $transaction->quantity : '' }}</td>
+                        <td class="px-3 py-1 text-center">{{ $transaction->quantity < 0 ? $transaction->quantity : '' }}</td>
+                        <td class="px-3 py-1 text-center{{ $index == $container->transactions->count() - 1 ? ' bg-green-200 text-green-500' : '' }}">{{ $transaction->stock }}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="px-3 py-1"></td>
-                        <td class="px-3 py-1" colspan="3">LAST BALANCE</td>
-                        <td class="px-3 py-1">{{ $container->quantity }}</td>
-                        <td class="px-3 py-1"></td>
-                        <td class="px-3 py-1"></td>
-                        <td class="px-3 py-1">{{ $container->quantity }}</td>
-                    </tr>
-                    @foreach ($container->transactions as $index => $transaction)
-                        <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                            <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                            <td class="px-3 py-1">{{ $transaction->job_type ?: '-' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->assigned_to ?: '-' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->completed_at ?: '-' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->balance }}</td>
-                            <td class="px-3 py-1">{{ $transaction->quantity > 0 ? $transaction->quantity : '' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->quantity < 0 ? $transaction->quantity : '' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->stock }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     @endforeach
 
@@ -106,46 +105,45 @@
         <div class="bg-white rounded shadow-sm py-4 mb-4">
             <div class="flex justify-between items-center mb-3 px-6">
                 <h1 class="text-lg text-green-500">{{ $item->item_name }}</h1>
-                <p class="text-gray-400">{{ $item->container_number }}</p>
+                <p class="text-gray-500">{{ $item->container_number }}</p>
             </div>
-            <div class="overflow-x-scroll">
-                <table class="table-auto w-full mb-4 whitespace-no-wrap">
-                    <thead>
-                    <tr>
-                        <th class="border-b border-t px-3 py-2 w-12">No</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Job Type</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Assigned To</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Completed At</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Balance</th>
-                        <th class="border-b border-t px-3 py-2 text-left">In</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Out</th>
-                        <th class="border-b border-t px-3 py-2 text-left">Stock</th>
+            <table class="table-auto w-full mb-4 whitespace-no-wrap">
+                <thead>
+                <tr>
+                    <th class="border-b border-t px-3 py-2 w-12">No</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Job Type</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Assigned To</th>
+                    <th class="border-b border-t px-3 py-2 text-left">Completed At</th>
+                    <th class="border-b border-t px-3 py-2 text-center">Balance</th>
+                    <th class="border-b border-t px-3 py-2 text-center">In</th>
+                    <th class="border-b border-t px-3 py-2 text-center">Out</th>
+                    <th class="border-b border-t px-3 py-2 text-center">Stock</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="bg-red-100">
+                    <td class="px-3 py-1"></td>
+                    <td class="px-3 py-1 text-red-400" colspan="2">LAST BALANCE</td>
+                    <td class="px-3 py-1">{{ request()->get('stock_date') }}</td>
+                    <td class="px-3 py-1 text-center">{{ numeric($item->quantity) }}</td>
+                    <td class="px-3 py-1 text-center"></td>
+                    <td class="px-3 py-1 text-center"></td>
+                    <td class="px-3 py-1 text-center bg-red-200 text-red-500">{{ numeric($item->quantity) }}</td>
+                </tr>
+                @foreach ($item->transactions as $index => $transaction)
+                    <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
+                        <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
+                        <td class="px-3 py-1">{{ $transaction->job_type ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $transaction->assigned_to ?: '-' }}</td>
+                        <td class="px-3 py-1">{{ $transaction->completed_at ?: '-' }}</td>
+                        <td class="px-3 py-1 text-center">{{ numeric($transaction->balance) }}</td>
+                        <td class="px-3 py-1 text-center">{{ $transaction->quantity > 0 ? numeric($transaction->quantity) : '' }}</td>
+                        <td class="px-3 py-1 text-center">{{ $transaction->quantity < 0 ? numeric($transaction->quantity) : '' }}</td>
+                        <td class="px-3 py-1 text-center{{ $index == $item->transactions->count() - 1 ? ' bg-green-200 text-green-500' : '' }}">{{ numeric($transaction->stock) }}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="px-3 py-1"></td>
-                        <td class="px-3 py-1" colspan="3">LAST BALANCE</td>
-                        <td class="px-3 py-1">{{ numeric($item->quantity) }}</td>
-                        <td class="px-3 py-1"></td>
-                        <td class="px-3 py-1"></td>
-                        <td class="px-3 py-1">{{ numeric($item->quantity) }}</td>
-                    </tr>
-                    @foreach ($item->transactions as $index => $transaction)
-                        <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                            <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                            <td class="px-3 py-1">{{ $transaction->job_type ?: '-' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->assigned_to ?: '-' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->completed_at ?: '-' }}</td>
-                            <td class="px-3 py-1">{{ numeric($transaction->balance) }}</td>
-                            <td class="px-3 py-1">{{ $transaction->quantity > 0 ? numeric($transaction->quantity) : '' }}</td>
-                            <td class="px-3 py-1">{{ $transaction->quantity < 0 ? numeric($transaction->quantity) : '' }}</td>
-                            <td class="px-3 py-1">{{ numeric($transaction->stock) }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     @endforeach
 

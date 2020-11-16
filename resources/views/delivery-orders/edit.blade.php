@@ -13,10 +13,10 @@
                 <div class="sm:flex -mx-2">
                     <div class="px-2 sm:w-1/2">
                         <div class="flex flex-wrap mb-3 sm:mb-4">
-                            <label for="type" class="form-label">{{ __('Type') }}</label>
-                            <div class="relative w-full">
-                                <select class="form-input pr-8" name="type" id="type" required>
-                                    <option value="">-- Select type --</option>
+                            <label for="type" class="form-label">{{ __('Delivery Type') }}</label>
+                            <div class="w-full">
+                                <select class="form-input select-choice" name="type" id="type" data-search-enable="false" required>
+                                    <option value="">Select type</option>
                                     <option value="INBOUND"{{ old('type', $deliveryOrder->type) == 'INBOUND' ? ' selected' : '' }}>
                                         INBOUND
                                     </option>
@@ -24,11 +24,6 @@
                                         OUTBOUND
                                     </option>
                                 </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                    </svg>
-                                </div>
                             </div>
                             @error('type') <p class="form-text-error">{{ $message }}</p> @enderror
                         </div>
@@ -36,20 +31,15 @@
                     <div class="px-2 sm:w-1/2">
                         <div class="flex flex-wrap mb-3 sm:mb-4">
                             <label for="booking_id" class="form-label">{{ __('Booking') }}</label>
-                            <div class="relative w-full">
-                                <select class="form-input pr-8" name="booking_id" id="booking_id" required>
-                                    <option value="">-- Select booking --</option>
+                            <div class="w-full">
+                                <select class="form-input select-choice" name="booking_id" id="booking_id" required>
+                                    <option value="">Select booking</option>
                                     @foreach($bookings as $booking)
                                         <option value="{{ $booking->id }}" data-type="{{ $booking->bookingType->type }}"{{ old('booking_id', $deliveryOrder->booking_id) == $booking->id ? ' selected' : '' }}>
                                             {{ $booking->booking_number }} - {{ $booking->reference_number }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                    </svg>
-                                </div>
                             </div>
                             @error('booking_id') <p class="form-text-error">{{ $message }}</p> @enderror
                         </div>

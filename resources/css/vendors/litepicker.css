@@ -20,3 +20,9 @@
 .litepicker .container__days .day-item.is-end-date {
     @apply bg-green-500;
 }
+
+.clear-date-button {
+    top: 50%;
+    transform: translateY(-50%);
+    @apply absolute right-0 px-3;
+}

@@ -49,9 +49,9 @@
                             {{ $upload->upload_number }}
                         @else
                             <p class="leading-none mt-1">{{ $upload->upload_number }}</p>
-                            <span class="text-gray-500 text-xs leading-none">
+                            <p class="text-gray-500 text-xs leading-tight">
                                 {{ optional($upload->booking)->booking_number }}
-                            </span>
+                            </p>
                         @endif
                     </td>
                     <td class="px-4 py-1">{{ $upload->customer->customer_name }}</td>

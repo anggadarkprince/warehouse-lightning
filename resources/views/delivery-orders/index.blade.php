@@ -46,7 +46,7 @@
                                 {{ $deliveryOrder->booking->booking_number }}
                             </a>
                         </p>
-                        <p class="text-gray-500 text-xs leading-none">{{ $deliveryOrder->booking->reference_number }}</p>
+                        <p class="text-gray-500 text-xs leading-tight">{{ $deliveryOrder->booking->reference_number }}</p>
                     </td>
                     <td class="px-4 py-1">{{ $deliveryOrder->booking->customer->customer_name ?: '-' }}</td>
                     <td class="px-4 py-1">{{ $deliveryOrder->delivery_date->format('d F Y') }}</td>

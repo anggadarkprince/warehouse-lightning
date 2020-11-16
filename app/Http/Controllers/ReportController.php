@@ -9,6 +9,7 @@ use App\Models\Report;
 use App\Models\ReportStock;
 use App\Models\ReportStockMovement;
 use App\Models\WorkOrder;
+use Illuminate\Contracts\View\Factory;
 use function Couchbase\defaultDecoder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -130,7 +131,7 @@ class ReportController extends Controller
      * @param Request $request
      * @param ReportStockMovement $reportStockMovement
      * @param ReportStock $reportStock
-     * @return \Illuminate\Contracts\View\Factory|View
+     * @return Factory|View
      */
     public function stockMovement(Request $request, ReportStockMovement $reportStockMovement, ReportStock $reportStock)
     {

@@ -11,13 +11,13 @@
             <div class="py-2">
                 <div class="flex flex-wrap mb-3 sm:mb-4">
                     <label for="upload_id" class="form-label">{{ __('Upload') }}</label>
-                    <div class="relative w-full">
-                        <select class="form-input pr-8" name="upload_id" id="upload_id">
-                            <option value="">-- Select upload --</option>
+                    <div class="w-full">
+                        <select class="form-input select-choice" name="upload_id" id="upload_id" data-remove-item-button="1">
+                            <option value="">No document upload</option>
                             @foreach($uploads as $upload)
                                 <option value="{{ $upload->id }}"
+                                        data-custom-properties='{"type": "{{ $upload->bookingType->type }}", "bookingTypeId": "{{ $upload->booking_type_id }}", "customerId": "{{ $upload->customer_id }}"}'
                                         data-type="{{ $upload->bookingType->type }}"
-                                        data-booking-type-id="{{ $upload->booking_type_id }}"
                                         data-booking-type-id="{{ $upload->booking_type_id }}"
                                         data-customer-id="{{ $upload->customer_id }}"
                                     {{ old('upload_id') == $upload->id ? ' selected' : '' }}>
@@ -25,11 +25,6 @@
                                 </option>
                             @endforeach
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                        </div>
                     </div>
                     @error('upload_id') <p class="form-text-error">{{ $message }}</p> @enderror
                 </div>
@@ -37,9 +32,9 @@
                     <div class="px-2 sm:w-1/2">
                         <div class="flex flex-wrap mb-3 sm:mb-4">
                             <label for="type" class="form-label">{{ __('Type') }}</label>
-                            <div class="relative w-full">
-                                <select class="form-input pr-8" name="type" id="type">
-                                    <option value="">-- Select type --</option>
+                            <div class="w-full">
+                                <select class="form-input select-choice" name="type" id="type" data-search-enable="false">
+                                    <option value="">No type</option>
                                     <option value="INBOUND"{{ old('type') == 'INBOUND' ? ' selected' : '' }}>
                                         INBOUND
                                     </option>
@@ -47,11 +42,6 @@
                                         OUTBOUND
                                     </option>
                                 </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                    </svg>
-                                </div>
                             </div>
                             @error('type') <p class="form-text-error">{{ $message }}</p> @enderror
                         </div>
@@ -59,20 +49,15 @@
                     <div class="px-2 sm:w-1/2">
                         <div class="flex flex-wrap mb-3 sm:mb-4">
                             <label for="booking_type_id" class="form-label">{{ __('Booking Type') }}</label>
-                            <div class="relative w-full">
-                                <select class="form-input pr-8" name="booking_type_id" id="booking_type_id">
-                                    <option value="">-- Select booking type --</option>
+                            <div class="w-full">
+                                <select class="form-input select-choice" name="booking_type_id" id="booking_type_id">
+                                    <option value="">No booking type</option>
                                     @foreach($bookingTypes as $bookingType)
                                         <option value="{{ $bookingType->id }}" data-type="{{ $bookingType->type }}"{{ old('booking_type_id') == $bookingType->id ? ' selected' : '' }}>
                                             {{ $bookingType->booking_name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                    </svg>
-                                </div>
                             </div>
                             @error('booking_type_id') <p class="form-text-error">{{ $message }}</p> @enderror
                         </div>
@@ -80,20 +65,15 @@
                 </div>
                 <div class="flex flex-wrap mb-3 sm:mb-4">
                     <label for="customer_id" class="form-label">{{ __('Customer') }}</label>
-                    <div class="relative w-full">
-                        <select class="form-input pr-8" name="customer_id" id="customer_id">
-                            <option value="">-- Select customer --</option>
+                    <div class="w-full">
+                        <select class="form-input select-choice" name="customer_id" id="customer_id">
+                            <option value="">No customer</option>
                             @foreach($customers as $customer)
                                 <option value="{{ $customer->id }}"{{ old('customer_id') == $customer->id ? ' selected' : '' }}>
                                     {{ $customer->customer_name }}
                                 </option>
                             @endforeach
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                        </div>
                     </div>
                     @error('customer_id') <p class="form-text-error">{{ $message }}</p> @enderror
                 </div>

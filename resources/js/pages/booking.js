@@ -9,19 +9,32 @@ if (formBooking) {
     const selectBookingType = formBooking.querySelector('select[name="booking_type_id"]');
     const selectCustomer = formBooking.querySelector('select[name="customer_id"]');
 
-    selectUpload.addEventListener('change', function () {
+    selectUpload.addEventListener('change', function (event) {
         if (selectUpload.value) {
-            const type = selectUpload.options[selectUpload.selectedIndex].dataset.type;
-            const bookingTypeId = selectUpload.options[selectUpload.selectedIndex].dataset.bookingTypeId;
-            const customerId = selectUpload.options[selectUpload.selectedIndex].dataset.customerId;
+            const customProperties = selectUpload.options[selectUpload.selectedIndex].dataset.customProperties;
 
-            selectType.value = type;
-            selectBookingType.value = bookingTypeId;
-            selectCustomer.value = customerId;
+            if (customProperties) {
+                const data = JSON.parse(customProperties);
+                selectType.choices.setChoiceByValue(data.type);
+                selectBookingType.choices.setChoiceByValue(data.bookingTypeId);
+                selectCustomer.choices.setChoiceByValue(data.customerId);
 
-            selectType.classList.add('pointer-events-none');
-            selectBookingType.classList.add('pointer-events-none');
-            selectCustomer.classList.add('pointer-events-none');
+                selectType.parentElement.parentElement.classList.add('pointer-events-none');
+                selectBookingType.parentElement.parentElement.classList.add('pointer-events-none');
+                selectCustomer.parentElement.parentElement.classList.add('pointer-events-none');
+            } else {
+                const type = selectUpload.options[selectUpload.selectedIndex].dataset.type;
+                const bookingTypeId = selectUpload.options[selectUpload.selectedIndex].dataset.bookingTypeId;
+                const customerId = selectUpload.options[selectUpload.selectedIndex].dataset.customerId;
+
+                selectType.value = type;
+                selectBookingType.value = bookingTypeId;
+                selectCustomer.value = customerId;
+
+                selectType.classList.add('pointer-events-none');
+                selectBookingType.classList.add('pointer-events-none');
+                selectCustomer.classList.add('pointer-events-none');
+            }
         } else {
             selectType.value = '';
             selectBookingType.value = '';

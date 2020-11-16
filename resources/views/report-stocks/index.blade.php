@@ -16,7 +16,7 @@
                 </a>
             </div>
         </div>
-        <div class="overflow-x-scroll">
+        <div class="overflow-x-auto">
             <table class="table-auto w-full mb-4 whitespace-no-wrap">
                 <thead>
                 <tr>
@@ -39,7 +39,11 @@
                 @forelse ($stockContainers as $index => $container)
                     <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                         <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                        <td class="px-3 py-1">{{ $container->container_number ?: '-' }}</td>
+                        <td class="px-3 py-1">
+                            <a href="{{ route('reports.stock-movement', ['booking_id' => $container->booking_id]) }}" class="text-link">
+                                {{ $container->container_number ?: '-' }}
+                            </a>
+                        </td>
                         <td class="px-3 py-1">{{ $container->container_type ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->container_size ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $container->is_empty ? 'Empty' : 'Loaded' }}</td>
@@ -80,7 +84,7 @@
                 </a>
             </div>
         </div>
-        <div class="overflow-x-scroll">
+        <div class="overflow-x-auto">
             <table class="table-auto w-full mb-4 whitespace-no-wrap">
                 <thead>
                 <tr>

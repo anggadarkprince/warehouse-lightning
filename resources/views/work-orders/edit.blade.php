@@ -23,8 +23,8 @@
                 <div class="px-2 sm:w-1/2">
                     <div class="flex flex-wrap mb-3 sm:mb-4">
                         <label for="job_type" class="form-label">{{ __('Job Type') }}</label>
-                        <div class="relative w-full">
-                            <select class="form-input pr-8" name="job_type" id="job_type" required>
+                        <div class="w-full">
+                            <select class="form-input select-choice" name="job_type" id="job_type" required>
                                 <option value="">-- Select type --</option>
                                 <option value="{{ \App\Models\WorkOrder::TYPE_UNLOADING }}"{{ old('job_type', $workOrder->job_type) == \App\Models\WorkOrder::TYPE_UNLOADING ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_UNLOADING)->replaceMatches('/[_-]/', ' ') }}
@@ -45,11 +45,6 @@
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_LOADING)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                </svg>
-                            </div>
                         </div>
                         @error('user_id') <p class="form-text-error">{{ $message }}</p> @enderror
                     </div>
@@ -57,8 +52,8 @@
                 <div class="px-2 sm:w-1/2">
                     <div class="flex flex-wrap mb-3 sm:mb-4">
                         <label for="user_id" class="form-label">{{ __('Assigned Job User') }}</label>
-                        <div class="relative w-full">
-                            <select class="form-input pr-8" name="user_id" id="user_id">
+                        <div class="w-full">
+                            <select class="form-input select-choice" name="user_id" id="user_id">
                                 <option value="">No specific user</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}" data-type="{{ $user->name }}"{{ old('user_id', $workOrder->user_id) == $user->id ? ' selected' : '' }}>
@@ -66,11 +61,6 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                </svg>
-                            </div>
                         </div>
                         @error('user_id') <p class="form-text-error">{{ $message }}</p> @enderror
                     </div>

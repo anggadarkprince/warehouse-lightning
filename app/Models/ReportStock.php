@@ -65,7 +65,7 @@ class ReportStock
          */
         $baseQuery = DB::table('bookings')
             ->select([
-                'bookings.id AS reference_id',
+                'bookings.id AS booking_id',
                 'bookings.reference_number',
                 'bookings.booking_number',
                 'customers.customer_name',
@@ -184,7 +184,7 @@ class ReportStock
          */
         $baseQuery = DB::table('bookings')
             ->select([
-                'bookings.id AS reference_id',
+                'bookings.id AS booking_id',
                 'bookings.reference_number',
                 'bookings.booking_number',
                 'customers.customer_name',

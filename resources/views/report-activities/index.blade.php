@@ -16,7 +16,7 @@
                 </a>
             </div>
         </div>
-        <div class="overflow-x-scroll">
+        <div class="overflow-x-auto">
             <table class="table-auto w-full mb-4 whitespace-no-wrap">
                 <thead>
                 <tr>
@@ -39,7 +39,11 @@
                 @forelse ($activityContainers as $index => $activity)
                     <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                         <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->reference_number }}</td>
+                        <td class="px-3 py-1">
+                            <a href="{{ route('bookings.show', ['booking' => $activity->workOrder->booking->id]) }}" class="text-link">
+                                {{ $activity->workOrder->booking->reference_number }}
+                            </a>
+                        </td>
                         <td class="px-3 py-1">{{ $activity->workOrder->booking->booking_number }}</td>
                         <td class="px-3 py-1">{{ $activity->workOrder->booking->customer->customer_name ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $activity->workOrder->booking->bookingType->booking_name ?: '-' }}</td>
@@ -80,7 +84,7 @@
                 </a>
             </div>
         </div>
-        <div class="overflow-x-scroll">
+        <div class="overflow-x-auto">
             <table class="table-auto w-full mb-4 whitespace-no-wrap">
                 <thead>
                 <tr>
@@ -105,7 +109,11 @@
                 @forelse ($activityGoods as $index => $activity)
                     <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                         <td class="px-3 py-1 text-center">{{ $index + 1 }}</td>
-                        <td class="px-3 py-1">{{ $activity->workOrder->booking->reference_number }}</td>
+                        <td class="px-3 py-1">
+                            <a href="{{ route('bookings.show', ['booking' => $activity->workOrder->booking->id]) }}" class="text-link">
+                                {{ $activity->workOrder->booking->reference_number }}
+                            </a>
+                        </td>
                         <td class="px-3 py-1">{{ $activity->workOrder->booking->booking_number }}</td>
                         <td class="px-3 py-1">{{ $activity->workOrder->booking->customer->customer_name ?: '-' }}</td>
                         <td class="px-3 py-1">{{ $activity->workOrder->booking->bookingType->booking_name ?: '-' }}</td>

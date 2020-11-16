@@ -13,19 +13,14 @@
                 <div class="flex flex-wrap mb-3 sm:mb-4">
                     <label for="upload_id" class="form-label">{{ __('Upload') }}</label>
                     <div class="relative w-full">
-                        <select class="form-input pr-8" name="upload_id" id="upload_id">
-                            <option value="">-- Select upload --</option>
+                        <select class="form-input select-choice" name="upload_id" id="upload_id" data-remove-item-button="1">
+                            <option value="">Select upload</option>
                             @foreach($uploads as $upload)
                                 <option value="{{ $upload->id }}"{{ old('upload_id') == $upload->id ? ' selected' : '' }}>
                                     {{ $upload->bookingType->type }}: {{ $upload->upload_number }} - {{ $upload->customer->customer_name }} ({{ $upload->upload_title }})
                                 </option>
                             @endforeach
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                        </div>
                     </div>
                     @error('upload_id') <p class="form-text-error">{{ $message }}</p> @enderror
                 </div>
@@ -210,11 +205,10 @@
                     <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Item Name') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Item Number') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Qty') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Name') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Qty') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Quantity') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package') }}</th>
                     <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Gross') }}</th>
                     <th class="border-b border-t px-4 py-2 text-right">{{ __('Status') }}</th>
                 </tr>
                 </thead>
@@ -224,11 +218,10 @@
                         <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
                         <td class="px-4 py-1" style="min-width: 200px">{{ $goods['item_name'] }}</td>
                         <td class="px-4 py-1" title="{{ $goods['item_number'] }}">{{ mid_ellipsis($goods['item_number']) }}</td>
-                        <td class="px-4 py-1">{{ numeric($goods['unit_quantity']) }}</td>
-                        <td class="px-4 py-1">{{ $goods['unit_name'] }}</td>
-                        <td class="px-4 py-1">{{ numeric($goods['package_quantity']) }}</td>
-                        <td class="px-4 py-1">{{ $goods['package_name'] }}</td>
-                        <td class="px-4 py-1">{{ $goods['weight'] }}</td>
+                        <td class="px-4 py-1">{{ numeric($goods['unit_quantity']) }} {{ $goods['unit_name'] }}</td>
+                        <td class="px-4 py-1">{{ numeric($goods['package_quantity']) }} {{ $goods['package_name'] }}</td>
+                        <td class="px-4 py-1">{{ numeric($goods['weight']) }} Kg</td>
+                        <td class="px-4 py-1">{{ numeric($goods['gross_weight']) }} Kg</td>
                         <td class="px-4 py-1 text-right">
                             @if(empty($goods['id']))
                                 <span class="ml-2 px-1 bg-red-500 text-white text-xs">
@@ -247,6 +240,7 @@
                             <input type="hidden" name="goods[{{ $index }}][package_quantity]" value="{{ $goods['package_quantity'] }}">
                             <input type="hidden" name="goods[{{ $index }}][package_name]" value="{{ $goods['package_name'] }}">
                             <input type="hidden" name="goods[{{ $index }}][weight]" value="{{ $goods['weight'] }}">
+                            <input type="hidden" name="goods[{{ $index }}][gross_weight]" value="{{ $goods['gross_weight'] }}">
                         </td>
                     </tr>
                 @empty
