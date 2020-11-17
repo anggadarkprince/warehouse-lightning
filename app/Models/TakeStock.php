@@ -30,7 +30,7 @@ class TakeStock extends Model implements HasOrderNumber
         parent::boot();
 
         static::creating(function ($model) {
-            $model->job_number = $model->getOrderNumber();
+            $model->take_stock_number = $model->getOrderNumber();
         });
     }
 

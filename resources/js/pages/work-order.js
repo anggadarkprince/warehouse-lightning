@@ -48,6 +48,8 @@ if (formWorkOrder) {
     const customTemplates = new Choices(selectUser, {
         shouldSort: false,
         itemSelectText: "",
+        position: "bottom",
+        searchPlaceholderValue: "Search for user",
         callbackOnCreateTemplates: function (strToEl) {
             const itemSelectText = this.config.itemSelectText;
             return {

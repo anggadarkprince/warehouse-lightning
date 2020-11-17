@@ -35,7 +35,7 @@
                         <label for="job_type" class="form-label">{{ __('Job Type') }}</label>
                         <div class="w-full">
                             <select class="form-input select-choice" name="job_type" id="job_type" required>
-                                <option value="">Select job type</option>
+                                <option value="">No job type</option>
                                 <option value="{{ \App\Models\WorkOrder::TYPE_UNLOADING }}"{{ old('job_type') == \App\Models\WorkOrder::TYPE_UNLOADING ? ' selected' : '' }}>
                                     {{ Str::of(\App\Models\WorkOrder::TYPE_UNLOADING)->replaceMatches('/[_-]/', ' ') }}
                                 </option>
@@ -64,7 +64,7 @@
                         <label for="user_id" class="form-label">{{ __('Assigned Job User') }}</label>
                         <div class="w-full">
                             <select class="form-input" name="user_id" id="user_id">
-                                <option value="">Select user</option>
+                                <option value="">No assigned user</option>
                                 <option value="0"{{ old('user_id') == '0' ? ' selected' : '' }}>
                                     No specific user (let user take the job)
                                 </option>

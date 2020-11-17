@@ -123,7 +123,7 @@ Route::middleware(['auth'])->group(function() {
     Route::match(['post', 'put'], 'tally/{work_order}/validate', [TallyController::class, 'validateJob'])->name('tally.validate-job');
 
     Route::post('take-stocks/{take_stock}/validate', [TakeStockController::class, 'validateTakeStock'])->name('take-stocks.validate');
-    Route::resource('take-stocks', TakeStockController::class)->except(['edit', 'update']);
+    Route::resource('take-stocks', TakeStockController::class);
 
     Route::get('reports/inbound', [ReportController::class, 'inbound'])->name('reports.inbound');
     Route::get('reports/outbound', [ReportController::class, 'outbound'])->name('reports.outbound');
