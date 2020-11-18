@@ -16,7 +16,7 @@ class CreateTakeStocksTable extends Migration
         Schema::create('take_stocks', function (Blueprint $table) {
             $table->id();
             $table->string('take_stock_number', 30)->unique();
-            $table->string('status')->default('IN PROCESS');
+            $table->string('status')->default('PENDING');
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -14,7 +14,7 @@ class TakeStockPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -25,8 +25,8 @@ class TakeStockPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\TakeStock  $takeStock
+     * @param User $user
+     * @param TakeStock $takeStock
      * @return mixed
      */
     public function view(User $user, TakeStock $takeStock)
@@ -37,7 +37,7 @@ class TakeStockPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -46,26 +46,38 @@ class TakeStockPolicy
     }
 
     /**
+     * Determine whether the user can update the model.
+     *
+     * @param User $user
+     * @param TakeStock $takeStock
+     * @return mixed
+     */
+    public function update(User $user, TakeStock $takeStock)
+    {
+        return $user->hasPermission(Permission::TAKE_STOCK_EDIT) && in_array($takeStock->status, [TakeStock::STATUS_PENDING, TakeStock::STATUS_REJECTED, TakeStock::STATUS_IN_PROCESS]);
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\TakeStock  $takeStock
+     * @param User $user
+     * @param TakeStock $takeStock
      * @return mixed
      */
     public function delete(User $user, TakeStock $takeStock)
     {
-        return $user->hasPermission(Permission::TAKE_STOCK_DELETE);
+        return $user->hasPermission(Permission::TAKE_STOCK_DELETE) && $takeStock->status != TakeStock::STATUS_VALIDATED;
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\TakeStock  $takeStock
+     * @param User $user
+     * @param TakeStock $takeStock
      * @return mixed
      */
     public function validate(User $user, TakeStock $takeStock)
     {
-        return $user->hasPermission(Permission::TAKE_STOCK_VALIDATE);
+        return $user->hasPermission(Permission::TAKE_STOCK_VALIDATE) && $takeStock->status == TakeStock::STATUS_SUBMITTED;
     }
 }

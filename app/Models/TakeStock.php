@@ -17,7 +17,10 @@ class TakeStock extends Model implements HasOrderNumber
      */
     protected $fillable = ['status', 'description'];
 
+    const STATUS_PENDING = 'PENDING';
     const STATUS_IN_PROCESS = 'IN PROCESS';
+    const STATUS_SUBMITTED = 'SUBMITTED';
+    const STATUS_REJECTED = 'REJECTED';
     const STATUS_VALIDATED = 'VALIDATED';
 
     /**
@@ -51,7 +54,7 @@ class TakeStock extends Model implements HasOrderNumber
     }
 
     /**
-     * Get all of the upload's statuses.
+     * Get all of the take stock statuses.
      */
     public function statusHistories()
     {

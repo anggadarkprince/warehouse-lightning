@@ -218,12 +218,50 @@ class PermissionSeeder extends Seeder
         );
 
         Permission::firstOrCreate(
+            ['permission' => Permission::TAKE_STOCK_VIEW],
+            ['description' => 'View take stock data', 'module' => 'take-stock', 'feature' => 'take-stock']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::TAKE_STOCK_CREATE],
+            ['description' => 'Create take stock data', 'module' => 'take-stock', 'feature' => 'take-stock']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::TAKE_STOCK_EDIT],
+            ['description' => 'Edit take stock data', 'module' => 'take-stock', 'feature' => 'take-stock']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::TAKE_STOCK_DELETE],
+            ['description' => 'Delete take stock data', 'module' => 'take-stock', 'feature' => 'take-stock']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::TAKE_STOCK_VALIDATE],
+            ['description' => 'Validate take stock data', 'module' => 'take-stock', 'feature' => 'take-stock']
+        );
+
+        Permission::firstOrCreate(
+            ['permission' => Permission::REPORT_INBOUND],
+            ['description' => 'Report inbound', 'module' => 'report', 'feature' => 'report-inbound']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::REPORT_OUTBOUND],
+            ['description' => 'Report outbound', 'module' => 'report', 'feature' => 'report-outbound']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::REPORT_STOCK_SUMMARY],
+            ['description' => 'Report stock summary', 'module' => 'report', 'feature' => 'report-stock-summary']
+        );
+        Permission::firstOrCreate(
+            ['permission' => Permission::REPORT_STOCK_MOVEMENT],
+            ['description' => 'Report stock movement', 'module' => 'report', 'feature' => 'report-stock-movement']
+        );
+
+        Permission::firstOrCreate(
             ['permission' => Permission::ACCOUNT_EDIT],
             ['description' => 'Edit account data', 'module' => 'preferences', 'feature' => 'account']
         );
         Permission::firstOrCreate(
             ['permission' => Permission::SETTING_EDIT],
-            ['description' => 'Delete order data', 'module' => 'preferences', 'feature' => 'setting']
+            ['description' => 'Edit setting data', 'module' => 'preferences', 'feature' => 'setting']
         );
 
     }

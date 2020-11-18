@@ -77,6 +77,7 @@ class Permission extends Model
 
     const TAKE_STOCK_VIEW = 'take-stock-view';
     const TAKE_STOCK_CREATE = 'take-stock-create';
+    const TAKE_STOCK_EDIT = 'take-stock-edit';
     const TAKE_STOCK_DELETE = 'take-stock-delete';
     const TAKE_STOCK_VALIDATE = 'take-stock-validate';
 

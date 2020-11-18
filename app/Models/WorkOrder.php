@@ -24,6 +24,7 @@ class WorkOrder extends Model implements HasOrderNumber
     const TYPE_REPACKING_GOODS = "REPACKING GOODS";
     const TYPE_UNPACKING_GOODS = "UNPACKING GOODS";
     const TYPE_LOADING = "LOADING";
+    const TYPE_TAKE_STOCK = "TAKE STOCK";
 
     const STATUS_QUEUED = "QUEUED";
     const STATUS_TAKEN = "TAKEN";
@@ -114,7 +115,7 @@ class WorkOrder extends Model implements HasOrderNumber
             ->selectRaw("CAST(RIGHT(job_number, 6) AS UNSIGNED) + 1 AS order_number")
             ->whereMonth('created_at', date('m'))
             ->whereYear('created_at', date('Y'))
-            ->orderBy('job_number', 'desc')
+            ->orderBy('created_at', 'desc')
             ->take('1');
 
         $orderPad = '000001';
@@ -141,6 +142,9 @@ class WorkOrder extends Model implements HasOrderNumber
                 break;
             case self::TYPE_LOADING:
                 $prefix = 'LO';
+                break;
+            case self::TYPE_TAKE_STOCK:
+                $prefix = 'TS';
                 break;
         }
 

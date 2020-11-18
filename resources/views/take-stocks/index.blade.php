@@ -33,13 +33,26 @@
             </tr>
             </thead>
             <tbody>
+            <?php
+            $takeStockStatuses = [
+                \App\Models\TakeStock::STATUS_PENDING => 'bg-gray-200',
+                \App\Models\TakeStock::STATUS_IN_PROCESS => 'bg-orange-500',
+                \App\Models\TakeStock::STATUS_SUBMITTED => 'bg-blue-500',
+                \App\Models\TakeStock::STATUS_REJECTED => 'bg-red-500',
+                \App\Models\TakeStock::STATUS_VALIDATED => 'bg-green-500',
+            ];
+            ?>
             @forelse ($takeStocks as $index => $takeStock)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
                     <td class="px-4 py-1">{{ $takeStock->take_stock_number }}</td>
                     <td class="px-4 py-1">{{ $takeStock->created_at->format('d F Y') }}</td>
                     <td class="px-4 py-1">{{ $takeStock->description ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ $takeStock->status ?: '-' }}</td>
+                    <td class="px-4 py-1">
+                        <span class="px-2 py-1 rounded text-xs {{ $takeStock->status == 'PENDING' ? '' : 'text-white' }} {{ data_get($takeStockStatuses, $takeStock->status, 'bg-gray-200') }}">
+                            {{ $takeStock->status }}
+                        </span>
+                    </td>
                     <td class="px-4 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
@@ -47,21 +60,44 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 @can('view', $takeStock)
-                                    <a href="{{ route('delivery-orders.show', ['delivery_order' => $takeStock->id]) }}" class="dropdown-item">
+                                    <a href="{{ route('take-stocks.show', ['take_stock' => $takeStock->id]) }}" class="dropdown-item">
                                         <i class="mdi mdi-eye-outline mr-2"></i>View
                                     </a>
-                                    <a href="{{ route('delivery-orders.print', ['delivery_order' => $takeStock->id]) }}" class="dropdown-item">
+                                    <a href="{{ route('take-stocks.print', ['take_stock' => $takeStock->id]) }}" class="dropdown-item">
                                         <i class="mdi mdi-printer mr-2"></i>Print
                                     </a>
                                 @endcan
                                 @can('update', $takeStock)
-                                    <a href="{{ route('delivery-orders.edit', ['delivery_order' => $takeStock->id]) }}" class="dropdown-item">
-                                        <i class="mdi mdi-square-edit-outline mr-2"></i>Edit
+                                    <a href="{{ route('take-stocks.edit', ['take_stock' => $takeStock->id]) }}" class="dropdown-item">
+                                        <i class="mdi mdi-square-edit-outline mr-2"></i>Proceed
                                     </a>
+                                    @if($takeStock->status == \App\Models\TakeStock::STATUS_IN_PROCESS)
+                                        <a href="{{ route('take-stocks.submit', ['take_stock' => $takeStock->id]) }}"
+                                           data-label="{{ $takeStock->take_stock_number }}"
+                                           data-sub-message="Confirmed data can affect current stock"
+                                           data-action="Submit"
+                                           class="dropdown-item confirm-submission">
+                                            <i class="mdi mdi-send-circle-outline mr-2"></i>Submit
+                                        </a>
+                                    @endif
+                                @endcan
+                                @can('validate', $takeStock)
+                                    @if($takeStock->status == \App\Models\TakeStock::STATUS_SUBMITTED)
+                                        <button type="button" data-href="{{ route('take-stocks.validate', ['take_stock' => $takeStock->id]) }}"
+                                                data-label="{{ $takeStock->take_stock_number }}"
+                                                data-sub-message="Changed data will be generated as take stock job"
+                                                data-action="Validate"
+                                                data-action-refuse="Reject"
+                                                data-submit-refuse="1"
+                                                data-input-message="1"
+                                                class="dropdown-item confirm-submission">
+                                            <i class="mdi mdi-check-all mr-2"></i>Validate
+                                        </button>
+                                    @endif
                                 @endcan
                                 @can('delete', $takeStock)
                                     <hr class="border-gray-200 my-1">
-                                    <button type="button" data-href="{{ route('delivery-orders.destroy', ['delivery_order' => $takeStock->id]) }}" data-label="{{ $takeStock->delivery_number }}" class="dropdown-item confirm-delete">
+                                    <button type="button" data-href="{{ route('take-stocks.destroy', ['take_stock' => $takeStock->id]) }}" data-label="{{ $takeStock->take_stock_number }}" class="dropdown-item confirm-delete">
                                         <i class="mdi mdi-trash-can-outline mr-2"></i>Delete
                                     </button>
                                 @endcan
