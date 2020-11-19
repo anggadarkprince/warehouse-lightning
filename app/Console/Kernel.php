@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('automate:delete-old-temp')->daily()->appendOutputTo(storage_path('logs/deleted-temp.log'));
         $schedule->command('automate:activity', ['UNLOADING'])->daily()->appendOutputTo(storage_path('logs/unloading-activity.log'));
         $schedule->command('automate:activity', ['LOADING'])->daily()->appendOutputTo(storage_path('logs/loading-activity.log'));
-        $schedule->command('automate:stock-summary', ['--stock_date=' . Carbon::now()->subWeek()->toDateString()])->weeklyOn(1, '1:00')->appendOutputTo(storage_path('logs/stock.log'));
+        $schedule->command('automate:stock', ['--stock_date=' . Carbon::now()->subWeek()->toDateString()])->weeklyOn(1, '1:00')->appendOutputTo(storage_path('logs/stock.log'));
     }
 
     /**
