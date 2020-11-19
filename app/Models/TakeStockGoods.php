@@ -36,6 +36,14 @@ class TakeStockGoods extends Model
     }
 
     /**
+     * Get the take stock of the booking.
+     */
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+    /**
      * Get the goods of the take stock.
      */
     public function goods()

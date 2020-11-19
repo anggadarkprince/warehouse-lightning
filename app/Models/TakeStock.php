@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Contracts\Numerable\HasOrderNumber;
 use App\Traits\Search\BasicFilter;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TakeStock extends Model implements HasOrderNumber
 {
@@ -81,5 +83,22 @@ class TakeStock extends Model implements HasOrderNumber
         }
 
         return 'TS-' . date('ym') . $orderPad;
+    }
+
+    /**
+     * Get pdf from current data.
+     *
+     * @param bool $stream
+     * @return BinaryFileResponse|StreamedResponse
+     */
+    public function getPdf($stream = true)
+    {
+        $pdf = app('dompdf.wrapper')->loadView('take-stocks.print', ['takeStock' => $this]);
+
+        if ($stream) {
+            return $pdf->stream('take-stock.pdf');
+        }
+
+        return $pdf->download('take-stock.pdf');
     }
 }

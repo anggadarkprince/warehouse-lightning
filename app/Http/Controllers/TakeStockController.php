@@ -40,7 +40,9 @@ class TakeStockController extends Controller
      */
     public function index(Request $request, CollectionExporter $exporter)
     {
-        $takeStocks = TakeStock::q($request->get('q'))
+        $takeStocks = TakeStock::withCount('takeStockContainers as container_total')
+            ->withCount('takeStockGoods as goods_total')
+            ->q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
             ->dateTo($request->get('date_to'));
@@ -121,6 +123,20 @@ class TakeStockController extends Controller
     public function show(TakeStock $takeStock)
     {
         return view('take-stocks.show', compact('takeStock'));
+    }
+
+    /**
+     * Print take stock.
+     *
+     * @param TakeStock $takeStock
+     * @return BinaryFileResponse|StreamedResponse
+     * @throws AuthorizationException
+     */
+    public function printTakeStock(TakeStock $takeStock)
+    {
+        $this->authorize('view', $takeStock);
+
+        return $takeStock->getPdf();
     }
 
     /**

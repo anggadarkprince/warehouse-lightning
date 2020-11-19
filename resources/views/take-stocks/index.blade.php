@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Take Stocks</h1>
-                <span class="text-gray-400">Manage opname data</span>
+                <span class="text-gray-400">Manage stock data</span>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -24,12 +24,14 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Take Stock Number</th>
-                <th class="border-b border-t px-4 py-2 text-left">Date</th>
-                <th class="border-b border-t px-4 py-2 text-left">Description</th>
-                <th class="border-b border-t px-4 py-2 text-left">Status</th>
-                <th class="border-b border-t px-4 py-2 text-right">Action</th>
+                <th class="border-b border-t px-2 py-2 w-12">No</th>
+                <th class="border-b border-t px-2 py-2 text-left">Take Stock Number</th>
+                <th class="border-b border-t px-2 py-2 text-left">Date</th>
+                <th class="border-b border-t px-2 py-2 text-left">Description</th>
+                <th class="border-b border-t px-2 py-2 text-left">Container</th>
+                <th class="border-b border-t px-2 py-2 text-left">Goods</th>
+                <th class="border-b border-t px-2 py-2 text-left">Status</th>
+                <th class="border-b border-t px-2 py-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -44,16 +46,18 @@
             ?>
             @forelse ($takeStocks as $index => $takeStock)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-4 py-1">{{ $takeStock->take_stock_number }}</td>
-                    <td class="px-4 py-1">{{ $takeStock->created_at->format('d F Y') }}</td>
-                    <td class="px-4 py-1">{{ $takeStock->description ?: '-' }}</td>
-                    <td class="px-4 py-1">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">{{ $takeStock->take_stock_number }}</td>
+                    <td class="px-2 py-1">{{ $takeStock->created_at->format('d F Y') }}</td>
+                    <td class="px-2 py-1">{{ $takeStock->container_total ?: '0' }}</td>
+                    <td class="px-2 py-1">{{ $takeStock->goods_total ?: '0' }}</td>
+                    <td class="px-2 py-1">{{ $takeStock->description ?: '-' }}</td>
+                    <td class="px-2 py-1">
                         <span class="px-2 py-1 rounded text-xs {{ $takeStock->status == 'PENDING' ? '' : 'text-white' }} {{ data_get($takeStockStatuses, $takeStock->status, 'bg-gray-200') }}">
                             {{ $takeStock->status }}
                         </span>
                     </td>
-                    <td class="px-4 py-1 text-right">
+                    <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
@@ -107,7 +111,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="6">No data available</td>
+                    <td class="px-2 py-2" colspan="6">No data available</td>
                 </tr>
             @endforelse
             </tbody>
@@ -119,4 +123,5 @@
 
     @include('partials.modal-delete')
     @include('partials.modal-confirm')
+    @include('take-stocks.partials.modal-filter')
 @endsection

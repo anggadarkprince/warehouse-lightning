@@ -31,6 +31,14 @@ class TakeStockContainer extends Model
     }
 
     /**
+     * Get the take stock of the booking.
+     */
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+    /**
      * Get the container of the take stock containers.
      */
     public function container()

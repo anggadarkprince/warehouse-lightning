@@ -122,7 +122,7 @@ Route::middleware(['auth'])->group(function() {
     Route::match(['post', 'put'], 'tally/{work_order}/complete', [TallyController::class, 'completeJob'])->name('tally.complete-job');
     Route::match(['post', 'put'], 'tally/{work_order}/validate', [TallyController::class, 'validateJob'])->name('tally.validate-job');
 
-    Route::get('take-stocks/{take_stock}/print', [WorkOrderController::class, 'printTakeStock'])->name('take-stocks.print');
+    Route::get('take-stocks/{take_stock}/print', [TakeStockController::class, 'printTakeStock'])->name('take-stocks.print');
     Route::post('take-stocks/{take_stock}/validate', [TakeStockController::class, 'validateTakeStock'])->name('take-stocks.validate');
     Route::post('take-stocks/{take_stock}/submit', [TakeStockController::class, 'submit'])->name('take-stocks.submit');
     Route::resource('take-stocks', TakeStockController::class);
