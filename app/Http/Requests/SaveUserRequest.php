@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Name;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveUserRequest extends FormRequest
@@ -26,7 +27,7 @@ class SaveUserRequest extends FormRequest
         $userId = optional($this->route('user'))->id;
 
         return [
-            'name' => ['required', 'min:3'],
+            'name' => ['required', 'min:3', new Name],
             'email' => ['required', 'max:50', 'email', 'unique:users,email,' . $userId . ',id'],
             'password' => ['nullable', 'min:6', 'confirmed'],
             'avatar' => [empty($userId) ? 'required' : 'nullable', 'image', 'max:2000', 'dimensions:min_width=250'],
