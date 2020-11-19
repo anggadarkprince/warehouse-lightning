@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white rounded shadow py-4">
+    <div class="bg-white rounded shadow-sm py-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">User Role</h1>
-                <span class="text-gray-400">Account role permission</span>
+                <p class="text-gray-400 leading-tight">Account role permission</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -24,23 +24,23 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Role</th>
-                <th class="border-b border-t px-4 py-2 text-left">Permission Total</th>
-                <th class="border-b border-t px-4 py-2 text-left">Description</th>
-                <th class="border-b border-t px-4 py-2 text-left">Created At</th>
-                <th class="border-b border-t px-4 py-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Role</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Permission Total</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Description</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Created At</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($roles as $index => $role)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-4 py-1">{{ $role->role }}</td>
-                    <td class="px-4 py-1">{{ $role->permission_total }}</td>
-                    <td class="px-4 py-1">{{ $role->description ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ optional($role->created_at)->format('d F Y H:i') }}</td>
-                    <td class="px-4 py-1 text-right">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">{{ $role->role }}</td>
+                    <td class="px-2 py-1">{{ $role->permission_total }}</td>
+                    <td class="px-2 py-1">{{ $role->description ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ optional($role->created_at)->format('d F Y H:i') }}</td>
+                    <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
@@ -68,7 +68,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="5">No data available</td>
+                    <td class="p-2" colspan="5">No data available</td>
                 </tr>
             @endforelse
             </tbody>

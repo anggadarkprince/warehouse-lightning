@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Booking;
+use App\Models\TakeStock;
 use App\Models\Upload;
 use App\Models\WorkOrder;
 use App\Models\WorkOrderContainer;
@@ -35,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
             'work-order' => WorkOrder::class,
             'reference-container' => WorkOrderContainer::class,
             'reference-goods' => WorkOrderGoods::class,
+            'take-stock' => TakeStock::class,
         ]);
     }
 }

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white rounded shadow py-4 mb-4">
+    <div class="bg-white rounded shadow-sm py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Goods</h1>
-                <span class="text-gray-400">Manage all item</span>
+                <p class="text-gray-400 leading-tight">Manage all item</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -24,23 +24,23 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Item Name</th>
-                <th class="border-b border-t px-4 py-2 text-left">Item Number</th>
-                <th class="border-b border-t px-4 py-2 text-left">Unit Name</th>
-                <th class="border-b border-t px-4 py-2 text-left">Unit Package</th>
-                <th class="border-b border-t px-4 py-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Item Name</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Item Number</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Unit Name</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Unit Package</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($goods as $index => $item)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-4 py-1">{{ $item->item_name }}</td>
-                    <td class="px-4 py-1">{{ $item->item_number ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ $item->unit_name ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ $item->package_name ?: '-' }}</td>
-                    <td class="px-4 py-1 text-right">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">{{ $item->item_name }}</td>
+                    <td class="px-2 py-1">{{ $item->item_number ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ $item->unit_name ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ $item->package_name ?: '-' }}</td>
+                    <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
@@ -68,7 +68,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="6">No data available</td>
+                    <td class="p-2" colspan="6">No data available</td>
                 </tr>
             @endforelse
             </tbody>

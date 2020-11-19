@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2">
+        <div class="mb-3">
             <h1 class="text-xl text-green-500">Upload</h1>
-            <span class="text-gray-400">Upload document files</span>
+            <p class="text-gray-400 leading-tight">Upload document files</p>
         </div>
         <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>
@@ -28,7 +28,18 @@
             <div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Status</p>
-                    <p class="text-gray-600">{{ $upload->status }}</p>
+                    <?php
+                    $uploadStatuses = [
+                        'DRAFT' => 'bg-gray-200',
+                        'SUBMITTED' => 'bg-orange-400',
+                        'VALIDATED' => 'bg-green-500',
+                    ];
+                    ?>
+                    <p class="text-gray-600">
+                        <span class="px-2 py-1 rounded text-xs {{ $upload->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($uploadStatuses, $upload->status, 'bg-gray-200') }}">
+                            {{ $upload->status }}
+                        </span>
+                    </p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Description</p>
@@ -47,10 +58,10 @@
     </div>
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2 flex items-center justify-between">
+        <div class="mb-3 flex items-center justify-between">
             <div>
                 <h1 class="text-xl text-green-500">Documents</h1>
-                <span class="text-gray-400">List of upload documents</span>
+                <p class="text-gray-400 leading-tight">List of upload documents</p>
             </div>
             <a href="{{ route('uploads.download', ['upload' => $upload->id]) }}" class="button-primary button-sm">
                 Download All
@@ -114,19 +125,23 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Status') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Data') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created At') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created By') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Status') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Description') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Data') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created At') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created By') }}</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($upload->statusHistories as $index => $statusHistory)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-2 py-1">{{ $statusHistory->status }}</td>
+                    <td class="px-2 py-1">
+                        <span class="px-2 py-1 rounded text-xs {{ $statusHistory->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($uploadStatuses, $statusHistory->status, 'bg-gray-200') }}">
+                            {{ $statusHistory->status }}
+                        </span>
+                    </td>
                     <td class="px-2 py-1">{{ $statusHistory->description ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $statusHistory->data ?: '-' }}</td>
                     <td class="px-2 py-1">{{ optional($statusHistory->created_at)->format('d F Y H:i:s') ?: '-' }}</td>
@@ -134,7 +149,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="px-2 py-2">{{ __('No data available') }}</td>
+                    <td colspan="6" class="p-2">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>

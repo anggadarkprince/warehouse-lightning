@@ -7,7 +7,7 @@
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Work Orders</h1>
-                <span class="text-gray-400">Manage job data</span>
+                <p class="text-gray-400 leading-tight">Manage job data</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -26,14 +26,14 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-2 py-2 w-12">No</th>
-                <th class="border-b border-t px-2 py-2 text-left">Job Number</th>
-                <th class="border-b border-t px-2 py-2 text-left">Booking</th>
-                <th class="border-b border-t px-2 py-2 text-left">Customer</th>
-                <th class="border-b border-t px-2 py-2 text-left">Assigned To</th>
-                <th class="border-b border-t px-2 py-2 text-left">Completed At</th>
-                <th class="border-b border-t px-2 py-2 text-left">Status</th>
-                <th class="border-b border-t px-2 py-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Job Number</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Booking</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Customer</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Assigned To</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Completed At</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Status</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -100,7 +100,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="8">No data available</td>
+                    <td class="p-2" colspan="8">No data available</td>
                 </tr>
             @endforelse
             </tbody>

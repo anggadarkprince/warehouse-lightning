@@ -141,32 +141,45 @@
             </li>
         @endcan
 
-        @can('view-any', \App\Models\WorkOrder::class)
+        @if(request()->user()->can('view-any', \App\Models\WorkOrder::class)
+            || request()->user()->can('view-take', \App\Models\WorkOrder::class)
+            || request()->user()->can('view-any', \App\Models\TakeStock::class))
             <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('gate*') ? ' text-green-500' : '' }}" href="{{ route('gate.index') }}">
-                    <i class="mdi mdi-boom-gate-down-outline mr-2"></i>
-                    {{ __('Gate') }}
+                <a href="#submenu-warehouse" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('warehouse*') ? ' bg-green-100' : ' collapsed' }}">
+                    <i class="mdi mdi-warehouse mr-2 pointer-events-none"></i>
+                    {{ __('Warehouse') }}
+                    <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
                 </a>
+                <div id="submenu-warehouse" class="sidebar-submenu{{ request()->is('warehouse*') ? '' : ' submenu-hide' }}">
+                    <ul class="overflow-hidden flex flex-col pb-2">
+                        @can('view-any', \App\Models\WorkOrder::class)
+                            <li>
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('warehouse/gate*') ? ' text-green-500' : '' }}" href="{{ route('gate.index') }}">
+                                    <i class="mdi mdi-boom-gate-down-outline mr-2"></i>
+                                    {{ __('Gate') }}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view-take', \App\Models\WorkOrder::class)
+                            <li>
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('warehouse/tally*') ? ' text-green-500' : '' }}" href="{{ route('tally.index') }}">
+                                    <i class="mdi mdi-forklift mr-2"></i>
+                                    {{ __('Tally') }}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view-any', \App\Models\TakeStock::class)
+                            <li>
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('warehouse/take-stocks*') ? ' text-green-500' : '' }}" href="{{ route('take-stocks.index') }}">
+                                    <i class="mdi mdi-clipboard-pulse-outline mr-2"></i>
+                                    {{ __('Take Stocks') }}
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
             </li>
-        @endcan
-
-        @can('view-take', \App\Models\WorkOrder::class)
-            <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('tally*') ? ' text-green-500' : '' }}" href="{{ route('tally.index') }}">
-                    <i class="mdi mdi-forklift mr-2"></i>
-                    {{ __('Tally') }}
-                </a>
-            </li>
-        @endcan
-
-        @can('view-any', \App\Models\TakeStock::class)
-            <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('take-stocks*') ? ' text-green-500' : '' }}" href="{{ route('take-stocks.index') }}">
-                    <i class="mdi mdi-clipboard-pulse-outline mr-2"></i>
-                    {{ __('Take Stocks') }}
-                </a>
-            </li>
-        @endcan
+        @endif
 
         @if(request()->user()->can('view-inbound', \App\Models\Report::class)
             || request()->user()->can('view-outbound', \App\Models\Report::class)

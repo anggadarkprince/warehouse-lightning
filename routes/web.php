@@ -110,22 +110,24 @@ Route::middleware(['auth'])->group(function() {
     Route::get('delivery-orders/{delivery_order}/print', [DeliveryOrderController::class, 'printDeliveryOrder'])->name('delivery-orders.print');
     Route::resource('delivery-orders', DeliveryOrderController::class);
 
-    Route::get('gate', [GateController::class, 'index'])->name('gate.index');
-    Route::get('work-orders/{work_order}/print', [WorkOrderController::class, 'printWorkOrder'])->name('work-orders.print');
-    Route::resource('work-orders', WorkOrderController::class)->except('index');
+    Route::prefix('warehouse')->group(function() {
+        Route::get('gate', [GateController::class, 'index'])->name('gate.index');
+        Route::get('work-orders/{work_order}/print', [WorkOrderController::class, 'printWorkOrder'])->name('work-orders.print');
+        Route::resource('work-orders', WorkOrderController::class)->except('index');
 
-    Route::get('tally', [TallyController::class, 'index'])->name('tally.index');
-    Route::match(['post', 'put'], 'tally/{work_order}/take', [TallyController::class, 'takeJob'])->name('tally.take-job');
-    Route::get('tally/{work_order}', [TallyController::class, 'proceedJob'])->name('tally.proceed-job');
-    Route::match(['post', 'put'], 'tally/{work_order}/release', [TallyController::class, 'releaseJob'])->name('tally.release-job');
-    Route::put('tally/{work_order}', [TallyController::class, 'saveJob'])->name('tally.save-job');
-    Route::match(['post', 'put'], 'tally/{work_order}/complete', [TallyController::class, 'completeJob'])->name('tally.complete-job');
-    Route::match(['post', 'put'], 'tally/{work_order}/validate', [TallyController::class, 'validateJob'])->name('tally.validate-job');
+        Route::get('tally', [TallyController::class, 'index'])->name('tally.index');
+        Route::match(['post', 'put'], 'tally/{work_order}/take', [TallyController::class, 'takeJob'])->name('tally.take-job');
+        Route::get('tally/{work_order}', [TallyController::class, 'proceedJob'])->name('tally.proceed-job');
+        Route::match(['post', 'put'], 'tally/{work_order}/release', [TallyController::class, 'releaseJob'])->name('tally.release-job');
+        Route::put('tally/{work_order}', [TallyController::class, 'saveJob'])->name('tally.save-job');
+        Route::match(['post', 'put'], 'tally/{work_order}/complete', [TallyController::class, 'completeJob'])->name('tally.complete-job');
+        Route::match(['post', 'put'], 'tally/{work_order}/validate', [TallyController::class, 'validateJob'])->name('tally.validate-job');
 
-    Route::get('take-stocks/{take_stock}/print', [TakeStockController::class, 'printTakeStock'])->name('take-stocks.print');
-    Route::post('take-stocks/{take_stock}/validate', [TakeStockController::class, 'validateTakeStock'])->name('take-stocks.validate');
-    Route::post('take-stocks/{take_stock}/submit', [TakeStockController::class, 'submit'])->name('take-stocks.submit');
-    Route::resource('take-stocks', TakeStockController::class);
+        Route::get('take-stocks/{take_stock}/print', [TakeStockController::class, 'printTakeStock'])->name('take-stocks.print');
+        Route::post('take-stocks/{take_stock}/validate', [TakeStockController::class, 'validateTakeStock'])->name('take-stocks.validate');
+        Route::post('take-stocks/{take_stock}/submit', [TakeStockController::class, 'submit'])->name('take-stocks.submit');
+        Route::resource('take-stocks', TakeStockController::class);
+    });
 
     Route::get('reports/inbound', [ReportController::class, 'inbound'])->name('reports.inbound');
     Route::get('reports/outbound', [ReportController::class, 'outbound'])->name('reports.outbound');

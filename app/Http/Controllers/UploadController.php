@@ -95,6 +95,10 @@ class UploadController extends Controller
                 }
             }
 
+            $upload->statusHistories()->create([
+                'status' => Upload::STATUS_DRAFT,
+                'description' => 'Initial upload'
+            ]);
 
             return redirect()->route('uploads.index')->with([
                 "status" => "success",

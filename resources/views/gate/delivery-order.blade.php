@@ -7,7 +7,7 @@
         <div class="flex justify-between items-center mb-5 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Delivery Order</h1>
-                <span class="text-gray-400 leading-none block">Existing delivery order</span>
+                <p class="text-gray-400 leading-tight">Existing delivery order</p>
             </div>
         </div>
         <div class="px-6">
@@ -87,7 +87,7 @@
         <div class="mb-4 flex justify-between items-center">
             <div>
                 <h1 class="text-xl text-green-500">Booking Work Orders</h1>
-                <span class="text-gray-400 leading-none block">List of existing job related the booking</span>
+                <p class="text-gray-400 leading-tight">List of existing job related the booking</p>
             </div>
             <button class="button-blue button-sm" id="btn-toggle-unloading-job" title="Create unloading job from inbound delivery order">
                 <i class="mdi mdi-file-replace-outline mr-1"></i>Create Unloading Job
@@ -131,7 +131,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="px-2 py-1">No data job available</td>
+                    <td colspan="7" class="p-2">No data job available</td>
                 </tr>
             @endforelse
             </tbody>
@@ -199,7 +199,7 @@
                     </thead>
                     <tbody id="container-wrapper">
                     <tr class="container-placeholder{{ empty(old('containers', $deliveryOrder->deliveryOrderContainers->toArray())) ? '' : ' hidden' }}">
-                        <td colspan="8" class="px-4 py-2">{{ __('No data available') }}</td>
+                        <td colspan="8" class="p-2">{{ __('No data available') }}</td>
                     </tr>
                     @foreach(old('containers', $deliveryOrder->deliveryOrderContainers()->with('container')->get()->toArray()) as $index => $container)
                         @include('delivery-orders.partials.template-container-row', [
@@ -247,7 +247,7 @@
                     </thead>
                     <tbody id="goods-wrapper">
                     <tr class="goods-placeholder{{ empty(old('goods', $deliveryOrder->deliveryOrderGoods->toArray())) ? '' : ' hidden' }}">
-                        <td colspan="9" class="px-4 py-2">{{ __('No data available') }}</td>
+                        <td colspan="9" class="p-2">{{ __('No data available') }}</td>
                     </tr>
                     @foreach(old('goods', $deliveryOrder->deliveryOrderGoods()->with('goods')->get()->toArray()) as $index => $item)
                         @include('delivery-orders.partials.template-goods-row', [

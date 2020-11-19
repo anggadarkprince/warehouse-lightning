@@ -4,9 +4,9 @@
     <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-            <div class="mb-2">
+            <div class="mb-3">
                 <h1 class="text-xl text-green-500">Create User</h1>
-                <span class="text-gray-400">Manage all user account</span>
+                <p class="text-gray-400 leading-tight">Manage all user account</p>
             </div>
             <div class="pt-2">
                 <div class="sm:flex -mx-2">
@@ -50,7 +50,7 @@
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-4">
                 <h1 class="text-xl text-green-500">Avatar</h1>
-                <span class="text-gray-400">Choose photo of user</span>
+                <p class="text-gray-400 leading-tight">Choose photo of user</p>
             </div>
             <div class="sm:flex items-center pb-3 input-file-wrapper">
                 <div class="bg-gray-400 inline-block mr-4 mb-3 sm:mb-0 rounded-md flex-shrink-0">
@@ -69,9 +69,9 @@
             @error('avatar') <p class="form-text-error">{{ $message }}</p> @enderror
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-            <div class="mb-2">
+            <div class="mb-3">
                 <h1 class="text-xl text-green-500">Role Access</h1>
-                <span class="text-gray-400">Choose what role user is owned</span>
+                <p class="text-gray-400 leading-tight">Choose what role user is owned</p>
             </div>
             <div class="pb-3">
                 @error('roles') <p class="form-text-error">{{ $message }}</p> @enderror

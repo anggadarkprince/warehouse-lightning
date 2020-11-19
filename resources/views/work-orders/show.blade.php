@@ -146,7 +146,7 @@
                             <a href="{{ route('goods.show', ['goods' => $workOrderItem->goods->id]) }}" class="text-link block leading-tight">
                                 {{ $workOrderItem->goods->item_name }}
                             </a>
-                            <span class="text-xs text-gray-500 leading-tight block">{{ $workOrderItem->goods->item_number }}</span>
+                            <p class="text-xs text-gray-500 leading-tight">{{ $workOrderItem->goods->item_number }}</p>
                         </td>
                         <td class="px-2 py-1">
                             {{ numeric($workOrderItem->unit_quantity) }} {{ $workOrderItem->goods->unit_name }}
@@ -178,12 +178,12 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Status') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Data') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created At') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created By') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Status') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Description') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Data') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created At') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created By') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -198,7 +198,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="px-2 py-2">{{ __('No data available') }}</td>
+                    <td colspan="6" class="p-2">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>

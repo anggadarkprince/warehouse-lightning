@@ -4,9 +4,9 @@
     <form action="{{ route('uploads.store') }}" method="post">
         @csrf
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-            <div class="mb-2">
+            <div class="mb-3">
                 <h1 class="text-xl text-green-500">Create Upload</h1>
-                <span class="text-gray-400">Manage upload documents</span>
+                <p class="text-gray-400 leading-tight">Manage upload documents</p>
             </div>
             <div class="py-2">
                 <div class="sm:flex -mx-2">
@@ -59,10 +59,10 @@
         </div>
 
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4" id="form-document">
-            <div class="mb-2 flex justify-between items-center">
+            <div class="mb-3 flex justify-between items-center">
                 <div>
                     <h1 class="text-xl text-green-500">Documents</h1>
-                    <span class="text-gray-400">Document list of the upload</span>
+                    <p class="text-gray-400 leading-tight">Document list of the upload</p>
                 </div>
                 <button type="button" class="button-blue button-sm" id="btn-add-document">
                     ADD DOCUMENT

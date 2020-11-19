@@ -4,9 +4,9 @@
     <form action="{{ route('work-orders.store') }}" method="post" id="form-work-order">
         @csrf
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-            <div class="mb-2">
+            <div class="mb-3">
                 <h1 class="text-xl text-green-500">Create Work Order</h1>
-                <span class="text-gray-400">Manage job data</span>
+                <p class="text-gray-400 leading-tight">Manage job data</p>
             </div>
             <div class="flex flex-wrap mb-3 sm:mb-4">
                 <label for="booking_id" class="form-label">{{ __('Booking') }}</label>
@@ -92,7 +92,7 @@
             <div class="mb-3 flex justify-between items-center">
                 <div>
                     <h1 class="text-xl text-green-500">Containers</h1>
-                    <span class="text-gray-400 leading-none block">List of containers</span>
+                    <p class="text-gray-400 leading-tight">List of containers</p>
                 </div>
                 <button type="button" class="button-blue button-sm" id="btn-add-container" data-booking-id="{{ optional($selectedBooking)->id }}" data-source-url="{{ route('bookings.containers.index', ['booking' => optional($selectedBooking)->id ?: '0']) }}">
                     ADD CONTAINER
@@ -138,7 +138,7 @@
             <div class="mb-3 flex justify-between items-center">
                 <div>
                     <h1 class="text-xl text-green-500">Goods</h1>
-                    <span class="text-gray-400 leading-none block">List of goods</span>
+                    <p class="text-gray-400 leading-tight">List of goods</p>
                 </div>
                 <button type="button" class="button-blue button-sm" id="btn-add-goods" data-booking-id="{{ optional($selectedBooking)->id }}" data-source-url="{{ route('bookings.goods.index', ['booking' => optional($selectedBooking)->id ?: '0']) }}">
                     ADD GOODS

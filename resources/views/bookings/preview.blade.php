@@ -5,9 +5,9 @@
         @csrf
         <input type="hidden" name="xml" value="{{ request()->input('file') }}">
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-            <div class="mb-2">
+            <div class="mb-3">
                 <h1 class="text-xl text-green-500">Preview Booking XML</h1>
-                <span class="text-gray-400">Manage booking data</span>
+                <p class="text-gray-400 leading-tight">Manage booking data</p>
             </div>
             <div class="py-2">
                 <div class="flex flex-wrap mb-3 sm:mb-4">

@@ -6,7 +6,7 @@
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2">
                 <h1 class="text-xl text-green-500">Import Booking XML</h1>
-                <span class="text-gray-400">Upload booking xml file</span>
+                <p class="text-gray-400 leading-tight">Upload booking xml file</p>
             </div>
             <div class="py-2">
                 <div class="flex mb-3 sm:mb-4 input-file-wrapper">

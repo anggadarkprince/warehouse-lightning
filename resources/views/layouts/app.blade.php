@@ -40,7 +40,7 @@
         <!-- Main content -->
         <div class="sm:p-4 flex-grow">
             @if (session('status'))
-                <div class="mb-3 {{ session('status') == 'success' ? 'alert-green' : ((session('status') == 'failed' || session('status') == 'error') ? 'alert-red' : 'alert-orange') }}" role="alert">
+                <div class="mb-3 {{ session('status') == 'success' ? 'alert-green' : (in_array(session('status'), ['failed', 'error', 'danger']) ? 'alert-red' : 'alert-orange') }}" role="alert">
                     {{ session('message') ?: ucfirst(preg_replace('/(_|\-)/', ' ', session('status'))) }}
                 </div>
             @endif

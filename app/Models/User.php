@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'avatar',
         'email_verified_at',
+        'last_logged_in',
         'is_admin',
     ];
 
@@ -49,6 +50,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_logged_in' => 'datetime',
     ];
 
     /**

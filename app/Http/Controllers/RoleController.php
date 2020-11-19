@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Exports\Exporter;
 use App\Http\Requests\SaveRoleRequest;
-use App\Exports\CollectionExporter;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Contracts\View\View;
@@ -17,7 +16,6 @@ use Throwable;
 
 class RoleController extends Controller
 {
-
     /**
      * RoleController constructor.
      */
@@ -88,13 +86,13 @@ class RoleController extends Controller
 
                 return redirect()->route('roles.index')->with([
                     "status" => "success",
-                    "message" => "Role {$role->role} successfully created"
+                    "message" => __("Role :role successfully created", ['role' => $role->role])
                 ]);
             });
         } catch (Throwable $e) {
             return redirect()->back()->withInput()->with([
                 "status" => "failed",
-                "message" => "Create user role failed"
+                "message" => __("Create role :role failed", ['role' => $request->input('role')])
             ]);
         }
     }
@@ -153,13 +151,13 @@ class RoleController extends Controller
 
                 return redirect()->route('roles.index')->with([
                     "status" => "success",
-                    "message" => "Role {$role->role} successfully updated"
+                    "message" => __("Role :role successfully updated", ['role' => $role->role])
                 ]);
             });
         } catch (Throwable $e) {
             return redirect()->back()->withInput()->with([
                 "status" => "failed",
-                "message" => "Update user role failed"
+                "message" => __("Update role :role failed", ['role' => $role->role])
             ]);
         }
     }
@@ -176,12 +174,12 @@ class RoleController extends Controller
             $role->delete();
             return redirect()->route('roles.index')->with([
                 "status" => "warning",
-                "message" => "Role {$role->role} successfully deleted"
+                "message" => __("Role :role successfully deleted", ['role' => $role->role])
             ]);
         } catch (Throwable $e) {
             return redirect()->back()->with([
                 "status" => "failed",
-                "message" => "Delete user role failed"
+                "message" => __("Delete role :role failed", ['role' => $role->role])
             ]);
         }
     }

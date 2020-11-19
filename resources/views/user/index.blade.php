@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white rounded shadow py-4">
+    <div class="bg-white rounded shadow-sm py-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">User Account</h1>
-                <span class="text-gray-400">Manage all user account</span>
+                <p class="text-gray-400 leading-tight">Manage all user account</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -24,20 +24,19 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Name</th>
-                <th class="border-b border-t px-4 py-2 text-left">Email</th>
-                <th class="border-b border-t px-4 py-2 text-left">Type</th>
-                <th class="border-b border-t px-4 py-2 text-left">Group</th>
-                <th class="border-b border-t px-4 py-2 text-left">Registered At</th>
-                <th class="border-b border-t px-4 py-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Name</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Email</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Roles</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Last Login</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($users as $index => $user)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-4 py-1">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">
                         <div class="flex items-center my-1">
                             <div class="bg-gray-400 h-10 w-10 inline-block mr-2 rounded-md">
                                 <img class="object-cover h-10 w-10 rounded-md" src="{{ $user->avatar }}" alt="{{ $user->name }}">
@@ -45,17 +44,16 @@
                             {{ $user->name }}
                         </div>
                     </td>
-                    <td class="px-4 py-1">{{ $user->email }}</td>
-                    <td class="px-4 py-1">{{ $user->type ?: '-' }}</td>
-                    <td class="px-4 py-1">
+                    <td class="px-2 py-1">{{ $user->email }}</td>
+                    <td class="px-2 py-1">
                         @if($user->is_admin)
                             <span class="bg-red-500 rounded-sm py-1 px-2 text-xs text-white">ADMIN</span>
                         @else
                             {!! optional(optional($user->roles)->pluck('role'))->implode('<br>') ?: '-' !!}
                         @endif
                     </td>
-                    <td class="px-4 py-1">{{ optional($user->created_at)->format('d M Y H:i') }}</td>
-                    <td class="px-4 py-1 text-right">
+                    <td class="px-2 py-1">{{ optional($user->last_logged_in)->format('d M Y H:i') ?: '-' }}</td>
+                    <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
@@ -83,7 +81,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="7">No data available</td>
+                    <td class="p-2" colspan="6">No data available</td>
                 </tr>
             @endforelse
             </tbody>

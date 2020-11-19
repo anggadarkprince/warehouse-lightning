@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2">
-            <h1 class="text-xl text-green-500">Role</h1>
-            <span class="text-gray-400">Account role permission</span>
+        <div class="mb-3">
+            <h1 class="text-xl text-green-500">User Role</h1>
+            <p class="text-gray-400 leading-tight">Account role permission</p>
         </div>
         <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>
@@ -31,9 +31,9 @@
     </div>
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-        <div class="mb-2">
+        <div class="mb-3">
             <h1 class="text-xl text-green-500">Permission Access</h1>
-            <span class="text-gray-400">Choose what permission the role can do</span>
+            <p class="text-gray-400 leading-tight">Choose what permission the role can do</p>
         </div>
         <div>@foreach($permissions as $moduleName => $modules)
                 <h1 class="text-lg mt-4 mb-2 text-green-500">{{ ucwords(preg_replace('/(_|\-)/', ' ', $moduleName)) }}</h1>
@@ -54,5 +54,18 @@
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
         <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
+        <div>
+            @can('update', $role)
+                <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="button-primary button-sm">
+                    Edit
+                </a>
+            @endcan
+            @can('delete', $role)
+                <button type="button" data-href="{{ route('roles.destroy', ['role' => $role->id]) }}" data-label="{{ $role->role }}" class="button-red button-sm confirm-delete">
+                    <i class="mdi mdi-trash-can-outline"></i>
+                </button>
+            @endcan
+        </div>
     </div>
+    @include('partials.modal-delete')
 @endsection

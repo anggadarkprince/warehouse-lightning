@@ -7,8 +7,8 @@
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="sm:flex -mx-2 mb-4">
                 <div class="px-2 sm:w-1/4">
-                    <h1 class="text-xl text-green-500">User Information</h1>
-                    <span class="text-gray-400 block mb-3">Edit name and email</span>
+                    <h1 class="text-xl text-green-500">{{ __('User Information') }}</h1>
+                    <p class="text-gray-400 leading-tight mb-3">Edit name and email</p>
                 </div>
                 <div class="px-2 sm:w-2/3">
                     <div class="sm:flex -mx-2">
@@ -36,8 +36,8 @@
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="sm:flex -mx-2">
                 <div class="px-2 sm:w-1/4">
-                    <h1 class="text-xl text-green-500">Avatar</h1>
-                    <span class="text-gray-400 block mb-3">Change your photo</span>
+                    <h1 class="text-xl text-green-500">{{ __('Avatar') }}</h1>
+                    <p class="text-gray-400 leading-tight mb-3">Change your photo</p>
                 </div>
                 <div class="px-2 sm:w-2/3">
                     <div class="sm:flex items-center input-file-wrapper text-center">
@@ -64,8 +64,8 @@
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="sm:flex -mx-2">
                 <div class="px-2 sm:w-1/4">
-                    <h1 class="text-xl text-green-500">Password</h1>
-                    <span class="text-gray-400 block mb-3">Change your password</span>
+                    <h1 class="text-xl text-green-500">{{ __('Password') }}</h1>
+                    <p class="text-gray-400 leading-tight mb-3">Change your password</p>
                 </div>
                 <div class="px-2 sm:w-2/3">
                     <div class="flex flex-wrap mb-3 sm:mb-4">

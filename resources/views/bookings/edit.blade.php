@@ -5,9 +5,9 @@
         @csrf
         @method('put')
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
-            <div class="mb-2">
+            <div class="mb-3">
                 <h1 class="text-xl text-green-500">Edit Booking</h1>
-                <span class="text-gray-400">Manage booking data</span>
+                <p class="text-gray-400 leading-tight">Manage booking data</p>
             </div>
             <div class="py-2">
                 <div class="flex flex-wrap mb-3 sm:mb-4">
@@ -183,14 +183,14 @@
             <table class="table-auto w-full mb-4">
                 <thead>
                 <tr>
-                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Container Number') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Size') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Type') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Is Empty') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Seal') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left"></th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left"></th>
                 </tr>
                 </thead>
                 <tbody id="container-wrapper">

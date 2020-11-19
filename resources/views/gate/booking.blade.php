@@ -7,7 +7,7 @@
         <div class="flex justify-between items-center mb-5 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Booking</h1>
-                <span class="text-gray-400 leading-none block">Existing booking</span>
+                <p class="text-gray-400 leading-none">Existing booking</p>
             </div>
         </div>
         <div class="px-6">
@@ -77,7 +77,7 @@
         <div class="mb-4 flex justify-between items-center">
             <div>
                 <h1 class="text-xl text-green-500">Booking Work Orders</h1>
-                <span class="text-gray-400 leading-none block">List of existing job related the booking</span>
+                <p class="text-gray-400 leading-none">List of existing job related the booking</p>
             </div>
             <a href="{{ route('work-orders.create', ['booking_id' => $booking->id]) }}" class="button-blue button-sm" id="btn-toggle-unloading-job" title="Create unloading job from inbound delivery order">
                 Create Job
@@ -121,7 +121,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="px-2 py-1">No data job available</td>
+                    <td colspan="7" class="p-2">No data job available</td>
                 </tr>
             @endforelse
             </tbody>

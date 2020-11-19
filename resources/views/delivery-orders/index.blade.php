@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white rounded shadow py-4 mb-4">
+    <div class="bg-white rounded shadow-sm py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Delivery Orders</h1>
-                <span class="text-gray-400">Manage delivery data</span>
+                <p class="text-gray-400 leading-tight">Manage delivery data</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -24,23 +24,23 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Delivery Number</th>
-                <th class="border-b border-t px-4 py-2 text-left">Type</th>
-                <th class="border-b border-t px-4 py-2 text-left">Booking</th>
-                <th class="border-b border-t px-4 py-2 text-left">Customer</th>
-                <th class="border-b border-t px-4 py-2 text-left">Delivery Date</th>
-                <th class="border-b border-t px-4 py-2 text-left">Driver</th>
-                <th class="border-b border-t px-4 py-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Delivery Number</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Type</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Booking</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Customer</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Delivery Date</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Driver</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($deliveryOrders as $index => $deliveryOrder)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-4 py-1">{{ $deliveryOrder->delivery_number }}</td>
-                    <td class="px-4 py-1">{{ $deliveryOrder->type }}</td>
-                    <td class="px-4 py-1">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">{{ $deliveryOrder->delivery_number }}</td>
+                    <td class="px-2 py-1">{{ $deliveryOrder->type }}</td>
+                    <td class="px-2 py-1">
                         <p class="leading-none mt-1">
                             <a class="text-link" href="{{ route('bookings.show', ['booking' => $deliveryOrder->booking_id]) }}">
                                 {{ $deliveryOrder->booking->booking_number }}
@@ -48,10 +48,10 @@
                         </p>
                         <p class="text-gray-500 text-xs leading-tight">{{ $deliveryOrder->booking->reference_number }}</p>
                     </td>
-                    <td class="px-4 py-1">{{ $deliveryOrder->booking->customer->customer_name ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ $deliveryOrder->delivery_date->format('d F Y') }}</td>
-                    <td class="px-4 py-1">{{ $deliveryOrder->driver_name ?: '-' }}</td>
-                    <td class="px-4 py-1 text-right">
+                    <td class="px-2 py-1">{{ $deliveryOrder->booking->customer->customer_name ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ $deliveryOrder->delivery_date->format('d F Y') }}</td>
+                    <td class="px-2 py-1">{{ $deliveryOrder->driver_name ?: '-' }}</td>
+                    <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
@@ -82,7 +82,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="8">No data available</td>
+                    <td class="p-2" colspan="8">No data available</td>
                 </tr>
             @endforelse
             </tbody>

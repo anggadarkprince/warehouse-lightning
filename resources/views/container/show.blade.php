@@ -4,7 +4,7 @@
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="mb-2">
             <h1 class="text-xl text-green-500">Container</h1>
-            <span class="text-gray-400">Manage all container</span>
+            <p class="text-gray-400 leading-tight">Manage all container</p>
         </div>
         <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>

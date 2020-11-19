@@ -7,7 +7,7 @@
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2">
                 <h1 class="text-xl text-green-500">Edit Container</h1>
-                <span class="text-gray-400">Manage all container</span>
+                <p class="text-gray-400 leading-tight">Manage all container</p>
             </div>
             <div class="py-2">
                 <div class="sm:flex -mx-2">

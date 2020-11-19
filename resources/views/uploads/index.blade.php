@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white rounded shadow py-4 mb-4">
+    <div class="bg-white rounded shadow-sm py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
                 <h1 class="text-xl text-green-500">Uploads</h1>
-                <span class="text-gray-400">Manage upload documents</span>
+                <p class="text-gray-400 leading-tight">Manage upload documents</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -24,13 +24,13 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-4 py-2 w-12">No</th>
-                <th class="border-b border-t px-4 py-2 text-left">Upload Number</th>
-                <th class="border-b border-t px-4 py-2 text-left">Customer Name</th>
-                <th class="border-b border-t px-4 py-2 text-left">Booking Type</th>
-                <th class="border-b border-t px-4 py-2 text-left">Upload Title</th>
-                <th class="border-b border-t px-4 py-2 text-left">Status</th>
-                <th class="border-b border-t px-4 py-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Upload Number</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Customer Name</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Booking Type</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Upload Title</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">Status</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -43,8 +43,8 @@
             ?>
             @forelse ($uploads as $index => $upload)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-4 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-4 py-1">
+                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1">
                         @if(empty($upload->booking))
                             {{ $upload->upload_number }}
                         @else
@@ -54,15 +54,15 @@
                             </p>
                         @endif
                     </td>
-                    <td class="px-4 py-1">{{ $upload->customer->customer_name }}</td>
-                    <td class="px-4 py-1">{{ $upload->bookingType->booking_name ?: '-' }}</td>
-                    <td class="px-4 py-1">{{ $upload->upload_title ?: '-' }}</td>
-                    <td class="px-4 py-1">
+                    <td class="px-2 py-1">{{ $upload->customer->customer_name }}</td>
+                    <td class="px-2 py-1">{{ $upload->bookingType->booking_name ?: '-' }}</td>
+                    <td class="px-2 py-1">{{ $upload->upload_title ?: '-' }}</td>
+                    <td class="px-2 py-1">
                         <span class="px-2 py-1 rounded text-xs {{ $upload->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($uploadStatuses, $upload->status, 'bg-gray-200') }}">
                             {{ $upload->status }}
                         </span>
                     </td>
-                    <td class="px-4 py-1 text-right">
+                    <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
@@ -95,7 +95,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="px-4 py-2" colspan="7">No data available</td>
+                    <td class="p-2" colspan="7">No data available</td>
                 </tr>
             @endforelse
             </tbody>

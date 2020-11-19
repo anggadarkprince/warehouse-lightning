@@ -4,7 +4,7 @@
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="mb-2">
             <h1 class="text-xl text-green-500">{{ __('Delivery Order') }}</h1>
-            <span class="text-gray-400">{{ __('Manage delivery data') }}</span>
+            <p class="text-gray-400 leading-tight">{{ __('Manage delivery data') }}</p>
         </div>
         <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>
@@ -85,13 +85,13 @@
             <table class="table-auto w-full mb-4">
                 <thead>
                 <tr>
-                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Container Number') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Size') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Type') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Is Empty') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Seal') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Description') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -130,14 +130,14 @@
             <table class="table-auto w-full mb-4">
                 <thead>
                 <tr>
-                    <th class="border-b border-t px-4 py-2 w-12">{{ __('No') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Item Name') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Qty') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Unit Name') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Qty') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Package Name') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Weight') }}</th>
-                    <th class="border-b border-t px-4 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Item Name') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Unit Qty') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Unit Name') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Package Qty') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Package Name') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t border-gray-200 px-4 py-2 text-left">{{ __('Description') }}</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -8,7 +8,7 @@
             <div class="sm:flex -mx-2 mb-4">
                 <div class="px-2 md:w-1/4">
                     <h1 class="text-xl text-green-500">Basic Setting</h1>
-                    <span class="text-gray-400 block mb-3">Application information</span>
+                    <p class="text-gray-400 leading-tight mb-3">Application information</p>
                 </div>
                 <div class="px-2 md:w-2/3">
                     <div class="sm:flex -mx-2">
@@ -52,7 +52,7 @@
             <div class="sm:flex -mx-2">
                 <div class="px-2 md:w-1/4">
                     <h1 class="text-xl text-green-500">Language</h1>
-                    <span class="text-gray-400 block mb-3">Site language</span>
+                    <p class="text-gray-400 leading-tight mb-3">Site language</p>
                 </div>
                 <div class="px-2 md:w-2/3">
                     <div class="flex flex-wrap mb-2">
@@ -87,7 +87,7 @@
             <div class="sm:flex -mx-2">
                 <div class="px-2 md:w-1/4">
                     <h1 class="text-xl text-green-500">User Access</h1>
-                    <span class="text-gray-400 block mb-3">Default role permission</span>
+                    <p class="text-gray-400 leading-tight mb-3">Default role permission</p>
                 </div>
                 <div class="px-2 md:w-2/3">
                     <div class="flex flex-wrap mb-2">
@@ -126,7 +126,7 @@
             <div class="sm:flex -mx-2">
                 <div class="px-2 md:w-1/4">
                     <h1 class="text-xl text-green-500">Emails</h1>
-                    <span class="text-gray-400 block mb-3">Application emails</span>
+                    <p class="text-gray-400 leading-tight mb-3">Application emails</p>
                 </div>
                 <div class="px-2 md:w-2/3">
                     <div class="sm:flex -mx-2">
@@ -155,7 +155,7 @@
             <div class="sm:flex -mx-2">
                 <div class="px-2 md:w-1/4">
                     <h1 class="text-xl text-green-500">Maintenance</h1>
-                    <span class="text-gray-400 block mb-3">Activate maintenance site</span>
+                    <p class="text-gray-400 leading-tight mb-3">Activate maintenance site</p>
                 </div>
                 <div class="px-2 md:w-2/3">
                     <div class="flex flex-wrap mb-3 sm:mb-4">

@@ -19,6 +19,7 @@
 .litepicker .container__days .day-item.is-start-date,
 .litepicker .container__days .day-item.is-end-date {
     @apply bg-green-500;
+    @apply text-white;
 }
 
 .clear-date-button {

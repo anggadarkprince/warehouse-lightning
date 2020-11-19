@@ -32,7 +32,7 @@
             <div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Last Logged In</p>
-                    <p class="text-gray-600">{{ optional($user->last_logged_in)->format('d F Y H:i:s') ?: '-' }}</p>
+                    <p class="text-gray-600">{{ optional($user->last_logged_in)->format('d F Y H:i') ?: '-' }}</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Created At</p>
@@ -70,5 +70,18 @@
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
         <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
+        <div>
+            @can('update', $user)
+                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="button-primary button-sm">
+                    Edit
+                </a>
+            @endcan
+            @can('delete', $user)
+                <button type="button" data-href="{{ route('users.destroy', ['role' => $user->id]) }}" data-label="{{ $user->name }}" class="button-red button-sm confirm-delete">
+                    <i class="mdi mdi-trash-can-outline"></i>
+                </button>
+            @endcan
+        </div>
     </div>
+    @include('partials.modal-delete')
 @endsection

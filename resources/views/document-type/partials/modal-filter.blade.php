@@ -38,7 +38,7 @@
                 <div class="flex flex-wrap">
                     <label for="sort_method" class="form-label">{{ __('Sort Method') }}</label>
                     <div class="relative w-full">
-                        <select class="form-input pr-8" name="sort_method" id="order_method">
+                        <select class="form-input pr-8" name="sort_method" id="sort_method">
                             <option value="desc"{{ request()->get('sort_method') == 'desc' ? 'selected' : '' }}>
                                 Descending
                             </option>

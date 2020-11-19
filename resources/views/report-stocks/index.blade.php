@@ -20,19 +20,19 @@
             <table class="table-auto w-full mb-4 whitespace-no-wrap">
                 <thead>
                 <tr>
-                    <th class="border-b border-t px-3 py-2 w-12">No</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Container Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Type</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Size</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Is Empty</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Seal</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Quantity</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Customer</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Description</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Type</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 w-12">No</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Container Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Type</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Size</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Is Empty</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Seal</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Quantity</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Reference Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Booking Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Customer</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Description</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Latest Job Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Latest Job Type</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -88,19 +88,19 @@
             <table class="table-auto w-full mb-4 whitespace-no-wrap">
                 <thead>
                 <tr>
-                    <th class="border-b border-t px-3 py-2 w-12">No</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Item Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Item Name</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Quantity</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Package</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Weight</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Gross</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Reference Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Booking Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Customer</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Description</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Number</th>
-                    <th class="border-b border-t px-3 py-2 text-left">Latest Job Type</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 w-12">No</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Item Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Item Name</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Quantity</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Package</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Weight</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Gross</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Reference Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Booking Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Customer</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Description</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Latest Job Number</th>
+                    <th class="border-b border-t border-gray-200 px-3 py-2 text-left">Latest Job Type</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -132,13 +132,13 @@
             <table class="table-auto w-full mb-4">
                 <thead>
                 <tr>
-                    <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Container Number') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Size') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Type') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Is Empty') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Seal') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t border-gray-200 px-2 py-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t border-gray-200 px-2 py-2 text-left">{{ __('Container Number') }}</th>
+                    <th class="border-b border-t border-gray-200 px-2 py-2 text-left">{{ __('Size') }}</th>
+                    <th class="border-b border-t border-gray-200 px-2 py-2 text-left">{{ __('Type') }}</th>
+                    <th class="border-b border-t border-gray-200 px-2 py-2 text-left">{{ __('Is Empty') }}</th>
+                    <th class="border-b border-t border-gray-200 px-2 py-2 text-left">{{ __('Seal') }}</th>
+                    <th class="border-b border-t border-gray-200 px-2 py-2 text-left">{{ __('Description') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -177,13 +177,13 @@
             <table class="table-auto w-full mb-4">
                 <thead>
                 <tr class="whitespace-no-wrap">
-                    <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Item Name') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Quantity') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Package') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Weight') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Gross') }}</th>
-                    <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
+                    <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                    <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Item Name') }}</th>
+                    <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Quantity') }}</th>
+                    <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Package') }}</th>
+                    <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Weight') }}</th>
+                    <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Gross') }}</th>
+                    <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Description') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -204,7 +204,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="9" class="px-2 py-2">{{ __('No data available') }}</td>
+                        <td colspan="9" class="p-2">{{ __('No data available') }}</td>
                     </tr>
                 @endforelse
                 </tbody>
@@ -222,12 +222,12 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t px-2 py-2 w-12">{{ __('No') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Status') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Description') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Data') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created At') }}</th>
-                <th class="border-b border-t px-2 py-2 text-left">{{ __('Created By') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Status') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Description') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Data') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created At') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created By') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -242,7 +242,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="px-2 py-2">{{ __('No data available') }}</td>
+                    <td colspan="6" class="p-2">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>
