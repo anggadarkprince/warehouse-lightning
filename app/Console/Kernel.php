@@ -3,6 +3,9 @@
 namespace App\Console;
 
 use App\Console\Commands\CreateAdminUser;
+use App\Console\Commands\SendActivityReport;
+use App\Console\Commands\SendStockSummaryReport;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,18 +17,22 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        CreateAdminUser::class
+        CreateAdminUser::class,
+        SendActivityReport::class,
+        SendStockSummaryReport::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('automate:activity', ['UNLOADING'])->daily()->appendOutputTo(storage_path('logs/unloading-activity.log'));
+        $schedule->command('automate:activity', ['LOADING'])->daily()->appendOutputTo(storage_path('logs/loading-activity.log'));
+        $schedule->command('automate:stock-summary', ['--stock_date=' . Carbon::now()->subWeek()->toDateString()])->weeklyOn(1, '1:00')->appendOutputTo(storage_path('logs/stock.log'));
     }
 
     /**

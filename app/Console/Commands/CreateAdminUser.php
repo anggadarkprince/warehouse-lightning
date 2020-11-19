@@ -50,8 +50,6 @@ class CreateAdminUser extends Command
      */
     public function handle()
     {
-        $verify = $this->option('verify');
-        $this->info($verify ? null : Carbon::now());
         $name = $this->argument('name') ?: $this->ask('What is your name?');
         $email = $this->argument('email') ?: $this->ask('Email user as administrator?');
         $password = $this->argument('password') ?: $this->secret('Input password?');
