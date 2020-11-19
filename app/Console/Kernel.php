@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\CreateAdminUser;
+use App\Console\Commands\DeleteOldTemp;
 use App\Console\Commands\SendActivityReport;
 use App\Console\Commands\SendStockSummaryReport;
 use Carbon\Carbon;
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         CreateAdminUser::class,
+        DeleteOldTemp::class,
         SendActivityReport::class,
         SendStockSummaryReport::class,
     ];
@@ -30,6 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('automate:delete-old-temp')->daily()->appendOutputTo(storage_path('logs/deleted-temp.log'));
         $schedule->command('automate:activity', ['UNLOADING'])->daily()->appendOutputTo(storage_path('logs/unloading-activity.log'));
         $schedule->command('automate:activity', ['LOADING'])->daily()->appendOutputTo(storage_path('logs/loading-activity.log'));
         $schedule->command('automate:stock-summary', ['--stock_date=' . Carbon::now()->subWeek()->toDateString()])->weeklyOn(1, '1:00')->appendOutputTo(storage_path('logs/stock.log'));
