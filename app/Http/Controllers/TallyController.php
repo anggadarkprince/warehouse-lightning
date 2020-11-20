@@ -6,6 +6,8 @@ use App\Http\Requests\SaveTallyRequest;
 use App\Models\Container;
 use App\Models\Goods;
 use App\Models\WorkOrder;
+use App\Notifications\WorkOrderRejected;
+use App\Notifications\WorkOrderValidated;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
@@ -196,27 +198,38 @@ class TallyController extends Controller
     {
         $this->authorize('validate', $workOrder);
 
+        $message = ucfirst($request->input('message'));
         if ($request->input('refuse', 0)) {
-            $workOrder->status = WorkOrder::STATUS_REJECTED;
+            $workOrder->update(['status' => WorkOrder::STATUS_REJECTED]);
 
             $workOrder->statusHistories()->create([
                 'status' => WorkOrder::STATUS_REJECTED,
-                'description' => ucfirst($request->input('message')) ?: 'Job is rejected'
+                'description' => $message ?: 'Job is rejected'
+            ]);
+
+            $workOrder->user->notify((new WorkOrderRejected($workOrder, $message)));
+
+            return redirect()->route('tally.index')->with([
+                'status' => 'success',
+                'message' => __('Job :job successfully validated', ['job' => $workOrder->job_number])
             ]);
         } else {
-            $workOrder->status = WorkOrder::STATUS_VALIDATED;
+            $workOrder->update(['status' => WorkOrder::STATUS_VALIDATED]);
 
             $workOrder->statusHistories()->create([
                 'status' => WorkOrder::STATUS_VALIDATED,
-                'description' => $request->input('message') ?: 'Job is completed'
+                'description' => $message ?: 'Job is completed'
+            ]);
+
+            $workOrder->user->notify(
+                (new WorkOrderValidated($workOrder, $message))
+                    ->delay(now()->addSeconds(15))
+            );
+
+            return redirect()->route('tally.index')->with([
+                'status' => 'danger',
+                'message' => __('Job :job successfully rejected', ['job' => $workOrder->job_number])
             ]);
         }
-
-        $workOrder->save();
-
-        return redirect()->route('tally.index')->with([
-            'status' => 'success',
-            'message' => __('Job :job successfully validated', ['job' => $workOrder->job_number])
-        ]);
     }
 }
