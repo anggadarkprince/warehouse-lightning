@@ -12,6 +12,7 @@ require('./modules/delete');
 require('./modules/confirm');
 require('./modules/form');
 
+require('./pages/dashboard');
 require('./pages/document');
 require('./pages/booking');
 require('./pages/delivery-order');
