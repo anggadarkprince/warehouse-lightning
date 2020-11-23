@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Model
@@ -69,5 +72,53 @@ class Dashboard extends Model
             ])
             ->orderByDesc('year')
             ->orderBy('week');
+    }
+
+    /**
+     * Get stock container weekly
+     */
+    public function getStockContainer()
+    {
+        $reportStock = new ReportStock();
+        return Collection::times(10)->map(function ($value) use ($reportStock) {
+            $stock = $reportStock->getStockContainers(new Request([
+                'stock_date' => $date = Carbon::now()->subWeeks($value - 1)
+            ]));
+
+            $groupStock = $stock->groupBy('container_size')
+                ->select('container_size')
+                ->selectRaw('COUNT(container_size) AS total')
+                ->get()
+                ->mapWithKeys(function ($item) {
+                    return [$item->container_size => $item->total];
+                });
+
+            if (!$groupStock->has('20')) $groupStock[20] = 0;
+            if (!$groupStock->has('40')) $groupStock[40] = 0;
+            if (!$groupStock->has('45')) $groupStock[45] = 0;
+
+            return collect([
+                'date' => $date->toDateString(),
+                'stocks' => $groupStock
+            ]);
+        });
+    }
+
+    /**
+     * Get stock goods weekly
+     */
+    public function getStockGoods()
+    {
+        $reportStock = new ReportStock();
+        return Collection::times(10)->map(function ($value) use ($reportStock) {
+            $stock = $reportStock->getStockGoods(new Request([
+                'stock_date' => $date = Carbon::now()->subWeeks($value - 1)
+            ]));
+
+            return collect([
+                'date' => $date->toDateString(),
+                'stocks' => $stock->count()
+            ]);
+        });
     }
 }
