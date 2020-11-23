@@ -72,9 +72,11 @@ if (searchPlaceholder) {
 
 if (inputNavbarSearch) {
     inputNavbarSearch.addEventListener('focusout', function () {
-        this.classList.add('hidden');
-        this.classList.remove('max-w-md');
-        this.classList.remove('opacity-100');
-        searchPlaceholder.classList.remove('hidden');
+        if (!inputNavbarSearch.value) {
+            this.classList.add('hidden');
+            this.classList.remove('max-w-md');
+            this.classList.remove('opacity-100');
+            searchPlaceholder.classList.remove('hidden');
+        }
     });
 }

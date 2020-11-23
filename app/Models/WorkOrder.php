@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Scout\Searchable;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class WorkOrder extends Model implements HasOrderNumber
 {
-    use SoftDeletes, BasicFilter;
+    use SoftDeletes, BasicFilter, Searchable;
 
     const TYPE_UNLOADING = "UNLOADING";
     const TYPE_STRIPPING_CONTAINER = "STRIPPING CONTAINER";
@@ -203,6 +204,24 @@ class WorkOrder extends Model implements HasOrderNumber
             return $query->where('status', '!=', self::STATUS_VALIDATED);
         }
         return $query->where('status', $status);
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'job_number' => $this->job_number,
+            'job_type' => $this->job_type,
+            'assigned_to' => $this->user->name,
+            'booking_name' => $this->booking->bookingType->booking_name,
+            'booking_number' => $this->booking->booking_number,
+            'reference_number' => $this->booking->reference_number,
+            'customer' => $this->booking->customer->customer_name,
+        ];
     }
 
     /**

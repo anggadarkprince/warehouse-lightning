@@ -14,6 +14,7 @@ use App\Http\Controllers\GateController;
 use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TakeStockController;
 use App\Http\Controllers\TallyController;
@@ -133,4 +134,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('reports/outbound', [ReportController::class, 'outbound'])->name('reports.outbound');
     Route::get('reports/stock-summary', [ReportController::class, 'stockSummary'])->name('reports.stock-summary');
     Route::get('reports/stock-movement', [ReportController::class, 'stockMovement'])->name('reports.stock-movement');
+
+    Route::get('search', [SearchController::class, 'index'])->name('search');
 });

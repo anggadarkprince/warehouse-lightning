@@ -12,6 +12,7 @@
         "ext-json": "*",
         "ext-simplexml": "*",
         "ext-zip": "*",
+        "algolia/scout-extended": "^1.10",
         "barryvdh/laravel-dompdf": "^0.8.7",
         "doctrine/dbal": "^2.11",
         "fideloper/proxy": "^4.2",
@@ -19,6 +20,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/fortify": "^1.6",
         "laravel/framework": "^8.0",
+        "laravel/scout": "^8.4",
         "laravel/tinker": "^2.0",
         "phpoffice/phpspreadsheet": "^1.15",
         "simplesoftwareio/simple-qrcode": "~4"

@@ -4,14 +4,14 @@ namespace App\Models;
 
 use App\Contracts\Numerable\HasOrderNumber;
 use App\Traits\Search\BasicFilter;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Scout\Searchable;
 
 class Booking extends Model implements HasOrderNumber
 {
-    use BasicFilter;
+    use BasicFilter, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -235,5 +235,25 @@ class Booking extends Model implements HasOrderNumber
                 $query->where('upload_number', 'LIKE', '%' . $q . '%');
             });
         });
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'booking_number' => $this->booking_number,
+            'reference_number' => $this->reference_number,
+            'supplier_name' => $this->supplier_name,
+            'owner_name' => $this->owner_name,
+            'shipper_name' => $this->shipper_name,
+            'upload_number' => $this->upload->upload_number,
+            'booking_name' => $this->bookingType->booking_name,
+            'type' => $this->bookingType->type,
+            'customer' => $this->customer->customer_name,
+        ];
     }
 }

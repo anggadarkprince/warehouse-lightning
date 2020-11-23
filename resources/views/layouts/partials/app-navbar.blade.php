@@ -1,12 +1,12 @@
 <div class="flex items-center px-4 py-2 bg-green-500 text-white sm:h-16">
     <i class="mdi mdi-menu text-2xl py-1 cursor-pointer sidebar-toggle"></i>
-    <div class="ml-4 opacity-50 flex items-center select-none" id="search-placeholder">
+    <div class="ml-4 opacity-50 flex items-center select-none{{ empty(request()->get('q')) ? '' : ' hidden' }}" id="search-placeholder">
         <i class="mdi mdi-magnify text-xl mr-1"></i>
         <span class="hidden sm:inline-block">Search over the app...</span>
     </div>
-    <form action="search" class="flex flex-grow w-auto">
-        <input type="search" class="form-input border-none rounded-full ml-4 transition-all duration-500 ease-in-out max-w-sm opacity-0 hidden" id="input-navbar-search"
-               placeholder="Search over the app..." aria-label="Search">
+    <form action="{{ route('search') }}" class="flex flex-grow w-auto">
+        <input type="search" name="q" class="form-input border-none rounded-full ml-4 transition-all duration-500 ease-in-out max-w-sm opacity-0 {{ empty(request()->get('q')) ? ' hidden' : ' max-w-md opacity-100' }}" id="input-navbar-search"
+               value="{{ request()->get('q') }}" placeholder="Search over the app..." aria-label="Search">
     </form>
     <ul class="list-none ml-auto">
         <li class="inline-block py-2 px-3 cursor-pointer leading-7 align-top">

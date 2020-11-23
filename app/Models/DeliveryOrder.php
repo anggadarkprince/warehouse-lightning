@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Scout\Searchable;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DeliveryOrder extends Model implements HasOrderNumber
 {
-    use BasicFilter;
+    use BasicFilter, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -155,6 +156,29 @@ class DeliveryOrder extends Model implements HasOrderNumber
         }
 
         return $query->orderBy($sortBy, $sortMethod);
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'delivery_number' => $this->delivery_number,
+            'destination' => $this->destination,
+            'destination_address' => $this->destination_address,
+            'type' => $this->type,
+            'driver_name' => $this->driver_name,
+            'vehicle_name' => $this->vehicle_name,
+            'vehicle_type' => $this->vehicle_type,
+            'vehicle_plat_number' => $this->vehicle_plat_number,
+            'booking_number' => $this->booking->booking_number,
+            'reference_number' => $this->booking->reference_number,
+            'booking_name' => $this->booking->bookingType->booking_name,
+            'customer' => $this->booking->customer->customer_name,
+        ];
     }
 
     /**

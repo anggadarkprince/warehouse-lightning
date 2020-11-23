@@ -13,10 +13,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, BasicFilter;
+    use HasFactory, Notifiable, BasicFilter, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -147,5 +148,29 @@ class User extends Authenticatable
     public function isAdministrator()
     {
         return $this->email === 'admin@warehouse.app' || $this->is_admin;
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'roles' => optional(optional($this->roles)->pluck('role'))->implode(',')
+        ];
+    }
+
+    /**
+     * Determine if the model should be searchable.
+     *
+     * @return bool
+     */
+    public function shouldBeSearchable()
+    {
+        return !$this->isAdministrator();
     }
 }
