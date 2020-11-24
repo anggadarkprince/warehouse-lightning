@@ -21,6 +21,7 @@
         "laravel/fortify": "^1.6",
         "laravel/framework": "^8.0",
         "laravel/scout": "^8.4",
+        "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.0",
         "phpoffice/phpspreadsheet": "^1.15",
         "simplesoftwareio/simple-qrcode": "~4"

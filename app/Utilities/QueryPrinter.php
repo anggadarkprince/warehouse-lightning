@@ -10,11 +10,11 @@ class QueryPrinter
     /**
      * Print query from builder.
      *
-     * @param Builder $builder
+     * @param $builder
      * @param bool $bindingWrapQuote
      * @return string
      */
-    public static function from(Builder $builder, $bindingWrapQuote = true)
+    public static function from($builder, $bindingWrapQuote = true)
     {
         $bindings = collect($builder->getBindings());
 

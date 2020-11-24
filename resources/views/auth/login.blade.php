@@ -52,12 +52,25 @@
                         {{ __('Login') }}
                     </button>
 
-                    <p class="w-full block text-center text-gray-700 mt-6 mb-8 sm:text-sm">
+                    <div class="w-full text-center text-gray-700 mt-5 mb-8 sm:text-sm">
                         @if (Route::has('register') && app_setting(\App\Models\Setting::MANAGEMENT_REGISTRATION, true))
                             {{ __("Don't have an account?") }}
                             <a class="text-link" href="{{ route('register') }}">
                                 {{ __('Register') }}
                             </a>
+
+                            <div class="sm:flex -mx-2 mt-4">
+                                <div class="px-2 sm:w-1/2">
+                                    <a href="{{ route('login.google') }}" class="button-blue w-full" style="background-color: #4285f4">
+                                        <i class="mdi mdi-google mr-2"></i>Sign In Google
+                                    </a>
+                                </div>
+                                <div class="px-2 sm:w-1/2">
+                                    <a href="{{ route('login.google') }}" class="button-blue w-full" style="background-color: #00acee">
+                                        <i class="mdi mdi-twitter mr-2"></i>Sign In Twitter
+                                    </a>
+                                </div>
+                            </div>
                         @else
                             &copy {{ date('Y') }} Copyright all rights reserved
                         @endif

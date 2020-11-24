@@ -98,18 +98,21 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @param Builder $query
      * @param $permission
+     * @param null $userId
      * @return int
      */
-    public function scopeHasPermission(Builder $query, $permission) {
+    public function scopeHasPermission(Builder $query, $permission, $userId = null) {
         if ($this->isAdministrator()) {
             return true;
         }
 
-        $hasPermission = $this->scopePermissions($query)->where('permission', $permission)->get();
+        $hasPermission = $this->scopePermissions($query)
+            ->where('permission', $permission)
+            ->where('users.id', $userId ?: $this->id)
+            ->get();
 
         return $hasPermission->count() > 0;
     }
-
 
     /**
      * Scope a query to only include user that match the query.

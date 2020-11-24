@@ -12,6 +12,7 @@ use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\GateController;
 use App\Http\Controllers\GoodsController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
@@ -60,6 +61,10 @@ Route::get('/sla', function () {
     return view('legals.sla');
 })->name('legals.sla');
 
+Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('login.google.callback');
+Route::get('login/twitter', [LoginController::class, 'redirectToTwitter'])->name('login.twitter');
+Route::get('login/twitter/callback', [LoginController::class, 'handleTwitterCallback'])->name('login.twitter.callback');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
