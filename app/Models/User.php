@@ -158,6 +158,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function toSearchableArray()
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'roles' => optional(optional($this->roles)->pluck('role'))->implode(',')

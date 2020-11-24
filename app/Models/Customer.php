@@ -34,6 +34,7 @@ class Customer extends Model
     public function toSearchableArray()
     {
         return [
+            'id' => $this->id,
             'customer_name' => $this->customer_name,
             'pic_name' => $this->pic_name,
             'contact_email' => $this->contact_email,

@@ -4,9 +4,42 @@
         <i class="mdi mdi-magnify text-xl mr-1"></i>
         <span class="hidden sm:inline-block">Search over the app...</span>
     </div>
-    <form action="{{ route('search') }}" class="flex flex-grow w-auto">
+    <form action="{{ route('search') }}" class="flex flex-grow w-auto relative" id="search-navbar-form">
         <input type="search" name="q" class="form-input border-none rounded-full ml-4 transition-all duration-500 ease-in-out max-w-sm opacity-0 {{ empty(request()->get('q')) ? ' hidden' : ' max-w-md opacity-100' }}" id="input-navbar-search"
-               value="{{ request()->get('q') }}" placeholder="Search over the app..." aria-label="Search">
+               value="{{ request()->get('q') }}" placeholder="Search over the app..." aria-label="Search" autocomplete="off">
+        <div id="search-navbar-result" class="absolute py-3 mb-4 bg-white text-gray-700 shadow rounded mt-12 ml-3 hidden" style="min-width: 300px; max-width: 400px">
+            <div id="search-navbar-loading" class="px-4">
+                <i class="mdi mdi-loading mdi-spin mr-1"></i> searching data...
+            </div>
+
+            <div class="mb-2">
+                <h3 class="flex justify-between bg-green-400 text-white px-4 py-2 mb-1 hidden" id="search-booking-title">
+                    Booking Result<i class="mdi mdi-clipboard-file-outline"></i>
+                </h3>
+                <div id="search-booking-wrapper" class="divide-y"></div>
+            </div>
+
+            <div class="mb-2">
+                <h3 class="flex justify-between bg-green-400 text-white px-4 py-2 mb-1 hidden" id="search-job-title">
+                    Job Result<i class="mdi mdi-forklift ml-auto"></i>
+                </h3>
+                <div id="search-job-wrapper" class="divide-y"></div>
+            </div>
+
+            <div class="mb-2">
+                <h3 class="flex justify-between bg-green-400 text-white px-4 py-2 mb-1 hidden" id="search-delivery-title">
+                    Delivery Result<i class="mdi mdi-truck-fast-outline ml-auto"></i>
+                </h3>
+                <div id="search-delivery-wrapper" class="divide-y"></div>
+            </div>
+
+            <div class="px-4">
+                <button type="submit" class="button-blue button-sm block w-full mt-4">
+                    More result <i class="mdi mdi-arrow-right"></i>
+                </button>
+            </div>
+            <img src="{{ asset('img/search-by-algolia-light-background.svg') }}" class="mx-auto mt-3 w-24" alt="Algolia">
+        </div>
     </form>
     <ul class="list-none ml-auto">
         <li class="inline-block py-2 px-3 cursor-pointer leading-7 align-top">
@@ -37,3 +70,16 @@
         </li>
     </ul>
 </div>
+
+<script id="search-result-template" type="x-tmpl-mustache">
+    <a href="@{{ url }}" class="py-2 px-4 flex justify-between hover:bg-green-100 booking-search-result">
+        <div class="mr-3">
+            <p class="font-bold">@{{ title }}</p>
+            <p class="text-sm text-gray-500 leading-tight">@{{ subtitle }}</p>
+            <p class="text-sm">@{{ description }}</p>
+        </div>
+        <div class="text-xs mt-1 @{{ label_color }}">
+            @{{ label }}
+        </div>
+    </div>
+</script>

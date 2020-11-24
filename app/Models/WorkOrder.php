@@ -214,6 +214,7 @@ class WorkOrder extends Model implements HasOrderNumber
     public function toSearchableArray()
     {
         return [
+            'id' => $this->id,
             'job_number' => $this->job_number,
             'job_type' => $this->job_type,
             'assigned_to' => $this->user->name,

@@ -245,6 +245,7 @@ class Booking extends Model implements HasOrderNumber
     public function toSearchableArray()
     {
         return [
+            'id' => $this->id,
             'booking_number' => $this->booking_number,
             'reference_number' => $this->reference_number,
             'supplier_name' => $this->supplier_name,

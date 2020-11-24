@@ -166,6 +166,7 @@ class DeliveryOrder extends Model implements HasOrderNumber
     public function toSearchableArray()
     {
         return [
+            'id' => $this->id,
             'delivery_number' => $this->delivery_number,
             'destination' => $this->destination,
             'destination_address' => $this->destination_address,
