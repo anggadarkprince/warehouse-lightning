@@ -83,13 +83,13 @@ class UploadController extends Controller
     public function store(SaveUploadRequest $request)
     {
         return DB::transaction(function () use ($request) {
-            $upload = Upload::create($request->input());
+            $upload = Upload::create($request->validated());
 
             foreach ($request->input('documents') as $document) {
                 $document['document_date'] = Carbon::parse($document['document_date'])->format('Y-m-d');
                 $uploadDocument = $upload->uploadDocuments()->create($document);
 
-                $files = data_get($request->input('documents'), $uploadDocument->document_type_id . '.files', []);
+                $files = data_get($document, 'files', []);
                 foreach ($files as $file) {
                     $uploadDocument->uploadDocumentFiles()->create($this->moveUploadedFile($file));
                 }

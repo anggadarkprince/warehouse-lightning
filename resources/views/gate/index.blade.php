@@ -37,15 +37,6 @@
             </tr>
             </thead>
             <tbody>
-            <?php
-            $workOrderStatuses = [
-                'QUEUED' => 'bg-gray-200',
-                'TAKEN' => 'bg-orange-500',
-                'COMPLETED' => 'bg-blue-500',
-                'VALIDATED' => 'bg-green-500',
-                'REJECTED' => 'bg-red-500',
-            ];
-            ?>
             @forelse ($workOrders as $index => $workOrder)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
@@ -65,7 +56,7 @@
                     <td class="px-2 py-1">{{ optional($workOrder->user)->name ?: '-' }}</td>
                     <td class="px-2 py-1">{{ optional($workOrder->completed_at)->format('d M Y  H:i') ?: '-' }}</td>
                     <td class="px-2 py-1">
-                        <span class="px-2 py-1 rounded text-xs {{ $workOrder->status == 'QUEUED' ? '' : 'text-white' }} {{ data_get($workOrderStatuses, $workOrder->status, 'bg-gray-200') }}">
+                        <span class="px-2 py-1 rounded text-xs {{ $workOrder->getStatusClass() }}">
                             {{ $workOrder->status }}
                         </span>
                     </td>

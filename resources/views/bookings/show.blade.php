@@ -42,7 +42,9 @@
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Status') }}</p>
-                    <p class="text-gray-600">{{ $booking->status }}</p>
+                    <span class="px-2 py-1 rounded text-xs {{ $booking->getStatusClass() }}">
+                        {{ $booking->status }}
+                    </span>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3 flex-shrink-0">{{ __('Description') }}</p>
@@ -234,7 +236,11 @@
             @forelse ($booking->statusHistories as $index => $statusHistory)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
-                    <td class="px-2 py-1">{{ $statusHistory->status }}</td>
+                    <td class="px-2 py-1">
+                        <span class="px-2 py-1 rounded text-xs {{ $statusHistory->statusable->getStatusClass($statusHistory->status) }} }}">
+                            {{ $statusHistory->status }}
+                        </span>
+                    </td>
                     <td class="px-2 py-1">{{ $statusHistory->description ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $statusHistory->data ?: '-' }}</td>
                     <td class="px-2 py-1">{{ optional($statusHistory->created_at)->format('d F Y H:i:s') ?: '-' }}</td>

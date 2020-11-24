@@ -197,6 +197,11 @@ class BookingController extends Controller
                 $booking->bookingGoods()->createMany($goods->toArray());
             }
 
+            $booking->statusHistories()->create([
+                'status' => Booking::STATUS_DRAFT,
+                'description' => 'Initial imported booking'
+            ]);
+
             return redirect()->route('bookings.index')->with([
                 "status" => "success",
                 "message" => "Booking {$booking->booking_number} successfully created"

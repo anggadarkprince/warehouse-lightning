@@ -34,13 +34,6 @@
             </tr>
             </thead>
             <tbody>
-            <?php
-                $uploadStatuses = [
-                    'DRAFT' => 'bg-gray-200',
-                    'SUBMITTED' => 'bg-orange-400',
-                    'VALIDATED' => 'bg-green-500',
-                ];
-            ?>
             @forelse ($uploads as $index => $upload)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
@@ -58,7 +51,7 @@
                     <td class="px-2 py-1">{{ $upload->bookingType->booking_name ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $upload->upload_title ?: '-' }}</td>
                     <td class="px-2 py-1">
-                        <span class="px-2 py-1 rounded text-xs {{ $upload->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($uploadStatuses, $upload->status, 'bg-gray-200') }}">
+                        <span class="px-2 py-1 rounded text-xs {{ $upload->getStatusClass() }}">
                             {{ $upload->status }}
                         </span>
                     </td>

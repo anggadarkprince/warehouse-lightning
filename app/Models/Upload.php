@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Contracts\Numerable\HasOrderNumber;
+use App\Contracts\Statusable\HasStatusLabel;
 use App\Traits\Search\BasicFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Upload extends Model
+class Upload extends Model implements HasStatusLabel, HasOrderNumber
 {
     use BasicFilter;
 
@@ -30,7 +32,7 @@ class Upload extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->upload_number = $model->getUploadNumber();
+            $model->upload_number = $model->getOrderNumber();
         });
     }
 
@@ -101,11 +103,28 @@ class Upload extends Model
     }
 
     /**
-     * Get next upload number.
+     * Return status label of model.
      *
-     * @return string
+     * @param null $status
+     * @return mixed
      */
-    public function getUploadNumber()
+    public function getStatusClass($status = null)
+    {
+        switch ($status ?: $this->status) {
+            case self::STATUS_DRAFT:
+            default:
+                return 'bg-gray-200';
+            case self::STATUS_VALIDATED:
+                return 'text-white bg-green-500';
+        }
+    }
+
+    /**
+     * Return generated order number or model.
+     *
+     * @return mixed
+     */
+    public function getOrderNumber()
     {
         $query = $this->newQuery()
             ->selectRaw("CAST(RIGHT(upload_number, 6) AS UNSIGNED) + 1 AS order_number")

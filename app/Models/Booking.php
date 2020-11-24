@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Contracts\Numerable\HasOrderNumber;
+use App\Contracts\Statusable\HasStatusLabel;
 use App\Traits\Search\BasicFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Scout\Searchable;
 
-class Booking extends Model implements HasOrderNumber
+class Booking extends Model implements HasOrderNumber, HasStatusLabel
 {
     use BasicFilter, Searchable;
 
@@ -256,5 +257,22 @@ class Booking extends Model implements HasOrderNumber
             'type' => $this->bookingType->type,
             'customer' => $this->customer->customer_name,
         ];
+    }
+
+    /**
+     * Return status label of model.
+     *
+     * @param null $status
+     * @return mixed
+     */
+    public function getStatusClass($status = null)
+    {
+        switch ($status ?: $this->status) {
+            case self::STATUS_DRAFT:
+            default:
+                return 'bg-gray-200';
+            case self::STATUS_VALIDATED:
+                return 'text-white bg-green-500';
+        }
     }
 }

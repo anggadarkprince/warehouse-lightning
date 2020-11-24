@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Numerable\HasOrderNumber;
+use App\Contracts\Statusable\HasStatusLabel;
 use App\Traits\Search\BasicFilter;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
@@ -15,7 +16,7 @@ use Laravel\Scout\Searchable;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class WorkOrder extends Model implements HasOrderNumber
+class WorkOrder extends Model implements HasOrderNumber, HasStatusLabel
 {
     use SoftDeletes, BasicFilter, Searchable;
 
@@ -240,5 +241,28 @@ class WorkOrder extends Model implements HasOrderNumber
         }
 
         return $pdf->download('work-order.pdf');
+    }
+
+    /**
+     * Return status label of model.
+     *
+     * @param null $status
+     * @return mixed
+     */
+    public function getStatusClass($status = null)
+    {
+        switch ($status ?: $this->status) {
+            case self::STATUS_QUEUED:
+            default:
+                return 'bg-gray-200';
+            case self::STATUS_TAKEN:
+                return 'text-white bg-orange-500';
+            case self::STATUS_REJECTED:
+                return 'text-white bg-red-500';
+            case self::STATUS_COMPLETED:
+                return 'text-white bg-blue-500';
+            case self::STATUS_VALIDATED:
+                return 'text-white bg-green-500';
+        }
     }
 }

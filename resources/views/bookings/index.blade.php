@@ -57,7 +57,7 @@
                     <td class="px-2 py-1">{{ $booking->customer->customer_name ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $booking->bookingType->booking_name ?: '-' }}</td>
                     <td class="px-2 py-1">
-                        <span class="px-2 py-1 rounded text-xs {{ $booking->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($bookingStatuses, $booking->status, 'bg-gray-200') }}">
+                        <span class="px-2 py-1 rounded text-xs {{ $booking->getStatusClass() }}">
                             {{ $booking->status }}
                         </span>
                     </td>

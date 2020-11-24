@@ -28,18 +28,9 @@
             <div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Status</p>
-                    <?php
-                    $uploadStatuses = [
-                        'DRAFT' => 'bg-gray-200',
-                        'SUBMITTED' => 'bg-orange-400',
-                        'VALIDATED' => 'bg-green-500',
-                    ];
-                    ?>
-                    <p class="text-gray-600">
-                        <span class="px-2 py-1 rounded text-xs {{ $upload->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($uploadStatuses, $upload->status, 'bg-gray-200') }}">
-                            {{ $upload->status }}
-                        </span>
-                    </p>
+                    <span class="px-2 py-1 rounded text-xs {{ $upload->getStatusClass() }}">
+                        {{ $upload->status }}
+                    </span>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3">Description</p>
@@ -138,7 +129,7 @@
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
                     <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
                     <td class="px-2 py-1">
-                        <span class="px-2 py-1 rounded text-xs {{ $statusHistory->status == 'DRAFT' ? '' : 'text-white' }} {{ data_get($uploadStatuses, $statusHistory->status, 'bg-gray-200') }}">
+                        <span class="px-2 py-1 rounded text-xs {{ $statusHistory->statusable->getStatusClass($statusHistory->status) }} }}">
                             {{ $statusHistory->status }}
                         </span>
                     </td>
