@@ -65,5 +65,6 @@ class FortifyServiceProvider extends ServiceProvider
                 abort('403');
             }
         });
+        Fortify::twoFactorChallengeView('auth.two-factor-challenge');
     }
 }
