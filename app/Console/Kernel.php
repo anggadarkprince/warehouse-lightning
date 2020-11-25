@@ -32,6 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('telescope:prune --hours=48')->daily();
         $schedule->command('automate:delete-old-temp')->daily()->appendOutputTo(storage_path('logs/deleted-temp.log'));
         $schedule->command('automate:activity', ['UNLOADING'])->daily()->appendOutputTo(storage_path('logs/unloading-activity.log'));
         $schedule->command('automate:activity', ['LOADING'])->daily()->appendOutputTo(storage_path('logs/loading-activity.log'));

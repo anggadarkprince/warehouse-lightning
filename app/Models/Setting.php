@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Setting extends Model
 {
@@ -46,12 +47,14 @@ class Setting extends Model
      */
     public function scopeItem(Builder $query, $key, $default = '')
     {
-        $result = $query->where('setting_key', $key)->first();
+        return Cache::remember($key, 60 * 60 * 24, function () use ($query, $key, $default) {
+            $result = $query->where('setting_key', $key)->first();
 
-        if (empty($result)) {
-            return $default;
-        }
+            if (empty($result)) {
+                return $default;
+            }
 
-        return $result->setting_value;
+            return $result->setting_value;
+        });
     }
 }

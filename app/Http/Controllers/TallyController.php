@@ -210,8 +210,8 @@ class TallyController extends Controller
             $workOrder->user->notify((new WorkOrderRejected($workOrder, $message)));
 
             return redirect()->route('tally.index')->with([
-                'status' => 'success',
-                'message' => __('Job :job successfully validated', ['job' => $workOrder->job_number])
+                'status' => 'danger',
+                'message' => __('Job :job successfully rejected', ['job' => $workOrder->job_number])
             ]);
         } else {
             $workOrder->update(['status' => WorkOrder::STATUS_VALIDATED]);
@@ -227,8 +227,8 @@ class TallyController extends Controller
             );
 
             return redirect()->route('tally.index')->with([
-                'status' => 'danger',
-                'message' => __('Job :job successfully rejected', ['job' => $workOrder->job_number])
+                'status' => 'success',
+                'message' => __('Job :job successfully validated', ['job' => $workOrder->job_number])
             ]);
         }
     }

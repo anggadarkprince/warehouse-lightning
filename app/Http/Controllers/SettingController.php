@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -65,6 +66,8 @@ class SettingController extends Controller
         try {
             return DB::transaction(function () use ($request, $validated) {
                 foreach ($validated as $key => $value) {
+                    Cache::forget($key);
+
                     if ($value == 'on') {
                         $value = 1;
                     }

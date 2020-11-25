@@ -42,7 +42,7 @@ class UploadController extends Controller
      */
     public function index(Request $request, CollectionExporter $exporter)
     {
-        $uploads = Upload::withCount('uploadDocuments as document_total')
+        $uploads = Upload::with(['booking', 'customer', 'bookingType'])->withCount('uploadDocuments as document_total')
             ->q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
