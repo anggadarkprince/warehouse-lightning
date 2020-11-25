@@ -65,6 +65,8 @@ Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('
 Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('login.google.callback');
 Route::get('login/twitter', [LoginController::class, 'redirectToTwitter'])->name('login.twitter');
 Route::get('login/twitter/callback', [LoginController::class, 'handleTwitterCallback'])->name('login.twitter.callback');
+Route::get('login/facebook', [LoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback', [LoginController::class, 'handleFacebookCallback'])->name('login.facebook.callback');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

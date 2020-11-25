@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -28,27 +26,63 @@ class LoginController extends Controller
      */
     public function handleGoogleCallback()
     {
-        $googleUser = Socialite::driver('google')->user();
+        $googleUser = $this->getProviderUser('google');
 
-        $user = User::where(['email' => $googleUser->email]);
+        Auth::login($googleUser);
+
+        return redirect(config('fortify.home'));
+    }
+
+    /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return RedirectResponse
+     */
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Facebook.
+     */
+    public function handleFacebookCallback()
+    {
+        $facebookUser = $this->getProviderUser('facebook');
+
+        Auth::login($facebookUser);
+
+        return redirect(config('fortify.home'));
+    }
+
+    /**
+     * Get user from returned provider.
+     *
+     * @param $provider
+     * @return mixed
+     */
+    private function getProviderUser($provider)
+    {
+        $userProvider = Socialite::driver($provider)->user();
+
+        $user = User::where(['email' => $userProvider->email]);
         if ($user->exists()) {
             $user = $user->first();
         } else {
             $avatarPath = '';
-            if (!empty($googleUser->avatar)) {
-                $contents = file_get_contents($googleUser->avatar);
-                $avatarPath = 'avatars/' . date('Ym') . '/' . basename($googleUser->avatar);
+            if (!empty($userProvider->avatar)) {
+                $contents = file_get_contents($userProvider->getAvatar());
+                $avatarPath = 'avatars/' . date('Ym') . '/' . $userProvider->getId() . '.jpg';
                 Storage::disk('public')->put($avatarPath, $contents, 'public');
             }
             $user = User::create([
-                'name' => $googleUser->name,
-                'email' => $googleUser->email,
+                'name' => $userProvider->name,
+                'email' => $userProvider->email,
                 'password' => bcrypt(Str::random()),
                 'avatar' => $avatarPath ?: null,
             ]);
         }
 
-        Auth::login($user);
-        return redirect(config('fortify.home'));
+        return $user;
     }
 }

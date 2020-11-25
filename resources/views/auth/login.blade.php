@@ -59,22 +59,27 @@
                                 {{ __('Register') }}
                             </a>
 
-                            <div class="sm:flex -mx-2 mt-4">
-                                <div class="px-2 sm:w-1/2">
-                                    <a href="{{ route('login.google') }}" class="button-blue w-full" style="background-color: #4285f4">
-                                        <i class="mdi mdi-google mr-2"></i>Sign In Google
+                            <div class="sm:flex -mx-1 mt-4">
+                                <div class="px-1 sm:w-1/3">
+                                    <a href="{{ route('login.google') }}" class="button-blue w-full px-2" style="background-color: #4285f4">
+                                        <i class="mdi mdi-google mr-1"></i>Google
                                     </a>
                                 </div>
-                                <div class="px-2 sm:w-1/2">
-                                    <a href="{{ route('login.google') }}" class="button-blue w-full" style="background-color: #00acee">
-                                        <i class="mdi mdi-twitter mr-2"></i>Sign In Twitter
+                                <div class="px-1 sm:w-1/3">
+                                    <a href="{{ route('login.twitter') }}" class="button-blue w-full px-2" style="background-color: #00acee">
+                                        <i class="mdi mdi-twitter mr-1"></i>Twitter
+                                    </a>
+                                </div>
+                                <div class="px-1 sm:w-1/3">
+                                    <a href="{{ route('login.facebook') }}" class="button-blue w-full px-2" style="background-color: #3b5998">
+                                        <i class="mdi mdi-facebook mr-1"></i>Facebook
                                     </a>
                                 </div>
                             </div>
                         @else
                             &copy {{ date('Y') }} Copyright all rights reserved
                         @endif
-                    </p>
+                    </div>
                 </div>
             </form>
 
