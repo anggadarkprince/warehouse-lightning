@@ -40,7 +40,7 @@ class WorkOrder extends Model implements HasOrderNumber, HasStatusLabel
      *
      * @var string[]
      */
-    protected $fillable = ['booking_id', 'user_id', 'job_type', 'description'];
+    protected $fillable = ['booking_id', 'user_id', 'job_type', 'description', 'status'];
 
     /**
      * The attributes that should be cast to native types.

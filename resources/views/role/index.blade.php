@@ -42,7 +42,7 @@
                     <td class="px-2 py-1">{{ optional($role->created_at)->format('d F Y H:i') }}</td>
                     <td class="px-2 py-1 text-right">
                         <div class="dropdown">
-                            <button class="dropdown-toggle button-primary button-sm">
+                            <button class="dropdown-toggle button-primary button-sm" id="dropdown-{{ \Illuminate\Support\Str::slug($role->role) }}">
                                 Action <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">

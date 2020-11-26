@@ -145,7 +145,7 @@ class UploadController extends Controller
         $deletedFiles = [];
 
         DB::transaction(function () use ($request, $upload) {
-            if ($upload->booking->exists()) {
+            if (optional($upload->booking)->exists()) {
                 $upload->booking()->update([
                     'booking_type_id' => $request->input('booking_type_id'),
                     'customer_id' => $request->input('customer_id'),
