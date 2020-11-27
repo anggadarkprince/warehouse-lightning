@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Exports\CollectionExporter;
 use App\Http\Requests\SaveBookingRequest;
 use App\Models\Booking;
-use App\Models\BookingContainer;
 use App\Models\BookingType;
 use App\Models\Container;
 use App\Models\Customer;

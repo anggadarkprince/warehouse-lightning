@@ -34,6 +34,28 @@ class LoginController extends Controller
     }
 
     /**
+     * Redirect the user to the Twitter authentication page.
+     *
+     * @return RedirectResponse
+     */
+    public function redirectToTwitter()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Twitter.
+     */
+    public function handleTwitterCallback()
+    {
+        $twitterUser = $this->getProviderUser('twitter');
+
+        Auth::login($twitterUser);
+
+        return redirect(config('fortify.home'));
+    }
+
+    /**
      * Redirect the user to the Facebook authentication page.
      *
      * @return RedirectResponse
