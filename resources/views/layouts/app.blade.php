@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Base Url -->
-    <meta name="base-url" content="{{ url('/') }}">
+    <meta name="base-url" content="{{ url('/' . app()->getLocale()) }}">
     <meta name="theme-color" content="#48bb78">
     <meta name="description" content="{{ app_setting('app-description') }}">
     <meta name="keywords" content="{{ app_setting('app-keywords') }}">

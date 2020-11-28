@@ -21,23 +21,23 @@
             {{ __('MAIN MENU') }} <i class="mdi mdi-arrow-right ml-auto"></i>
         </li>
         <li>
-            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('dashboard') ? ' bg-green-100' : '' }}" href="{{ route('dashboard') }}">
+            <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/dashboard') ? ' bg-green-100' : '' }}" href="{{ route('dashboard') }}">
                 <i class="mdi mdi-speedometer mr-2"></i>
                 {{ __('Dashboard') }}
             </a>
         </li>
         @if(request()->user()->can('view-any', \App\Models\Role::class) || request()->user()->can('view-any', \App\Models\User::class))
             <li>
-                <a href="#submenu-user-access" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('user-access*') ? ' bg-green-100' : ' collapsed' }}">
+                <a href="#submenu-user-access" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is(app()->getLocale() . '/user-access*') ? ' bg-green-100' : ' collapsed' }}">
                     <i class="mdi mdi-lock-outline mr-2 pointer-events-none"></i>
                     {{ __('User Access') }}
                     <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
                 </a>
-                <div id="submenu-user-access" class="sidebar-submenu{{ request()->is('user-access*') ? '' : ' submenu-hide' }}">
+                <div id="submenu-user-access" class="sidebar-submenu{{ request()->is(app()->getLocale() . '/user-access*') ? '' : ' submenu-hide' }}">
                     <ul class="overflow-hidden flex flex-col pb-2">
                         @can('view-any', \App\Models\Role::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('user-access/roles*') ? ' text-green-500' : '' }}" href="{{ route('roles.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/user-access/roles*') ? ' text-green-500' : '' }}" href="{{ route('roles.index') }}">
                                     <i class="mdi mdi-shield-account-outline mr-2"></i>
                                     {{ __('Roles') }}
                                 </a>
@@ -45,7 +45,7 @@
                         @endcan
                         @can('view-any', \App\Models\User::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('user-access/users*') ? ' text-green-500' : '' }}" href="{{ route('users.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/user-access/users*') ? ' text-green-500' : '' }}" href="{{ route('users.index') }}">
                                     <i class="mdi mdi-account-multiple-outline mr-2"></i>
                                     {{ __('Users') }}
                                 </a>
@@ -62,16 +62,16 @@
             || request()->user()->can('view-any', \App\Models\Container::class)
             || request()->user()->can('view-any', \App\Models\Goods::class))
             <li>
-                <a href="#submenu-master" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('master*') ? ' bg-green-100' : ' collapsed' }}">
+                <a href="#submenu-master" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is(app()->getLocale() . '/master*') ? ' bg-green-100' : ' collapsed' }}">
                     <i class="mdi mdi-cube-outline mr-2 pointer-events-none"></i>
                     {{ __('Master') }}
                     <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
                 </a>
-                <div id="submenu-master" class="sidebar-submenu{{ request()->is('master*') ? '' : ' submenu-hide' }}">
+                <div id="submenu-master" class="sidebar-submenu{{ request()->is(app()->getLocale() . '/master*') ? '' : ' submenu-hide' }}">
                     <ul class="overflow-hidden flex flex-col pb-2">
                         @can('view-any', \App\Models\DocumentType::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/document-types*') ? ' text-green-500' : '' }}" href="{{ route('document-types.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/master/document-types*') ? ' text-green-500' : '' }}" href="{{ route('document-types.index') }}">
                                     <i class="mdi mdi-file-document-outline mr-2"></i>
                                     {{ __('Document Types') }}
                                 </a>
@@ -79,7 +79,7 @@
                         @endcan
                         @can('view-any', \App\Models\BookingType::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/booking-types*') ? ' text-green-500' : '' }}" href="{{ route('booking-types.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/master/booking-types*') ? ' text-green-500' : '' }}" href="{{ route('booking-types.index') }}">
                                     <i class="mdi mdi-clipboard-outline mr-2"></i>
                                     {{ __('Booking Types') }}
                                 </a>
@@ -87,7 +87,7 @@
                         @endcan
                         @can('view-any', \App\Models\Customer::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/customers*') ? ' text-green-500' : '' }}" href="{{ route('customers.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/master/customers*') ? ' text-green-500' : '' }}" href="{{ route('customers.index') }}">
                                     <i class="mdi mdi-account-multiple-outline mr-2"></i>
                                     {{ __('Customers') }}
                                 </a>
@@ -95,7 +95,7 @@
                         @endcan
                         @can('view-any', \App\Models\Container::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/containers*') ? ' text-green-500' : '' }}" href="{{ route('containers.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/master/containers*') ? ' text-green-500' : '' }}" href="{{ route('containers.index') }}">
                                     <i class="mdi mdi-truck-outline mr-2"></i>
                                     {{ __('Containers') }}
                                 </a>
@@ -103,7 +103,7 @@
                         @endcan
                         @can('view-any', \App\Models\Goods::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('master/goods*') ? ' text-green-500' : '' }}" href="{{ route('goods.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/master/goods*') ? ' text-green-500' : '' }}" href="{{ route('goods.index') }}">
                                     <i class="mdi mdi-package-variant mr-2"></i>
                                     {{ __('Goods') }}
                                 </a>
@@ -116,7 +116,7 @@
 
         @can('view-any', \App\Models\Upload::class)
             <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('uploads*') ? ' text-green-500' : '' }}" href="{{ route('uploads.index') }}">
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/uploads*') ? ' text-green-500' : '' }}" href="{{ route('uploads.index') }}">
                     <i class="mdi mdi-folder-search-outline mr-2"></i>
                     {{ __('Documents') }}
                 </a>
@@ -125,7 +125,7 @@
 
         @can('view-any', \App\Models\Booking::class)
             <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('bookings*') ? ' text-green-500' : '' }}" href="{{ route('bookings.index') }}">
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/bookings*') ? ' text-green-500' : '' }}" href="{{ route('bookings.index') }}">
                     <i class="mdi mdi-clipboard-file-outline mr-2"></i>
                     {{ __('Bookings') }}
                 </a>
@@ -134,7 +134,7 @@
 
         @can('view-any', \App\Models\DeliveryOrder::class)
             <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('delivery-orders*') ? ' text-green-500' : '' }}" href="{{ route('delivery-orders.index') }}">
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/delivery-orders*') ? ' text-green-500' : '' }}" href="{{ route('delivery-orders.index') }}">
                     <i class="mdi mdi-truck-fast-outline mr-2"></i>
                     {{ __('Delivery Orders') }}
                 </a>
@@ -145,16 +145,16 @@
             || request()->user()->can('view-take', \App\Models\WorkOrder::class)
             || request()->user()->can('view-any', \App\Models\TakeStock::class))
             <li>
-                <a href="#submenu-warehouse" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('warehouse*') ? ' bg-green-100' : ' collapsed' }}">
+                <a href="#submenu-warehouse" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is(app()->getLocale() . '/warehouse*') ? ' bg-green-100' : ' collapsed' }}">
                     <i class="mdi mdi-warehouse mr-2 pointer-events-none"></i>
                     {{ __('Warehouse') }}
                     <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
                 </a>
-                <div id="submenu-warehouse" class="sidebar-submenu{{ request()->is('warehouse*') ? '' : ' submenu-hide' }}">
+                <div id="submenu-warehouse" class="sidebar-submenu{{ request()->is(app()->getLocale() . '/warehouse*') ? '' : ' submenu-hide' }}">
                     <ul class="overflow-hidden flex flex-col pb-2">
                         @can('view-any', \App\Models\WorkOrder::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('warehouse/gate*') ? ' text-green-500' : '' }}" href="{{ route('gate.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/warehouse/gate*') ? ' text-green-500' : '' }}" href="{{ route('gate.index') }}">
                                     <i class="mdi mdi-boom-gate-down-outline mr-2"></i>
                                     {{ __('Gate') }}
                                 </a>
@@ -162,7 +162,7 @@
                         @endcan
                         @can('view-take', \App\Models\WorkOrder::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('warehouse/tally*') ? ' text-green-500' : '' }}" href="{{ route('tally.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/warehouse/tally*') ? ' text-green-500' : '' }}" href="{{ route('tally.index') }}">
                                     <i class="mdi mdi-forklift mr-2"></i>
                                     {{ __('Tally') }}
                                 </a>
@@ -170,7 +170,7 @@
                         @endcan
                         @can('view-any', \App\Models\TakeStock::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('warehouse/take-stocks*') ? ' text-green-500' : '' }}" href="{{ route('take-stocks.index') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/warehouse/take-stocks*') ? ' text-green-500' : '' }}" href="{{ route('take-stocks.index') }}">
                                     <i class="mdi mdi-clipboard-pulse-outline mr-2"></i>
                                     {{ __('Take Stocks') }}
                                 </a>
@@ -186,16 +186,16 @@
             || request()->user()->can('view-stock-summary', \App\Models\Report::class)
             || request()->user()->can('view-stock-movement', \App\Models\Report::class))
             <li>
-                <a href="#submenu-report" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is('reports*') ? ' bg-green-100' : ' collapsed' }}">
+                <a href="#submenu-report" class="flex items-center py-2 px-5 hover:bg-green-100 menu-toggle{{ request()->is(app()->getLocale() . '/reports*') ? ' bg-green-100' : ' collapsed' }}">
                     <i class="mdi mdi-ballot-outline mr-2 pointer-events-none"></i>
                     {{ __('Report') }}
                     <i class="mdi mdi-chevron-down ml-auto pointer-events-none menu-arrow"></i>
                 </a>
-                <div id="submenu-report" class="sidebar-submenu{{ request()->is('reports*') ? '' : ' submenu-hide' }}">
+                <div id="submenu-report" class="sidebar-submenu{{ request()->is(app()->getLocale() . '/reports*') ? '' : ' submenu-hide' }}">
                     <ul class="overflow-hidden flex flex-col pb-2">
                         @can('view-inbound', \App\Models\Report::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/inbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.inbound') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/reports/inbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.inbound') }}">
                                     <i class="mdi mdi-sort-bool-ascending mr-2"></i>
                                     {{ __('Inbound') }}
                                 </a>
@@ -203,7 +203,7 @@
                         @endcan
                         @can('view-outbound', \App\Models\Report::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/outbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.outbound') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/reports/outbound*') ? ' text-green-500' : '' }}" href="{{ route('reports.outbound') }}">
                                     <i class="mdi mdi-sort-bool-descending mr-2"></i>
                                     {{ __('Outbound') }}
                                 </a>
@@ -211,7 +211,7 @@
                         @endcan
                         @can('view-stock-summary', \App\Models\Report::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-summary*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-summary') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/reports/stock-summary*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-summary') }}">
                                     <i class="mdi mdi-clipboard-check-outline mr-2"></i>
                                     {{ __('Stock Summary') }}
                                 </a>
@@ -219,7 +219,7 @@
                         @endcan
                         @can('view-stock-movement', \App\Models\Report::class)
                             <li>
-                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is('reports/stock-movement*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-movement') }}">
+                                <a class="flex items-center py-1 pl-12 pr-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/reports/stock-movement*') ? ' text-green-500' : '' }}" href="{{ route('reports.stock-movement') }}">
                                     <i class="mdi mdi-clipboard-text-play-outline mr-2"></i>
                                     {{ __('Stock Movement') }}
                                 </a>
@@ -236,7 +236,7 @@
 
         @can('edit-account', \App\Models\User::class)
             <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('account') ? ' text-green-500' : '' }}" href="{{ route('account') }}">
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/account') ? ' text-green-500' : '' }}" href="{{ route('account') }}">
                     <i class="mdi mdi-account-reactivate-outline mr-2"></i>
                     {{ __('Account') }}
                 </a>
@@ -245,7 +245,7 @@
 
         @can('edit-setting', \App\Models\Setting::class)
             <li>
-                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is('settings') ? ' text-green-500' : '' }}" href="{{ route('settings') }}">
+                <a class="flex items-center py-2 px-5 hover:bg-green-100{{ request()->is(app()->getLocale() . '/settings') ? ' text-green-500' : '' }}" href="{{ route('settings') }}">
                     <i class="mdi mdi-cog-outline mr-2"></i>
                     {{ __('Settings') }}
                 </a>
