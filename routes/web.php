@@ -61,6 +61,8 @@ Route::get('/sla', function () {
     return view('legals.sla');
 })->name('legals.sla');
 
+require base_path('vendor/laravel/fortify/routes/routes.php');
+
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('login.google.callback');
 Route::get('login/twitter', [LoginController::class, 'redirectToTwitter'])->name('login.twitter');

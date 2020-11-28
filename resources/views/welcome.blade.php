@@ -12,6 +12,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="{{ mix('css/icon.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -22,6 +23,19 @@
             body {
                 font-family: 'Nunito';
             }
+            .list-none {
+                list-style-type: none;
+            }
+            .inline-block {
+                display: inline-block;
+            }
+            .border-r {
+                border-right-width: 1px;
+            }
+            .mx-2 {
+                margin-left: 0.5rem;
+                margin-right: 0.5rem;
+            }
         </style>
     </head>
     <body class="antialiased">
@@ -29,12 +43,12 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="text-sm text-gray-700 underline">{{ __('Dashboard') }}</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">{{ __('Login') }}</a>
 
                         @if (Route::has('register') && app_setting(\App\Models\Setting::MANAGEMENT_REGISTRATION, true))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">{{ __('Register') }}</a>
                         @endif
                     @endif
                 </div>
@@ -116,7 +130,24 @@
                     </div>
 
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Build v{{ config('app.version') }}
+                        <ul class="inline-block list-none">
+                            <li class="inline-block" title="Language"><i class="mdi mdi-earth text-fade"></i></li>
+                            <li class="inline-block">
+                                <a href="{{ request()->getUriForPath('/en' . substr(request()->getPathInfo(), 3)) }}">
+                                    English
+                                </a>
+                            </li>
+                            <li class="inline-block border-r mr-2">
+                                &nbsp;
+                            </li>
+                            <li class="inline-block">
+                                <a href="{{ request()->getUriForPath('/id' . substr(request()->getPathInfo(), 3)) }}">
+                                    Indonesia
+                                </a>
+                            </li>
+                        </ul>
+                        <i class="mdi mdi-circle-medium inline-block mx-2"></i>
+                        <p class="inline-block">Build v{{ config('app.version') }}</p>
                     </div>
                 </div>
             </div>

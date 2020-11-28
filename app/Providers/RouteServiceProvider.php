@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +37,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->checkLocalePrefix();
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
@@ -43,9 +47,36 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+            Route::prefix('{locale}')
+                ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+        });
+    }
+
+    /**
+     * Configure prefix locale.
+     *
+     * @return void
+     */
+    protected function checkLocalePrefix()
+    {
+        // Specify available languages for routes, set constraint rule.
+        Route::pattern('locale', implode('|', ['id', 'en']));
+
+        Route::matched(function (RouteMatched $event) {
+            // Get language from route.
+            $defaultLanguage = app_setting(Setting::APP_LANGUAGE, config('app.locale'));
+            $locale = $event->route->parameter('locale', $defaultLanguage);
+
+            // Ensure, that all built urls would have "locale" parameter set from url.
+            url()->defaults(['locale' => $locale]);
+
+            // Change application locale.
+            app()->setLocale($locale);
+
+            // Forget locale in route segment so parameter does not read in the controller
+            \request()->route()->forgetParameter('locale');
         });
     }
 

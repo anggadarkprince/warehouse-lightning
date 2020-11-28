@@ -4,8 +4,27 @@
             Copyright &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" target="_blank" class="font-bold">{{ config('app.name') }}</a>
             <span class="hidden sm:inline-block">all rights reserved.</span>
         </span>
-        <span class="text-center">
-            Hand-crafted &amp; made with <i class="mdi mdi-heart text-red-400"></i>
-        </span>
+        <div>
+            <ul class="inline-block list-none">
+                <li class="inline-block" title="Language"><i class="mdi mdi-earth text-fade"></i></li>
+                <li class="inline-block">
+                    <a href="{{ request()->getUriForPath('/en' . substr(request()->getPathInfo(), 3)) }}">
+                        English
+                    </a>
+                </li>
+                <li class="inline-block border-r mr-2">
+                    &nbsp;
+                </li>
+                <li class="inline-block">
+                    <a href="{{ request()->getUriForPath('/id' . substr(request()->getPathInfo(), 3)) }}">
+                        Indonesia
+                    </a>
+                </li>
+            </ul>
+            <i class="mdi mdi-circle-medium inline-block mx-2"></i>
+            <span class="text-center">
+                Made with <i class="mdi mdi-heart text-red-400"></i>
+            </span>
+        </div>
     </div>
 </footer>

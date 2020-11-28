@@ -35,6 +35,24 @@
     <main>
         @yield('content')
     </main>
+    <div class="text-center mb-5 md:mb-8">
+        <ul class="inline-block list-none text-gray-500">
+            <li class="inline-block" title="Language"><i class="mdi mdi-earth text-fade"></i></li>
+            <li class="inline-block">
+                <a href="{{ request()->getUriForPath('/en' . substr(request()->getPathInfo(), 3)) }}">
+                    English
+                </a>
+            </li>
+            <li class="inline-block border-r mr-2">
+                &nbsp;
+            </li>
+            <li class="inline-block">
+                <a href="{{ request()->getUriForPath('/id' . substr(request()->getPathInfo(), 3)) }}">
+                    Indonesia
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>
