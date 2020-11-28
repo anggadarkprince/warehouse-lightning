@@ -22,6 +22,7 @@
         "laravel/framework": "^8.0",
         "laravel/scout": "^8.4",
         "laravel/socialite": "^5.1",
+        "laravel/telescope": "^4.3",
         "laravel/tinker": "^2.0",
         "phpoffice/phpspreadsheet": "^1.15",
         "simplesoftwareio/simple-qrcode": "~4"
@@ -30,7 +31,6 @@
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",
         "laravel/dusk": "^6.9",
-        "laravel/telescope": "^4.3",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3"
