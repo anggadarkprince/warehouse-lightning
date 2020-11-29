@@ -39,7 +39,7 @@
                     <td class="px-2 py-1">
                         <div class="flex items-center my-1">
                             <div class="bg-gray-400 h-10 w-10 inline-block mr-2 rounded-md">
-                                <img class="object-cover h-10 w-10 rounded-md" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                                <img class="object-cover h-10 w-10 rounded-md" src="{{ $user->avatar_url }}" alt="{{ $user->name }}">
                             </div>
                             {{ $user->name }}
                         </div>

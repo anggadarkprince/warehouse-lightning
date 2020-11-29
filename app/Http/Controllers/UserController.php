@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\Exporter;
 use App\Http\Requests\SaveUserRequest;
 use App\Exports\CollectionExporter;
+use App\Jobs\OptimizeUserAvatar;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -91,6 +92,7 @@ class UserController extends Controller
                     'password' => bcrypt($userInput['password']),
                     'avatar' => empty($userInput['avatar']) ? null : $userInput['avatar'],
                 ]);
+                OptimizeUserAvatar::dispatchAfterResponse($user);
 
                 $user->roles()->attach($userInput['roles']);
 
@@ -169,6 +171,8 @@ class UserController extends Controller
 
                 $user->roles()->sync($request->roles);
 
+                $this->dispatch((new OptimizeUserAvatar($user))->delay(now()->addSeconds(10)));
+
                 return redirect()->route('users.index')->with([
                     "status" => "success",
                     "message" => "User {$user->name} successfully updated"
@@ -177,7 +181,7 @@ class UserController extends Controller
         } catch (Throwable $e) {
             return redirect()->back()->withInput()->with([
                 "status" => "failed",
-                "message" => "Update user failed"
+                "message" => "Update user failed, " . $e->getMessage()
             ]);
         }
     }

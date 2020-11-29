@@ -55,7 +55,7 @@
             </div>
             <div class="sm:flex items-center pb-3 input-file-wrapper">
                 <div class="bg-gray-400 inline-block mr-4 mb-3 sm:mb-0 rounded-md flex-shrink-0">
-                    <img class="object-cover h-32 w-32 rounded-md" id="image-avatar" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                    <img class="object-cover h-32 w-32 rounded-md" id="image-avatar" src="{{ $user->avatar_url }}" alt="{{ $user->name }}">
                 </div>
                 <div class="flex w-full">
                     <input type="text" readonly class="form-input input-file-label rounded-tr-none rounded-br-none" placeholder="Select avatar" aria-label="Avatar">

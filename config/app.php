@@ -177,6 +177,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -244,6 +245,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Exporter'   =>  App\Exports\Exporter::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

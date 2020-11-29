@@ -69,7 +69,7 @@
                                     No specific user (let user take the job)
                                 </option>
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}" data-custom-properties='{"avatar": "{{ $user->avatar }}", "email": "{{ $user->email }}"}'
+                                    <option value="{{ $user->id }}" data-custom-properties='{"avatar": "{{ $user->avatar_url }}", "email": "{{ $user->email }}"}'
                                         {{ old('user_id') == $user->id ? ' selected' : '' }}>
                                         {{ $user->name }}
                                     </option>

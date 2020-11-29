@@ -42,8 +42,8 @@
                 <div class="px-2 sm:w-2/3">
                     <div class="sm:flex items-center input-file-wrapper text-center">
                         <div class="bg-gray-400 inline-block mr-4 mb-3 sm:mb-0 rounded-md flex-shrink-0">
-                            <a href="{{ url($user->avatar) }}">
-                                <img class="h-32 w-32 object-cover rounded-md" id="image-avatar" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                            <a href="{{ $user->avatar_url }}">
+                                <img class="h-32 w-32 object-cover rounded-md" id="image-avatar" src="{{ $user->avatar_url }}" alt="{{ $user->name }}">
                             </a>
                         </div>
                         <div class="flex w-full">

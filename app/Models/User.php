@@ -61,9 +61,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param mixed $value
      * @return string
      */
-    public function getAvatarAttribute($value)
+    public function getAvatarUrlAttribute($value)
     {
-        return empty($value) ? url('/img/no-image.png') : Storage::disk('public')->url($value);
+        return empty($this->avatar) ? url('/img/no-image.png') : Storage::disk('public')->url($this->avatar);
     }
 
     /**

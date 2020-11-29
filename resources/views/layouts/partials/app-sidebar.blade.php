@@ -8,7 +8,7 @@
     <ul class="overflow-hidden list-none flex flex-col flex-auto pb-5" style="width: 245px">
         <li class="mt-2">
             <a href="{{ route('account') }}" class="flex items-center py-2 px-5 group">
-                <img src="{{ url(auth()->user()->avatar) }}"
+                <img src="{{ auth()->user()->avatar_url }}"
                      alt="avatar" class="rounded-full object-cover h-12 w-12 flex-shrink-0">
                 <div class="flex flex-col truncate ml-3">
                     <p class="group-hover:text-green-500">{{ auth()->user()->name }}</p>

@@ -24,7 +24,7 @@
                     <p class="w-1/3">Avatar</p>
                     <p class="text-gray-600">
                         <div class="bg-gray-400 h-20 w-20 inline-block mr-2 rounded-md">
-                            <img class="object-cover h-20 w-20 rounded-md" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                            <img class="object-cover h-20 w-20 rounded-md" src="{{ $user->avatar_url }}" alt="{{ $user->name }}">
                         </div>
                     </p>
                 </div>
@@ -77,7 +77,7 @@
                 </a>
             @endcan
             @can('delete', $user)
-                <button type="button" data-href="{{ route('users.destroy', ['role' => $user->id]) }}" data-label="{{ $user->name }}" class="button-red button-sm confirm-delete">
+                <button type="button" data-href="{{ route('users.destroy', ['user' => $user->id]) }}" data-label="{{ $user->name }}" class="button-red button-sm confirm-delete">
                     <i class="mdi mdi-trash-can-outline"></i>
                 </button>
             @endcan
