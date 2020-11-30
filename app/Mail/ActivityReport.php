@@ -39,6 +39,11 @@ class ActivityReport extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->view('view.name');
+        $dateFrom = $this->request->input('date_from');
+        $dateTo = $this->request->input('date_to');
+        return $this->markdown('emails.reports.activity')
+            ->subject('Activity report from ' . $dateFrom . ' until ' . $dateTo)
+            ->attachFromStorage(Exporter::simpleExportToExcel($this->containers, ['title' => 'Container activity']))
+            ->attachFromStorage(Exporter::simpleExportToExcel($this->goods, ['title' => 'Goods activity']));
     }
 }

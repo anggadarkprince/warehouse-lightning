@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\JobAssignedEvent;
 use App\Http\Requests\SaveWorkOrderRequest;
 use App\Models\Booking;
 use App\Models\DeliveryOrder;
@@ -92,6 +93,12 @@ class WorkOrderController extends Controller
                 'description' => 'Initial job creation'
             ]);
 
+            $request->whenHas('user_id', function ($userId) use ($workOrder) {
+                if (!empty($userId)) {
+                    event(new JobAssignedEvent($workOrder));
+                }
+            });
+
             return redirect()->route('gate.index')->with([
                 "status" => "success",
                 "message" => "Work order {$workOrder->job_number} successfully created"
@@ -118,11 +125,11 @@ class WorkOrderController extends Controller
      *
      * @param Request $request
      * @param WorkOrder $workOrder
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(Request $request, WorkOrder $workOrder)
     {
-        return DB::transaction(function () use ($request, $workOrder) {
+        DB::transaction(function () use ($request, $workOrder) {
             $workOrder->fill($request->input())->save();
 
             // sync work order containers
@@ -148,12 +155,16 @@ class WorkOrderController extends Controller
                     $item
                 );
             }
-
-            return redirect()->route('gate.index')->with([
-                "status" => "success",
-                "message" => "Work order {$workOrder->work_number} successfully updated"
-            ]);
         });
+
+        if (data_get($workOrder->getChanges(), 'user_id')) {
+            event(new JobAssignedEvent($workOrder));
+        }
+
+        return redirect()->route('gate.index')->with([
+            "status" => "success",
+            "message" => "Work order {$workOrder->work_number} successfully updated"
+        ]);
     }
 
     /**

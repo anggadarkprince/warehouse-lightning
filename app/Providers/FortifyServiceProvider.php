@@ -37,8 +37,9 @@ class FortifyServiceProvider extends ServiceProvider
             $user = User::where('email', $request->email)->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
-                $user->last_logged_in = Carbon::now();
-                $user->save();
+                // Handled with CaptureLastLoginListener
+                // $user->last_logged_in = Carbon::now();
+                // $user->save();
 
                 return $user;
             }
