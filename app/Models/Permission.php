@@ -31,10 +31,10 @@ class Permission extends Model
     const DOCUMENT_TYPE_EDIT = 'document-type-edit';
     const DOCUMENT_TYPE_DELETE = 'document-type-delete';
 
-    const BOOKING_TYPE_VIEW = 'booking-view';
-    const BOOKING_TYPE_CREATE = 'booking-create';
-    const BOOKING_TYPE_EDIT = 'booking-edit';
-    const BOOKING_TYPE_DELETE = 'booking-delete';
+    const BOOKING_TYPE_VIEW = 'booking-type-view';
+    const BOOKING_TYPE_CREATE = 'booking-type-create';
+    const BOOKING_TYPE_EDIT = 'booking-type-edit';
+    const BOOKING_TYPE_DELETE = 'booking-type-delete';
 
     const CUSTOMER_VIEW = 'customer-view';
     const CUSTOMER_CREATE = 'customer-create';

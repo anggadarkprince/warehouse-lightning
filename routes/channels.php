@@ -1,6 +1,7 @@
 <?php
 
 use App\Broadcasting\JobChannel;
+use App\Broadcasting\UploadChannel;
 use App\Models\WorkOrder;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -20,3 +21,4 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('job.assigned.{user}', JobChannel::class);
+Broadcast::channel('upload.validated', UploadChannel::class);

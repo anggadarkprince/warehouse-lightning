@@ -1,13 +1,14 @@
 import Echo from "laravel-echo";
 
 window.Pusher = require('pusher-js');
-window.Pusher.logToConsole = true;
+//window.Pusher.logToConsole = true;
+//const lang = document.documentElement.lang || 'en';
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: '4e81645806ddef0652b7',
     cluster: 'ap1',
-    authEndpoint: '/en/broadcasting/auth  '
+    //authEndpoint: `/${lang}/broadcasting/auth`
 });
 
 if ('Notification' in window) {
@@ -24,7 +25,10 @@ if ('Notification' in window) {
             if (result !== 'granted') {
                 console.log('No notification permission granted');
             } else {
-                displayNotification('Successfully subscribed!', 'You successfully subscribe to our notification service!');
+                displayNotification(
+                    'Successfully subscribed!',
+                    'You successfully subscribe to our notification service!'
+                );
             }
         });
     } else {
@@ -33,7 +37,19 @@ if ('Notification' in window) {
         window.Echo.private(`job.assigned.${userId}`)
             .listen('JobAssignedEvent', (e) => {
                 const workOrder = e.workOrder;
-                displayNotification('Job Assignment', `You are assigned to proceed Job ${workOrder.job_number} (${workOrder.job_type}), happy working!`);
+                displayNotification(
+                    'Job Assignment',
+                    `You are assigned to proceed Job ${workOrder.job_number} (${workOrder.job_type}), happy working!`
+                );
+            });
+
+        window.Echo.private(`upload.validated`)
+            .listen('UploadValidatedEvent', (e) => {
+                const upload = e.upload;
+                displayNotification(
+                    'Upload Validated',
+                    `Upload document number ${upload.upload_number} is validated and ready to be booked!`
+                );
             });
 
     }

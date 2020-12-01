@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UploadValidatedEvent;
 use App\Exports\CollectionExporter;
 use App\Http\Requests\SaveUploadRequest;
 use App\Http\Requests\UploadFileRequest;
@@ -258,6 +259,8 @@ class UploadController extends Controller
                 'description' => 'Validate upload documents'
             ]);
 
+            broadcast(new UploadValidatedEvent($upload))->toOthers();
+
             return redirect()->back()->with([
                 "status" => "success",
                 "message" => "Upload {$upload->upload_number} successfully validated and ready to booked"
@@ -269,7 +272,7 @@ class UploadController extends Controller
      * Download documents.
      *
      * @param Upload $upload
-     * @return BinaryFileResponse
+     * @return BinaryFileResponse|RedirectResponse
      */
     public function download(Upload $upload)
     {

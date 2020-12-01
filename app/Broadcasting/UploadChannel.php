@@ -2,9 +2,11 @@
 
 namespace App\Broadcasting;
 
+use App\Models\Booking;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
-class JobChannel
+class UploadChannel
 {
     /**
      * Create a new channel instance.
@@ -20,11 +22,10 @@ class JobChannel
      * Authenticate the user's access to the channel.
      *
      * @param User $user
-     * @param User $assignedTo
      * @return array|bool
      */
-    public function join(User $user, User $assignedTo)
+    public function join(User $user)
     {
-        return $user->id === $assignedTo->id;
+        return Gate::forUser($user)->allows('create', Booking::class);
     }
 }
