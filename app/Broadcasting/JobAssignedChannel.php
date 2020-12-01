@@ -4,7 +4,7 @@ namespace App\Broadcasting;
 
 use App\Models\User;
 
-class JobChannel
+class JobAssignedChannel
 {
     /**
      * Create a new channel instance.

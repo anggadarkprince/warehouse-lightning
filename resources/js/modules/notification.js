@@ -21,7 +21,6 @@ if ('Notification' in window) {
     }
     if (Notification.permission !== "granted") {
         Notification.requestPermission(function (result) {
-            console.log('User choice', result);
             if (result !== 'granted') {
                 console.log('No notification permission granted');
             } else {
@@ -49,6 +48,24 @@ if ('Notification' in window) {
                 displayNotification(
                     'Upload Validated',
                     `Upload document number ${upload.upload_number} is validated and ready to be booked!`
+                );
+            });
+
+        window.Echo.private(`booking.inbound.validated`)
+            .listen('BookingValidatedEvent', (e) => {
+                const booking = e.booking;
+                displayNotification(
+                    'Booking Validated',
+                    `Booking inbound ${booking.booking_number} (${booking.booking_type.booking_name}) is validated and ready to deliver!`
+                );
+            });
+
+        window.Echo.private(`booking.outbound.validated`)
+            .listen('BookingValidatedEvent', (e) => {
+                const booking = e.booking;
+                displayNotification(
+                    'Booking Validated',
+                    `Booking outbound ${booking.booking_number} (${booking.booking_type.booking_name}) is validated and ready to be loaded!`
                 );
             });
 

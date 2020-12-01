@@ -1,7 +1,8 @@
 <?php
 
-use App\Broadcasting\JobChannel;
-use App\Broadcasting\UploadChannel;
+use App\Broadcasting\BookingValidatedChannel;
+use App\Broadcasting\JobAssignedChannel;
+use App\Broadcasting\UploadValidatedChannel;
 use App\Models\WorkOrder;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -20,5 +21,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('job.assigned.{user}', JobChannel::class);
-Broadcast::channel('upload.validated', UploadChannel::class);
+Broadcast::channel('job.assigned.{user}', JobAssignedChannel::class);
+Broadcast::channel('upload.validated', UploadValidatedChannel::class);
+Broadcast::channel('booking.{type}.validated', BookingValidatedChannel::class);

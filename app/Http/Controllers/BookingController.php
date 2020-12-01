@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BookingValidatedEvent;
 use App\Exports\CollectionExporter;
 use App\Http\Requests\SaveBookingRequest;
 use App\Models\Booking;
@@ -341,6 +342,8 @@ class BookingController extends Controller
                 'status' => Booking::STATUS_VALIDATED,
                 'description' => 'Validate booking'
             ]);
+
+            broadcast(new BookingValidatedEvent($booking))->toOthers();
 
             return redirect()->back()->with([
                 "status" => "success",

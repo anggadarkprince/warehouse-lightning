@@ -6,7 +6,7 @@ use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 
-class UploadChannel
+class UploadValidatedChannel
 {
     /**
      * Create a new channel instance.
