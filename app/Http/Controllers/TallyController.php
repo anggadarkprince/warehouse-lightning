@@ -207,7 +207,7 @@ class TallyController extends Controller
                 'description' => $message ?: 'Job is rejected'
             ]);
 
-            $workOrder->user->notify((new WorkOrderRejected($workOrder, $message)));
+            $workOrder->user->notify(new WorkOrderRejected($workOrder, $message));
 
             return redirect()->route('tally.index')->with([
                 'status' => 'danger',

@@ -21,9 +21,12 @@ class GateController extends Controller
      * @param Request $request
      * @param CollectionExporter $exporter
      * @return View|BinaryFileResponse|StreamedResponse|RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request, CollectionExporter $exporter)
     {
+        $this->authorize('view-any', WorkOrder::class);
+
         $code = $request->get('code');
 
         if (!empty($code)) {

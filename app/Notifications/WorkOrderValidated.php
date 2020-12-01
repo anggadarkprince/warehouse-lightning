@@ -35,7 +35,17 @@ class WorkOrderValidated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return $notifiable->id == $this->workOrder->user_id ? ['mail', 'database', 'broadcast'] : [];
+    }
+
+    /**
+     * Get the type of the notification being broadcast.
+     *
+     * @return string
+     */
+    public function broadcastType()
+    {
+        return 'job.validated';
     }
 
     /**
@@ -54,7 +64,7 @@ class WorkOrderValidated extends Notification implements ShouldQueue
             ->greeting('Hi, ' . $notifiable->name)
             ->line('The job already validated, this process may change the stock.')
             ->line('Note: ' . $this->message ?: '-')
-            ->action('Open ' . config('app.name'), route('dashboard'))
+            ->action('Open ' . config('app.name'), route('dashboard', ['locale' => app_setting('app-language', app()->getLocale())]))
             ->attachData($this->workOrder->getPdf(), 'Work Order.pdf', [
                 'mime' => 'application/pdf',
             ]);
@@ -69,6 +79,8 @@ class WorkOrderValidated extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'customer' => $this->workOrder->booking->customer->customer_name,
+            'reference_number' => $this->workOrder->booking->reference_number,
             'job_number' => $this->workOrder->job_number,
             'job_type' => $this->workOrder->job_type,
             'taken_by' => $notifiable->name,

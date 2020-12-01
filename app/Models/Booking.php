@@ -189,7 +189,7 @@ class Booking extends Model implements HasOrderNumber, HasStatusLabel
             $orderPad = str_pad($query->first()->order_number, 6, '0', STR_PAD_LEFT);
         }
 
-        $prefix = empty($this->bookingType) ? 'B' : $this->bookingType->type == 'INBOUND' ? 'BI' : 'BO';
+        $prefix = empty($this->bookingType) ? 'B' : ($this->bookingType->type == 'INBOUND' ? 'BI' : 'BO');
 
         return $prefix . '-' . date('ym') . $orderPad;
     }

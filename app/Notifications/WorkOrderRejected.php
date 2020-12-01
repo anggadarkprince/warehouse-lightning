@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Models\WorkOrder;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -35,7 +36,17 @@ class WorkOrderRejected extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return $notifiable->id == $this->workOrder->user_id ? ['mail', 'database', 'broadcast'] : [];
+    }
+
+    /**
+     * Get the type of the notification being broadcast.
+     *
+     * @return string
+     */
+    public function broadcastType()
+    {
+        return 'job.rejected';
     }
 
     /**
@@ -55,7 +66,7 @@ class WorkOrderRejected extends Notification implements ShouldQueue
             ->greeting('Hi, ' . $notifiable->name)
             ->line('The job is rejected, please read note below if something need to be fixed.')
             ->line('Note: ' . $this->message ?: '-')
-            ->action('Open Job Queue', route('tally.index'))
+            ->action('Open Job Queue', route('tally.index', ['locale' => app_setting('app-language', app()->getLocale())]))
             ->attachData($this->workOrder->getPdf(), 'Work Order Rejected.pdf', [
                 'mime' => 'application/pdf',
             ]);
@@ -67,7 +78,7 @@ class WorkOrderRejected extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
             'job_number' => $this->workOrder->job_number,
@@ -76,5 +87,22 @@ class WorkOrderRejected extends Notification implements ShouldQueue
             'completed_at' => $this->workOrder->completed_at,
             'message' => $this->message
         ];
+    }
+
+    /**
+     * Broadcast information to user.
+     *
+     * @param $notifiable
+     * @return BroadcastMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'customer' => $this->workOrder->booking->customer->customer_name,
+            'job_number' => $this->workOrder->job_number,
+            'job_type' => $this->workOrder->job_type,
+            'taken_by' => $notifiable->name,
+            'message' => $this->message
+        ]);
     }
 }

@@ -33,6 +33,7 @@ if ('Notification' in window) {
     } else {
 
         const userId = document.head.querySelector('meta[name="user-id"]').content || 0;
+
         window.Echo.private(`job.assigned.${userId}`)
             .listen('JobAssignedEvent', (e) => {
                 const workOrder = e.workOrder;
@@ -69,6 +70,23 @@ if ('Notification' in window) {
                 );
             });
 
+        window.Echo.private('users.notification.' + userId)
+            .notification((notification) => {
+                switch (notification.type) {
+                    case 'job.rejected':
+                        displayNotification(
+                            'Work Order Rejected',
+                            `Job ${notification.job_number} (${notification.job_type}) rejected: ${notification.message || 'No message'}`
+                        );
+                        break;
+                    case 'job.validated':
+                        displayNotification(
+                            'Work Order Validated',
+                            `Job ${notification.job_number} (${notification.job_type}) is validated, stock may be changed`
+                        );
+                        break;
+                }
+            });
     }
 } else {
     console.log('Not support notification');
