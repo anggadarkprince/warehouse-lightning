@@ -13,6 +13,7 @@
     <meta name="description" content="{{ app_setting('app-description') }}">
     <meta name="keywords" content="{{ app_setting('app-keywords') }}">
     <meta name="author" content="{{ app_setting('app-title') }}">
+    <meta name="user-id" content="{{ auth()->id() }}">
 
     <title>{{ config('app.name', app_setting('app-title')) }}</title>
 

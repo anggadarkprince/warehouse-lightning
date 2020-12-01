@@ -11,6 +11,7 @@ require('./widgets/select');
 require('./modules/delete');
 require('./modules/confirm');
 require('./modules/form');
+require('./modules/notification');
 
 require('./pages/dashboard');
 require('./pages/document');

@@ -24,6 +24,7 @@ use App\Http\Controllers\UploadDocumentController;
 use App\Http\Controllers\UploadDocumentFileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkOrderController;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Broadcast::routes();
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');

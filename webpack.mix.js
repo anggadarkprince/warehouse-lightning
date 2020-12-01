@@ -23,4 +23,6 @@ mix.copyDirectory('resources/img', 'public/img');
 
 mix.version();
 
+mix.sourceMaps();
+
 mix.disableNotifications();
