@@ -23,20 +23,6 @@ class Upload extends Model implements HasStatusLabel, HasOrderNumber
     const STATUS_VALIDATED = 'VALIDATED';
 
     /**
-     * Bootstrap the model and its traits.
-     *
-     * @return void
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->upload_number = $model->getOrderNumber();
-        });
-    }
-
-    /**
      * Get the customer of the upload.
      */
     public function customer()

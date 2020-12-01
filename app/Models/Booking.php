@@ -52,20 +52,6 @@ class Booking extends Model implements HasOrderNumber, HasStatusLabel
     const STATUS_VALIDATED = 'VALIDATED';
 
     /**
-     * Bootstrap the model and its traits.
-     *
-     * @return void
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->booking_number = $model->getOrderNumber();
-        });
-    }
-
-    /**
      * Set arrival date.
      *
      * @param $cif

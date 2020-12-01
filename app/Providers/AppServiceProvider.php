@@ -8,6 +8,8 @@ use App\Models\Upload;
 use App\Models\WorkOrder;
 use App\Models\WorkOrderContainer;
 use App\Models\WorkOrderGoods;
+use App\Observers\BookingObserver;
+use App\Observers\UploadObserver;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,5 +40,8 @@ class AppServiceProvider extends ServiceProvider
             'reference-goods' => WorkOrderGoods::class,
             'take-stock' => TakeStock::class,
         ]);
+
+        Upload::observe(UploadObserver::class);
+        Booking::observe(BookingObserver::class);
     }
 }

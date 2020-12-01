@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout title="Dashboard">
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div>
             <h1 class="text-xl text-green-500">Dashboard</h1>
@@ -104,7 +102,7 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
 @section('libraries')
     <script>
         document.weeklyBooking = {!! json_encode($bookingWeekly->pluck('total')) !!}
