@@ -1,8 +1,8 @@
 <footer class="px-4 py-5 border-t mt-3 text-sm text-gray-600">
     <div class="sm:flex content-center justify-between">
         <span class="text-muted text-center sm:text-left">
-            Copyright &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" target="_blank" class="font-bold">{{ config('app.name') }}</a>
-            <span class="hidden sm:inline-block">all rights reserved.</span>
+            {{ __('Copyright') }} &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" target="_blank" class="font-bold">{{ config('app.name') }}</a>
+            <span class="hidden sm:inline-block">{{ __('all rights reserved') }}.</span>
         </span>
         <div>
             <ul class="inline-block list-none">
@@ -23,7 +23,7 @@
             </ul>
             <i class="mdi mdi-circle-medium inline-block mx-2"></i>
             <span class="text-center">
-                Made with <i class="mdi mdi-heart text-red-400"></i>
+                {{ __('Made with') }} <i class="mdi mdi-heart text-red-400"></i>
             </span>
         </div>
     </div>

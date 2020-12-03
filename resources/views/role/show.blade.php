@@ -3,27 +3,27 @@
 @section('content')
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="mb-3">
-            <h1 class="text-xl text-green-500">User Role</h1>
-            <p class="text-gray-400 leading-tight">Account role permission</p>
+            <h1 class="text-xl text-green-500">{{ __('User Role') }}</h1>
+            <p class="text-gray-400 leading-tight">{{ __('Account role permission') }}</p>
         </div>
         <div class="grid sm:grid-cols-2 sm:gap-4">
             <div>
                 <div class="flex mb-2">
-                    <p class="w-1/3">Role Name</p>
+                    <p class="w-1/3">{{ __('Role Name') }}</p>
                     <p class="text-gray-600">{{ $role->role }}</p>
                 </div>
                 <div class="flex mb-2">
-                    <p class="w-1/3">Description</p>
+                    <p class="w-1/3">{{ __('Description') }}</p>
                     <p class="text-gray-600">{{ $role->description }}</p>
                 </div>
             </div>
             <div>
                 <div class="flex mb-2">
-                    <p class="w-1/3">Created At</p>
+                    <p class="w-1/3">{{ __('Created At') }}</p>
                     <p class="text-gray-600">{{ optional($role->created_at)->format('d F Y H:i') ?: '-' }}</p>
                 </div>
                 <div class="flex mb-2">
-                    <p class="w-1/3">Updated At</p>
+                    <p class="w-1/3">{{ __('Updated At') }}</p>
                     <p class="text-gray-600">{{ optional($role->updated_at)->format('d F Y H:i') ?: '-' }}</p>
                 </div>
             </div>
@@ -32,8 +32,8 @@
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="mb-3">
-            <h1 class="text-xl text-green-500">Permission Access</h1>
-            <p class="text-gray-400 leading-tight">Choose what permission the role can do</p>
+            <h1 class="text-xl text-green-500">{{ __('Permission Access') }}</h1>
+            <p class="text-gray-400 leading-tight">{{ __('Choose what permission the role can do') }}</p>
         </div>
         <div>@foreach($permissions as $moduleName => $modules)
                 <h1 class="text-lg mt-4 mb-2 text-green-500">{{ ucwords(preg_replace('/(_|\-)/', ' ', $moduleName)) }}</h1>
@@ -53,11 +53,11 @@
     </div>
 
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
-        <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
+        <button type="button" onclick="history.back()" class="button-blue button-sm">{{ __('Back') }}</button>
         <div>
             @can('update', $role)
                 <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="button-primary button-sm">
-                    Edit
+                    {{ __('Edit') }}
                 </a>
             @endcan
             @can('delete', $role)

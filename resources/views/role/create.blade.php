@@ -5,8 +5,8 @@
         @csrf
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2">
-                <h1 class="text-xl text-green-500">Create Role</h1>
-                <p class="text-gray-400 leading-tight">Account role permission</p>
+                <h1 class="text-xl text-green-500">{{ __('Create Role') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Account role permission') }}</p>
             </div>
             <div class="py-2 space-y-4">
                 <div class="flex flex-wrap">
@@ -25,8 +25,8 @@
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-3">
-                <h1 class="text-xl text-green-500">Permission Access</h1>
-                <p class="text-gray-400 leading-tight">Choose what permission the role can do</p>
+                <h1 class="text-xl text-green-500">{{ __('Permission Access') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Choose what permission the role can do') }}</p>
             </div>
             <div>
                 @error('permissions') <p class="form-text-error">{{ $message }}</p> @enderror
@@ -51,8 +51,8 @@
             </div>
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
-            <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
-            <button type="submit" class="button-primary button-sm">Save Role</button>
+            <button type="button" onclick="history.back()" class="button-blue button-sm">{{ __('Back') }}</button>
+            <button type="submit" class="button-primary button-sm">{{ __('Save Role') }}</button>
         </div>
     </form>
 @endsection

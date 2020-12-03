@@ -4,8 +4,8 @@
     <div class="bg-white rounded shadow-sm py-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
-                <h1 class="text-xl text-green-500">User Role</h1>
-                <p class="text-gray-400 leading-tight">Account role permission</p>
+                <h1 class="text-xl text-green-500">{{ __('User Role') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Account role permission') }}</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -16,7 +16,7 @@
                 </a>
                 @can('create', \App\Models\Role::class)
                     <a href="{{ route('roles.create') }}" class="button-blue button-sm">
-                        Create <i class="mdi mdi-plus-box-outline"></i>
+                        {{ __('Create') }} <i class="mdi mdi-plus-box-outline"></i>
                     </a>
                 @endcan
             </div>
@@ -24,12 +24,12 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Role</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Permission Total</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Description</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Created At</th>
-                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Role') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Permission Total') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Description') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created At') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">{{ __('Action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -48,18 +48,18 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 @can('view', $role)
                                     <a href="{{ route('roles.show', ['role' => $role->id]) }}" class="dropdown-item">
-                                        <i class="mdi mdi-eye-outline mr-2"></i>View
+                                        <i class="mdi mdi-eye-outline mr-2"></i>{{ __('View') }}
                                     </a>
                                 @endcan
                                 @can('update', $role)
                                 <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="dropdown-item">
-                                    <i class="mdi mdi-square-edit-outline mr-2"></i>Edit
+                                    <i class="mdi mdi-square-edit-outline mr-2"></i>{{ __('Edit') }}
                                 </a>
                                 @endcan
                                 @can('delete', $role)
                                     <hr class="border-gray-200 my-1">
                                     <button type="button" data-href="{{ route('roles.destroy', ['role' => $role->id]) }}" data-label="{{ $role->role }}" class="dropdown-item confirm-delete">
-                                        <i class="mdi mdi-trash-can-outline mr-2"></i>Delete
+                                        <i class="mdi mdi-trash-can-outline mr-2"></i>{{ __('Delete') }}
                                     </button>
                                 @endcan
                             </div>
@@ -68,7 +68,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="p-2" colspan="5">No data available</td>
+                    <td class="p-2" colspan="5">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>
