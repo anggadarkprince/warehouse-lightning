@@ -79,6 +79,7 @@ class WorkOrderValidated extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'id' => $this->workOrder->id,
             'customer' => $this->workOrder->booking->customer->customer_name,
             'reference_number' => $this->workOrder->booking->reference_number,
             'job_number' => $this->workOrder->job_number,

@@ -42,6 +42,39 @@
         </div>
     </form>
     <ul class="list-none ml-auto">
+        <li class="inline-block py-2 cursor-pointer leading-7 align-top">
+            <div class="dropdown">
+                <button class="dropdown-toggle">
+                    <i class="mdi mdi-bell-outline px-3"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" style="min-width: 300px">
+                    @forelse(auth()->user()->unreadNotifications->take(5) as $notification)
+                        @if($notification->type == \App\Notifications\WorkOrderValidated::class)
+                            <a href="{{ route('notifications.show', ['id' => $notification->id]) }}" class="dropdown-item" style="white-space: normal">
+                                <div class="flex flex-row">
+                                    <i class="text-2xl mdi mdi-file-check-outline mr-2 text-green-500"></i>
+                                    <div>
+                                        <p class="leading-tight">
+                                            Job <span class="lowercase">{{ data_get($notification->data, 'job_type') }}</span>
+                                            {{ data_get($notification->data, 'job_number') }} is validated
+                                        </p>
+                                        <p class="text-xs text-gray-500 leading-loose">
+                                            {{ $notification->created_at->diffForHumans() }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+                    @empty
+                        <p class="dropdown-item">No new notification available.</p>
+                    @endforelse
+                    <hr class="divide-gray-200">
+                    <a href="{{ route('notifications.index') }}" class="flex justify-between px-4 pt-2 font-bold hover:text-green-500">
+                        <p class="text-sm">View all notifications</p> <i class="mdi mdi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </li>
         <li class="inline-block py-2 px-3 cursor-pointer leading-7 align-top">
             <div class="dropdown">
                 <button class="dropdown-toggle">

@@ -13,6 +13,7 @@ use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\GateController;
 use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
@@ -73,6 +74,8 @@ Route::get('login/facebook/callback', [LoginController::class, 'handleFacebookCa
 
 Route::middleware(['auth'])->group(function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('notifications/{id}', [NotificationController::class, 'show'])->name('notifications.show');
 
     Route::middleware('password.confirm')->group(function() {
         Route::get('account', [AccountController::class, 'index'])->name('account');

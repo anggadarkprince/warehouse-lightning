@@ -81,6 +81,7 @@ class WorkOrderRejected extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
+            'id' => $this->workOrder->id,
             'job_number' => $this->workOrder->job_number,
             'job_type' => $this->workOrder->job_type,
             'taken_by' => $notifiable->name,
@@ -98,6 +99,7 @@ class WorkOrderRejected extends Notification implements ShouldQueue
     public function toBroadcast($notifiable)
     {
         return new BroadcastMessage([
+            'id' => $this->workOrder->id,
             'customer' => $this->workOrder->booking->customer->customer_name,
             'job_number' => $this->workOrder->job_number,
             'job_type' => $this->workOrder->job_type,
