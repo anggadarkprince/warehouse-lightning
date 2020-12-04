@@ -18,7 +18,7 @@ class NotificationController extends Controller
      */
     public function index(Request $request)
     {
-        $notifications = $request->user()->notifications->sort(function ($a, $b) {
+        $notifications = $request->user()->notifications()->take(100)->get()->sort(function ($a, $b) {
             return [$a->created_at, $b->read_at] <=> [$b->read_at, $a->created_at];
         });
 
@@ -46,5 +46,21 @@ class NotificationController extends Controller
             }
         }
         return redirect()->route('notifications.index');
+    }
+
+    /**
+     * Mark all notification as read.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function readAll(Request $request)
+    {
+        $request->user()->unreadNotifications->markAsRead();
+
+        return redirect()->route('notifications.index')->with([
+            'status' => 'success',
+            'message' => 'All notification mark all as read'
+        ]);
     }
 }

@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="bg-white rounded shadow-sm py-4 mb-4">
-        <div class="flex justify-between items-center mb-2 px-6">
+        <div class="flex justify-between items-center items-center px-6">
             <div>
                 <h1 class="text-xl text-green-500">{{ __('Notification') }}</h1>
                 <p class="text-gray-400 leading-tight">Showing user notification</p>
             </div>
             <div>
-                <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
-                    <i class="mdi mdi-tune-vertical-variant"></i>
-                </button>
+                <a href="{{ route('notifications.read-all') }}" class="text-link">
+                    Mark all as read
+                </a>
             </div>
         </div>
     </div>

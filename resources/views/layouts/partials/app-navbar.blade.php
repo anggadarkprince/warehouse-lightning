@@ -66,7 +66,7 @@
                             </a>
                         @endif
                     @empty
-                        <p class="dropdown-item">No new notification available.</p>
+                        <p class="px-4 pt-1 pb-2">No new notification available.</p>
                     @endforelse
                     <hr class="divide-gray-200">
                     <a href="{{ route('notifications.index') }}" class="flex justify-between px-4 pt-2 font-bold hover:text-green-500">

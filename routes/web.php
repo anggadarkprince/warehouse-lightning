@@ -75,6 +75,7 @@ Route::get('login/facebook/callback', [LoginController::class, 'handleFacebookCa
 Route::middleware(['auth'])->group(function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
     Route::get('notifications/{id}', [NotificationController::class, 'show'])->name('notifications.show');
 
     Route::middleware('password.confirm')->group(function() {

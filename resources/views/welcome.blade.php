@@ -56,7 +56,7 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex sm:block" style="text-align: center; flex-direction: column; justify-content: center">
-                    <h1 style="margin-bottom: 0">{{ app_setting(\App\Models\Setting::APP_TITLE, config('app.name')) }}</h1>
+                    <h1 style="margin-bottom: 0">{{ app_setting(\App\Models\Setting::APP_TITLE, 'Warehouse') }}</h1>
                     <p style="margin-top: 0">{{ app_setting(\App\Models\Setting::APP_TAGLINE, 'Inventory management system') }}</p>
                 </div>
 
