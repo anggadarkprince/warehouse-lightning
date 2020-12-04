@@ -5,8 +5,8 @@
         @csrf
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-2">
-                <h1 class="text-xl text-green-500">Create Goods</h1>
-                <p class="text-gray-400 leading-tight">Manage all item</p>
+                <h1 class="text-xl text-green-500">{{ __('Create Goods') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Manage all item') }}</p>
             </div>
             <div class="py-2">
                 <div class="sm:flex -mx-2">
@@ -82,8 +82,8 @@
             </div>
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
-            <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
-            <button type="submit" class="button-primary button-sm">Save Item</button>
+            <button type="button" onclick="history.back()" class="button-blue button-sm">{{ __('Back') }}</button>
+            <button type="submit" class="button-primary button-sm">{{ __('Save Item') }}</button>
         </div>
     </form>
 @endsection

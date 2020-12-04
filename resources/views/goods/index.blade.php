@@ -4,8 +4,8 @@
     <div class="bg-white rounded shadow-sm py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
-                <h1 class="text-xl text-green-500">Goods</h1>
-                <p class="text-gray-400 leading-tight">Manage all item</p>
+                <h1 class="text-xl text-green-500">{{ __('Goods') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Manage all item') }}</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -24,12 +24,12 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Item Name</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Item Number</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Unit Name</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Unit Package</th>
-                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Item Name') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Item Number') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Unit Name') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Unit Package') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">{{ __('Action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -43,23 +43,23 @@
                     <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
-                                Action <i class="mdi mdi-chevron-down"></i>
+                                {{ __('Action') }} <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 @can('view', $item)
                                     <a href="{{ route('goods.show', ['goods' => $item->id]) }}" class="dropdown-item">
-                                        <i class="mdi mdi-eye-outline mr-2"></i>View
+                                        <i class="mdi mdi-eye-outline mr-2"></i>{{ __('View') }}
                                     </a>
                                 @endcan
                                 @can('update', $item)
                                     <a href="{{ route('goods.edit', ['goods' => $item->id]) }}" class="dropdown-item">
-                                        <i class="mdi mdi-square-edit-outline mr-2"></i>Edit
+                                        <i class="mdi mdi-square-edit-outline mr-2"></i>{{ __('Edit') }}
                                     </a>
                                 @endcan
                                 @can('delete', $item)
                                     <hr class="border-gray-200 my-1">
                                     <button type="button" data-href="{{ route('goods.destroy', ['goods' => $item->id]) }}" data-label="{{ $item->item_name }}" class="dropdown-item confirm-delete">
-                                        <i class="mdi mdi-trash-can-outline mr-2"></i>Delete
+                                        <i class="mdi mdi-trash-can-outline mr-2"></i>{{ __('Delete') }}
                                     </button>
                                 @endcan
                             </div>
@@ -68,7 +68,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="p-2" colspan="6">No data available</td>
+                    <td class="p-2" colspan="6">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>

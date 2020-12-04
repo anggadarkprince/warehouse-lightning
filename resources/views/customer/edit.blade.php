@@ -6,8 +6,8 @@
         @method('put')
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-3">
-                <h1 class="text-xl text-green-500">Edit Customer</h1>
-                <p class="text-gray-400 leading-tight">Manage all customer</p>
+                <h1 class="text-xl text-green-500">{{ __('Edit Customer') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Manage all customer') }}</p>
             </div>
             <div class="py-2">
                 <div class="sm:flex -mx-2">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="px-2 sm:w-1/2">
                         <div class="flex flex-wrap mb-3 sm:mb-4">
-                            <label for="customer_number" class="form-label">{{ __('Customer ID Number') }}</label>
+                            <label for="customer_number" class="form-label">{{ __('Customer ID') }}</label>
                             <input id="customer_number" name="customer_number" type="text" class="form-input @error('customer_number') border-red-500 @enderror"
                                    placeholder="Customer number" value="{{ old('customer_number', $customer->customer_number) }}">
                             @error('customer_number') <p class="form-text-error">{{ $message }}</p> @enderror
@@ -67,8 +67,8 @@
             </div>
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
-            <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
-            <button type="submit" class="button-orange button-sm">Update Customer</button>
+            <button type="button" onclick="history.back()" class="button-blue button-sm">{{ __('Back') }}</button>
+            <button type="submit" class="button-orange button-sm">{{ __('Update Customer') }}</button>
         </div>
     </form>
 @endsection

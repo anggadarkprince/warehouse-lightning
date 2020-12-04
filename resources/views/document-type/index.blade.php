@@ -4,8 +4,8 @@
     <div class="bg-white rounded shadow-sm py-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
-                <h1 class="text-xl text-green-500">Document Type</h1>
-                <p class="text-gray-400 leading-tight">Manage all document type</p>
+                <h1 class="text-xl text-green-500">{{ __('Document Type') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Manage all document type') }}</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter">
@@ -16,7 +16,7 @@
                 </a>
                 @can('create', \App\Models\DocumentType::class)
                     <a href="{{ route('document-types.create') }}" class="button-blue button-sm">
-                        Create <i class="mdi mdi-plus-box-outline"></i>
+                        {{ __('Create') }} <i class="mdi mdi-plus-box-outline"></i>
                     </a>
                 @endcan
             </div>
@@ -24,11 +24,11 @@
         <table class="table-auto w-full mb-4">
             <thead>
             <tr>
-                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Document Type</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Description</th>
-                <th class="border-b border-t border-gray-200 p-2 text-left">Created At</th>
-                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Document Type') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Description') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Created At') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 text-right">{{ __('Action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -41,23 +41,23 @@
                     <td class="px-2 py-1 text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
-                                Action <i class="mdi mdi-chevron-down"></i>
+                                {{ __('Action') }} <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 @can('view', $documentType)
                                     <a href="{{ route('document-types.show', ['document_type' => $documentType->id]) }}" class="dropdown-item">
-                                        <i class="mdi mdi-eye-outline mr-2"></i>View
+                                        <i class="mdi mdi-eye-outline mr-2"></i>{{ __('View') }}
                                     </a>
                                 @endcan
                                 @can('update', $documentType)
                                 <a href="{{ route('document-types.edit', ['document_type' => $documentType->id]) }}" class="dropdown-item">
-                                    <i class="mdi mdi-square-edit-outline mr-2"></i>Edit
+                                    <i class="mdi mdi-square-edit-outline mr-2"></i>{{ __('Edit') }}
                                 </a>
                                 @endcan
                                 @can('delete', $documentType)
                                     <hr class="border-gray-200 my-1">
                                     <button type="button" data-href="{{ route('document-types.destroy', ['document_type' => $documentType->id]) }}" data-label="{{ $documentType->document_name }}" class="dropdown-item confirm-delete">
-                                        <i class="mdi mdi-trash-can-outline mr-2"></i>Delete
+                                        <i class="mdi mdi-trash-can-outline mr-2"></i>{{ __('Delete') }}
                                     </button>
                                 @endcan
                             </div>
@@ -66,7 +66,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="p-2" colspan="5">No data available</td>
+                    <td class="p-2" colspan="5">{{ __('No data available') }}</td>
                 </tr>
             @endforelse
             </tbody>

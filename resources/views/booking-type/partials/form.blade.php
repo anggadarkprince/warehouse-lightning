@@ -14,10 +14,10 @@
                 <div class="w-full">
                     <select class="form-input select-choice pr-8" name="type" id="type" data-search-enable="false">
                         <option value="INBOUND"{{ old('type', optional($bookingType)->type) == 'INBOUND' ? 'selected' : '' }}>
-                            INBOUND
+                            {{ __('INBOUND') }}
                         </option>
                         <option value="OUTBOUND"{{ old('type', optional($bookingType)->type) == 'OUTBOUND' ? 'selected' : '' }}>
-                            OUTBOUND
+                            {{ __('OUTBOUND') }}
                         </option>
                     </select>
                 </div>

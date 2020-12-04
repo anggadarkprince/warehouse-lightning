@@ -66,11 +66,11 @@
                             </a>
                         @endif
                     @empty
-                        <p class="px-4 pt-1 pb-2">No new notification available.</p>
+                        <p class="px-4 pt-1 pb-2">{{ __('No new notification available') }}.</p>
                     @endforelse
                     <hr class="divide-gray-200">
                     <a href="{{ route('notifications.index') }}" class="flex justify-between px-4 pt-2 font-bold hover:text-green-500">
-                        <p class="text-sm">View all notifications</p> <i class="mdi mdi-arrow-right"></i>
+                        <p class="text-sm">{{ __('View all notifications') }}</p> <i class="mdi mdi-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -82,20 +82,20 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="{{ route('dashboard') }}" class="dropdown-item">
-                        <i class="mdi mdi-speedometer mr-2"></i>Dashboard
+                        <i class="mdi mdi-speedometer mr-2"></i>{{ __('Dashboard') }}
                     </a>
                     <a href="{{ route('welcome') }}" class="dropdown-item">
-                        <i class="mdi mdi-home-outline mr-2"></i>Back Home
+                        <i class="mdi mdi-home-outline mr-2"></i>{{ __('Back Home') }}
                     </a>
                     @can('edit-account', \App\Models\User::class)
                         <a href="{{ route('account') }}" class="dropdown-item">
-                            <i class="mdi mdi-account-outline mr-2"></i>Account
+                            <i class="mdi mdi-account-outline mr-2"></i>{{ __('Account') }}
                         </a>
                     @endcan
                     @auth
                         <hr class="border-gray-200">
                         <a class="dropdown-item cursor-pointer" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="mdi mdi-logout-variant mr-2"></i>Sign Out
+                            <i class="mdi mdi-logout-variant mr-2"></i>{{ __('Sign Out') }}
                         </a>
                     @endauth
                 </div>

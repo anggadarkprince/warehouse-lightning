@@ -6,8 +6,8 @@
         @method('put')
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-3">
-                <h1 class="text-xl text-green-500">Edit User</h1>
-                <p class="text-gray-400 leading-tight">Manage all user account</p>
+                <h1 class="text-xl text-green-500">{{ __('Edit User') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Manage all user account') }}</p>
             </div>
             <div class="pt-2">
                 <div class="sm:flex -mx-2">
@@ -50,8 +50,8 @@
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-4">
-                <h1 class="text-xl text-green-500">Avatar</h1>
-                <p class="text-gray-400 leading-tight">Choose photo of user</p>
+                <h1 class="text-xl text-green-500">{{ __('Avatar') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Choose photo of user') }}</p>
             </div>
             <div class="sm:flex items-center pb-3 input-file-wrapper">
                 <div class="bg-gray-400 inline-block mr-4 mb-3 sm:mb-0 rounded-md flex-shrink-0">
@@ -62,7 +62,7 @@
                     <div class="relative">
                         <input class="input-file button-primary absolute block hidden top-0" data-target-preview="#image-avatar" type="file" name="avatar" id="avatar" accept="image/*">
                         <label for="avatar" class="button-choose-file button-primary py-2 px-4 rounded-tl-none rounded-bl-none border border-transparent cursor-pointer">
-                            Choose File
+                            {{ __('Choose File') }}
                         </label>
                     </div>
                 </div>
@@ -71,8 +71,8 @@
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
             <div class="mb-3">
-                <h1 class="text-xl text-green-500">Role Access</h1>
-                <p class="text-gray-400 leading-tight">Choose what role user is owned</p>
+                <h1 class="text-xl text-green-500">{{ __('Role Access') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Choose what role user is owned') }}</p>
             </div>
             <div class="pb-3">
                 @error('roles') <p class="form-text-error">{{ $message }}</p> @enderror
@@ -88,8 +88,8 @@
             </div>
         </div>
         <div class="bg-white rounded shadow-sm px-6 py-4 mb-4 flex justify-between">
-            <button type="button" onclick="history.back()" class="button-blue button-sm">Back</button>
-            <button type="submit" class="button-orange button-sm">Update User</button>
+            <button type="button" onclick="history.back()" class="button-blue button-sm">{{ __('Back') }}</button>
+            <button type="submit" class="button-orange button-sm">{{ __('Update User') }}</button>
         </div>
     </form>
 @endsection

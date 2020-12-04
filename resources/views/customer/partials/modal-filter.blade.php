@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="border-b border-gray-200 pb-3">
             <span class="close dismiss-modal">&times;</span>
-            <h3 class="text-xl">Filters</h3>
+            <h3 class="text-xl">{{ __('Filters') }}</h3>
         </div>
         <form action="{{ url()->current() }}" method="get" class="pt-3 space-y-4">
             <div class="flex flex-wrap">
@@ -41,12 +41,12 @@
                 <div class="flex flex-wrap">
                     <label for="sort_method" class="form-label">{{ __('Sort Method') }}</label>
                     <div class="relative w-full">
-                        <select class="form-input pr-8" name="sort_method" id="order_method">
+                        <select class="form-input pr-8" name="sort_method" id="sort_method">
                             <option value="desc"{{ request()->get('sort_method') == 'desc' ? 'selected' : '' }}>
-                                Descending
+                                {{ __('Descending') }}
                             </option>
                             <option value="asc"{{ request()->get('sort_method') == 'asc' ? 'selected' : '' }}>
-                                Ascending
+                                {{ __('Ascending') }}
                             </option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -76,9 +76,9 @@
                 </div>
             </div>
             <div class="border-t border-gray-200 text-right pt-4">
-                <a href="{{ url()->current() }}" class="button-light button-sm dismiss-modal px-5">Reset</a>
-                <button type="button" class="button-light button-sm dismiss-modal px-5">Close</button>
-                <button type="submit" class="button-primary button-sm px-5">Apply</button>
+                <a href="{{ url()->current() }}" class="button-light button-sm dismiss-modal px-5">{{ __('Reset') }}</a>
+                <button type="button" class="button-light button-sm dismiss-modal px-5">{{ __('Close') }}</button>
+                <button type="submit" class="button-primary button-sm px-5">{{ __('Apply') }}</button>
             </div>
         </form>
     </div>

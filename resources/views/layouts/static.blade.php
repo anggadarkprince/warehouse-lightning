@@ -44,11 +44,11 @@
             </div>
             <div class="text-gray-700">
                 @auth
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
                 @else
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
                     @if (Route::has('register') && app_setting(\App\Models\Setting::MANAGEMENT_REGISTRATION, true))
-                        <a href="{{ route('register') }}" class="ml-4">Register</a>
+                        <a href="{{ route('register') }}" class="ml-4">{{ __('Register') }}</a>
                     @endif
                 @endif
             </div>
@@ -61,16 +61,16 @@
         <div class="mx-auto sm:container lg:px-40">
             <div class="sm:flex content-center justify-between">
                 <div class="text-muted text-center sm:text-left">
-                    Copyright &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" target="_blank" class="font-bold hover:text-green-500">{{ config('app.name') }}</a>
-                    <span class="hidden sm:inline-block">all rights reserved.</span>
+                    {{ __('Copyright') }} &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" target="_blank" class="font-bold hover:text-green-500">{{ config('app.name') }}</a>
+                    <span class="hidden sm:inline-block">{{ __('all rights reserved') }}.</span>
                 </div>
                 <ul class="hidden text-center md:inline-block">
-                    <li class="inline-block px-1"><a href="{{ route('welcome') }}" class="hover:text-green-500">Home</a></li>
-                    <li class="inline-block px-1"><a href="{{ route('legals.index') }}" class="hover:text-green-500">Legals</a></li>
-                    <li class="inline-block px-1"><a href="{{ route('legals.cookie') }}" class="hover:text-green-500">Cookie</a></li>
-                    <li class="inline-block px-1"><a href="{{ route('legals.privacy') }}" class="hover:text-green-500">Privacy</a></li>
-                    <li class="inline-block px-1"><a href="{{ route('legals.agreement') }}" class="hover:text-green-500">Agreement</a></li>
-                    <li class="inline-block px-1"><a href="{{ route('legals.sla') }}" class="hover:text-green-500">SLA</a></li>
+                    <li class="inline-block px-1"><a href="{{ route('welcome') }}" class="hover:text-green-500">{{ __('Home') }}</a></li>
+                    <li class="inline-block px-1"><a href="{{ route('legals.index') }}" class="hover:text-green-500">{{ __('Legals') }}</a></li>
+                    <li class="inline-block px-1"><a href="{{ route('legals.cookie') }}" class="hover:text-green-500">{{ __('Cookie') }}</a></li>
+                    <li class="inline-block px-1"><a href="{{ route('legals.privacy') }}" class="hover:text-green-500">{{ __('Privacy') }}</a></li>
+                    <li class="inline-block px-1"><a href="{{ route('legals.agreement') }}" class="hover:text-green-500">{{ __('Agreement') }}</a></li>
+                    <li class="inline-block px-1"><a href="{{ route('legals.sla') }}" class="hover:text-green-500">{{ __('SLA') }}</a></li>
                 </ul>
             </div>
         </div>
