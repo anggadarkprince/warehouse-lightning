@@ -26,7 +26,7 @@
 
 @servers(['web' => $server])
 
-@task('init')
+@task('init', ['on' => 'web', 'confirm' => true])
     if [ ! -d {{ $path }}/current ]; then
         cd {{ $path }}
         git clone {{ $repo }} --branch={{ $branch }} --depth=1 -q {{ $release }}
@@ -127,6 +127,11 @@ health_check
     echo "Queue restarted"
     ln -nfs {{ $release }} {{ $path }}/current
     echo "Deployment ({{ $date }}) finished"
+@endtask
+
+@task('reload_services', ['on' => 'web'])
+    echo "Restarting service supervisor"
+    sudo supervisorctl restart all
 @endtask
 
 @task('deployment_cleanup')
