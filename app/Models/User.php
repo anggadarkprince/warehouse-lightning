@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, BasicFilter, Searchable, TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable, BasicFilter, Searchable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
