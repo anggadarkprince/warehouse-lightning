@@ -21,26 +21,26 @@
                 @endcan
             </div>
         </div>
-        <table class="table-auto w-full mb-4">
+        <table class="table-auto w-full mb-4 table-responsive">
             <thead>
             <tr>
-                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12 md:text-center">{{ __('No') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Item Name') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Item Number') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Unit Name') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Unit Package') }}</th>
-                <th class="border-b border-t border-gray-200 p-2 text-right">{{ __('Action') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 md:text-right">{{ __('Action') }}</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($goods as $index => $item)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1 md:text-center">{{ $index + 1 }}</td>
                     <td class="px-2 py-1">{{ $item->item_name }}</td>
                     <td class="px-2 py-1">{{ $item->item_number ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $item->unit_name ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $item->package_name ?: '-' }}</td>
-                    <td class="px-2 py-1 text-right">
+                    <td class="px-2 py-1 md:text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 {{ __('Action') }} <i class="mdi mdi-chevron-down"></i>

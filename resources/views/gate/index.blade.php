@@ -23,23 +23,23 @@
                 @endcan
             </div>
         </div>
-        <table class="table-auto w-full mb-4">
+        <table class="table-auto w-full mb-4 table-responsive">
             <thead>
             <tr>
-                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12 md:text-center">No</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Job Number</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Booking</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Customer</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Assigned To</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Completed At</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Status</th>
-                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 md:text-right">Action</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($workOrders as $index => $workOrder)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1 md:text-center">{{ $index + 1 }}</td>
                     <td class="px-2 py-1">
                         <p>{{ $workOrder->job_number }}</p>
                         <p class="text-gray-500 text-xs leading-tight">{{ $workOrder->job_type }}</p>
@@ -60,7 +60,7 @@
                             {{ $workOrder->status }}
                         </span>
                     </td>
-                    <td class="px-2 py-1 text-right">
+                    <td class="px-2 py-1 md:text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>

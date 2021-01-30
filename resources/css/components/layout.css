@@ -3,7 +3,7 @@ body {
 }
 
 #content-wrapper {
-    min-width: 100vw;
+    min-width: 100%;
 }
 
 #sidebar-wrapper {

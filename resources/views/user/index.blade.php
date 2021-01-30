@@ -21,21 +21,21 @@
                 @endcan
             </div>
         </div>
-        <table class="table-auto w-full mb-4">
+        <table class="table-auto w-full mb-4 table-responsive">
             <thead>
             <tr>
-                <th class="border-b border-t border-gray-200 p-2 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12 md:text-center">{{ __('No') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Name') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Email') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Roles') }}</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">{{ __('Last Login') }}</th>
-                <th class="border-b border-t border-gray-200 p-2 text-right">{{ __('Action') }}</th>
+                <th class="border-b border-t border-gray-200 p-2 md:text-right">{{ __('Action') }}</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($users as $index => $user)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1 md:text-center">{{ $index + 1 }}</td>
                     <td class="px-2 py-1">
                         <div class="flex items-center my-1">
                             <div class="bg-gray-400 h-10 w-10 inline-block mr-2 rounded-md">
@@ -53,7 +53,7 @@
                         @endif
                     </td>
                     <td class="px-2 py-1">{{ optional($user->last_logged_in)->format('d M Y H:i') ?: '-' }}</td>
-                    <td class="px-2 py-1 text-right">
+                    <td class="px-2 py-1 md:text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 {{ __('Action') }} <i class="mdi mdi-chevron-down"></i>

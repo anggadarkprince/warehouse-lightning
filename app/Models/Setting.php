@@ -55,6 +55,6 @@ class Setting extends Model
             }
 
             return $result->setting_value ?: $default;
-        });
+        }) ?: $default;
     }
 }

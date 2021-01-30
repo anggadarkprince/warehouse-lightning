@@ -7,6 +7,7 @@ require('./widgets/input-file');
 require('./widgets/input-numeric');
 require('./widgets/datepicker');
 require('./widgets/select');
+require('./widgets/table');
 
 require('./modules/delete');
 require('./modules/confirm');

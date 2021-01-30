@@ -21,26 +21,26 @@
                 @endcan
             </div>
         </div>
-        <table class="table-auto w-full mb-4">
+        <table class="table-auto w-full mb-4 table-responsive">
             <thead>
             <tr>
-                <th class="border-b border-t p-2 border-gray-200 w-12">{{ __('No') }}</th>
+                <th class="border-b border-t p-2 border-gray-200 w-12 md:text-center">{{ __('No') }}</th>
                 <th class="border-b border-t p-2 border-gray-200 text-left">{{ __('Booking Name') }}</th>
                 <th class="border-b border-t p-2 border-gray-200 text-left">{{ __('Type') }}</th>
                 <th class="border-b border-t p-2 border-gray-200 text-left">{{ __('Description') }}</th>
                 <th class="border-b border-t p-2 border-gray-200 text-left">{{ __('Created At') }}</th>
-                <th class="border-b border-t p-2 border-gray-200 text-right">{{ __('Action') }}</th>
+                <th class="border-b border-t p-2 border-gray-200 md:text-right">{{ __('Action') }}</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($bookingTypes as $index => $bookingType)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1 md:text-center">{{ $index + 1 }}</td>
                     <td class="px-2 py-1">{{ $bookingType->booking_name }}</td>
                     <td class="px-2 py-1">{{ $bookingType->type }}</td>
                     <td class="px-2 py-1">{{ $bookingType->description ?: '-' }}</td>
                     <td class="px-2 py-1">{{ optional($bookingType->created_at)->format('d F Y H:i') }}</td>
-                    <td class="px-2 py-1 text-right">
+                    <td class="px-2 py-1 md:text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>

@@ -5,6 +5,7 @@
 @import "components/typography.css";
 @import "components/alert.css";
 @import "components/modal.css";
+@import "components/table.css";
 
 @import "vendors/litepicker.css";
 @import "vendors/choices.css";

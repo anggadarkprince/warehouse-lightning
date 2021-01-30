@@ -21,23 +21,23 @@
                 @endcan
             </div>
         </div>
-        <table class="table-auto w-full mb-4">
+        <table class="table-auto w-full mb-4 table-responsive">
             <thead>
             <tr>
-                <th class="border-b border-t border-gray-200 p-2 w-12">No</th>
+                <th class="border-b border-t border-gray-200 p-2 w-12 md:text-center">No</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Delivery Number</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Type</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Booking</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Customer</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Delivery Date</th>
                 <th class="border-b border-t border-gray-200 p-2 text-left">Driver</th>
-                <th class="border-b border-t border-gray-200 p-2 text-right">Action</th>
+                <th class="border-b border-t border-gray-200 p-2 md:text-right">Action</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($deliveryOrders as $index => $deliveryOrder)
                 <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : '' }}">
-                    <td class="px-2 py-1 text-center">{{ $index + 1 }}</td>
+                    <td class="px-2 py-1 md:text-center">{{ $index + 1 }}</td>
                     <td class="px-2 py-1">{{ $deliveryOrder->delivery_number }}</td>
                     <td class="px-2 py-1">{{ $deliveryOrder->type }}</td>
                     <td class="px-2 py-1">
@@ -51,7 +51,7 @@
                     <td class="px-2 py-1">{{ $deliveryOrder->booking->customer->customer_name ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $deliveryOrder->delivery_date->format('d F Y') }}</td>
                     <td class="px-2 py-1">{{ $deliveryOrder->driver_name ?: '-' }}</td>
-                    <td class="px-2 py-1 text-right">
+                    <td class="px-2 py-1 md:text-right">
                         <div class="dropdown">
                             <button class="dropdown-toggle button-primary button-sm">
                                 Action <i class="mdi mdi-chevron-down"></i>
