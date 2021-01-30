@@ -16,7 +16,7 @@
                 </a>
                 @can('create', \App\Models\Goods::class)
                     <a href="{{ route('goods.create') }}" class="button-blue button-sm">
-                        Create <i class="mdi mdi-plus-box-outline"></i>
+                        {{ __('Create') }} <i class="mdi mdi-plus-box-outline"></i>
                     </a>
                 @endcan
             </div>

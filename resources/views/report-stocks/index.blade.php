@@ -4,8 +4,8 @@
     <div class="bg-white rounded shadow-sm py-4 mb-4">
         <div class="flex justify-between items-center mb-3 px-6">
             <div>
-                <h1 class="text-xl text-green-500">Stock Containers</h1>
-                <p class="text-gray-400 leading-tight">Show container stock data</p>
+                <h1 class="text-xl text-green-500">{{ __('Stock Containers') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Show container stock data') }}</p>
             </div>
             <div>
                 <button class="button-blue button-sm modal-toggle" data-modal="#modal-filter-container">

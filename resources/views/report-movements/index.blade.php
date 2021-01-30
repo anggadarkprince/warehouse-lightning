@@ -4,8 +4,8 @@
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="flex justify-between items-center mb-3">
             <div>
-                <h1 class="text-xl text-green-500">Stock Movement</h1>
-                <p class="text-gray-400 leading-tight">Show activity stock data</p>
+                <h1 class="text-xl text-green-500">{{ __('Stock Movement') }}</h1>
+                <p class="text-gray-400 leading-tight">{{ __('Show activity stock data') }}</p>
             </div>
             <div>
                 <a href="{{ request()->fullUrlWithQuery(['export' => 1]) }}" class="button-blue button-sm text-center">

@@ -4,14 +4,14 @@
     <div class="bg-white rounded shadow-sm px-6 py-4 mb-4">
         <div class="flex justify-between items-center mb-3">
             <div>
-                <h1 class="text-xl text-green-500">Proceed Job</h1>
+                <h1 class="text-xl text-green-500">{{ __('Proceed Job') }}</h1>
                 <span class="text-gray-400 leading-tight block">Proceeding {{ strtolower($workOrder->job_type) }} job type</span>
             </div>
             <div>
                 <button data-href="{{ route('tally.release-job', ['work_order' => $workOrder->id]) }}"
                         data-label="{{ $workOrder->job_number }}"
                         data-action="Release Job"  class="button-red button-sm confirm-submission">
-                    Release Job
+                    {{ __('Release Job') }}
                 </button>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 'goodsSourceUrl' => route('bookings.goods.index', ['booking' => $workOrder->booking_id]),
             ])
             @break
-        @default <div class="border-2 rounded border-dashed px-3 py-2 mb-4 text-gray-600">Unrecognized job type of the order</div>
+        @default <div class="border-2 rounded border-dashed px-3 py-2 mb-4 text-gray-600">{{ __('Unrecognized job type of the order') }}</div>
     @endswitch
 
     @include('partials.modal-confirm')

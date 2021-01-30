@@ -19,7 +19,7 @@
                         Import <i class="mdi mdi-import"></i>
                     </a>
                     <a href="{{ route('bookings.create') }}" class="button-blue button-sm">
-                        Create <i class="mdi mdi-plus-box-outline"></i>
+                        {{ __('Create') }} <i class="mdi mdi-plus-box-outline"></i>
                     </a>
                 @endcan
             </div>

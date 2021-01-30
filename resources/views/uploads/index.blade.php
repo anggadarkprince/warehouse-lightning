@@ -16,7 +16,7 @@
                 </a>
                 @can('create', \App\Models\Upload::class)
                     <a href="{{ route('uploads.create') }}" class="button-blue button-sm">
-                        Create <i class="mdi mdi-plus-box-outline"></i>
+                        {{ __('Create') }} <i class="mdi mdi-plus-box-outline"></i>
                     </a>
                 @endcan
             </div>
