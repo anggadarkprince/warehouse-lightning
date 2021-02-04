@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DocumentTypeController;
 use App\Http\Controllers\Api\GoodsController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,7 @@ Route::name('api.')->group(function () {
         Route::prefix('user-access')->group(function() {
             Route::apiResources([
                 'roles' => RoleController::class,
+                'users' => UserController::class,
             ]);
         });
         Route::prefix('master')->group(function() {
