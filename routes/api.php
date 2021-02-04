@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\ContainerController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DocumentTypeController;
 use App\Http\Controllers\Api\GoodsController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +29,11 @@ Route::name('api.')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::get('user', [AuthController::class, 'user']);
 
+        Route::prefix('user-access')->group(function() {
+            Route::apiResources([
+                'roles' => RoleController::class,
+            ]);
+        });
         Route::prefix('master')->group(function() {
             Route::apiResources([
                 'document-types' => DocumentTypeController::class,
