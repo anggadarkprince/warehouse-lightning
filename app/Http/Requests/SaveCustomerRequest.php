@@ -31,7 +31,7 @@ class SaveCustomerRequest extends FormRequest
             'pic_name' => ['nullable', 'max:50', 'string'],
             'contact_address' => ['nullable', 'max:50', 'string'],
             'contact_phone' => ['nullable', 'max:50', 'string'],
-            'contact_email' => ['nullable', 'max:50', 'string'],
+            'contact_email' => ['nullable', 'max:50', 'email'],
             'description' => ['nullable', 'max:500', 'string'],
         ];
     }

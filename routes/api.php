@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookingTypeController;
+use App\Http\Controllers\Api\ContainerController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DocumentTypeController;
+use App\Http\Controllers\Api\GoodsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +33,10 @@ Route::name('api.')->group(function () {
             Route::apiResources([
                 'document-types' => DocumentTypeController::class,
                 'booking-types' => BookingTypeController::class,
+                'customers' => CustomerController::class,
+                'containers' => ContainerController::class,
             ]);
+            Route::apiResource('goods', GoodsController::class, ['parameters' => ['goods' => 'goods']]);
         });
     });
 

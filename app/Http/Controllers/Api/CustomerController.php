@@ -3,54 +3,54 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveBookingTypeRequest;
-use App\Models\BookingType;
+use App\Http\Requests\SaveCustomerRequest;
+use App\Models\Customer;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Throwable;
 
-class BookingTypeController extends Controller
+class CustomerController extends Controller
 {
     /**
-     * BookingTypeController constructor.
+     * CustomerController constructor.
      */
     public function __construct()
     {
-        $this->authorizeResource(BookingType::class);
+        $this->authorizeResource(Customer::class);
     }
 
     /**
-     * Display a listing of the booking type.
+     * Display a listing of the customer.
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $bookingTypes = BookingType::q($request->get('q'))
+        $customers = Customer::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
             ->dateTo($request->get('date_to'))
             ->paginate();
 
-        return response()->json($bookingTypes);
+        return response()->json($customers);
     }
 
     /**
-     * Store a newly created booking type in storage.
+     * Store a newly created customer in storage.
      *
-     * @param SaveBookingTypeRequest $request
+     * @param SaveCustomerRequest $request
      * @return JsonResponse
      */
-    public function store(SaveBookingTypeRequest $request)
+    public function store(SaveCustomerRequest $request)
     {
         try {
-            $bookingType = BookingType::create($request->validated());
+            $customer = Customer::create($request->validated());
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully created"
+                'data' => $customer,
+                'message' => "Customer successfully created"
             ]);
         } catch (QueryException $e) {
             return response()->json([
@@ -61,34 +61,34 @@ class BookingTypeController extends Controller
     }
 
     /**
-     * Display the specified booking type.
+     * Display the specified customer.
      *
-     * @param BookingType $bookingType
+     * @param Customer $customer
      * @return JsonResponse
      */
-    public function show(BookingType $bookingType)
+    public function show(Customer $customer)
     {
         return response()->json([
-            'data' => $bookingType
+            'data' => $customer
         ]);
     }
 
     /**
-     * Update the specified booking type in storage.
+     * Update the specified customer in storage.
      *
-     * @param SaveBookingTypeRequest $request
-     * @param BookingType $bookingType
+     * @param SaveCustomerRequest $request
+     * @param Customer $customer
      * @return JsonResponse
      */
-    public function update(SaveBookingTypeRequest $request, BookingType $bookingType)
+    public function update(SaveCustomerRequest $request, Customer $customer)
     {
         try {
-            $bookingType->fill($request->validated());
-            $bookingType->saveOrFail();
+            $customer->fill($request->validated());
+            $customer->saveOrFail();
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully updated"
+                'data' => $customer,
+                'message' => "Customer successfully updated"
             ]);
         } catch (Throwable $e) {
             return response()->json([
@@ -99,19 +99,19 @@ class BookingTypeController extends Controller
     }
 
     /**
-     * Remove the specified booking type from storage.
+     * Remove the specified customer from storage.
      *
-     * @param BookingType $bookingType
+     * @param Customer $customer
      * @return JsonResponse
      */
-    public function destroy(BookingType $bookingType)
+    public function destroy(Customer $customer)
     {
         try {
-            $bookingType->delete();
+            $customer->delete();
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully deleted"
+                'data' => $customer,
+                'message' => "Customer successfully deleted"
             ]);
         } catch (Throwable $e) {
             return response()->json([

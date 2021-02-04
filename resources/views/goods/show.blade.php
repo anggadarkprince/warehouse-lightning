@@ -32,11 +32,11 @@
             <div>
                 <div class="flex mb-2">
                     <p class="w-1/3">{{ __('Weight') }}</p>
-                    <p class="text-gray-600">{{ numeric($goods->weight) }} KG</p>
+                    <p class="text-gray-600">{{ numeric($goods->unit_weight) }} KG</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3">{{ __('Gross Weight') }}</p>
-                    <p class="text-gray-600">{{ numeric($goods->gross_weight) }} KG</p>
+                    <p class="text-gray-600">{{ numeric($goods->unit_gross_weight) }} KG</p>
                 </div>
                 <div class="flex mb-2">
                     <p class="w-1/3">{{ __('Created At') }}</p>

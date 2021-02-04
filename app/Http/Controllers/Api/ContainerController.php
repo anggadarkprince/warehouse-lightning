@@ -3,54 +3,54 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveBookingTypeRequest;
-use App\Models\BookingType;
+use App\Http\Requests\SaveContainerRequest;
+use App\Models\Container;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Throwable;
 
-class BookingTypeController extends Controller
+class ContainerController extends Controller
 {
     /**
-     * BookingTypeController constructor.
+     * ContainerController constructor.
      */
     public function __construct()
     {
-        $this->authorizeResource(BookingType::class);
+        $this->authorizeResource(Container::class);
     }
 
     /**
-     * Display a listing of the booking type.
+     * Display a listing of the container.
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $bookingTypes = BookingType::q($request->get('q'))
+        $containers = Container::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
             ->dateTo($request->get('date_to'))
             ->paginate();
 
-        return response()->json($bookingTypes);
+        return response()->json($containers);
     }
 
     /**
-     * Store a newly created booking type in storage.
+     * Store a newly created container in storage.
      *
-     * @param SaveBookingTypeRequest $request
+     * @param SaveContainerRequest $request
      * @return JsonResponse
      */
-    public function store(SaveBookingTypeRequest $request)
+    public function store(SaveContainerRequest $request)
     {
         try {
-            $bookingType = BookingType::create($request->validated());
+            $container = Container::create($request->validated());
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully created"
+                'data' => $container,
+                'message' => "Container successfully created"
             ]);
         } catch (QueryException $e) {
             return response()->json([
@@ -61,34 +61,33 @@ class BookingTypeController extends Controller
     }
 
     /**
-     * Display the specified booking type.
+     * Display the specified container.
      *
-     * @param BookingType $bookingType
+     * @param Container $container
      * @return JsonResponse
      */
-    public function show(BookingType $bookingType)
+    public function show(Container $container)
     {
         return response()->json([
-            'data' => $bookingType
+            'data' => $container
         ]);
     }
 
     /**
-     * Update the specified booking type in storage.
+     * Update the specified container in storage.
      *
-     * @param SaveBookingTypeRequest $request
-     * @param BookingType $bookingType
+     * @param SaveContainerRequest $request
+     * @param Container $container
      * @return JsonResponse
      */
-    public function update(SaveBookingTypeRequest $request, BookingType $bookingType)
+    public function update(SaveContainerRequest $request, Container $container)
     {
         try {
-            $bookingType->fill($request->validated());
-            $bookingType->saveOrFail();
+            $container->update($request->validated());
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully updated"
+                'data' => $container,
+                'message' => "Container successfully updated"
             ]);
         } catch (Throwable $e) {
             return response()->json([
@@ -99,19 +98,19 @@ class BookingTypeController extends Controller
     }
 
     /**
-     * Remove the specified booking type from storage.
+     * Remove the specified container from storage.
      *
-     * @param BookingType $bookingType
+     * @param Container $container
      * @return JsonResponse
      */
-    public function destroy(BookingType $bookingType)
+    public function destroy(Container $container)
     {
         try {
-            $bookingType->delete();
+            $container->delete();
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully deleted"
+                'data' => $container,
+                'message' => "Container successfully deleted"
             ]);
         } catch (Throwable $e) {
             return response()->json([

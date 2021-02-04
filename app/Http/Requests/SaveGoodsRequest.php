@@ -30,6 +30,8 @@ class SaveGoodsRequest extends FormRequest
             'item_number' => ['required', 'max:20', 'unique:goods,item_number,' . $goodsId . ',id'],
             'unit_name' => ['nullable', 'max:50', 'string'],
             'package_name' => ['nullable', 'max:50', 'string'],
+            'unit_weight' => ['nullable', 'max:20', 'string'],
+            'unit_gross_weight' => ['nullable', 'max:20', 'string'],
             'description' => ['nullable', 'max:500', 'string'],
         ];
     }

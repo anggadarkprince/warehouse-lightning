@@ -3,54 +3,54 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveBookingTypeRequest;
-use App\Models\BookingType;
+use App\Http\Requests\SaveGoodsRequest;
+use App\Models\Goods;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Throwable;
 
-class BookingTypeController extends Controller
+class GoodsController extends Controller
 {
     /**
-     * BookingTypeController constructor.
+     * GoodsController constructor.
      */
     public function __construct()
     {
-        $this->authorizeResource(BookingType::class);
+        $this->authorizeResource(Goods::class);
     }
 
     /**
-     * Display a listing of the booking type.
+     * Display a listing of the goods.
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $bookingTypes = BookingType::q($request->get('q'))
+        $goods = Goods::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
             ->dateTo($request->get('date_to'))
             ->paginate();
 
-        return response()->json($bookingTypes);
+        return response()->json($goods);
     }
 
     /**
-     * Store a newly created booking type in storage.
+     * Store a newly created goods in storage.
      *
-     * @param SaveBookingTypeRequest $request
+     * @param SaveGoodsRequest $request
      * @return JsonResponse
      */
-    public function store(SaveBookingTypeRequest $request)
+    public function store(SaveGoodsRequest $request)
     {
         try {
-            $bookingType = BookingType::create($request->validated());
+            $goods = Goods::create($request->validated());
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully created"
+                'data' => $goods,
+                'message' => "Goods successfully created"
             ]);
         } catch (QueryException $e) {
             return response()->json([
@@ -61,34 +61,34 @@ class BookingTypeController extends Controller
     }
 
     /**
-     * Display the specified booking type.
+     * Display the specified goods.
      *
-     * @param BookingType $bookingType
+     * @param Goods $goods
      * @return JsonResponse
      */
-    public function show(BookingType $bookingType)
+    public function show(Goods $goods)
     {
         return response()->json([
-            'data' => $bookingType
+            'data' => $goods
         ]);
     }
 
     /**
-     * Update the specified booking type in storage.
+     * Update the specified goods in storage.
      *
-     * @param SaveBookingTypeRequest $request
-     * @param BookingType $bookingType
+     * @param SaveGoodsRequest $request
+     * @param Goods $goods
      * @return JsonResponse
      */
-    public function update(SaveBookingTypeRequest $request, BookingType $bookingType)
+    public function update(SaveGoodsRequest $request, Goods $goods)
     {
         try {
-            $bookingType->fill($request->validated());
-            $bookingType->saveOrFail();
+            $goods->fill($request->input());
+            $goods->saveOrFail();
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully updated"
+                'data' => $goods,
+                'message' => "Goods successfully updated"
             ]);
         } catch (Throwable $e) {
             return response()->json([
@@ -99,19 +99,19 @@ class BookingTypeController extends Controller
     }
 
     /**
-     * Remove the specified booking type from storage.
+     * Remove the specified goods from storage.
      *
-     * @param BookingType $bookingType
+     * @param Goods $goods
      * @return JsonResponse
      */
-    public function destroy(BookingType $bookingType)
+    public function destroy(Goods $goods)
     {
         try {
-            $bookingType->delete();
+            $goods->delete();
             return response()->json([
                 'status' => 'success',
-                'data' => $bookingType,
-                'message' => "Booking type successfully deleted"
+                'data' => $goods,
+                'message' => "Goods successfully deleted"
             ]);
         } catch (Throwable $e) {
             return response()->json([
