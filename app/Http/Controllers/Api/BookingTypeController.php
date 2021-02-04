@@ -3,56 +3,47 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveDocumentTypeRequest;
-use App\Models\DocumentType;
+use App\Http\Requests\SaveBookingTypeRequest;
+use App\Models\BookingType;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Throwable;
 
-class DocumentTypeController extends Controller
+class BookingTypeController extends Controller
 {
     /**
-     * DocumentTypeController constructor.
-     */
-    public function __construct()
-    {
-        $this->authorizeResource(DocumentType::class);
-    }
-
-    /**
-     * Display a listing of the document type.
+     * Display a listing of the booking type.
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $documentTypes = DocumentType::q($request->get('q'))
+        $bookingTypes = BookingType::q($request->get('q'))
             ->sort($request->get('sort_by'), $request->get('sort_method'))
             ->dateFrom($request->get('date_from'))
             ->dateTo($request->get('date_to'));
 
-        $documentTypes = $documentTypes->paginate();
+        $bookingTypes = $bookingTypes->paginate();
 
-        return response()->json($documentTypes);
+        return response()->json($bookingTypes);
     }
 
-
     /**
-     * Store a newly created document type in storage.
+     * Store a newly created booking type in storage.
      *
-     * @param SaveDocumentTypeRequest $request
+     * @param SaveBookingTypeRequest $request
      * @return JsonResponse
      */
-    public function store(SaveDocumentTypeRequest $request)
+    public function store(SaveBookingTypeRequest $request)
     {
         try {
-            $documentType = DocumentType::create($request->validated());
+            $bookingType = BookingType::create($request->validated());
             return response()->json([
                 'status' => 'success',
-                'data' => $documentType,
-                'message' => "Document type successfully created"
+                'data' => $bookingType,
+                'message' => "Booking type successfully created"
             ]);
         } catch (QueryException $e) {
             return response()->json([
@@ -65,32 +56,32 @@ class DocumentTypeController extends Controller
     /**
      * Display the specified booking type.
      *
-     * @param DocumentType $documentType
+     * @param BookingType $bookingType
      * @return JsonResponse
      */
-    public function show(DocumentType $documentType)
+    public function show(BookingType $bookingType)
     {
         return response()->json([
-            'data' => $documentType
+            'data' => $bookingType
         ]);
     }
 
     /**
-     * Update the specified document type in storage.
+     * Update the specified booking type in storage.
      *
-     * @param SaveDocumentTypeRequest $request
-     * @param DocumentType $documentType
+     * @param SaveBookingTypeRequest $request
+     * @param BookingType $bookingType
      * @return JsonResponse
      */
-    public function update(SaveDocumentTypeRequest $request, DocumentType $documentType)
+    public function update(SaveBookingTypeRequest $request, BookingType $bookingType)
     {
         try {
-            $documentType->fill($request->validated());
-            $documentType->saveOrFail();
+            $bookingType->fill($request->validated());
+            $bookingType->save();
             return response()->json([
                 'status' => 'success',
-                'data' => $documentType,
-                'message' => "Document type successfully updated"
+                'data' => $bookingType,
+                'message' => "Booking type successfully updated"
             ]);
         } catch (Throwable $e) {
             return response()->json([
@@ -101,19 +92,19 @@ class DocumentTypeController extends Controller
     }
 
     /**
-     * Remove the specified document type from storage.
+     * Remove the specified booking type from storage.
      *
-     * @param DocumentType $documentType
+     * @param BookingType $bookingType
      * @return JsonResponse
      */
-    public function destroy(DocumentType $documentType)
+    public function destroy(BookingType $bookingType)
     {
         try {
-            $documentType->delete();
+            $bookingType->delete();
             return response()->json([
                 'status' => 'success',
-                'data' => $documentType,
-                'message' => "Document type successfully deleted"
+                'data' => $bookingType,
+                'message' => "Booking type successfully deleted"
             ]);
         } catch (Throwable $e) {
             return response()->json([

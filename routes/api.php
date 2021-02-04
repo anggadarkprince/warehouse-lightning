@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BookingTypeController;
 use App\Http\Controllers\Api\DocumentTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::name('api.')->group(function () {
         Route::prefix('master')->group(function() {
             Route::apiResources([
                 'document-types' => DocumentTypeController::class,
+                'booking-types' => BookingTypeController::class,
             ]);
         });
     });
