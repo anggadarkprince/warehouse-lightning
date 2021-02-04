@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DocumentTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::name('api.')->namespace('App\Http\Controllers\Api')->group(function () {
+Route::name('api.')->group(function () {
 
-    Route::post('login', 'AuthController@login')->name('auth.login');
-    Route::post('register', 'AuthController@register')->name('auth.register');
-    Route::post('token', 'AuthController@token')->name('auth.token');
+    Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('register', [AuthController::class, 'register'])->name('auth.register');
+    Route::post('token', [AuthController::class, 'token'])->name('auth.token');
 
     Route::middleware('auth:api')->group(function () {
-        Route::get('user', 'AuthController@user');
+        Route::get('user', [AuthController::class, 'user']);
+
+        Route::prefix('master')->group(function() {
+            Route::apiResources([
+                'document-types' => DocumentTypeController::class,
+            ]);
+        });
     });
 
 });
