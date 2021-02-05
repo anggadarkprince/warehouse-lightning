@@ -47,7 +47,7 @@
                             </p>
                         @endif
                     </td>
-                    <td class="px-2 py-1">{{ $upload->customer->customer_name }}</td>
+                    <td class="px-2 py-1">{{ optional($upload->customer)->customer_name }}</td>
                     <td class="px-2 py-1">{{ $upload->bookingType->booking_name ?: '-' }}</td>
                     <td class="px-2 py-1">{{ $upload->upload_title ?: '-' }}</td>
                     <td class="px-2 py-1">

@@ -7,6 +7,7 @@ use App\Contracts\Statusable\HasStatusLabel;
 use App\Traits\Search\BasicFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Upload extends Model implements HasStatusLabel, HasOrderNumber
 {
@@ -27,7 +28,7 @@ class Upload extends Model implements HasStatusLabel, HasOrderNumber
      */
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)->withTrashed();
     }
 
     /**
@@ -35,7 +36,7 @@ class Upload extends Model implements HasStatusLabel, HasOrderNumber
      */
     public function bookingType()
     {
-        return $this->belongsTo(BookingType::class);
+        return $this->belongsTo(BookingType::class)->withTrashed();
     }
 
     /**
@@ -124,5 +125,32 @@ class Upload extends Model implements HasStatusLabel, HasOrderNumber
             $orderPad = str_pad($query->first()->order_number, 6, '0', STR_PAD_LEFT);
         }
         return 'UP-' . date('ym') . $orderPad;
+    }
+
+    /**
+     * Move uploaded temp file into proper folder and return destination src and file name.
+     *
+     * @param $file
+     * @return array
+     */
+    public function moveUploadedFile($file)
+    {
+        $moveFileTo = 'documents/' . date('Y/m/') . basename($file['src']);
+        if (Storage::exists($moveFileTo)) {
+            Storage::delete($moveFileTo);
+        }
+        if (Storage::move($file['src'], $moveFileTo)) {
+            $file['src'] = $moveFileTo;
+            if (empty($file['file_name'])) {
+                $file['file_name'] = basename($file['src']);
+            }
+        } else {
+            abort(500, __('Move uploaded file failed'));
+        }
+
+        return [
+            'src' => $file['src'],
+            'file_name' => $file['file_name'],
+        ];
     }
 }

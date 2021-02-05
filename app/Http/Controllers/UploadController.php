@@ -92,7 +92,7 @@ class UploadController extends Controller
 
                 $files = data_get($document, 'files', []);
                 foreach ($files as $file) {
-                    $uploadDocument->uploadDocumentFiles()->create($this->moveUploadedFile($file));
+                    $uploadDocument->uploadDocumentFiles()->create($upload->moveUploadedFile($file));
                 }
             }
 
@@ -176,7 +176,7 @@ class UploadController extends Controller
                         'file_name' => $file['file_name']
                     ];
                     if (empty($file['id'])) {
-                        $existingFile = $this->moveUploadedFile($file);
+                        $existingFile = $upload->moveUploadedFile($file);
                     }
                     $uploadDocument->uploadDocumentFiles()->updateOrCreate(
                         ['id' => data_get($file, 'id')],
@@ -196,33 +196,6 @@ class UploadController extends Controller
             "status" => "success",
             "message" => "Upload document {$upload->upload_number} successfully updated"
         ]);
-    }
-
-    /**
-     * Move uploaded temp file into proper folder and return destination src and file name.
-     *
-     * @param $file
-     * @return array
-     */
-    private function moveUploadedFile($file)
-    {
-        $moveFileTo = 'documents/' . date('Y/m/') . basename($file['src']);
-        if (Storage::exists($moveFileTo)) {
-            Storage::delete($moveFileTo);
-        }
-        if (Storage::move($file['src'], $moveFileTo)) {
-            $file['src'] = $moveFileTo;
-            if (empty($file['file_name'])) {
-                $file['file_name'] = basename($file['src']);
-            }
-        } else {
-            abort(500, __('Move uploaded file failed'));
-        }
-
-        return [
-            'src' => $file['src'],
-            'file_name' => $file['file_name'],
-        ];
     }
 
     /**
