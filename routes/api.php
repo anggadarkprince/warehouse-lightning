@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\DocumentTypeController;
 use App\Http\Controllers\Api\GoodsController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UploadController;
+use App\Http\Controllers\Api\UploadDocumentController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,7 @@ Route::name('api.')->group(function () {
         Route::post('uploads/file', [UploadController::class, 'upload'])->name('uploads.file');
         Route::post('uploads/{upload}/validate', [UploadController::class, 'validateUpload'])->name('uploads.validate');
         Route::apiResource('uploads', UploadController::class);
+        Route::apiResource('uploads.documents', UploadDocumentController::class)->only(['show', 'destroy']);
     });
 
 });
