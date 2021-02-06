@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\BookingTypeController;
 use App\Http\Controllers\Api\ContainerController;
 use App\Http\Controllers\Api\CustomerController;
@@ -52,6 +53,9 @@ Route::name('api.')->group(function () {
         Route::post('uploads/{upload}/validate', [UploadController::class, 'validateUpload'])->name('uploads.validate');
         Route::apiResource('uploads', UploadController::class);
         Route::apiResource('uploads.documents', UploadDocumentController::class)->only(['show', 'destroy']);
+
+        Route::post('bookings/{booking}/validate', [BookingController::class, 'validateBooking'])->name('bookings.validate');
+        Route::apiResource('bookings', BookingController::class);
     });
 
 });

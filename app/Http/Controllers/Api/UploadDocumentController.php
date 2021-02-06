@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Upload;
 use App\Models\UploadDocument;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -16,9 +17,12 @@ class UploadDocumentController extends Controller
      * @param Upload $upload
      * @param UploadDocument $document
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function show(Upload $upload, UploadDocument $document)
     {
+        $this->authorize('view', $upload);
+
         $document->load('uploadDocumentFiles');
         return response()->json([
             'data' => compact('upload', 'document'),
@@ -31,9 +35,12 @@ class UploadDocumentController extends Controller
      * @param Upload $upload
      * @param UploadDocument $document
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function destroy(Upload $upload, UploadDocument $document)
     {
+        $this->authorize('delete', $upload);
+
         try {
             $document->delete();
             return response()->json([
