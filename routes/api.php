@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\BookingGoodsController;
 use App\Http\Controllers\Api\BookingTypeController;
 use App\Http\Controllers\Api\ContainerController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\DeliveryOrderController;
 use App\Http\Controllers\Api\DocumentTypeController;
 use App\Http\Controllers\Api\GoodsController;
 use App\Http\Controllers\Api\RoleController;
@@ -61,6 +62,8 @@ Route::name('api.')->group(function () {
 
         Route::get('bookings/{booking}/containers', [BookingContainerController::class, 'index'])->name('bookings.containers.index');
         Route::get('bookings/{booking}/goods', [BookingGoodsController::class, 'index'])->name('bookings.goods.index');
+
+        Route::apiResource('delivery-orders', DeliveryOrderController::class);
     });
 
 });
