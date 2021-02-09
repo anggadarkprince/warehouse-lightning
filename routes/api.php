@@ -10,7 +10,9 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DeliveryOrderController;
 use App\Http\Controllers\Api\DocumentTypeController;
 use App\Http\Controllers\Api\GoodsController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\UploadDocumentController;
 use App\Http\Controllers\Api\UserController;
@@ -64,6 +66,13 @@ Route::name('api.')->group(function () {
         Route::get('bookings/{booking}/goods', [BookingGoodsController::class, 'index'])->name('bookings.goods.index');
 
         Route::apiResource('delivery-orders', DeliveryOrderController::class);
+
+        Route::get('reports/inbound', [ReportController::class, 'inbound'])->name('reports.inbound');
+        Route::get('reports/outbound', [ReportController::class, 'outbound'])->name('reports.outbound');
+        Route::get('reports/stock-summary', [ReportController::class, 'stockSummary'])->name('reports.stock-summary');
+        Route::get('reports/stock-movement', [ReportController::class, 'stockMovement'])->name('reports.stock-movement');
+
+        Route::get('search', [SearchController::class, 'index'])->name('search');
     });
 
 });
