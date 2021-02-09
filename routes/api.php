@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\UploadDocumentController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\GateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +67,11 @@ Route::name('api.')->group(function () {
         Route::get('bookings/{booking}/goods', [BookingGoodsController::class, 'index'])->name('bookings.goods.index');
 
         Route::apiResource('delivery-orders', DeliveryOrderController::class);
+
+
+        Route::prefix('warehouse')->group(function() {
+            Route::get('gate', [GateController::class, 'index'])->name('gate.index');
+        });
 
         Route::get('reports/inbound', [ReportController::class, 'inbound'])->name('reports.inbound');
         Route::get('reports/outbound', [ReportController::class, 'outbound'])->name('reports.outbound');
