@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\GoodsController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\TakeStockController;
 use App\Http\Controllers\Api\TallyController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\UploadDocumentController;
@@ -81,6 +82,11 @@ Route::name('api.')->group(function () {
             Route::match(['post', 'put'], 'tally/{work_order}/complete', [TallyController::class, 'completeJob'])->name('tally.complete-job');
             Route::match(['post', 'put'], 'tally/{work_order}/validate', [TallyController::class, 'validateJob'])->name('tally.validate-job');
             Route::match(['post', 'put'], 'tally/{work_order}/reject', [TallyController::class, 'rejectJob'])->name('tally.reject-job');
+
+            Route::post('take-stocks/{take_stock}/validate', [TakeStockController::class, 'validateTakeStock'])->name('take-stocks.validate');
+            Route::post('take-stocks/{take_stock}/reject', [TakeStockController::class, 'rejectTakeStock'])->name('take-stocks.reject');
+            Route::post('take-stocks/{take_stock}/submit', [TakeStockController::class, 'submit'])->name('take-stocks.submit');
+            Route::apiResource('take-stocks', TakeStockController::class);
         });
 
         Route::get('reports/inbound', [ReportController::class, 'inbound'])->name('reports.inbound');
