@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\GoodsController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\TallyController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\UploadDocumentController;
 use App\Http\Controllers\Api\UserController;
@@ -69,10 +70,17 @@ Route::name('api.')->group(function () {
 
         Route::apiResource('delivery-orders', DeliveryOrderController::class);
 
-
         Route::prefix('warehouse')->group(function() {
             Route::get('gate', [GateController::class, 'index'])->name('gate.index');
-            Route::resource('work-orders', WorkOrderController::class)->except('index');
+            Route::apiResource('work-orders', WorkOrderController::class);
+            Route::get('tally', [TallyController::class, 'index'])->name('tally.index');
+            Route::match(['post', 'put'], 'tally/{work_order}/take', [TallyController::class, 'takeJob'])->name('tally.take-job');
+            Route::get('tally/{work_order}', [TallyController::class, 'proceedJob'])->name('tally.proceed-job');
+            Route::match(['post', 'put'], 'tally/{work_order}/release', [TallyController::class, 'releaseJob'])->name('tally.release-job');
+            Route::put('tally/{work_order}', [TallyController::class, 'saveJob'])->name('tally.save-job');
+            Route::match(['post', 'put'], 'tally/{work_order}/complete', [TallyController::class, 'completeJob'])->name('tally.complete-job');
+            Route::match(['post', 'put'], 'tally/{work_order}/validate', [TallyController::class, 'validateJob'])->name('tally.validate-job');
+            Route::match(['post', 'put'], 'tally/{work_order}/reject', [TallyController::class, 'rejectJob'])->name('tally.reject-job');
         });
 
         Route::get('reports/inbound', [ReportController::class, 'inbound'])->name('reports.inbound');
