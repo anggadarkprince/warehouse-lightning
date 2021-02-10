@@ -46,14 +46,8 @@ class GateController extends Controller
             }
         }
 
-        $workOrders = WorkOrder::q($request->get('q'))
-            ->sort($request->get('sort_by'), $request->get('sort_method'))
-            ->dateFrom($request->get('date_from'))
-            ->dateTo($request->get('date_to'))
-            ->paginate();
-
         return response()->json([
-            'data' => $workOrders,
+            'data' => [],
         ]);
     }
 

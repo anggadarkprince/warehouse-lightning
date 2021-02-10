@@ -1,22 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Events\JobAssignedEvent;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveWorkOrderRequest;
-use App\Models\Booking;
 use App\Models\DeliveryOrder;
-use App\Models\User;
 use App\Models\WorkOrder;
-use Exception;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 class WorkOrderController extends Controller
 {
@@ -29,50 +23,27 @@ class WorkOrderController extends Controller
     }
 
     /**
-     * Display the specified work order.
-     *
-     * @param WorkOrder $workOrder
-     * @return View
-     */
-    public function show(WorkOrder $workOrder)
-    {
-        return view('work-orders.show', compact('workOrder'));
-    }
-
-    /**
-     * Show the form for creating a new delivery order.
+     * Display a listing of the work order.
      *
      * @param Request $request
-     * @return View
+     * @return JsonResponse
      */
-    public function create(Request $request)
+    public function index(Request $request)
     {
-        $selectedBooking = Booking::find($request->get('booking_id'));
-        $bookings = Booking::validated()->type('INBOUND')->get();
-        $users = User::all();
+        $workOrders = WorkOrder::q($request->get('q'))
+            ->sort($request->get('sort_by'), $request->get('sort_method'))
+            ->dateFrom($request->get('date_from'))
+            ->dateTo($request->get('date_to'))
+            ->paginate();
 
-        return view('work-orders.create', compact('bookings', 'users', 'selectedBooking'));
-    }
-
-    /**
-     * Print work order.
-     *
-     * @param WorkOrder $workOrder
-     * @return BinaryFileResponse|StreamedResponse
-     * @throws AuthorizationException
-     */
-    public function printWorkOrder(WorkOrder $workOrder)
-    {
-        $this->authorize('view', $workOrder);
-
-        return $workOrder->getPdf();
+        return response()->json($workOrders);
     }
 
     /**
      * Store a newly created work order in storage.
      *
      * @param SaveWorkOrderRequest $request
-     * @return Response|RedirectResponse
+     * @return JsonResponse
      */
     public function store(SaveWorkOrderRequest $request)
     {
@@ -99,35 +70,35 @@ class WorkOrderController extends Controller
                 }
             });
 
-            return redirect()->route('gate.index')->with([
+            return response()->json([
                 "status" => "success",
-                "message" => "Work order {$workOrder->job_number} successfully created"
+                'data' => $workOrder->load(['workOrderContainers', 'workOrderGoods']),
+                "message" => __("Work order :number successfully created", [
+                    'number' => $workOrder->job_number
+                ])
             ]);
         });
     }
 
     /**
-     * Show the form for editing the specified work order.
+     * Display the specified work order.
      *
      * @param WorkOrder $workOrder
-     * @return View
+     * @return JsonResponse
      */
-    public function edit(WorkOrder $workOrder)
+    public function show(WorkOrder $workOrder)
     {
-        $bookings = Booking::validated()->orWhere('id', $workOrder->booking_id)->get();
-        $users = User::all();
-
-        return view('work-orders.edit', compact('workOrder', 'bookings', 'users'));
+        return response()->json($workOrder);
     }
 
     /**
-     * Update the specified delivery order in storage.
+     * Update the specified work order in storage.
      *
-     * @param Request $request
+     * @param SaveWorkOrderRequest $request
      * @param WorkOrder $workOrder
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function update(Request $request, WorkOrder $workOrder)
+    public function update(SaveWorkOrderRequest $request, WorkOrder $workOrder)
     {
         DB::transaction(function () use ($request, $workOrder) {
             $workOrder->fill($request->input())->save();
@@ -161,9 +132,12 @@ class WorkOrderController extends Controller
             event(new JobAssignedEvent($workOrder));
         }
 
-        return redirect()->route('gate.index')->with([
+        return response()->json([
             "status" => "success",
-            "message" => "Work order {$workOrder->job_number} successfully updated"
+            'data' => $workOrder->load(['workOrderContainers', 'workOrderGoods']),
+            "message" => __("Work order :number successfully updated", [
+                'number' => $workOrder->job_number
+            ])
         ]);
     }
 
@@ -171,16 +145,26 @@ class WorkOrderController extends Controller
      * Remove the specified work order from storage.
      *
      * @param WorkOrder $workOrder
-     * @return RedirectResponse
-     * @throws Exception
+     * @return JsonResponse
      */
     public function destroy(WorkOrder $workOrder)
     {
-        $workOrder->delete();
-
-        return redirect()->back()->with([
-            "status" => "warning",
-            "message" => "Work order {$workOrder->work_number} successfully deleted"
-        ]);
+        try {
+            $workOrder->delete();
+            return response()->json([
+                'status' => 'success',
+                'data' => $workOrder,
+                'message' => __("Work order :number successfully deleted", [
+                    'number' => $workOrder->job_number
+                ])
+            ]);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => __("Delete work order :number failed", [
+                    'number' => $workOrder->job_number
+                ])
+            ], 500);
+        }
     }
 }
