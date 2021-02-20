@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Route;
 */
 Broadcast::routes();
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 })->name('welcome');
 
 Route::get('/legals', function () {

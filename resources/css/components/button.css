@@ -3,7 +3,7 @@ button:disabled {
 }
 
 .button-primary {
-    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-green-100 bg-green-500;
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-white bg-green-500;
     @apply text-center;
     @apply inline-block;
 }
@@ -17,7 +17,7 @@ button:disabled {
 }
 
 .button-blue {
-    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-blue-100 bg-blue-500;
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-white bg-blue-500;
     @apply text-center;
     @apply inline-block;
 }
@@ -31,7 +31,7 @@ button:disabled {
 }
 
 .button-red {
-    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-red-100 bg-red-500;
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-white bg-red-500;
     @apply text-center;
     @apply inline-block;
 }
@@ -45,7 +45,7 @@ button:disabled {
 }
 
 .button-orange {
-    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-orange-100 bg-orange-500;
+    @apply select-none whitespace-no-wrap py-2 px-5 rounded text-base leading-normal no-underline text-white bg-orange-500;
     @apply text-center;
     @apply inline-block;
 }
