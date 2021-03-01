@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Route;
 */
 Broadcast::routes();
 Route::get('/', function () {
-    return view('landing');
+    return view('landing.home');
 })->name('welcome');
 
 Route::get('/legals', function () {
@@ -62,6 +62,22 @@ Route::get('/cookie', function () {
 Route::get('/sla', function () {
     return view('legals.sla');
 })->name('legals.sla');
+
+Route::get('/contact', function () {
+    return view('landing.contact');
+})->name('landing.contact');
+
+Route::get('/features', function () {
+    return view('landing.features');
+})->name('landing.features');
+
+Route::get('/use-case', function () {
+    return view('landing.use-case');
+})->name('landing.use-case');
+
+Route::get('/solution', function () {
+    return view('landing.solution');
+})->name('landing.solution');
 
 require base_path('vendor/laravel/fortify/routes/routes.php');
 

@@ -19,7 +19,7 @@ module.exports = {
   },
   variants: {
       opacity: ['responsive', 'hover', 'focus', 'disabled'],
-      textColor: ['responsive', 'hover', 'focus', 'group-hover', 'disabled'],
+      textColor: ['responsive', 'hover', 'focus', 'group-hover', 'focus-within', 'disabled'],
   },
   plugins: [],
 }
