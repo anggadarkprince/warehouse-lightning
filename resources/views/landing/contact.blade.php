@@ -8,7 +8,7 @@
                 <p class="text-gray-500">Any question or remarks? Just write us a message!</p>
             </div>
 
-            <div class="bg-white rounded-lg shadow-sm p-3">
+            <div class="bg-white rounded-lg shadow-sm p-3 md:pr-5">
                 <div class="grid grid-cols-1 md:gap-10 md:grid-cols-3">
                     <div class="col-span-2 mb-10 md:mb-0 py-4">
                         <form action="#" method="post">
@@ -78,14 +78,14 @@
                                 @error('message') <p class="form-text-error">{{ $message }}</p> @enderror
                             </div>
                             <div class="flex justify-between items-center mt-8">
-                                <a href="#" class="text-link">Need assistance?</a>
+                                <a href="#" class="text-link"><i class="mdi mdi-information-outline mr-2"></i>Need assistance?</a>
                                 <button type="submit" class="py-2 px-5 rounded bg-green-500 text-white transition duration-200 hover:bg-green-600">
                                     Send Message
                                 </button>
                             </div>
                         </form>
                     </div>
-                    <div class="md:row-start-1 md:row-end-2 bg-gradient-to-tr from-green-400 to-green-500 text-white rounded-lg shadow-lg px-8 py-5">
+                    <div class="md:row-start-1 md:row-end-2 bg-gradient-to-tr from-indigo-600 to-indigo-700 text-white rounded-lg shadow-lg px-8 py-5">
                         <div class="flex flex-col h-full">
                             <div class="flex-auto">
                                 <h1 class="text-xl font-bold mb-2">Contact Information</h1>
@@ -98,9 +98,9 @@
                             </div>
                             <div class="mb-2">
                                 <p class="mb-2">Or visit our social media</p>
-                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-blue-700 mr-2"><i class="mdi mdi-facebook"></i></a>
+                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-blue-600 mr-2"><i class="mdi mdi-facebook"></i></a>
                                 <a href="#" class="py-2 px-3 inline-block rounded-lg bg-blue-400 mr-2"><i class="mdi mdi-twitter"></i></a>
-                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-indigo-600 mr-2"><i class="mdi mdi-instagram"></i></a>
+                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-indigo-500 mr-2"><i class="mdi mdi-instagram"></i></a>
                             </div>
                         </div>
                     </div>
