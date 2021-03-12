@@ -39,45 +39,48 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Broadcast::routes();
-Route::get('/', function () {
-    return view('landing.home');
-})->name('welcome');
 
-Route::get('/legals', function () {
-    return view('legals.index');
-})->name('legals.index');
+Route::middleware('frontend.maintenance')->group(function() {
+    Route::get('/', function () {
+        return view('landing.home');
+    })->name('welcome');
 
-Route::get('/privacy', function () {
-    return view('legals.privacy');
-})->name('legals.privacy');
+    Route::get('/legals', function () {
+        return view('legals.index');
+    })->name('legals.index');
 
-Route::get('/agreement', function () {
-    return view('legals.agreement');
-})->name('legals.agreement');
+    Route::get('/privacy', function () {
+        return view('legals.privacy');
+    })->name('legals.privacy');
 
-Route::get('/cookie', function () {
-    return view('legals.cookie');
-})->name('legals.cookie');
+    Route::get('/agreement', function () {
+        return view('legals.agreement');
+    })->name('legals.agreement');
 
-Route::get('/sla', function () {
-    return view('legals.sla');
-})->name('legals.sla');
+    Route::get('/cookie', function () {
+        return view('legals.cookie');
+    })->name('legals.cookie');
 
-Route::get('/contact', function () {
-    return view('landing.contact');
-})->name('landing.contact');
+    Route::get('/sla', function () {
+        return view('legals.sla');
+    })->name('legals.sla');
 
-Route::get('/features', function () {
-    return view('landing.features');
-})->name('landing.features');
+    Route::get('/contact', function () {
+        return view('landing.contact');
+    })->name('landing.contact');
 
-Route::get('/use-case', function () {
-    return view('landing.use-case');
-})->name('landing.use-case');
+    Route::get('/features', function () {
+        return view('landing.features');
+    })->name('landing.features');
 
-Route::get('/solution', function () {
-    return view('landing.solution');
-})->name('landing.solution');
+    Route::get('/use-case', function () {
+        return view('landing.use-case');
+    })->name('landing.use-case');
+
+    Route::get('/solution', function () {
+        return view('landing.solution');
+    })->name('landing.solution');
+});
 
 require base_path('vendor/laravel/fortify/routes/routes.php');
 
