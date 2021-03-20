@@ -16,7 +16,7 @@
                             <div class="sm:flex -mx-2">
                                 <div class="px-2 sm:w-1/2">
                                     <div class="mb-3 sm:mb-5 focus-within:text-green-500">
-                                        <label for="first_name" class="mb-3 block font-bold">{{ __('First Name') }}</label>
+                                        <label for="first_name" class="mb-3 block font-semibold">{{ __('First Name') }}</label>
                                         <input id="first_name" name="first_name" type="text" class="text-black bg-white border-gray-300 appearance-none block border outline-none py-2 px-4 mb-2 rounded-sm w-full md:mb-0 focus:border-green-500 @error('name') border-red-500 @enderror"
                                                placeholder="Your first name" value="{{ old('first_name') }}" required maxlength="100" aria-label="name">
                                         @error('first_name') <p class="form-text-error">{{ $message }}</p> @enderror
@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="px-2 sm:w-1/2">
                                     <div class="mb-3 sm:mb-5 focus-within:text-green-500">
-                                        <label for="last_name" class="mb-3 block font-bold">{{ __('Last Name') }}</label>
+                                        <label for="last_name" class="mb-3 block font-semibold">{{ __('Last Name') }}</label>
                                         <input id="last_name" name="last_name" type="text" class="text-black bg-white border-gray-300 appearance-none block border outline-none py-2 px-4 mb-2 rounded-sm w-full md:mb-0 focus:border-green-500 @error('name') border-red-500 @enderror"
                                                placeholder="Your last name" value="{{ old('last_name') }}" required maxlength="100" aria-label="name">
                                         @error('last_name') <p class="form-text-error">{{ $message }}</p> @enderror
@@ -34,7 +34,7 @@
                             <div class="sm:flex -mx-2">
                                 <div class="px-2 sm:w-1/2">
                                     <div class="mb-3 sm:mb-5 focus-within:text-green-500">
-                                        <label for="email" class="mb-3 block font-bold">{{ __('Email') }}</label>
+                                        <label for="email" class="mb-3 block font-semibold">{{ __('Email') }}</label>
                                         <input id="email" name="email" type="email" class="text-black bg-white border-gray-300 appearance-none block border outline-none py-2 px-4 mb-2 rounded-sm w-full md:mb-0 focus:border-green-500 @error('email') border-red-500 @enderror"
                                                placeholder="Email address" value="{{ old('email') }}" required maxlength="100" aria-label="name">
                                         @error('email') <p class="form-text-error">{{ $message }}</p> @enderror
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="px-2 sm:w-1/2">
                                     <div class="mb-3 sm:mb-5 focus-within:text-green-500">
-                                        <label for="phone" class="mb-3 block font-bold">{{ __('Phone') }}</label>
+                                        <label for="phone" class="mb-3 block font-semibold">{{ __('Phone') }}</label>
                                         <input id="phone" name="phone" type="text" class="text-black bg-white border-gray-300 appearance-none block border outline-none py-2 px-4 mb-2 rounded-sm w-full md:mb-0 focus:border-green-500 @error('phone') border-red-500 @enderror"
                                                placeholder="Phone number" value="{{ old('phone') }}" required maxlength="100" aria-label="name">
                                         @error('phone') <p class="form-text-error">{{ $message }}</p> @enderror
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 sm:mb-5">
-                                <label for="service" class="mb-2 block font-bold">{{ __('What the of service do you need?') }}</label>
+                                <label for="service" class="mb-2 block font-semibold">{{ __('What the of service do you need?') }}</label>
                                 <div>
                                     <div class="inline-block mr-4">
                                         <input type="checkbox" name="service_air_freight" id="service_air_freight">
@@ -69,10 +69,13 @@
                                         <label for="service_warehousing">Warehousing</label>
                                     </div>
                                 </div>
-                                @error('message') <p class="form-text-error">{{ $message }}</p> @enderror
+                                @error('service_air_freight') <p class="form-text-error">{{ $message }}</p> @enderror
+                                @error('service_ocean_freight') <p class="form-text-error">{{ $message }}</p> @enderror
+                                @error('service_road_freight') <p class="form-text-error">{{ $message }}</p> @enderror
+                                @error('service_warehousing') <p class="form-text-error">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3 sm:mb-5 focus-within:text-green-500">
-                                <label for="message" class="mb-3 block font-bold">{{ __('Message') }}</label>
+                                <label for="message" class="mb-3 block font-semibold">{{ __('Message') }}</label>
                                 <textarea id="message" class="text-black bg-white border-gray-300 appearance-none block border outline-none py-2 px-4 mb-2 rounded-sm w-full md:mb-0 focus:border-green-500 @error('message') border-red-500 @enderror"
                                           placeholder="Your message" name="description" required>{{ old('message') }}</textarea>
                                 @error('message') <p class="form-text-error">{{ $message }}</p> @enderror

@@ -26,19 +26,19 @@
         <header class="relative py-4">
             <div class="absolute mx-auto bg-white" style="left: 50%; transform: translateX(-50%)">
                 <ul class="flex flex-col md:flex-row content-center">
-                    <li class="py-2{{ request()->routeIs('welcome') ? ' border-b-2 border-green-500 text-green-500 font-bold' : '' }}">
+                    <li class="py-2 font-bold{{ request()->routeIs('welcome') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
                         <a href="{{ route('welcome') }}" class="px-3 hover:text-green-600">Home</a>
                     </li>
-                    <li class="py-2{{ request()->routeIs('landing.solution') ? ' border-b-2 border-green-500 text-green-500 font-bold' : '' }}">
+                    <li class="py-2 font-bold{{ request()->routeIs('landing.solution') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
                         <a href="{{ route('landing.solution') }}" class="px-3 hover:text-green-600">Solution</a>
                     </li>
-                    <li class="py-2{{ request()->routeIs('landing.use-case') ? ' border-b-2 border-green-500 text-green-500 font-bold' : '' }}">
+                    <li class="py-2 font-bold{{ request()->routeIs('landing.use-case') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
                         <a href="{{ route('landing.use-case') }}" class="px-3 hover:text-green-600">Use Case</a>
                     </li>
-                    <li class="py-2{{ request()->routeIs('landing.features') ? ' border-b-2 border-green-500 text-green-500 font-bold' : '' }}">
+                    <li class="py-2 font-bold{{ request()->routeIs('landing.features') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
                         <a href="{{ route('landing.features') }}" class="px-3 hover:text-green-600">Features</a>
                     </li>
-                    <li class="py-2{{ request()->routeIs('landing.contact') ? ' border-b-2 border-green-500 text-green-500 font-bold' : '' }}">
+                    <li class="py-2 font-bold{{ request()->routeIs('landing.contact') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
                         <a href="{{ route('landing.contact') }}" class="px-3 hover:text-green-600">Contact</a>
                     </li>
                 </ul>
@@ -174,19 +174,19 @@
                     <h3 class="text-lg font-bold mb-5">Quick Links</h3>
                     <ul class="text-gray-600">
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Request A Quote</a>
+                            <a href="{{ route('landing.request-quote') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.request-quote') ? ' text-green-500' : '' }}">Request A Quote</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Track & Trace</a>
+                            <a href="{{ route('landing.track-trace') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.track-trace') ? ' text-green-500' : '' }}">Track & Trace</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Find A Location</a>
+                            <a href="{{ route('landing.find-location') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.find-location') ? ' text-green-500' : '' }}">Find A Location</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Global Agent</a>
+                            <a href="{{ route('landing.agent') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.agent') ? ' text-green-500' : '' }}">Global Agent</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Help & FAQ</a>
+                            <a href="{{ route('landing.faq') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.faq') ? ' text-green-500' : '' }}">Help & FAQ</a>
                         </li>
                     </ul>
                 </div>
