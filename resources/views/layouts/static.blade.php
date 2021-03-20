@@ -34,14 +34,17 @@
 <div class="bg-gray-100">
     <header class="bg-white shadow-sm">
         <div class="py-4 px-5 mx-auto flex justify-between items-center sm:container lg:px-40">
-            <div>
-                <h1 class="text-lg font-bold text-green-500">
-                    {{ config('app.name', app_setting('app-title')) }}
-                </h1>
-                <p class="text-gray-500 text-sm leading-tight">
-                    {{ app_setting('app-tagline') }}
-                </p>
-            </div>
+            <a href="{{ route('welcome') }}" class="flex items-center">
+                <img src="<?= url('img/favicon.png') ?>" alt="Logo" class="mr-2 w-10">
+                <div>
+                    <h1 class="text-lg font-bold text-green-500">
+                        {{ config('app.name', app_setting('app-title')) }}
+                    </h1>
+                    <p class="text-gray-500 text-sm leading-tight">
+                        {{ app_setting('app-tagline') }}
+                    </p>
+                </div>
+            </a>
             <div class="text-gray-700">
                 @auth
                     <a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
@@ -54,7 +57,7 @@
             </div>
         </div>
     </header>
-    <main class="py-4 px-5 mx-auto sm:container lg:px-40" style="min-height: calc(100vh - 151px)">
+    <main class="py-5 px-5 mx-auto sm:container lg:px-40" style="min-height: calc(100vh - 151px)">
         @yield('content')
     </main>
     <footer class="px-4 py-5 border-t mt-3 text-sm text-gray-600">

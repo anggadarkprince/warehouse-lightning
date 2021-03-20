@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookingContainerController;
 use App\Http\Controllers\Api\BookingController;
@@ -35,6 +36,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('api.')->group(function () {
 
+    Route::get('version', [ApiController::class, 'version'])->name('version');
     Route::post('login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('token', [AuthController::class, 'token'])->name('auth.token');

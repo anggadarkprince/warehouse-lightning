@@ -12,6 +12,7 @@ use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\GateController;
 use App\Http\Controllers\GoodsController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
@@ -44,6 +45,10 @@ Route::middleware('frontend.maintenance')->group(function() {
     Route::get('/', function () {
         return view('landing.home');
     })->name('welcome');
+
+    Route::prefix('/legals')->group(function() {
+        Route::get('/{page}', [LegalController::class, 'index'])->name('landing.solution');
+    });
 
     Route::get('/legals', function () {
         return view('legals.index');
@@ -82,6 +87,7 @@ Route::middleware('frontend.maintenance')->group(function() {
     })->name('landing.solution');
 });
 
+// redefined for localization prefix
 require base_path('vendor/laravel/fortify/routes/routes.php');
 
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');

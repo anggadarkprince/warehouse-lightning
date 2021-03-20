@@ -199,11 +199,11 @@
                     <a href="https://angga-ari.com" class="text-green-500">angga-ari.com</a>
                 </p>
                 <ul>
-                    <li class="inline-block"><a href="#" class="hover:text-green-500">Terms & Condition</a></li>
+                    <li class="inline-block"><a href="{{ route('legals.agreement') }}" class="hover:text-green-500">Terms & Condition</a></li>
                     <li class="inline-block"><i class="mdi mdi-circle-small"></i></li>
-                    <li class="inline-block"><a href="#" class="hover:text-green-500">Privacy Policy</a></li>
+                    <li class="inline-block"><a href="{{ route('legals.privacy') }}" class="hover:text-green-500">Privacy Policy</a></li>
                     <li class="inline-block"><i class="mdi mdi-circle-small"></i></li>
-                    <li class="inline-block"><a href="#" class="hover:text-green-500">Site Map</a></li>
+                    <li class="inline-block"><a href="{{ url('sitemap.xml') }}" class="hover:text-green-500">Site Map</a></li>
                 </ul>
             </div>
         </div>

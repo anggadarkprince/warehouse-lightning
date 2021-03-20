@@ -28,7 +28,8 @@
         "laravel/tinker": "^2.0",
         "phpoffice/phpspreadsheet": "^1.15",
         "pusher/pusher-php-server": "~4.0",
-        "simplesoftwareio/simple-qrcode": "~4"
+        "simplesoftwareio/simple-qrcode": "~4",
+        "spatie/laravel-sitemap": "^5.8"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
