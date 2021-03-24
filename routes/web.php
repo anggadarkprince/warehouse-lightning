@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BookingContainerController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingGoodsController;
@@ -11,11 +10,13 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\DocumentTypeController;
-use App\Http\Controllers\FaqController;
-use App\Http\Controllers\FindLocationController;
 use App\Http\Controllers\GateController;
 use App\Http\Controllers\GoodsController;
-use App\Http\Controllers\LegalController;
+use App\Http\Controllers\Landing\AgentController;
+use App\Http\Controllers\Landing\FaqController;
+use App\Http\Controllers\Landing\FindLocationController;
+use App\Http\Controllers\Landing\LegalController;
+use App\Http\Controllers\Landing\TrackTraceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
@@ -25,7 +26,6 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TakeStockController;
 use App\Http\Controllers\TallyController;
-use App\Http\Controllers\TrackTraceController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UploadDocumentController;
 use App\Http\Controllers\UploadDocumentFileController;
