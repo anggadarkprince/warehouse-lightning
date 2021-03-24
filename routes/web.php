@@ -16,6 +16,7 @@ use App\Http\Controllers\Landing\AgentController;
 use App\Http\Controllers\Landing\FaqController;
 use App\Http\Controllers\Landing\FindLocationController;
 use App\Http\Controllers\Landing\LegalController;
+use App\Http\Controllers\Landing\ConsumerController;
 use App\Http\Controllers\Landing\TrackTraceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
@@ -56,6 +57,13 @@ Route::middleware('frontend.maintenance')->group(function() {
     Route::get('find-location', [FindLocationController::class, 'index'])->name('landing.find-location');
     Route::get('agent', [AgentController::class, 'index'])->name('landing.agent');
     Route::get('faq', [FaqController::class, 'index'])->name('landing.faq');
+
+    Route::get('retail-consumer', [ConsumerController::class, 'retail'])->name('landing.retail-consumer');
+    Route::get('science-healthcare', [ConsumerController::class, 'healthcare'])->name('landing.science-healthcare');
+    Route::get('industrial-chemical', [ConsumerController::class, 'industrial'])->name('landing.industrial-chemical');
+    Route::get('power-generation', [ConsumerController::class, 'power'])->name('landing.power-generation');
+    Route::get('food-beverage', [ConsumerController::class, 'food'])->name('landing.food-beverage');
+    Route::get('oil-gas', [ConsumerController::class, 'oil'])->name('landing.oil-gas');
 
     Route::prefix('/legals')->group(function() {
         Route::get('/{page}', [LegalController::class, 'index'])->name('landing.solution');

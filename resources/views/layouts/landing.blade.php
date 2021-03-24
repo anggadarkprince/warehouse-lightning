@@ -22,61 +22,63 @@
     <link href="{{ mix('css/icon.css') }}" rel="stylesheet">
 </head>
 <body class="antialiased" style="background: #fdfdfd">
-    <div class="px-4 max-w-6xl mx-auto">
-        <header class="relative py-4">
-            <div class="absolute mx-auto bg-white" style="left: 50%; transform: translateX(-50%)">
-                <ul class="flex flex-col md:flex-row content-center">
-                    <li class="py-2 font-bold{{ request()->routeIs('welcome') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
-                        <a href="{{ route('welcome') }}" class="px-3 hover:text-green-600">Home</a>
-                    </li>
-                    <li class="py-2 font-bold{{ request()->routeIs('landing.solution') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
-                        <a href="{{ route('landing.solution') }}" class="px-3 hover:text-green-600">Solution</a>
-                    </li>
-                    <li class="py-2 font-bold{{ request()->routeIs('landing.use-case') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
-                        <a href="{{ route('landing.use-case') }}" class="px-3 hover:text-green-600">Use Case</a>
-                    </li>
-                    <li class="py-2 font-bold{{ request()->routeIs('landing.features') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
-                        <a href="{{ route('landing.features') }}" class="px-3 hover:text-green-600">Features</a>
-                    </li>
-                    <li class="py-2 font-bold{{ request()->routeIs('landing.contact') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
-                        <a href="{{ route('landing.contact') }}" class="px-3 hover:text-green-600">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="flex justify-between items-center">
-                <div class="flex items-center mr-5">
-                    <img src="<?= url('img/favicon.png') ?>" alt="Logo" class="mr-2 w-8">
-                    <h1 class="font-bold text-lg">Warehouse</h1>
+    <div class="bg-white w-full transition-all duration-500" id="landing-header">
+        <div class="px-4 max-w-6xl mx-auto">
+            <header class="relative py-4">
+                <div class="absolute mx-auto" style="left: 50%; transform: translateX(-50%)">
+                    <ul class="flex flex-col md:flex-row content-center">
+                        <li class="py-2 font-bold{{ request()->routeIs('welcome') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
+                            <a href="{{ route('welcome') }}" class="px-3 hover:text-green-600">Home</a>
+                        </li>
+                        <li class="py-2 font-bold{{ request()->routeIs('landing.solution') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
+                            <a href="{{ route('landing.solution') }}" class="px-3 hover:text-green-600">Solution</a>
+                        </li>
+                        <li class="py-2 font-bold{{ request()->routeIs('landing.use-case') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
+                            <a href="{{ route('landing.use-case') }}" class="px-3 hover:text-green-600">Use Case</a>
+                        </li>
+                        <li class="py-2 font-bold{{ request()->routeIs('landing.features') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
+                            <a href="{{ route('landing.features') }}" class="px-3 hover:text-green-600">Features</a>
+                        </li>
+                        <li class="py-2 font-bold{{ request()->routeIs('landing.contact') ? ' border-b-2 border-green-500 text-green-500' : '' }}">
+                            <a href="{{ route('landing.contact') }}" class="px-3 hover:text-green-600">Contact</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="flex items-center pl-3">
-                    <button class="px-2 mr-2 text-lg">
-                        <i class="mdi mdi-magnify"></i>
-                    </button>
-                    <div class="dropdown mr-5">
-                        <button class="dropdown-toggle uppercase text-sm">
-                            {{ str_replace('_', '-', app()->getLocale()) }}<i class="mdi mdi-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="{{ request()->getUriForPath('/en' . substr(request()->getPathInfo(), 3)) }}" class="dropdown-item">
-                                English
-                            </a>
-                            <a href="{{ request()->getUriForPath('/id' . substr(request()->getPathInfo(), 3)) }}" class="dropdown-item">
-                                Indonesia
-                            </a>
-                        </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center mr-5">
+                        <img src="<?= url('img/favicon.png') ?>" alt="Logo" class="mr-2 w-8">
+                        <h1 class="font-bold text-lg">Warehouse</h1>
                     </div>
-                    @auth
-                        <a href="{{ route('dashboard') }}" class="button-primary">{{ __('Dashboard') }}</a>
-                    @else
-                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <div class="flex items-center pl-3">
+                        <button class="px-2 mr-2 text-lg">
+                            <i class="mdi mdi-magnify"></i>
+                        </button>
+                        <div class="dropdown mr-5">
+                            <button class="dropdown-toggle uppercase text-sm">
+                                {{ str_replace('_', '-', app()->getLocale()) }}<i class="mdi mdi-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="{{ request()->getUriForPath('/en' . substr(request()->getPathInfo(), 3)) }}" class="dropdown-item">
+                                    English
+                                </a>
+                                <a href="{{ request()->getUriForPath('/id' . substr(request()->getPathInfo(), 3)) }}" class="dropdown-item">
+                                    Indonesia
+                                </a>
+                            </div>
+                        </div>
+                        @auth
+                            <a href="{{ route('dashboard') }}" class="button-primary">{{ __('Dashboard') }}</a>
+                        @else
+                            <a href="{{ route('login') }}">{{ __('Login') }}</a>
 
-                        @if (app_setting(\App\Models\Setting::MANAGEMENT_REGISTRATION, true))
-                            <a href="{{ route('register') }}" class="button-primary ml-4">{{ __('Register') }}</a>
+                            @if (app_setting(\App\Models\Setting::MANAGEMENT_REGISTRATION, true))
+                                <a href="{{ route('register') }}" class="button-primary ml-4">{{ __('Register') }}</a>
+                            @endif
                         @endif
-                    @endif
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        </div>
     </div>
 
     @yield('content')
@@ -151,22 +153,22 @@
                     <h3 class="text-lg font-bold mb-5">Who We Serve</h3>
                     <ul class="text-gray-600">
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Retail & Customer</a>
+                            <a href="{{ route('landing.retail-consumer') }}" class="hover:text-green-500 leading-loose">Retail & Customer</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Science & Healthcare</a>
+                            <a href="{{ route('landing.science-healthcare') }}" class="hover:text-green-500 leading-loose">Science & Healthcare</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Industrial & Chemical</a>
+                            <a href="{{ route('landing.industrial-chemical') }}" class="hover:text-green-500 leading-loose">Industrial & Chemical</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Power Generator</a>
+                            <a href="{{ route('landing.power-generation') }}" class="hover:text-green-500 leading-loose">Power Generator</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Food & Beverage</a>
+                            <a href="{{ route('landing.food-beverage') }}" class="hover:text-green-500 leading-loose">Food & Beverage</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Oil & Gas</a>
+                            <a href="{{ route('landing.oil-gas') }}" class="hover:text-green-500 leading-loose">Oil & Gas</a>
                         </li>
                     </ul>
                 </div>

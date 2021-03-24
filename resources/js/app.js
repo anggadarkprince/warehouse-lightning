@@ -1,5 +1,6 @@
 require('./bootstrap');
 require('./layout');
+require('./landing');
 
 require('./widgets/dropdown');
 require('./widgets/modal');
