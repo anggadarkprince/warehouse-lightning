@@ -11,7 +11,7 @@
             <div class="grid grid-cols-1 gap-10 md:grid-cols-6">
                 <div class="col-span-2 hidden md:block">
                     @include('landing.consumer.partials._sidenav')
-                    @include('landing.consumer.partials._cta_card_appointment')
+                    @include('landing.partials._cta_card_appointment')
                 </div>
                 <div class="col-span-4">
                     <div class="px-10 py-8 bg-white rounded mb-10">

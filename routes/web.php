@@ -17,6 +17,7 @@ use App\Http\Controllers\Landing\FaqController;
 use App\Http\Controllers\Landing\FindLocationController;
 use App\Http\Controllers\Landing\LegalController;
 use App\Http\Controllers\Landing\ConsumerController;
+use App\Http\Controllers\Landing\ServiceController;
 use App\Http\Controllers\Landing\TrackTraceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
@@ -65,6 +66,15 @@ Route::middleware('frontend.maintenance')->group(function() {
         Route::get('power-generation', [ConsumerController::class, 'power'])->name('landing.power-generation');
         Route::get('food-beverage', [ConsumerController::class, 'food'])->name('landing.food-beverage');
         Route::get('oil-gas', [ConsumerController::class, 'oil'])->name('landing.oil-gas');
+    });
+
+    Route::prefix('/services')->group(function() {
+        Route::get('warehousing', [ServiceController::class, 'warehousing'])->name('landing.warehousing');
+        Route::get('air-freight', [ServiceController::class, 'airFreight'])->name('landing.air-freight');
+        Route::get('ocean-freight', [ServiceController::class, 'oceanFreight'])->name('landing.ocean-freight');
+        Route::get('road-freight', [ServiceController::class, 'roadFreight'])->name('landing.road-freight');
+        Route::get('supply-chain', [ServiceController::class, 'supplyChain'])->name('landing.supply-chain');
+        Route::get('packaging', [ServiceController::class, 'packaging'])->name('landing.packaging');
     });
 
     Route::prefix('/legals')->group(function() {

@@ -22,7 +22,7 @@
     <link href="{{ mix('css/icon.css') }}" rel="stylesheet">
 </head>
 <body class="antialiased" style="background: #fdfdfd">
-    <div class="bg-white w-full transition-all duration-500" id="landing-header">
+    <div class="bg-white w-full transition-all duration-500 z-50" id="landing-header">
         <div class="px-4 max-w-6xl mx-auto">
             <header class="relative py-4">
                 <div class="absolute mx-auto" style="left: 50%; transform: translateX(-50%)">
@@ -130,22 +130,34 @@
                     <h3 class="text-lg font-bold mb-5">What We Do</h3>
                     <ul class="text-gray-600">
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Warehousing</a>
+                            <a href="{{ route('landing.warehousing') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.warehousing') ? ' text-green-500' : '' }}">
+                                Warehousing
+                            </a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Air Freight</a>
+                            <a href="{{ route('landing.air-freight') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.air-freight') ? ' text-green-500' : '' }}">
+                                Air Freight
+                            </a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Ocean Freight</a>
+                            <a href="{{ route('landing.ocean-freight') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.ocean-freight') ? ' text-green-500' : '' }}">
+                                Ocean Freight
+                            </a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Road Freight</a>
+                            <a href="{{ route('landing.road-freight') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.road-freight') ? ' text-green-500' : '' }}">
+                                Road Freight
+                            </a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Supply Chain</a>
+                            <a href="{{ route('landing.supply-chain') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.supply-chain') ? ' text-green-500' : '' }}">
+                                Supply Chain
+                            </a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-green-500 leading-loose">Packaging</a>
+                            <a href="{{ route('landing.packaging') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.packaging') ? ' text-green-500' : '' }}">
+                                Packaging
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -153,22 +165,34 @@
                     <h3 class="text-lg font-bold mb-5">Who We Serve</h3>
                     <ul class="text-gray-600">
                         <li>
-                            <a href="{{ route('landing.retail-consumer') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.retail-consumer') ? ' text-green-500' : '' }}">Retail & Customer</a>
+                            <a href="{{ route('landing.retail-consumer') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.retail-consumer') ? ' text-green-500' : '' }}">
+                                Retail & Customer
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.science-healthcare') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.science-healthcare') ? ' text-green-500' : '' }}">Science & Healthcare</a>
+                            <a href="{{ route('landing.science-healthcare') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.science-healthcare') ? ' text-green-500' : '' }}">
+                                Science & Healthcare
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.industrial-chemical') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.industrial-chemical') ? ' text-green-500' : '' }}">Industrial & Chemical</a>
+                            <a href="{{ route('landing.industrial-chemical') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.industrial-chemical') ? ' text-green-500' : '' }}">
+                                Industrial & Chemical
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.power-generation') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.power-generation') ? ' text-green-500' : '' }}">Power Generator</a>
+                            <a href="{{ route('landing.power-generation') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.power-generation') ? ' text-green-500' : '' }}">
+                                Power Generator
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.food-beverage') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.food-beverage') ? ' text-green-500' : '' }}">Food & Beverage</a>
+                            <a href="{{ route('landing.food-beverage') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.food-beverage') ? ' text-green-500' : '' }}">
+                                Food & Beverage
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.oil-gas') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.oil-gas') ? ' text-green-500' : '' }}">Oil & Gas</a>
+                            <a href="{{ route('landing.oil-gas') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.oil-gas') ? ' text-green-500' : '' }}">
+                                Oil & Gas
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -176,19 +200,29 @@
                     <h3 class="text-lg font-bold mb-5">Quick Links</h3>
                     <ul class="text-gray-600">
                         <li>
-                            <a href="{{ route('landing.request-quote') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.request-quote') ? ' text-green-500' : '' }}">Request A Quote</a>
+                            <a href="{{ route('landing.request-quote') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.request-quote') ? ' text-green-500' : '' }}">
+                                Request A Quote
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.track-trace') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.track-trace') ? ' text-green-500' : '' }}">Track & Trace</a>
+                            <a href="{{ route('landing.track-trace') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.track-trace') ? ' text-green-500' : '' }}">
+                                Track & Trace
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.find-location') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.find-location') ? ' text-green-500' : '' }}">Find A Location</a>
+                            <a href="{{ route('landing.find-location') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.find-location') ? ' text-green-500' : '' }}">
+                                Find A Location
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.agent') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.agent') ? ' text-green-500' : '' }}">Global Agent</a>
+                            <a href="{{ route('landing.agent') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.agent') ? ' text-green-500' : '' }}">
+                                Global Agent
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ route('landing.faq') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.faq') ? ' text-green-500' : '' }}">Help & FAQ</a>
+                            <a href="{{ route('landing.faq') }}" class="hover:text-green-500 leading-loose{{ request()->routeIs('landing.faq') ? ' text-green-500' : '' }}">
+                                Help & FAQ
+                            </a>
                         </li>
                     </ul>
                 </div>

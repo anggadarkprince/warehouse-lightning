@@ -18,10 +18,12 @@ if (landingHeader) {
             // down scroll
             landingHeader.classList.remove(...["fixed", "shadow"]);
             landingHeader.style.top = '-80px';
+            document.body.style.paddingTop = '0';
         } else {
             // up scroll
             landingHeader.classList.add(...["fixed", "shadow"]);
             landingHeader.style.top = '0';
+            document.body.style.paddingTop = '72px'; // height of header
         }
         lastScrollTop = st <= 0 ? 0 : st;
     };
