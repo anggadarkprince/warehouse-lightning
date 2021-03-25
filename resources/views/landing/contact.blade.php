@@ -88,10 +88,10 @@
                             </div>
                         </form>
                     </div>
-                    <div class="md:row-start-1 md:row-end-2 bg-gradient-to-tr from-indigo-600 to-indigo-700 text-white rounded-lg shadow-lg px-8 py-5">
+                    <div class="md:row-start-1 md:row-end-2 bg-gradient-to-tr from-indigo-600 to-indigo-700 text-white rounded-lg shadow-lg px-8 py-6" style="background: url('http://7oroof.com/tfdemos/optime/wp-content/uploads/2019/07/widget_bgr.jpg') center center / cover;">
                         <div class="flex flex-col h-full">
                             <div class="flex-auto">
-                                <h1 class="text-xl font-bold mb-2">Contact Information</h1>
+                                <h1 class="text-2xl font-bold mb-3">Contact Information</h1>
                                 <p class="leading-tight opacity-75">Fill up the form and our Team will get back to you within 24 hours.</p>
                                 <ul class="mt-5">
                                     <li class="leading-loose"><i class="mdi mdi-phone-outline mr-2"></i>+6285655479868</li>
@@ -101,9 +101,9 @@
                             </div>
                             <div class="mb-2">
                                 <p class="mb-2">Or visit our social media</p>
-                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-blue-600 mr-2"><i class="mdi mdi-facebook"></i></a>
-                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-blue-400 mr-2"><i class="mdi mdi-twitter"></i></a>
-                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-indigo-500 mr-2"><i class="mdi mdi-instagram"></i></a>
+                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-blue-600 mr-2 hover:bg-blue-700"><i class="mdi mdi-facebook"></i></a>
+                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-blue-400 mr-2 hover:bg-blue-500"><i class="mdi mdi-twitter"></i></a>
+                                <a href="#" class="py-2 px-3 inline-block rounded-lg bg-indigo-500 mr-2 hover:bg-indigo-600"><i class="mdi mdi-instagram"></i></a>
                             </div>
                         </div>
                     </div>
