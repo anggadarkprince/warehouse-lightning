@@ -11,9 +11,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-        'body': ['Nunito'],
-        'display': ['Nunito'],
         'sans': ['Nunito', 'sans-serif'],
+        'landing': ['Poppins', 'sans-serif'],
     },
     extend: {},
   },

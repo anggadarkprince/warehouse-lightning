@@ -18,6 +18,10 @@ mix.postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),
 ]);
+mix.postCss('resources/css/landing.css', 'public/css', [
+    require('postcss-import'),
+    require('tailwindcss'),
+]);
 
 mix.copyDirectory('resources/img', 'public/img');
 
